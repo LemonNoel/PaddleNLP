@@ -1,0 +1,113 @@
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0424 14:52:31.613059 61774 tensorrt.cc:56] You are using Paddle compiled with TensorRT, but TensorRT dynamic library is not found. Ignore this if TensorRT is not needed.
+The TensorRT that Paddle depends on is not configured correctly.
+  Suggestions:
+  1. Check if the TensorRT is installed correctly and its version is matched with paddlepaddle you installed.
+  2. Configure environment variables as follows:
+  - Linux: set LD_LIBRARY_PATH by `export LD_LIBRARY_PATH=...`
+  - Windows: set PATH by `set PATH=XXX;%PATH%`
+  - Mac: set  DYLD_LIBRARY_PATH by `export DYLD_LIBRARY_PATH=...`
+[32m[2022-04-24 14:52:34,221] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-health-chinese/ernie-health-chinese.pdparams[0m
+W0424 14:52:34.222558 61774 gpu_context.cc:278] Please NOTE: device: 0, GPU Compute Capability: 7.0, Driver API Version: 11.2, Runtime API Version: 11.2
+W0424 14:52:34.226109 61774 gpu_context.cc:306] device: 0, cuDNN Version: 8.1.
+[32m[2022-04-24 14:52:38,987] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-health-chinese/vocab.txt[0m
+global step 10, epoch: 1, batch: 10, loss: 1.81859, loss symptom: 0.39696, loss others: 1.42163, f1: 0.00029, speed: 46.84 step/s, learning_rate: 0.000007
+global step 20, epoch: 1, batch: 20, loss: 0.71661, loss symptom: 0.17458, loss others: 0.54203, f1: 0.00023, speed: 46.73 step/s, learning_rate: 0.000013
+global step 30, epoch: 1, batch: 30, loss: 0.79076, loss symptom: 0.15088, loss others: 0.63988, f1: 0.00020, speed: 46.62 step/s, learning_rate: 0.000020
+global step 40, epoch: 1, batch: 40, loss: 0.56839, loss symptom: 0.13530, loss others: 0.43309, f1: 0.00018, speed: 47.84 step/s, learning_rate: 0.000026
+global step 50, epoch: 1, batch: 50, loss: 0.38880, loss symptom: 0.06589, loss others: 0.32291, f1: 0.00048, speed: 45.55 step/s, learning_rate: 0.000033
+global step 60, epoch: 1, batch: 60, loss: 0.53580, loss symptom: 0.09019, loss others: 0.44561, f1: 0.00465, speed: 46.63 step/s, learning_rate: 0.000040
+global step 70, epoch: 1, batch: 70, loss: 0.38871, loss symptom: 0.11131, loss others: 0.27740, f1: 0.01968, speed: 48.17 step/s, learning_rate: 0.000046
+global step 80, epoch: 1, batch: 80, loss: 0.55328, loss symptom: 0.18138, loss others: 0.37190, f1: 0.04451, speed: 50.11 step/s, learning_rate: 0.000053
+global step 90, epoch: 1, batch: 90, loss: 0.37066, loss symptom: 0.11308, loss others: 0.25757, f1: 0.07319, speed: 46.84 step/s, learning_rate: 0.000059
+global step 100, epoch: 1, batch: 100, loss: 0.26224, loss symptom: 0.08231, loss others: 0.17993, f1: 0.09596, speed: 46.17 step/s, learning_rate: 0.000053
+eval loss symptom: 0.10788, loss others: 0.23708, loss: 0.34496, f1: 0.45129
+global step 110, epoch: 1, batch: 110, loss: 0.32970, loss symptom: 0.09268, loss others: 0.23702, f1: 0.37419, speed: 46.07 step/s, learning_rate: 0.000053
+global step 120, epoch: 1, batch: 120, loss: 0.34293, loss symptom: 0.13153, loss others: 0.21139, f1: 0.39421, speed: 49.67 step/s, learning_rate: 0.000052
+global step 130, epoch: 1, batch: 130, loss: 0.31391, loss symptom: 0.10207, loss others: 0.21184, f1: 0.40356, speed: 47.05 step/s, learning_rate: 0.000051
+global step 140, epoch: 1, batch: 140, loss: 0.26114, loss symptom: 0.08194, loss others: 0.17920, f1: 0.41272, speed: 49.52 step/s, learning_rate: 0.000051
+global step 150, epoch: 1, batch: 150, loss: 0.31400, loss symptom: 0.08702, loss others: 0.22698, f1: 0.42036, speed: 46.46 step/s, learning_rate: 0.000050
+global step 160, epoch: 1, batch: 160, loss: 0.34746, loss symptom: 0.13481, loss others: 0.21265, f1: 0.42654, speed: 47.72 step/s, learning_rate: 0.000049
+global step 170, epoch: 1, batch: 170, loss: 0.30558, loss symptom: 0.07183, loss others: 0.23375, f1: 0.43779, speed: 48.54 step/s, learning_rate: 0.000049
+global step 180, epoch: 1, batch: 180, loss: 0.32217, loss symptom: 0.12654, loss others: 0.19563, f1: 0.44245, speed: 46.57 step/s, learning_rate: 0.000048
+global step 190, epoch: 1, batch: 190, loss: 0.29821, loss symptom: 0.09157, loss others: 0.20665, f1: 0.44713, speed: 47.22 step/s, learning_rate: 0.000047
+global step 200, epoch: 1, batch: 200, loss: 0.33335, loss symptom: 0.09856, loss others: 0.23479, f1: 0.45000, speed: 45.68 step/s, learning_rate: 0.000047
+eval loss symptom: 0.09759, loss others: 0.20425, loss: 0.30184, f1: 0.49755
+global step 210, epoch: 1, batch: 210, loss: 0.31879, loss symptom: 0.07252, loss others: 0.24627, f1: 0.50171, speed: 47.92 step/s, learning_rate: 0.000046
+global step 220, epoch: 1, batch: 220, loss: 0.29231, loss symptom: 0.04137, loss others: 0.25094, f1: 0.47873, speed: 46.16 step/s, learning_rate: 0.000045
+global step 230, epoch: 1, batch: 230, loss: 0.27334, loss symptom: 0.12015, loss others: 0.15320, f1: 0.48643, speed: 54.32 step/s, learning_rate: 0.000045
+global step 240, epoch: 1, batch: 240, loss: 0.46551, loss symptom: 0.14488, loss others: 0.32063, f1: 0.47784, speed: 48.01 step/s, learning_rate: 0.000044
+global step 250, epoch: 1, batch: 250, loss: 0.30152, loss symptom: 0.11599, loss others: 0.18553, f1: 0.47703, speed: 45.96 step/s, learning_rate: 0.000044
+global step 260, epoch: 1, batch: 260, loss: 0.22355, loss symptom: 0.06953, loss others: 0.15402, f1: 0.48137, speed: 49.26 step/s, learning_rate: 0.000043
+global step 270, epoch: 1, batch: 270, loss: 0.29078, loss symptom: 0.04959, loss others: 0.24120, f1: 0.49178, speed: 48.42 step/s, learning_rate: 0.000042
+global step 280, epoch: 1, batch: 280, loss: 0.24245, loss symptom: 0.10239, loss others: 0.14007, f1: 0.49267, speed: 50.03 step/s, learning_rate: 0.000042
+global step 290, epoch: 1, batch: 290, loss: 0.31913, loss symptom: 0.06228, loss others: 0.25685, f1: 0.49339, speed: 46.11 step/s, learning_rate: 0.000041
+global step 300, epoch: 1, batch: 300, loss: 0.36181, loss symptom: 0.12810, loss others: 0.23371, f1: 0.49593, speed: 53.56 step/s, learning_rate: 0.000040
+eval loss symptom: 0.09574, loss others: 0.18582, loss: 0.28156, f1: 0.55370
+global step 310, epoch: 1, batch: 310, loss: 0.24649, loss symptom: 0.06724, loss others: 0.17925, f1: 0.50834, speed: 46.40 step/s, learning_rate: 0.000040
+global step 320, epoch: 1, batch: 320, loss: 0.18383, loss symptom: 0.07157, loss others: 0.11226, f1: 0.50439, speed: 45.91 step/s, learning_rate: 0.000039
+global step 330, epoch: 1, batch: 330, loss: 0.26720, loss symptom: 0.07700, loss others: 0.19020, f1: 0.51818, speed: 45.70 step/s, learning_rate: 0.000038
+global step 340, epoch: 1, batch: 340, loss: 0.29217, loss symptom: 0.11450, loss others: 0.17767, f1: 0.51922, speed: 46.25 step/s, learning_rate: 0.000038
+global step 350, epoch: 1, batch: 350, loss: 0.24561, loss symptom: 0.07764, loss others: 0.16797, f1: 0.52657, speed: 46.00 step/s, learning_rate: 0.000037
+global step 360, epoch: 1, batch: 360, loss: 0.20036, loss symptom: 0.06681, loss others: 0.13355, f1: 0.53120, speed: 49.21 step/s, learning_rate: 0.000036
+global step 370, epoch: 1, batch: 370, loss: 0.31984, loss symptom: 0.11332, loss others: 0.20652, f1: 0.53295, speed: 45.58 step/s, learning_rate: 0.000036
+global step 380, epoch: 1, batch: 380, loss: 0.23364, loss symptom: 0.08176, loss others: 0.15188, f1: 0.53854, speed: 46.16 step/s, learning_rate: 0.000035
+global step 390, epoch: 1, batch: 390, loss: 0.25574, loss symptom: 0.09180, loss others: 0.16393, f1: 0.53502, speed: 49.37 step/s, learning_rate: 0.000034
+global step 400, epoch: 1, batch: 400, loss: 0.30839, loss symptom: 0.08594, loss others: 0.22244, f1: 0.53578, speed: 53.23 step/s, learning_rate: 0.000034
+eval loss symptom: 0.09854, loss others: 0.17725, loss: 0.27579, f1: 0.54192
+global step 410, epoch: 1, batch: 410, loss: 0.18389, loss symptom: 0.05018, loss others: 0.13372, f1: 0.56111, speed: 48.43 step/s, learning_rate: 0.000033
+global step 420, epoch: 1, batch: 420, loss: 0.24527, loss symptom: 0.07479, loss others: 0.17049, f1: 0.54601, speed: 45.75 step/s, learning_rate: 0.000032
+global step 430, epoch: 1, batch: 430, loss: 0.25400, loss symptom: 0.10374, loss others: 0.15026, f1: 0.54511, speed: 51.75 step/s, learning_rate: 0.000032
+global step 440, epoch: 1, batch: 440, loss: 0.23228, loss symptom: 0.05721, loss others: 0.17507, f1: 0.55158, speed: 45.32 step/s, learning_rate: 0.000031
+global step 450, epoch: 1, batch: 450, loss: 0.20691, loss symptom: 0.06346, loss others: 0.14345, f1: 0.55127, speed: 45.90 step/s, learning_rate: 0.000030
+global step 460, epoch: 1, batch: 460, loss: 0.20705, loss symptom: 0.05691, loss others: 0.15014, f1: 0.55428, speed: 46.03 step/s, learning_rate: 0.000030
+global step 470, epoch: 2, batch: 1, loss: 0.21034, loss symptom: 0.08550, loss others: 0.12484, f1: 0.56007, speed: 48.89 step/s, learning_rate: 0.000029
+global step 480, epoch: 2, batch: 11, loss: 0.25850, loss symptom: 0.10198, loss others: 0.15652, f1: 0.56284, speed: 44.98 step/s, learning_rate: 0.000028
+global step 490, epoch: 2, batch: 21, loss: 0.23293, loss symptom: 0.08913, loss others: 0.14381, f1: 0.56752, speed: 48.76 step/s, learning_rate: 0.000028
+global step 500, epoch: 2, batch: 31, loss: 0.26401, loss symptom: 0.07980, loss others: 0.18422, f1: 0.56867, speed: 45.62 step/s, learning_rate: 0.000027
+eval loss symptom: 0.09627, loss others: 0.17819, loss: 0.27446, f1: 0.58116
+global step 510, epoch: 2, batch: 41, loss: 0.20152, loss symptom: 0.08613, loss others: 0.11538, f1: 0.60304, speed: 46.00 step/s, learning_rate: 0.000026
+global step 520, epoch: 2, batch: 51, loss: 0.26813, loss symptom: 0.10489, loss others: 0.16325, f1: 0.60064, speed: 55.29 step/s, learning_rate: 0.000026
+global step 530, epoch: 2, batch: 61, loss: 0.22102, loss symptom: 0.06916, loss others: 0.15186, f1: 0.59749, speed: 45.81 step/s, learning_rate: 0.000025
+global step 540, epoch: 2, batch: 71, loss: 0.22219, loss symptom: 0.10863, loss others: 0.11356, f1: 0.59988, speed: 46.11 step/s, learning_rate: 0.000024
+global step 550, epoch: 2, batch: 81, loss: 0.17753, loss symptom: 0.05769, loss others: 0.11985, f1: 0.59701, speed: 47.94 step/s, learning_rate: 0.000024
+global step 560, epoch: 2, batch: 91, loss: 0.22590, loss symptom: 0.07380, loss others: 0.15210, f1: 0.59623, speed: 45.59 step/s, learning_rate: 0.000023
+global step 570, epoch: 2, batch: 101, loss: 0.20878, loss symptom: 0.10689, loss others: 0.10189, f1: 0.59262, speed: 47.73 step/s, learning_rate: 0.000022
+global step 580, epoch: 2, batch: 111, loss: 0.16887, loss symptom: 0.05930, loss others: 0.10957, f1: 0.59545, speed: 48.64 step/s, learning_rate: 0.000022
+global step 590, epoch: 2, batch: 121, loss: 0.25634, loss symptom: 0.09329, loss others: 0.16305, f1: 0.59893, speed: 49.06 step/s, learning_rate: 0.000021
+global step 600, epoch: 2, batch: 131, loss: 0.33002, loss symptom: 0.10474, loss others: 0.22528, f1: 0.60417, speed: 46.87 step/s, learning_rate: 0.000020
+eval loss symptom: 0.09581, loss others: 0.17181, loss: 0.26761, f1: 0.59866
+global step 610, epoch: 2, batch: 141, loss: 0.18329, loss symptom: 0.06825, loss others: 0.11505, f1: 0.60801, speed: 50.72 step/s, learning_rate: 0.000020
+global step 620, epoch: 2, batch: 151, loss: 0.23931, loss symptom: 0.06892, loss others: 0.17039, f1: 0.59596, speed: 47.39 step/s, learning_rate: 0.000019
+global step 630, epoch: 2, batch: 161, loss: 0.19930, loss symptom: 0.05293, loss others: 0.14637, f1: 0.61222, speed: 46.98 step/s, learning_rate: 0.000018
+global step 640, epoch: 2, batch: 171, loss: 0.17172, loss symptom: 0.07156, loss others: 0.10016, f1: 0.61078, speed: 45.48 step/s, learning_rate: 0.000018
+global step 650, epoch: 2, batch: 181, loss: 0.17750, loss symptom: 0.05189, loss others: 0.12561, f1: 0.60957, speed: 45.81 step/s, learning_rate: 0.000017
+global step 660, epoch: 2, batch: 191, loss: 0.26463, loss symptom: 0.07792, loss others: 0.18672, f1: 0.60608, speed: 55.37 step/s, learning_rate: 0.000016
+global step 670, epoch: 2, batch: 201, loss: 0.17799, loss symptom: 0.04266, loss others: 0.13532, f1: 0.60484, speed: 47.02 step/s, learning_rate: 0.000016
+global step 680, epoch: 2, batch: 211, loss: 0.15522, loss symptom: 0.05619, loss others: 0.09903, f1: 0.61078, speed: 41.73 step/s, learning_rate: 0.000015
+global step 690, epoch: 2, batch: 221, loss: 0.12026, loss symptom: 0.03747, loss others: 0.08279, f1: 0.61555, speed: 46.94 step/s, learning_rate: 0.000015
+global step 700, epoch: 2, batch: 231, loss: 0.24785, loss symptom: 0.10978, loss others: 0.13807, f1: 0.61492, speed: 45.67 step/s, learning_rate: 0.000014
+eval loss symptom: 0.09177, loss others: 0.16513, loss: 0.25690, f1: 0.59507
+global step 710, epoch: 2, batch: 241, loss: 0.16840, loss symptom: 0.05474, loss others: 0.11366, f1: 0.60656, speed: 45.56 step/s, learning_rate: 0.000013
+global step 720, epoch: 2, batch: 251, loss: 0.20813, loss symptom: 0.06328, loss others: 0.14486, f1: 0.60870, speed: 46.74 step/s, learning_rate: 0.000013
+global step 730, epoch: 2, batch: 261, loss: 0.17007, loss symptom: 0.05113, loss others: 0.11894, f1: 0.61208, speed: 45.83 step/s, learning_rate: 0.000012
+global step 740, epoch: 2, batch: 271, loss: 0.24413, loss symptom: 0.10562, loss others: 0.13851, f1: 0.61126, speed: 52.48 step/s, learning_rate: 0.000011
+global step 750, epoch: 2, batch: 281, loss: 0.26266, loss symptom: 0.09652, loss others: 0.16615, f1: 0.61210, speed: 47.23 step/s, learning_rate: 0.000011
+global step 760, epoch: 2, batch: 291, loss: 0.30754, loss symptom: 0.08337, loss others: 0.22416, f1: 0.61412, speed: 48.59 step/s, learning_rate: 0.000010
+global step 770, epoch: 2, batch: 301, loss: 0.16536, loss symptom: 0.06364, loss others: 0.10172, f1: 0.61260, speed: 45.94 step/s, learning_rate: 0.000009
+global step 780, epoch: 2, batch: 311, loss: 0.22378, loss symptom: 0.10066, loss others: 0.12312, f1: 0.61344, speed: 45.89 step/s, learning_rate: 0.000009
+global step 790, epoch: 2, batch: 321, loss: 0.17087, loss symptom: 0.03896, loss others: 0.13191, f1: 0.61572, speed: 49.20 step/s, learning_rate: 0.000008
+global step 800, epoch: 2, batch: 331, loss: 0.21418, loss symptom: 0.07854, loss others: 0.13564, f1: 0.61652, speed: 45.96 step/s, learning_rate: 0.000007
+eval loss symptom: 0.09231, loss others: 0.16328, loss: 0.25559, f1: 0.60589
+global step 810, epoch: 2, batch: 341, loss: 0.15905, loss symptom: 0.03051, loss others: 0.12854, f1: 0.63832, speed: 45.42 step/s, learning_rate: 0.000007
+global step 820, epoch: 2, batch: 351, loss: 0.21890, loss symptom: 0.08127, loss others: 0.13763, f1: 0.64719, speed: 47.44 step/s, learning_rate: 0.000006
+global step 830, epoch: 2, batch: 361, loss: 0.16989, loss symptom: 0.07188, loss others: 0.09802, f1: 0.63266, speed: 45.29 step/s, learning_rate: 0.000005
+global step 840, epoch: 2, batch: 371, loss: 0.19815, loss symptom: 0.03355, loss others: 0.16460, f1: 0.63619, speed: 53.27 step/s, learning_rate: 0.000005
+global step 850, epoch: 2, batch: 381, loss: 0.17545, loss symptom: 0.06609, loss others: 0.10936, f1: 0.64200, speed: 45.82 step/s, learning_rate: 0.000004
+global step 860, epoch: 2, batch: 391, loss: 0.19939, loss symptom: 0.06783, loss others: 0.13156, f1: 0.63989, speed: 45.29 step/s, learning_rate: 0.000003
+global step 870, epoch: 2, batch: 401, loss: 0.31695, loss symptom: 0.11867, loss others: 0.19828, f1: 0.63515, speed: 50.02 step/s, learning_rate: 0.000003
+global step 880, epoch: 2, batch: 411, loss: 0.35259, loss symptom: 0.09560, loss others: 0.25698, f1: 0.63482, speed: 52.39 step/s, learning_rate: 0.000002
+global step 890, epoch: 2, batch: 421, loss: 0.18162, loss symptom: 0.05611, loss others: 0.12551, f1: 0.63684, speed: 46.01 step/s, learning_rate: 0.000001
+global step 900, epoch: 2, batch: 431, loss: 0.22415, loss symptom: 0.11190, loss others: 0.11226, f1: 0.63716, speed: 45.81 step/s, learning_rate: 0.000001
+eval loss symptom: 0.09231, loss others: 0.16184, loss: 0.25415, f1: 0.60583
+global step 910, epoch: 2, batch: 441, loss: 0.21833, loss symptom: 0.07796, loss others: 0.14036, f1: 0.63549, speed: 45.79 step/s, learning_rate: 0.000000

@@ -1,0 +1,1027 @@
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0424 11:57:42.030845 11414 tensorrt.cc:56] You are using Paddle compiled with TensorRT, but TensorRT dynamic library is not found. Ignore this if TensorRT is not needed.
+The TensorRT that Paddle depends on is not configured correctly.
+  Suggestions:
+  1. Check if the TensorRT is installed correctly and its version is matched with paddlepaddle you installed.
+  2. Configure environment variables as follows:
+  - Linux: set LD_LIBRARY_PATH by `export LD_LIBRARY_PATH=...`
+  - Windows: set PATH by `set PATH=XXX;%PATH%`
+  - Mac: set  DYLD_LIBRARY_PATH by `export DYLD_LIBRARY_PATH=...`
+  0%|          | 0/1456 [00:00<?, ?it/s]100%|██████████| 1456/1456 [00:00<00:00, 28552.96it/s]
+[32m[2022-04-24 11:57:44,408] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-health-chinese/ernie-health-chinese.pdparams[0m
+W0424 11:57:44.410183 11414 gpu_context.cc:278] Please NOTE: device: 0, GPU Compute Capability: 7.0, Driver API Version: 11.2, Runtime API Version: 11.2
+W0424 11:57:44.413947 11414 gpu_context.cc:306] device: 0, cuDNN Version: 8.1.
+[32m[2022-04-24 11:57:49,116] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-health-chinese/vocab.txt[0m
+global step 10, epoch: 1, batch: 10, loss: 3.72511, macro f1: 0.00580, speed: 61.97 step/s
+global step 20, epoch: 1, batch: 20, loss: 3.20913, macro f1: 0.01587, speed: 99.15 step/s
+global step 30, epoch: 1, batch: 30, loss: 2.95145, macro f1: 0.01843, speed: 68.08 step/s
+global step 40, epoch: 1, batch: 40, loss: 2.83478, macro f1: 0.01690, speed: 86.17 step/s
+global step 50, epoch: 1, batch: 50, loss: 2.54788, macro f1: 0.01888, speed: 55.54 step/s
+global step 60, epoch: 1, batch: 60, loss: 2.28542, macro f1: 0.02424, speed: 72.15 step/s
+global step 70, epoch: 1, batch: 70, loss: 2.55914, macro f1: 0.03191, speed: 90.97 step/s
+global step 80, epoch: 1, batch: 80, loss: 2.27032, macro f1: 0.04261, speed: 97.52 step/s
+global step 90, epoch: 1, batch: 90, loss: 1.95230, macro f1: 0.05408, speed: 79.00 step/s
+global step 100, epoch: 1, batch: 100, loss: 1.78178, macro f1: 0.07155, speed: 43.99 step/s
+eval loss: 1.60589, macro f1: 0.20821
+global step 110, epoch: 1, batch: 110, loss: 1.28804, macro f1: 0.19800, speed: 62.41 step/s
+global step 120, epoch: 1, batch: 120, loss: 1.48848, macro f1: 0.20943, speed: 40.53 step/s
+global step 130, epoch: 1, batch: 130, loss: 1.36893, macro f1: 0.21393, speed: 53.80 step/s
+global step 140, epoch: 1, batch: 140, loss: 1.29596, macro f1: 0.22019, speed: 66.59 step/s
+global step 150, epoch: 1, batch: 150, loss: 0.93465, macro f1: 0.22276, speed: 56.35 step/s
+global step 160, epoch: 1, batch: 160, loss: 1.16113, macro f1: 0.22968, speed: 59.71 step/s
+global step 170, epoch: 1, batch: 170, loss: 1.26685, macro f1: 0.23608, speed: 65.15 step/s
+global step 180, epoch: 1, batch: 180, loss: 0.90212, macro f1: 0.24296, speed: 81.92 step/s
+global step 190, epoch: 1, batch: 190, loss: 1.30169, macro f1: 0.24945, speed: 57.86 step/s
+global step 200, epoch: 1, batch: 200, loss: 0.99362, macro f1: 0.25370, speed: 73.85 step/s
+eval loss: 1.00938, macro f1: 0.30562
+global step 210, epoch: 1, batch: 210, loss: 0.74876, macro f1: 0.30429, speed: 49.83 step/s
+global step 220, epoch: 1, batch: 220, loss: 0.82885, macro f1: 0.28927, speed: 67.99 step/s
+global step 230, epoch: 1, batch: 230, loss: 0.94666, macro f1: 0.29138, speed: 60.81 step/s
+global step 240, epoch: 1, batch: 240, loss: 0.90037, macro f1: 0.29755, speed: 56.48 step/s
+global step 250, epoch: 1, batch: 250, loss: 0.52621, macro f1: 0.30446, speed: 56.50 step/s
+global step 260, epoch: 1, batch: 260, loss: 0.82685, macro f1: 0.30430, speed: 72.74 step/s
+global step 270, epoch: 1, batch: 270, loss: 0.73696, macro f1: 0.29996, speed: 65.45 step/s
+global step 280, epoch: 1, batch: 280, loss: 1.15578, macro f1: 0.29911, speed: 60.75 step/s
+global step 290, epoch: 1, batch: 290, loss: 0.96714, macro f1: 0.30701, speed: 87.56 step/s
+global step 300, epoch: 1, batch: 300, loss: 0.95419, macro f1: 0.30528, speed: 70.93 step/s
+eval loss: 0.90158, macro f1: 0.31105
+global step 310, epoch: 1, batch: 310, loss: 0.55737, macro f1: 0.33728, speed: 75.51 step/s
+global step 320, epoch: 1, batch: 320, loss: 0.89085, macro f1: 0.32358, speed: 75.17 step/s
+global step 330, epoch: 1, batch: 330, loss: 0.90734, macro f1: 0.32996, speed: 87.36 step/s
+global step 340, epoch: 1, batch: 340, loss: 0.66461, macro f1: 0.32427, speed: 73.41 step/s
+global step 350, epoch: 1, batch: 350, loss: 1.13797, macro f1: 0.32374, speed: 84.06 step/s
+global step 360, epoch: 1, batch: 360, loss: 0.72190, macro f1: 0.32560, speed: 83.76 step/s
+global step 370, epoch: 1, batch: 370, loss: 0.99279, macro f1: 0.32823, speed: 111.27 step/s
+global step 380, epoch: 1, batch: 380, loss: 1.44643, macro f1: 0.32790, speed: 90.88 step/s
+global step 390, epoch: 1, batch: 390, loss: 1.35468, macro f1: 0.32909, speed: 67.65 step/s
+global step 400, epoch: 1, batch: 400, loss: 0.58114, macro f1: 0.32860, speed: 44.77 step/s
+eval loss: 0.86420, macro f1: 0.36441
+global step 410, epoch: 1, batch: 410, loss: 0.45926, macro f1: 0.32991, speed: 78.83 step/s
+global step 420, epoch: 1, batch: 420, loss: 0.72426, macro f1: 0.33110, speed: 69.05 step/s
+global step 430, epoch: 1, batch: 430, loss: 1.06749, macro f1: 0.33114, speed: 70.06 step/s
+global step 440, epoch: 1, batch: 440, loss: 0.86981, macro f1: 0.35449, speed: 66.48 step/s
+global step 450, epoch: 1, batch: 450, loss: 0.59245, macro f1: 0.36103, speed: 85.24 step/s
+global step 460, epoch: 1, batch: 460, loss: 0.72322, macro f1: 0.36624, speed: 65.65 step/s
+global step 470, epoch: 1, batch: 470, loss: 0.57136, macro f1: 0.37556, speed: 77.34 step/s
+global step 480, epoch: 1, batch: 480, loss: 0.95581, macro f1: 0.37952, speed: 83.64 step/s
+global step 490, epoch: 1, batch: 490, loss: 0.46304, macro f1: 0.37931, speed: 82.77 step/s
+global step 500, epoch: 1, batch: 500, loss: 0.81755, macro f1: 0.38282, speed: 53.86 step/s
+eval loss: 0.77722, macro f1: 0.38256
+global step 510, epoch: 1, batch: 510, loss: 0.97546, macro f1: 0.32846, speed: 73.00 step/s
+global step 520, epoch: 1, batch: 520, loss: 1.15379, macro f1: 0.34354, speed: 67.27 step/s
+global step 530, epoch: 1, batch: 530, loss: 0.62201, macro f1: 0.33419, speed: 69.30 step/s
+global step 540, epoch: 1, batch: 540, loss: 0.97651, macro f1: 0.34682, speed: 103.05 step/s
+global step 550, epoch: 1, batch: 550, loss: 0.87285, macro f1: 0.35767, speed: 68.47 step/s
+global step 560, epoch: 1, batch: 560, loss: 0.64709, macro f1: 0.35611, speed: 65.06 step/s
+global step 570, epoch: 1, batch: 570, loss: 0.93878, macro f1: 0.36178, speed: 69.36 step/s
+global step 580, epoch: 1, batch: 580, loss: 1.09304, macro f1: 0.37262, speed: 74.77 step/s
+global step 590, epoch: 1, batch: 590, loss: 0.89064, macro f1: 0.37567, speed: 49.40 step/s
+global step 600, epoch: 1, batch: 600, loss: 0.61522, macro f1: 0.37698, speed: 70.73 step/s
+eval loss: 0.71784, macro f1: 0.43201
+global step 610, epoch: 1, batch: 610, loss: 0.86316, macro f1: 0.43584, speed: 112.81 step/s
+global step 620, epoch: 1, batch: 620, loss: 0.74339, macro f1: 0.44511, speed: 67.17 step/s
+global step 630, epoch: 1, batch: 630, loss: 0.61264, macro f1: 0.44111, speed: 58.12 step/s
+global step 640, epoch: 1, batch: 640, loss: 0.67980, macro f1: 0.44902, speed: 54.39 step/s
+global step 650, epoch: 1, batch: 650, loss: 0.88122, macro f1: 0.45023, speed: 96.19 step/s
+global step 660, epoch: 1, batch: 660, loss: 0.82893, macro f1: 0.44819, speed: 88.83 step/s
+global step 670, epoch: 1, batch: 670, loss: 0.88491, macro f1: 0.44095, speed: 50.46 step/s
+global step 680, epoch: 1, batch: 680, loss: 0.55294, macro f1: 0.45374, speed: 74.31 step/s
+global step 690, epoch: 1, batch: 690, loss: 0.70027, macro f1: 0.46703, speed: 59.08 step/s
+global step 700, epoch: 1, batch: 700, loss: 0.64321, macro f1: 0.47256, speed: 74.21 step/s
+eval loss: 0.69419, macro f1: 0.49629
+global step 710, epoch: 1, batch: 710, loss: 0.20687, macro f1: 0.38489, speed: 73.03 step/s
+global step 720, epoch: 2, batch: 2, loss: 0.56022, macro f1: 0.47912, speed: 63.94 step/s
+global step 730, epoch: 2, batch: 12, loss: 0.35496, macro f1: 0.48791, speed: 87.25 step/s
+global step 740, epoch: 2, batch: 22, loss: 0.59476, macro f1: 0.47465, speed: 57.64 step/s
+global step 750, epoch: 2, batch: 32, loss: 0.20456, macro f1: 0.49372, speed: 59.88 step/s
+global step 760, epoch: 2, batch: 42, loss: 0.77325, macro f1: 0.49561, speed: 78.78 step/s
+global step 770, epoch: 2, batch: 52, loss: 0.51821, macro f1: 0.50061, speed: 73.11 step/s
+global step 780, epoch: 2, batch: 62, loss: 0.26904, macro f1: 0.50642, speed: 69.85 step/s
+global step 790, epoch: 2, batch: 72, loss: 0.61992, macro f1: 0.52109, speed: 85.73 step/s
+global step 800, epoch: 2, batch: 82, loss: 0.90492, macro f1: 0.53291, speed: 40.58 step/s
+eval loss: 0.68340, macro f1: 0.53783
+global step 810, epoch: 2, batch: 92, loss: 0.55539, macro f1: 0.41412, speed: 53.95 step/s
+global step 820, epoch: 2, batch: 102, loss: 0.46657, macro f1: 0.41275, speed: 68.24 step/s
+global step 830, epoch: 2, batch: 112, loss: 0.92072, macro f1: 0.44745, speed: 69.85 step/s
+global step 840, epoch: 2, batch: 122, loss: 0.59865, macro f1: 0.45229, speed: 59.24 step/s
+global step 850, epoch: 2, batch: 132, loss: 0.45804, macro f1: 0.48109, speed: 76.14 step/s
+global step 860, epoch: 2, batch: 142, loss: 0.94823, macro f1: 0.49153, speed: 77.94 step/s
+global step 870, epoch: 2, batch: 152, loss: 0.55643, macro f1: 0.50094, speed: 58.15 step/s
+global step 880, epoch: 2, batch: 162, loss: 1.00175, macro f1: 0.49074, speed: 64.82 step/s
+global step 890, epoch: 2, batch: 172, loss: 0.40678, macro f1: 0.49619, speed: 50.72 step/s
+global step 900, epoch: 2, batch: 182, loss: 0.53363, macro f1: 0.50181, speed: 63.54 step/s
+eval loss: 0.65334, macro f1: 0.53979
+global step 910, epoch: 2, batch: 192, loss: 0.57778, macro f1: 0.43539, speed: 75.42 step/s
+global step 920, epoch: 2, batch: 202, loss: 0.29358, macro f1: 0.49099, speed: 92.45 step/s
+global step 930, epoch: 2, batch: 212, loss: 0.75947, macro f1: 0.53722, speed: 71.46 step/s
+global step 940, epoch: 2, batch: 222, loss: 0.56967, macro f1: 0.52863, speed: 84.83 step/s
+global step 950, epoch: 2, batch: 232, loss: 0.11730, macro f1: 0.53741, speed: 52.62 step/s
+global step 960, epoch: 2, batch: 242, loss: 0.51860, macro f1: 0.56133, speed: 77.13 step/s
+global step 970, epoch: 2, batch: 252, loss: 0.50559, macro f1: 0.56225, speed: 55.55 step/s
+global step 980, epoch: 2, batch: 262, loss: 0.39771, macro f1: 0.55590, speed: 79.36 step/s
+global step 990, epoch: 2, batch: 272, loss: 0.49125, macro f1: 0.55422, speed: 83.12 step/s
+global step 1000, epoch: 2, batch: 282, loss: 0.36306, macro f1: 0.55869, speed: 67.67 step/s
+eval loss: 0.62299, macro f1: 0.54603
+global step 1010, epoch: 2, batch: 292, loss: 0.93369, macro f1: 0.47425, speed: 76.74 step/s
+global step 1020, epoch: 2, batch: 302, loss: 0.51792, macro f1: 0.49258, speed: 61.24 step/s
+global step 1030, epoch: 2, batch: 312, loss: 0.75943, macro f1: 0.52514, speed: 90.32 step/s
+global step 1040, epoch: 2, batch: 322, loss: 0.47228, macro f1: 0.54523, speed: 95.27 step/s
+global step 1050, epoch: 2, batch: 332, loss: 0.57008, macro f1: 0.56837, speed: 56.44 step/s
+global step 1060, epoch: 2, batch: 342, loss: 0.48854, macro f1: 0.56333, speed: 73.09 step/s
+global step 1070, epoch: 2, batch: 352, loss: 0.56134, macro f1: 0.56260, speed: 82.25 step/s
+global step 1080, epoch: 2, batch: 362, loss: 0.32694, macro f1: 0.57460, speed: 84.13 step/s
+global step 1090, epoch: 2, batch: 372, loss: 0.47567, macro f1: 0.57711, speed: 87.47 step/s
+global step 1100, epoch: 2, batch: 382, loss: 0.53796, macro f1: 0.57559, speed: 73.51 step/s
+eval loss: 0.61425, macro f1: 0.59671
+global step 1110, epoch: 2, batch: 392, loss: 0.48941, macro f1: 0.52431, speed: 71.50 step/s
+global step 1120, epoch: 2, batch: 402, loss: 1.11841, macro f1: 0.54519, speed: 67.14 step/s
+global step 1130, epoch: 2, batch: 412, loss: 0.48786, macro f1: 0.53277, speed: 86.54 step/s
+global step 1140, epoch: 2, batch: 422, loss: 0.48960, macro f1: 0.56877, speed: 65.15 step/s
+global step 1150, epoch: 2, batch: 432, loss: 0.59385, macro f1: 0.57878, speed: 52.37 step/s
+global step 1160, epoch: 2, batch: 442, loss: 0.42188, macro f1: 0.57681, speed: 58.28 step/s
+global step 1170, epoch: 2, batch: 452, loss: 0.46019, macro f1: 0.57996, speed: 48.10 step/s
+global step 1180, epoch: 2, batch: 462, loss: 0.45772, macro f1: 0.58004, speed: 76.86 step/s
+global step 1190, epoch: 2, batch: 472, loss: 0.43095, macro f1: 0.59285, speed: 74.39 step/s
+global step 1200, epoch: 2, batch: 482, loss: 0.74667, macro f1: 0.59840, speed: 65.36 step/s
+eval loss: 0.59016, macro f1: 0.61149
+global step 1210, epoch: 2, batch: 492, loss: 0.41735, macro f1: 0.44250, speed: 86.93 step/s
+global step 1220, epoch: 2, batch: 502, loss: 0.47052, macro f1: 0.51295, speed: 73.44 step/s
+global step 1230, epoch: 2, batch: 512, loss: 0.62644, macro f1: 0.54699, speed: 56.96 step/s
+global step 1240, epoch: 2, batch: 522, loss: 0.64691, macro f1: 0.57696, speed: 81.19 step/s
+global step 1250, epoch: 2, batch: 532, loss: 0.53880, macro f1: 0.59827, speed: 84.17 step/s
+global step 1260, epoch: 2, batch: 542, loss: 0.38872, macro f1: 0.61316, speed: 91.72 step/s
+global step 1270, epoch: 2, batch: 552, loss: 0.86050, macro f1: 0.61607, speed: 93.63 step/s
+global step 1280, epoch: 2, batch: 562, loss: 0.34515, macro f1: 0.61089, speed: 58.90 step/s
+global step 1290, epoch: 2, batch: 572, loss: 0.52657, macro f1: 0.60373, speed: 66.61 step/s
+global step 1300, epoch: 2, batch: 582, loss: 0.30982, macro f1: 0.61334, speed: 88.02 step/s
+eval loss: 0.57979, macro f1: 0.62539
+global step 1310, epoch: 2, batch: 592, loss: 0.59918, macro f1: 0.51368, speed: 55.24 step/s
+global step 1320, epoch: 2, batch: 602, loss: 0.68205, macro f1: 0.50807, speed: 78.17 step/s
+global step 1330, epoch: 2, batch: 612, loss: 0.40643, macro f1: 0.51680, speed: 102.86 step/s
+global step 1340, epoch: 2, batch: 622, loss: 0.61028, macro f1: 0.52197, speed: 41.90 step/s
+global step 1350, epoch: 2, batch: 632, loss: 0.60301, macro f1: 0.51825, speed: 80.03 step/s
+global step 1360, epoch: 2, batch: 642, loss: 0.42712, macro f1: 0.55117, speed: 76.49 step/s
+global step 1370, epoch: 2, batch: 652, loss: 0.77548, macro f1: 0.58570, speed: 61.90 step/s
+global step 1380, epoch: 2, batch: 662, loss: 0.40257, macro f1: 0.60022, speed: 49.10 step/s
+global step 1390, epoch: 2, batch: 672, loss: 0.50815, macro f1: 0.60001, speed: 59.51 step/s
+global step 1400, epoch: 2, batch: 682, loss: 0.88094, macro f1: 0.60353, speed: 62.87 step/s
+eval loss: 0.58506, macro f1: 0.59619
+global step 1410, epoch: 2, batch: 692, loss: 0.86104, macro f1: 0.49802, speed: 69.66 step/s
+global step 1420, epoch: 2, batch: 702, loss: 0.72668, macro f1: 0.56208, speed: 51.54 step/s
+global step 1430, epoch: 2, batch: 712, loss: 0.98060, macro f1: 0.55506, speed: 67.19 step/s
+global step 1440, epoch: 3, batch: 4, loss: 0.35803, macro f1: 0.56722, speed: 68.90 step/s
+global step 1450, epoch: 3, batch: 14, loss: 0.11395, macro f1: 0.59582, speed: 100.12 step/s
+global step 1460, epoch: 3, batch: 24, loss: 0.29655, macro f1: 0.60982, speed: 68.72 step/s
+global step 1470, epoch: 3, batch: 34, loss: 0.17537, macro f1: 0.62783, speed: 60.74 step/s
+global step 1480, epoch: 3, batch: 44, loss: 0.17050, macro f1: 0.64959, speed: 69.03 step/s
+global step 1490, epoch: 3, batch: 54, loss: 0.50044, macro f1: 0.65525, speed: 63.55 step/s
+global step 1500, epoch: 3, batch: 64, loss: 0.17253, macro f1: 0.66079, speed: 51.75 step/s
+eval loss: 0.57000, macro f1: 0.62815
+global step 1510, epoch: 3, batch: 74, loss: 0.43780, macro f1: 0.50445, speed: 81.86 step/s
+global step 1520, epoch: 3, batch: 84, loss: 0.37543, macro f1: 0.64794, speed: 62.87 step/s
+global step 1530, epoch: 3, batch: 94, loss: 0.33885, macro f1: 0.67147, speed: 68.69 step/s
+global step 1540, epoch: 3, batch: 104, loss: 0.28974, macro f1: 0.69325, speed: 90.00 step/s
+global step 1550, epoch: 3, batch: 114, loss: 0.32633, macro f1: 0.70515, speed: 98.24 step/s
+global step 1560, epoch: 3, batch: 124, loss: 0.23821, macro f1: 0.71525, speed: 83.44 step/s
+global step 1570, epoch: 3, batch: 134, loss: 0.38839, macro f1: 0.72274, speed: 76.11 step/s
+global step 1580, epoch: 3, batch: 144, loss: 0.19891, macro f1: 0.72367, speed: 49.86 step/s
+global step 1590, epoch: 3, batch: 154, loss: 0.62071, macro f1: 0.71801, speed: 68.88 step/s
+global step 1600, epoch: 3, batch: 164, loss: 0.57640, macro f1: 0.71504, speed: 51.32 step/s
+eval loss: 0.59118, macro f1: 0.63213
+global step 1610, epoch: 3, batch: 174, loss: 0.42055, macro f1: 0.48541, speed: 82.67 step/s
+global step 1620, epoch: 3, batch: 184, loss: 0.51838, macro f1: 0.62017, speed: 65.99 step/s
+global step 1630, epoch: 3, batch: 194, loss: 0.11027, macro f1: 0.60588, speed: 71.89 step/s
+global step 1640, epoch: 3, batch: 204, loss: 0.24023, macro f1: 0.62459, speed: 85.16 step/s
+global step 1650, epoch: 3, batch: 214, loss: 0.18031, macro f1: 0.63389, speed: 75.12 step/s
+global step 1660, epoch: 3, batch: 224, loss: 0.37525, macro f1: 0.67909, speed: 66.29 step/s
+global step 1670, epoch: 3, batch: 234, loss: 0.18090, macro f1: 0.66704, speed: 79.23 step/s
+global step 1680, epoch: 3, batch: 244, loss: 0.38107, macro f1: 0.66538, speed: 39.99 step/s
+global step 1690, epoch: 3, batch: 254, loss: 0.12956, macro f1: 0.69237, speed: 66.10 step/s
+global step 1700, epoch: 3, batch: 264, loss: 0.21095, macro f1: 0.70788, speed: 79.97 step/s
+eval loss: 0.58521, macro f1: 0.66276
+global step 1710, epoch: 3, batch: 274, loss: 0.28975, macro f1: 0.54378, speed: 55.93 step/s
+global step 1720, epoch: 3, batch: 284, loss: 0.68428, macro f1: 0.60373, speed: 63.41 step/s
+global step 1730, epoch: 3, batch: 294, loss: 0.46571, macro f1: 0.71095, speed: 56.71 step/s
+global step 1740, epoch: 3, batch: 304, loss: 0.34112, macro f1: 0.75713, speed: 72.37 step/s
+global step 1750, epoch: 3, batch: 314, loss: 0.31280, macro f1: 0.73764, speed: 71.38 step/s
+global step 1760, epoch: 3, batch: 324, loss: 0.28935, macro f1: 0.75735, speed: 76.15 step/s
+global step 1770, epoch: 3, batch: 334, loss: 0.31284, macro f1: 0.75892, speed: 77.71 step/s
+global step 1780, epoch: 3, batch: 344, loss: 0.34195, macro f1: 0.75856, speed: 56.54 step/s
+global step 1790, epoch: 3, batch: 354, loss: 0.14346, macro f1: 0.74801, speed: 82.80 step/s
+global step 1800, epoch: 3, batch: 364, loss: 0.23509, macro f1: 0.75856, speed: 86.83 step/s
+eval loss: 0.54194, macro f1: 0.72152
+global step 1810, epoch: 3, batch: 374, loss: 0.33784, macro f1: 0.58689, speed: 63.52 step/s
+global step 1820, epoch: 3, batch: 384, loss: 0.49206, macro f1: 0.69151, speed: 60.22 step/s
+global step 1830, epoch: 3, batch: 394, loss: 0.44064, macro f1: 0.71783, speed: 101.61 step/s
+global step 1840, epoch: 3, batch: 404, loss: 0.31395, macro f1: 0.72473, speed: 46.17 step/s
+global step 1850, epoch: 3, batch: 414, loss: 0.30000, macro f1: 0.77754, speed: 65.64 step/s
+global step 1860, epoch: 3, batch: 424, loss: 0.21124, macro f1: 0.80047, speed: 56.61 step/s
+global step 1870, epoch: 3, batch: 434, loss: 0.25941, macro f1: 0.80223, speed: 43.75 step/s
+global step 1880, epoch: 3, batch: 444, loss: 0.18003, macro f1: 0.79906, speed: 95.26 step/s
+global step 1890, epoch: 3, batch: 454, loss: 0.29701, macro f1: 0.80242, speed: 89.80 step/s
+global step 1900, epoch: 3, batch: 464, loss: 0.33855, macro f1: 0.79673, speed: 99.34 step/s
+eval loss: 0.55985, macro f1: 0.71934
+global step 1910, epoch: 3, batch: 474, loss: 0.25614, macro f1: 0.54269, speed: 84.83 step/s
+global step 1920, epoch: 3, batch: 484, loss: 0.09206, macro f1: 0.57992, speed: 63.70 step/s
+global step 1930, epoch: 3, batch: 494, loss: 0.44920, macro f1: 0.63302, speed: 74.04 step/s
+global step 1940, epoch: 3, batch: 504, loss: 0.18600, macro f1: 0.65310, speed: 85.75 step/s
+global step 1950, epoch: 3, batch: 514, loss: 0.30592, macro f1: 0.67316, speed: 72.03 step/s
+global step 1960, epoch: 3, batch: 524, loss: 0.68590, macro f1: 0.67849, speed: 71.28 step/s
+global step 1970, epoch: 3, batch: 534, loss: 0.30360, macro f1: 0.67807, speed: 79.29 step/s
+global step 1980, epoch: 3, batch: 544, loss: 0.42527, macro f1: 0.72410, speed: 86.75 step/s
+global step 1990, epoch: 3, batch: 554, loss: 0.26980, macro f1: 0.74672, speed: 73.01 step/s
+global step 2000, epoch: 3, batch: 564, loss: 0.36869, macro f1: 0.76527, speed: 77.81 step/s
+eval loss: 0.52779, macro f1: 0.73022
+global step 2010, epoch: 3, batch: 574, loss: 0.33495, macro f1: 0.49180, speed: 64.29 step/s
+global step 2020, epoch: 3, batch: 584, loss: 0.28858, macro f1: 0.60222, speed: 71.80 step/s
+global step 2030, epoch: 3, batch: 594, loss: 0.30851, macro f1: 0.62541, speed: 92.43 step/s
+global step 2040, epoch: 3, batch: 604, loss: 0.24841, macro f1: 0.66839, speed: 56.46 step/s
+global step 2050, epoch: 3, batch: 614, loss: 0.49671, macro f1: 0.70120, speed: 65.72 step/s
+global step 2060, epoch: 3, batch: 624, loss: 0.31236, macro f1: 0.73937, speed: 76.33 step/s
+global step 2070, epoch: 3, batch: 634, loss: 0.15534, macro f1: 0.74875, speed: 77.63 step/s
+global step 2080, epoch: 3, batch: 644, loss: 0.35823, macro f1: 0.75914, speed: 52.59 step/s
+global step 2090, epoch: 3, batch: 654, loss: 0.13447, macro f1: 0.77708, speed: 59.78 step/s
+global step 2100, epoch: 3, batch: 664, loss: 0.29097, macro f1: 0.80199, speed: 87.60 step/s
+eval loss: 0.53996, macro f1: 0.73487
+global step 2110, epoch: 3, batch: 674, loss: 0.26940, macro f1: 0.59910, speed: 69.79 step/s
+global step 2120, epoch: 3, batch: 684, loss: 0.11833, macro f1: 0.68500, speed: 51.91 step/s
+global step 2130, epoch: 3, batch: 694, loss: 0.28139, macro f1: 0.74793, speed: 58.43 step/s
+global step 2140, epoch: 3, batch: 704, loss: 0.19533, macro f1: 0.76141, speed: 90.86 step/s
+global step 2150, epoch: 3, batch: 714, loss: 0.31443, macro f1: 0.78513, speed: 64.17 step/s
+global step 2160, epoch: 4, batch: 6, loss: 0.31364, macro f1: 0.78093, speed: 56.63 step/s
+global step 2170, epoch: 4, batch: 16, loss: 0.07827, macro f1: 0.78747, speed: 67.02 step/s
+global step 2180, epoch: 4, batch: 26, loss: 0.12813, macro f1: 0.82702, speed: 83.07 step/s
+global step 2190, epoch: 4, batch: 36, loss: 0.24703, macro f1: 0.82932, speed: 76.53 step/s
+global step 2200, epoch: 4, batch: 46, loss: 0.14497, macro f1: 0.84810, speed: 89.10 step/s
+eval loss: 0.54012, macro f1: 0.73666
+global step 2210, epoch: 4, batch: 56, loss: 0.34808, macro f1: 0.57193, speed: 64.74 step/s
+global step 2220, epoch: 4, batch: 66, loss: 0.10140, macro f1: 0.70030, speed: 76.82 step/s
+global step 2230, epoch: 4, batch: 76, loss: 0.10396, macro f1: 0.73001, speed: 80.05 step/s
+global step 2240, epoch: 4, batch: 86, loss: 0.49469, macro f1: 0.72668, speed: 69.17 step/s
+global step 2250, epoch: 4, batch: 96, loss: 0.21560, macro f1: 0.75889, speed: 62.57 step/s
+global step 2260, epoch: 4, batch: 106, loss: 0.15428, macro f1: 0.78661, speed: 57.65 step/s
+global step 2270, epoch: 4, batch: 116, loss: 0.08007, macro f1: 0.83192, speed: 86.34 step/s
+global step 2280, epoch: 4, batch: 126, loss: 0.15386, macro f1: 0.85458, speed: 89.41 step/s
+global step 2290, epoch: 4, batch: 136, loss: 0.15373, macro f1: 0.85608, speed: 45.97 step/s
+global step 2300, epoch: 4, batch: 146, loss: 0.25142, macro f1: 0.85413, speed: 86.44 step/s
+eval loss: 0.54837, macro f1: 0.74091
+global step 2310, epoch: 4, batch: 156, loss: 0.25706, macro f1: 0.53987, speed: 63.43 step/s
+global step 2320, epoch: 4, batch: 166, loss: 0.09182, macro f1: 0.63758, speed: 92.11 step/s
+global step 2330, epoch: 4, batch: 176, loss: 0.27301, macro f1: 0.65221, speed: 61.34 step/s
+global step 2340, epoch: 4, batch: 186, loss: 0.08781, macro f1: 0.77038, speed: 56.01 step/s
+global step 2350, epoch: 4, batch: 196, loss: 0.33339, macro f1: 0.79519, speed: 69.54 step/s
+global step 2360, epoch: 4, batch: 206, loss: 0.22422, macro f1: 0.83860, speed: 66.63 step/s
+global step 2370, epoch: 4, batch: 216, loss: 0.32781, macro f1: 0.88471, speed: 89.39 step/s
+global step 2380, epoch: 4, batch: 226, loss: 0.32160, macro f1: 0.87703, speed: 83.11 step/s
+global step 2390, epoch: 4, batch: 236, loss: 0.16113, macro f1: 0.86968, speed: 71.38 step/s
+global step 2400, epoch: 4, batch: 246, loss: 0.22166, macro f1: 0.86280, speed: 111.31 step/s
+eval loss: 0.54803, macro f1: 0.75252
+global step 2410, epoch: 4, batch: 256, loss: 0.22326, macro f1: 0.57208, speed: 60.06 step/s
+global step 2420, epoch: 4, batch: 266, loss: 0.19022, macro f1: 0.67542, speed: 68.13 step/s
+global step 2430, epoch: 4, batch: 276, loss: 0.19573, macro f1: 0.70898, speed: 88.95 step/s
+global step 2440, epoch: 4, batch: 286, loss: 0.20153, macro f1: 0.77442, speed: 92.57 step/s
+global step 2450, epoch: 4, batch: 296, loss: 0.29292, macro f1: 0.81073, speed: 58.97 step/s
+global step 2460, epoch: 4, batch: 306, loss: 0.07514, macro f1: 0.80886, speed: 69.36 step/s
+global step 2470, epoch: 4, batch: 316, loss: 0.32889, macro f1: 0.83280, speed: 88.30 step/s
+global step 2480, epoch: 4, batch: 326, loss: 0.15648, macro f1: 0.83339, speed: 85.90 step/s
+global step 2490, epoch: 4, batch: 336, loss: 0.08133, macro f1: 0.87819, speed: 85.45 step/s
+global step 2500, epoch: 4, batch: 346, loss: 0.04386, macro f1: 0.87613, speed: 52.27 step/s
+eval loss: 0.54415, macro f1: 0.75497
+global step 2510, epoch: 4, batch: 356, loss: 0.05533, macro f1: 0.54948, speed: 70.03 step/s
+global step 2520, epoch: 4, batch: 366, loss: 0.07499, macro f1: 0.76018, speed: 100.24 step/s
+global step 2530, epoch: 4, batch: 376, loss: 0.28683, macro f1: 0.80596, speed: 58.42 step/s
+global step 2540, epoch: 4, batch: 386, loss: 0.13280, macro f1: 0.80616, speed: 61.58 step/s
+global step 2550, epoch: 4, batch: 396, loss: 0.09307, macro f1: 0.84720, speed: 60.48 step/s
+global step 2560, epoch: 4, batch: 406, loss: 0.27620, macro f1: 0.84807, speed: 92.14 step/s
+global step 2570, epoch: 4, batch: 416, loss: 0.16454, macro f1: 0.84554, speed: 90.32 step/s
+global step 2580, epoch: 4, batch: 426, loss: 0.04751, macro f1: 0.88090, speed: 57.61 step/s
+global step 2590, epoch: 4, batch: 436, loss: 0.17651, macro f1: 0.88345, speed: 55.58 step/s
+global step 2600, epoch: 4, batch: 446, loss: 0.12222, macro f1: 0.88302, speed: 58.00 step/s
+eval loss: 0.53959, macro f1: 0.76164
+global step 2610, epoch: 4, batch: 456, loss: 0.19080, macro f1: 0.52600, speed: 59.77 step/s
+global step 2620, epoch: 4, batch: 466, loss: 0.11267, macro f1: 0.68189, speed: 84.78 step/s
+global step 2630, epoch: 4, batch: 476, loss: 0.13356, macro f1: 0.70273, speed: 82.53 step/s
+global step 2640, epoch: 4, batch: 486, loss: 0.10665, macro f1: 0.74224, speed: 85.04 step/s
+global step 2650, epoch: 4, batch: 496, loss: 0.26450, macro f1: 0.75508, speed: 49.74 step/s
+global step 2660, epoch: 4, batch: 506, loss: 0.46254, macro f1: 0.84035, speed: 60.35 step/s
+global step 2670, epoch: 4, batch: 516, loss: 0.07167, macro f1: 0.86738, speed: 69.00 step/s
+global step 2680, epoch: 4, batch: 526, loss: 0.13298, macro f1: 0.87481, speed: 71.69 step/s
+global step 2690, epoch: 4, batch: 536, loss: 0.21891, macro f1: 0.87560, speed: 56.13 step/s
+global step 2700, epoch: 4, batch: 546, loss: 0.14559, macro f1: 0.87584, speed: 52.79 step/s
+eval loss: 0.53239, macro f1: 0.75633
+global step 2710, epoch: 4, batch: 556, loss: 0.06063, macro f1: 0.58941, speed: 91.36 step/s
+global step 2720, epoch: 4, batch: 566, loss: 0.18664, macro f1: 0.69235, speed: 63.39 step/s
+global step 2730, epoch: 4, batch: 576, loss: 0.11973, macro f1: 0.77795, speed: 72.81 step/s
+global step 2740, epoch: 4, batch: 586, loss: 0.16117, macro f1: 0.81387, speed: 69.31 step/s
+global step 2750, epoch: 4, batch: 596, loss: 0.11580, macro f1: 0.85263, speed: 56.22 step/s
+global step 2760, epoch: 4, batch: 606, loss: 0.11582, macro f1: 0.86220, speed: 98.51 step/s
+global step 2770, epoch: 4, batch: 616, loss: 0.22172, macro f1: 0.88181, speed: 66.80 step/s
+global step 2780, epoch: 4, batch: 626, loss: 0.09725, macro f1: 0.88002, speed: 51.48 step/s
+global step 2790, epoch: 4, batch: 636, loss: 0.35914, macro f1: 0.88193, speed: 98.41 step/s
+global step 2800, epoch: 4, batch: 646, loss: 0.14305, macro f1: 0.90111, speed: 87.30 step/s
+eval loss: 0.53532, macro f1: 0.75524
+global step 2810, epoch: 4, batch: 656, loss: 0.25365, macro f1: 0.51161, speed: 65.11 step/s
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0424 12:11:12.578246 21529 tensorrt.cc:56] You are using Paddle compiled with TensorRT, but TensorRT dynamic library is not found. Ignore this if TensorRT is not needed.
+The TensorRT that Paddle depends on is not configured correctly.
+  Suggestions:
+  1. Check if the TensorRT is installed correctly and its version is matched with paddlepaddle you installed.
+  2. Configure environment variables as follows:
+  - Linux: set LD_LIBRARY_PATH by `export LD_LIBRARY_PATH=...`
+  - Windows: set PATH by `set PATH=XXX;%PATH%`
+  - Mac: set  DYLD_LIBRARY_PATH by `export DYLD_LIBRARY_PATH=...`
+  0%|          | 0/238 [00:00<?, ?it/s]100%|██████████| 238/238 [00:00<00:00, 30988.87it/s]
+[32m[2022-04-24 12:11:14,634] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-health-chinese/ernie-health-chinese.pdparams[0m
+W0424 12:11:14.635782 21529 gpu_context.cc:278] Please NOTE: device: 0, GPU Compute Capability: 7.0, Driver API Version: 11.2, Runtime API Version: 11.2
+W0424 12:11:14.639544 21529 gpu_context.cc:306] device: 0, cuDNN Version: 8.1.
+[32m[2022-04-24 12:11:19,349] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-health-chinese/vocab.txt[0m
+global step 10, epoch: 1, batch: 10, loss: 0.96280, accuracy: 0.51875, speed: 124.91 step/s
+global step 20, epoch: 1, batch: 20, loss: 0.66465, accuracy: 0.57969, speed: 129.06 step/s
+global step 30, epoch: 1, batch: 30, loss: 0.89748, accuracy: 0.58437, speed: 128.88 step/s
+global step 40, epoch: 1, batch: 40, loss: 1.02405, accuracy: 0.58437, speed: 131.91 step/s
+global step 50, epoch: 1, batch: 50, loss: 0.88644, accuracy: 0.59813, speed: 125.05 step/s
+global step 60, epoch: 1, batch: 60, loss: 0.71447, accuracy: 0.60729, speed: 122.71 step/s
+global step 70, epoch: 1, batch: 70, loss: 0.68165, accuracy: 0.62411, speed: 127.37 step/s
+global step 80, epoch: 1, batch: 80, loss: 0.92520, accuracy: 0.62930, speed: 124.76 step/s
+global step 90, epoch: 1, batch: 90, loss: 0.59696, accuracy: 0.63854, speed: 126.97 step/s
+global step 100, epoch: 1, batch: 100, loss: 0.82135, accuracy: 0.64938, speed: 122.73 step/s
+eval loss: 0.65016, accuracy: 0.75235
+global step 110, epoch: 1, batch: 110, loss: 0.75675, accuracy: 0.76875, speed: 126.14 step/s
+global step 120, epoch: 1, batch: 120, loss: 0.44270, accuracy: 0.74219, speed: 128.80 step/s
+global step 130, epoch: 1, batch: 130, loss: 0.43022, accuracy: 0.75625, speed: 131.92 step/s
+global step 140, epoch: 1, batch: 140, loss: 0.71009, accuracy: 0.74219, speed: 127.20 step/s
+global step 150, epoch: 1, batch: 150, loss: 0.53631, accuracy: 0.74750, speed: 124.62 step/s
+global step 160, epoch: 1, batch: 160, loss: 0.51734, accuracy: 0.75469, speed: 128.74 step/s
+global step 170, epoch: 1, batch: 170, loss: 0.55922, accuracy: 0.75357, speed: 130.03 step/s
+global step 180, epoch: 1, batch: 180, loss: 0.63555, accuracy: 0.75156, speed: 128.24 step/s
+global step 190, epoch: 1, batch: 190, loss: 0.61727, accuracy: 0.75243, speed: 126.71 step/s
+global step 200, epoch: 1, batch: 200, loss: 0.64449, accuracy: 0.75344, speed: 125.15 step/s
+eval loss: 0.81065, accuracy: 0.61664
+global step 210, epoch: 1, batch: 210, loss: 0.62060, accuracy: 0.73125, speed: 125.09 step/s
+global step 220, epoch: 1, batch: 220, loss: 0.59025, accuracy: 0.75156, speed: 114.33 step/s
+global step 230, epoch: 1, batch: 230, loss: 0.43418, accuracy: 0.74687, speed: 125.23 step/s
+global step 240, epoch: 1, batch: 240, loss: 0.63124, accuracy: 0.74844, speed: 127.89 step/s
+global step 250, epoch: 1, batch: 250, loss: 0.69508, accuracy: 0.75125, speed: 127.18 step/s
+global step 260, epoch: 1, batch: 260, loss: 0.62749, accuracy: 0.75625, speed: 128.31 step/s
+global step 270, epoch: 1, batch: 270, loss: 0.24107, accuracy: 0.75536, speed: 126.98 step/s
+global step 280, epoch: 1, batch: 280, loss: 0.78370, accuracy: 0.76094, speed: 128.44 step/s
+global step 290, epoch: 1, batch: 290, loss: 0.40965, accuracy: 0.76285, speed: 126.29 step/s
+global step 300, epoch: 1, batch: 300, loss: 0.44699, accuracy: 0.76531, speed: 128.42 step/s
+eval loss: 0.66206, accuracy: 0.75547
+global step 310, epoch: 1, batch: 310, loss: 0.57823, accuracy: 0.80312, speed: 122.69 step/s
+global step 320, epoch: 1, batch: 320, loss: 0.53501, accuracy: 0.80000, speed: 126.60 step/s
+global step 330, epoch: 1, batch: 330, loss: 0.68079, accuracy: 0.79792, speed: 126.06 step/s
+global step 340, epoch: 1, batch: 340, loss: 0.36000, accuracy: 0.80859, speed: 127.22 step/s
+global step 350, epoch: 1, batch: 350, loss: 0.57130, accuracy: 0.80188, speed: 103.71 step/s
+global step 360, epoch: 1, batch: 360, loss: 0.46221, accuracy: 0.80885, speed: 124.82 step/s
+global step 370, epoch: 1, batch: 370, loss: 0.66126, accuracy: 0.80446, speed: 126.76 step/s
+global step 380, epoch: 1, batch: 380, loss: 0.41200, accuracy: 0.80547, speed: 125.42 step/s
+global step 390, epoch: 1, batch: 390, loss: 0.62381, accuracy: 0.80521, speed: 123.83 step/s
+global step 400, epoch: 1, batch: 400, loss: 0.45690, accuracy: 0.81063, speed: 126.02 step/s
+eval loss: 0.68867, accuracy: 0.74046
+global step 410, epoch: 1, batch: 410, loss: 0.63329, accuracy: 0.79688, speed: 124.85 step/s
+global step 420, epoch: 1, batch: 420, loss: 0.81122, accuracy: 0.81094, speed: 127.30 step/s
+global step 430, epoch: 1, batch: 430, loss: 0.35258, accuracy: 0.81563, speed: 124.66 step/s
+global step 440, epoch: 1, batch: 440, loss: 0.25841, accuracy: 0.82656, speed: 128.39 step/s
+global step 450, epoch: 1, batch: 450, loss: 0.63539, accuracy: 0.82625, speed: 124.32 step/s
+global step 460, epoch: 1, batch: 460, loss: 0.51362, accuracy: 0.82865, speed: 126.02 step/s
+global step 470, epoch: 2, batch: 1, loss: 0.34404, accuracy: 0.83199, speed: 90.11 step/s
+global step 480, epoch: 2, batch: 11, loss: 0.24143, accuracy: 0.83738, speed: 127.70 step/s
+global step 490, epoch: 2, batch: 21, loss: 0.54134, accuracy: 0.83948, speed: 125.18 step/s
+global step 500, epoch: 2, batch: 31, loss: 0.50609, accuracy: 0.84461, speed: 122.47 step/s
+eval loss: 0.65794, accuracy: 0.75547
+global step 510, epoch: 2, batch: 41, loss: 0.26880, accuracy: 0.82812, speed: 122.03 step/s
+global step 520, epoch: 2, batch: 51, loss: 0.38292, accuracy: 0.83750, speed: 122.76 step/s
+global step 530, epoch: 2, batch: 61, loss: 0.48057, accuracy: 0.83854, speed: 126.57 step/s
+global step 540, epoch: 2, batch: 71, loss: 0.52774, accuracy: 0.83359, speed: 124.79 step/s
+global step 550, epoch: 2, batch: 81, loss: 0.39535, accuracy: 0.83500, speed: 105.48 step/s
+global step 560, epoch: 2, batch: 91, loss: 0.17006, accuracy: 0.83750, speed: 127.48 step/s
+global step 570, epoch: 2, batch: 101, loss: 0.35221, accuracy: 0.83348, speed: 125.33 step/s
+global step 580, epoch: 2, batch: 111, loss: 0.37243, accuracy: 0.83555, speed: 127.40 step/s
+global step 590, epoch: 2, batch: 121, loss: 0.57409, accuracy: 0.83472, speed: 125.25 step/s
+global step 600, epoch: 2, batch: 131, loss: 0.75060, accuracy: 0.83625, speed: 125.19 step/s
+eval loss: 0.58044, accuracy: 0.78612
+global step 610, epoch: 2, batch: 141, loss: 0.24744, accuracy: 0.85625, speed: 124.71 step/s
+global step 620, epoch: 2, batch: 151, loss: 0.53409, accuracy: 0.85000, speed: 127.43 step/s
+global step 630, epoch: 2, batch: 161, loss: 0.54214, accuracy: 0.83958, speed: 126.95 step/s
+global step 640, epoch: 2, batch: 171, loss: 0.51471, accuracy: 0.83437, speed: 120.50 step/s
+global step 650, epoch: 2, batch: 181, loss: 0.32549, accuracy: 0.84000, speed: 121.78 step/s
+global step 660, epoch: 2, batch: 191, loss: 0.49093, accuracy: 0.84167, speed: 128.57 step/s
+global step 670, epoch: 2, batch: 201, loss: 0.90318, accuracy: 0.84643, speed: 130.18 step/s
+global step 680, epoch: 2, batch: 211, loss: 0.41019, accuracy: 0.84648, speed: 129.94 step/s
+global step 690, epoch: 2, batch: 221, loss: 0.73536, accuracy: 0.84479, speed: 127.32 step/s
+global step 700, epoch: 2, batch: 231, loss: 0.51945, accuracy: 0.84250, speed: 127.31 step/s
+eval loss: 0.71559, accuracy: 0.70607
+global step 710, epoch: 2, batch: 241, loss: 0.17801, accuracy: 0.85938, speed: 128.85 step/s
+global step 720, epoch: 2, batch: 251, loss: 0.50839, accuracy: 0.85156, speed: 124.20 step/s
+global step 730, epoch: 2, batch: 261, loss: 0.64444, accuracy: 0.84688, speed: 123.81 step/s
+global step 740, epoch: 2, batch: 271, loss: 0.22006, accuracy: 0.85156, speed: 125.40 step/s
+global step 750, epoch: 2, batch: 281, loss: 0.41805, accuracy: 0.85500, speed: 129.97 step/s
+global step 760, epoch: 2, batch: 291, loss: 0.53769, accuracy: 0.84948, speed: 127.64 step/s
+global step 770, epoch: 2, batch: 301, loss: 0.59616, accuracy: 0.85089, speed: 126.75 step/s
+global step 780, epoch: 2, batch: 311, loss: 0.25143, accuracy: 0.85742, speed: 127.02 step/s
+global step 790, epoch: 2, batch: 321, loss: 0.30589, accuracy: 0.85938, speed: 129.76 step/s
+global step 800, epoch: 2, batch: 331, loss: 0.28277, accuracy: 0.85969, speed: 129.14 step/s
+eval loss: 0.65003, accuracy: 0.76235
+global step 810, epoch: 2, batch: 341, loss: 0.57562, accuracy: 0.87500, speed: 126.22 step/s
+global step 820, epoch: 2, batch: 351, loss: 0.30254, accuracy: 0.87187, speed: 126.33 step/s
+global step 830, epoch: 2, batch: 361, loss: 0.32182, accuracy: 0.85417, speed: 127.63 step/s
+global step 840, epoch: 2, batch: 371, loss: 0.42988, accuracy: 0.85547, speed: 129.33 step/s
+global step 850, epoch: 2, batch: 381, loss: 0.40744, accuracy: 0.85750, speed: 129.35 step/s
+global step 860, epoch: 2, batch: 391, loss: 0.36400, accuracy: 0.85677, speed: 111.83 step/s
+global step 870, epoch: 2, batch: 401, loss: 0.22856, accuracy: 0.85848, speed: 125.54 step/s
+global step 880, epoch: 2, batch: 411, loss: 0.40417, accuracy: 0.85938, speed: 128.88 step/s
+global step 890, epoch: 2, batch: 421, loss: 0.36248, accuracy: 0.86042, speed: 125.62 step/s
+global step 900, epoch: 2, batch: 431, loss: 0.19117, accuracy: 0.86156, speed: 130.34 step/s
+eval loss: 0.62210, accuracy: 0.78862
+global step 910, epoch: 2, batch: 441, loss: 0.46206, accuracy: 0.84062, speed: 125.32 step/s
+global step 920, epoch: 2, batch: 451, loss: 0.48157, accuracy: 0.84375, speed: 129.12 step/s
+global step 930, epoch: 2, batch: 461, loss: 0.36092, accuracy: 0.85521, speed: 129.41 step/s
+Speed: 126.23 steps/s
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0424 12:12:56.264482 22422 tensorrt.cc:56] You are using Paddle compiled with TensorRT, but TensorRT dynamic library is not found. Ignore this if TensorRT is not needed.
+The TensorRT that Paddle depends on is not configured correctly.
+  Suggestions:
+  1. Check if the TensorRT is installed correctly and its version is matched with paddlepaddle you installed.
+  2. Configure environment variables as follows:
+  - Linux: set LD_LIBRARY_PATH by `export LD_LIBRARY_PATH=...`
+  - Windows: set PATH by `set PATH=XXX;%PATH%`
+  - Mac: set  DYLD_LIBRARY_PATH by `export DYLD_LIBRARY_PATH=...`
+  0%|          | 0/851 [00:00<?, ?it/s]100%|██████████| 851/851 [00:00<00:00, 33163.48it/s]
+[32m[2022-04-24 12:12:58,384] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-health-chinese/ernie-health-chinese.pdparams[0m
+W0424 12:12:58.386118 22422 gpu_context.cc:278] Please NOTE: device: 0, GPU Compute Capability: 7.0, Driver API Version: 11.2, Runtime API Version: 11.2
+W0424 12:12:58.389572 22422 gpu_context.cc:306] device: 0, cuDNN Version: 8.1.
+[32m[2022-04-24 12:13:03,334] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-health-chinese/vocab.txt[0m
+global step 10, epoch: 1, batch: 10, loss: 1.38670, accuracy: 0.22187, speed: 111.78 step/s
+global step 20, epoch: 1, batch: 20, loss: 1.26236, accuracy: 0.28437, speed: 107.84 step/s
+global step 30, epoch: 1, batch: 30, loss: 1.38676, accuracy: 0.32188, speed: 117.51 step/s
+global step 40, epoch: 1, batch: 40, loss: 1.31080, accuracy: 0.35703, speed: 108.61 step/s
+global step 50, epoch: 1, batch: 50, loss: 1.20048, accuracy: 0.37000, speed: 120.50 step/s
+global step 60, epoch: 1, batch: 60, loss: 1.11001, accuracy: 0.38906, speed: 117.90 step/s
+global step 70, epoch: 1, batch: 70, loss: 1.14842, accuracy: 0.40179, speed: 106.28 step/s
+global step 80, epoch: 1, batch: 80, loss: 1.16324, accuracy: 0.40859, speed: 110.84 step/s
+global step 90, epoch: 1, batch: 90, loss: 1.32632, accuracy: 0.41528, speed: 111.79 step/s
+global step 100, epoch: 1, batch: 100, loss: 1.06203, accuracy: 0.41469, speed: 112.60 step/s
+eval loss: 1.26123, accuracy: 0.46619
+global step 110, epoch: 1, batch: 110, loss: 1.13245, accuracy: 0.43125, speed: 97.69 step/s
+global step 120, epoch: 1, batch: 120, loss: 1.26009, accuracy: 0.47656, speed: 111.22 step/s
+global step 130, epoch: 1, batch: 130, loss: 1.18742, accuracy: 0.47604, speed: 102.63 step/s
+global step 140, epoch: 1, batch: 140, loss: 1.25643, accuracy: 0.48047, speed: 115.75 step/s
+global step 150, epoch: 1, batch: 150, loss: 1.08865, accuracy: 0.48750, speed: 113.42 step/s
+global step 160, epoch: 1, batch: 160, loss: 1.05128, accuracy: 0.49219, speed: 113.79 step/s
+global step 170, epoch: 1, batch: 170, loss: 1.08499, accuracy: 0.49866, speed: 113.83 step/s
+global step 180, epoch: 1, batch: 180, loss: 1.08531, accuracy: 0.50156, speed: 98.00 step/s
+global step 190, epoch: 1, batch: 190, loss: 1.29346, accuracy: 0.50313, speed: 102.43 step/s
+global step 200, epoch: 1, batch: 200, loss: 1.08749, accuracy: 0.50375, speed: 100.52 step/s
+eval loss: 1.18170, accuracy: 0.51596
+global step 210, epoch: 1, batch: 210, loss: 1.10718, accuracy: 0.50938, speed: 96.43 step/s
+global step 220, epoch: 1, batch: 220, loss: 1.30252, accuracy: 0.50000, speed: 109.05 step/s
+global step 230, epoch: 1, batch: 230, loss: 0.97048, accuracy: 0.48750, speed: 105.43 step/s
+global step 240, epoch: 1, batch: 240, loss: 1.08816, accuracy: 0.49609, speed: 106.14 step/s
+global step 250, epoch: 1, batch: 250, loss: 1.15967, accuracy: 0.49125, speed: 114.26 step/s
+global step 260, epoch: 1, batch: 260, loss: 1.10699, accuracy: 0.49115, speed: 113.30 step/s
+global step 270, epoch: 1, batch: 270, loss: 1.09482, accuracy: 0.49018, speed: 102.86 step/s
+global step 280, epoch: 1, batch: 280, loss: 0.99339, accuracy: 0.49258, speed: 97.43 step/s
+global step 290, epoch: 1, batch: 290, loss: 1.03995, accuracy: 0.48681, speed: 109.81 step/s
+global step 300, epoch: 1, batch: 300, loss: 1.16151, accuracy: 0.49125, speed: 104.10 step/s
+eval loss: 1.09412, accuracy: 0.53175
+global step 310, epoch: 1, batch: 310, loss: 1.05647, accuracy: 0.53125, speed: 114.87 step/s
+global step 320, epoch: 1, batch: 320, loss: 1.18722, accuracy: 0.53438, speed: 98.49 step/s
+global step 330, epoch: 1, batch: 330, loss: 1.00184, accuracy: 0.53542, speed: 111.23 step/s
+global step 340, epoch: 1, batch: 340, loss: 1.26608, accuracy: 0.53906, speed: 93.14 step/s
+global step 350, epoch: 1, batch: 350, loss: 1.17471, accuracy: 0.53312, speed: 96.39 step/s
+global step 360, epoch: 1, batch: 360, loss: 0.89443, accuracy: 0.53281, speed: 89.12 step/s
+global step 370, epoch: 1, batch: 370, loss: 1.09352, accuracy: 0.53304, speed: 105.93 step/s
+global step 380, epoch: 1, batch: 380, loss: 0.91150, accuracy: 0.52852, speed: 107.25 step/s
+global step 390, epoch: 1, batch: 390, loss: 1.14305, accuracy: 0.52465, speed: 93.17 step/s
+global step 400, epoch: 1, batch: 400, loss: 1.01981, accuracy: 0.52656, speed: 105.24 step/s
+eval loss: 1.05905, accuracy: 0.55201
+global step 410, epoch: 1, batch: 410, loss: 1.02755, accuracy: 0.55312, speed: 94.47 step/s
+global step 420, epoch: 1, batch: 420, loss: 0.84142, accuracy: 0.54844, speed: 105.22 step/s
+global step 430, epoch: 1, batch: 430, loss: 1.01347, accuracy: 0.53438, speed: 88.86 step/s
+global step 440, epoch: 1, batch: 440, loss: 1.10741, accuracy: 0.54375, speed: 107.31 step/s
+global step 450, epoch: 1, batch: 450, loss: 1.15802, accuracy: 0.54438, speed: 103.31 step/s
+global step 460, epoch: 1, batch: 460, loss: 1.05900, accuracy: 0.54063, speed: 99.07 step/s
+global step 470, epoch: 1, batch: 470, loss: 1.04169, accuracy: 0.53929, speed: 103.06 step/s
+global step 480, epoch: 1, batch: 480, loss: 0.91789, accuracy: 0.54180, speed: 98.17 step/s
+global step 490, epoch: 1, batch: 490, loss: 0.90536, accuracy: 0.54479, speed: 104.29 step/s
+global step 500, epoch: 1, batch: 500, loss: 1.01496, accuracy: 0.54563, speed: 97.71 step/s
+eval loss: 1.05664, accuracy: 0.54411
+global step 510, epoch: 1, batch: 510, loss: 0.88271, accuracy: 0.59062, speed: 94.38 step/s
+global step 520, epoch: 1, batch: 520, loss: 0.90869, accuracy: 0.58437, speed: 108.25 step/s
+global step 530, epoch: 1, batch: 530, loss: 0.87068, accuracy: 0.58750, speed: 92.99 step/s
+global step 540, epoch: 1, batch: 540, loss: 0.96567, accuracy: 0.57969, speed: 107.26 step/s
+global step 550, epoch: 1, batch: 550, loss: 1.07735, accuracy: 0.57000, speed: 104.82 step/s
+global step 560, epoch: 1, batch: 560, loss: 0.95917, accuracy: 0.56458, speed: 103.00 step/s
+global step 570, epoch: 1, batch: 570, loss: 1.11551, accuracy: 0.55982, speed: 103.17 step/s
+global step 580, epoch: 1, batch: 580, loss: 1.10933, accuracy: 0.55781, speed: 92.98 step/s
+global step 590, epoch: 1, batch: 590, loss: 1.04751, accuracy: 0.55833, speed: 100.03 step/s
+global step 600, epoch: 1, batch: 600, loss: 0.91960, accuracy: 0.55781, speed: 102.89 step/s
+eval loss: 0.98647, accuracy: 0.56196
+global step 610, epoch: 1, batch: 610, loss: 0.94903, accuracy: 0.53438, speed: 107.16 step/s
+global step 620, epoch: 1, batch: 620, loss: 1.07957, accuracy: 0.55937, speed: 110.03 step/s
+global step 630, epoch: 1, batch: 630, loss: 1.12757, accuracy: 0.55312, speed: 88.86 step/s
+global step 640, epoch: 1, batch: 640, loss: 0.82585, accuracy: 0.56406, speed: 91.68 step/s
+global step 650, epoch: 1, batch: 650, loss: 0.89872, accuracy: 0.56250, speed: 104.33 step/s
+global step 660, epoch: 1, batch: 660, loss: 0.89938, accuracy: 0.56563, speed: 102.19 step/s
+global step 670, epoch: 1, batch: 670, loss: 0.82791, accuracy: 0.56339, speed: 91.95 step/s
+global step 680, epoch: 1, batch: 680, loss: 1.10209, accuracy: 0.56328, speed: 110.81 step/s
+global step 690, epoch: 1, batch: 690, loss: 0.89707, accuracy: 0.56493, speed: 91.54 step/s
+global step 700, epoch: 1, batch: 700, loss: 0.96353, accuracy: 0.56469, speed: 94.64 step/s
+eval loss: 0.99350, accuracy: 0.55613
+global step 710, epoch: 1, batch: 710, loss: 1.16552, accuracy: 0.56250, speed: 105.89 step/s
+global step 720, epoch: 1, batch: 720, loss: 1.14025, accuracy: 0.55937, speed: 94.96 step/s
+global step 730, epoch: 1, batch: 730, loss: 0.83369, accuracy: 0.57708, speed: 90.70 step/s
+global step 740, epoch: 1, batch: 740, loss: 0.89825, accuracy: 0.58437, speed: 90.94 step/s
+global step 750, epoch: 1, batch: 750, loss: 1.19402, accuracy: 0.58562, speed: 97.78 step/s
+global step 760, epoch: 2, batch: 4, loss: 0.90158, accuracy: 0.58517, speed: 91.60 step/s
+global step 770, epoch: 2, batch: 14, loss: 1.02871, accuracy: 0.57966, speed: 96.49 step/s
+global step 780, epoch: 2, batch: 24, loss: 0.73220, accuracy: 0.58733, speed: 89.19 step/s
+global step 790, epoch: 2, batch: 34, loss: 0.93975, accuracy: 0.59609, speed: 103.88 step/s
+global step 800, epoch: 2, batch: 44, loss: 0.85687, accuracy: 0.59459, speed: 91.67 step/s
+eval loss: 1.04046, accuracy: 0.56986
+global step 810, epoch: 2, batch: 54, loss: 1.07686, accuracy: 0.61875, speed: 95.90 step/s
+global step 820, epoch: 2, batch: 64, loss: 0.92291, accuracy: 0.61719, speed: 94.47 step/s
+global step 830, epoch: 2, batch: 74, loss: 0.93663, accuracy: 0.62813, speed: 102.04 step/s
+global step 840, epoch: 2, batch: 84, loss: 0.78909, accuracy: 0.63984, speed: 102.19 step/s
+global step 850, epoch: 2, batch: 94, loss: 0.74128, accuracy: 0.63813, speed: 106.96 step/s
+global step 860, epoch: 2, batch: 104, loss: 0.76195, accuracy: 0.63698, speed: 103.75 step/s
+global step 870, epoch: 2, batch: 114, loss: 0.97385, accuracy: 0.62902, speed: 99.09 step/s
+global step 880, epoch: 2, batch: 124, loss: 0.88411, accuracy: 0.62578, speed: 93.39 step/s
+global step 890, epoch: 2, batch: 134, loss: 0.66665, accuracy: 0.62847, speed: 104.99 step/s
+global step 900, epoch: 2, batch: 144, loss: 1.07455, accuracy: 0.62781, speed: 103.69 step/s
+eval loss: 0.94968, accuracy: 0.59732
+global step 910, epoch: 2, batch: 154, loss: 0.63009, accuracy: 0.66875, speed: 100.04 step/s
+global step 920, epoch: 2, batch: 164, loss: 1.00577, accuracy: 0.64687, speed: 103.74 step/s
+global step 930, epoch: 2, batch: 174, loss: 0.87004, accuracy: 0.62708, speed: 104.07 step/s
+global step 940, epoch: 2, batch: 184, loss: 0.81826, accuracy: 0.63047, speed: 107.22 step/s
+global step 950, epoch: 2, batch: 194, loss: 0.80181, accuracy: 0.63500, speed: 104.70 step/s
+global step 960, epoch: 2, batch: 204, loss: 1.01579, accuracy: 0.62500, speed: 91.00 step/s
+global step 970, epoch: 2, batch: 214, loss: 0.63332, accuracy: 0.62634, speed: 90.79 step/s
+global step 980, epoch: 2, batch: 224, loss: 0.85120, accuracy: 0.62734, speed: 102.21 step/s
+global step 990, epoch: 2, batch: 234, loss: 1.06643, accuracy: 0.62778, speed: 96.94 step/s
+global step 1000, epoch: 2, batch: 244, loss: 0.86836, accuracy: 0.62906, speed: 92.78 step/s
+eval loss: 0.90939, accuracy: 0.60384
+global step 1010, epoch: 2, batch: 254, loss: 0.87238, accuracy: 0.68750, speed: 106.30 step/s
+global step 1020, epoch: 2, batch: 264, loss: 0.94871, accuracy: 0.67812, speed: 100.13 step/s
+global step 1030, epoch: 2, batch: 274, loss: 0.71495, accuracy: 0.66250, speed: 97.18 step/s
+global step 1040, epoch: 2, batch: 284, loss: 0.92368, accuracy: 0.65000, speed: 95.56 step/s
+global step 1050, epoch: 2, batch: 294, loss: 0.94343, accuracy: 0.64875, speed: 116.06 step/s
+global step 1060, epoch: 2, batch: 304, loss: 0.86385, accuracy: 0.63438, speed: 110.70 step/s
+global step 1070, epoch: 2, batch: 314, loss: 0.95480, accuracy: 0.62634, speed: 93.56 step/s
+global step 1080, epoch: 2, batch: 324, loss: 0.75680, accuracy: 0.63047, speed: 114.15 step/s
+global step 1090, epoch: 2, batch: 334, loss: 0.70495, accuracy: 0.63507, speed: 92.11 step/s
+global step 1100, epoch: 2, batch: 344, loss: 0.73868, accuracy: 0.63656, speed: 118.26 step/s
+eval loss: 0.95127, accuracy: 0.59629
+global step 1110, epoch: 2, batch: 354, loss: 0.87376, accuracy: 0.65938, speed: 114.56 step/s
+global step 1120, epoch: 2, batch: 364, loss: 0.80869, accuracy: 0.65625, speed: 107.34 step/s
+global step 1130, epoch: 2, batch: 374, loss: 0.94893, accuracy: 0.63125, speed: 109.92 step/s
+global step 1140, epoch: 2, batch: 384, loss: 0.72229, accuracy: 0.63906, speed: 96.18 step/s
+global step 1150, epoch: 2, batch: 394, loss: 0.81204, accuracy: 0.62875, speed: 115.59 step/s
+global step 1160, epoch: 2, batch: 404, loss: 0.96578, accuracy: 0.63177, speed: 117.59 step/s
+global step 1170, epoch: 2, batch: 414, loss: 0.57507, accuracy: 0.62411, speed: 99.67 step/s
+global step 1180, epoch: 2, batch: 424, loss: 0.60818, accuracy: 0.63125, speed: 102.44 step/s
+global step 1190, epoch: 2, batch: 434, loss: 0.88649, accuracy: 0.62465, speed: 116.08 step/s
+global step 1200, epoch: 2, batch: 444, loss: 0.98124, accuracy: 0.62500, speed: 110.53 step/s
+eval loss: 0.92267, accuracy: 0.61037
+global step 1210, epoch: 2, batch: 454, loss: 0.79087, accuracy: 0.63750, speed: 112.35 step/s
+global step 1220, epoch: 2, batch: 464, loss: 1.04185, accuracy: 0.62500, speed: 123.73 step/s
+global step 1230, epoch: 2, batch: 474, loss: 0.90904, accuracy: 0.62396, speed: 96.11 step/s
+global step 1240, epoch: 2, batch: 484, loss: 0.91538, accuracy: 0.62031, speed: 110.47 step/s
+global step 1250, epoch: 2, batch: 494, loss: 0.94096, accuracy: 0.63250, speed: 97.16 step/s
+global step 1260, epoch: 2, batch: 504, loss: 0.94135, accuracy: 0.63021, speed: 113.10 step/s
+global step 1270, epoch: 2, batch: 514, loss: 0.80263, accuracy: 0.63348, speed: 108.16 step/s
+global step 1280, epoch: 2, batch: 524, loss: 0.77806, accuracy: 0.63477, speed: 124.34 step/s
+global step 1290, epoch: 2, batch: 534, loss: 0.83414, accuracy: 0.63646, speed: 112.11 step/s
+global step 1300, epoch: 2, batch: 544, loss: 0.92908, accuracy: 0.63719, speed: 101.60 step/s
+eval loss: 0.93142, accuracy: 0.61586
+global step 1310, epoch: 2, batch: 554, loss: 0.73730, accuracy: 0.65000, speed: 110.20 step/s
+global step 1320, epoch: 2, batch: 564, loss: 0.62875, accuracy: 0.66094, speed: 111.16 step/s
+global step 1330, epoch: 2, batch: 574, loss: 0.71635, accuracy: 0.67396, speed: 100.17 step/s
+global step 1340, epoch: 2, batch: 584, loss: 0.78945, accuracy: 0.65781, speed: 114.04 step/s
+global step 1350, epoch: 2, batch: 594, loss: 0.68995, accuracy: 0.64938, speed: 116.00 step/s
+global step 1360, epoch: 2, batch: 604, loss: 0.96990, accuracy: 0.65417, speed: 98.54 step/s
+global step 1370, epoch: 2, batch: 614, loss: 0.77148, accuracy: 0.65714, speed: 108.29 step/s
+global step 1380, epoch: 2, batch: 624, loss: 0.59204, accuracy: 0.65859, speed: 98.49 step/s
+global step 1390, epoch: 2, batch: 634, loss: 0.71723, accuracy: 0.65729, speed: 108.95 step/s
+global step 1400, epoch: 2, batch: 644, loss: 0.96677, accuracy: 0.65781, speed: 111.49 step/s
+eval loss: 0.92885, accuracy: 0.61483
+global step 1410, epoch: 2, batch: 654, loss: 0.68461, accuracy: 0.65625, speed: 112.78 step/s
+global step 1420, epoch: 2, batch: 664, loss: 0.94869, accuracy: 0.66563, speed: 105.32 step/s
+global step 1430, epoch: 2, batch: 674, loss: 0.71291, accuracy: 0.65833, speed: 116.84 step/s
+global step 1440, epoch: 2, batch: 684, loss: 0.83503, accuracy: 0.65156, speed: 112.71 step/s
+global step 1450, epoch: 2, batch: 694, loss: 0.72160, accuracy: 0.63375, speed: 120.71 step/s
+global step 1460, epoch: 2, batch: 704, loss: 0.73136, accuracy: 0.64219, speed: 102.95 step/s
+global step 1470, epoch: 2, batch: 714, loss: 0.85596, accuracy: 0.64687, speed: 95.13 step/s
+global step 1480, epoch: 2, batch: 724, loss: 0.74863, accuracy: 0.64609, speed: 118.38 step/s
+global step 1490, epoch: 2, batch: 734, loss: 0.51439, accuracy: 0.64583, speed: 108.96 step/s
+global step 1500, epoch: 2, batch: 744, loss: 0.67088, accuracy: 0.64875, speed: 114.14 step/s
+eval loss: 0.90697, accuracy: 0.61826
+global step 1510, epoch: 2, batch: 754, loss: 0.71506, accuracy: 0.69063, speed: 113.86 step/s
+global step 1520, epoch: 3, batch: 8, loss: 0.61054, accuracy: 0.68006, speed: 112.75 step/s
+global step 1530, epoch: 3, batch: 18, loss: 0.58775, accuracy: 0.69108, speed: 99.27 step/s
+global step 1540, epoch: 3, batch: 28, loss: 1.06364, accuracy: 0.69889, speed: 110.40 step/s
+global step 1550, epoch: 3, batch: 38, loss: 0.66786, accuracy: 0.70733, speed: 114.70 step/s
+global step 1560, epoch: 3, batch: 48, loss: 0.52801, accuracy: 0.71609, speed: 115.14 step/s
+global step 1570, epoch: 3, batch: 58, loss: 1.17457, accuracy: 0.71107, speed: 91.15 step/s
+global step 1580, epoch: 3, batch: 68, loss: 0.95911, accuracy: 0.70850, speed: 99.33 step/s
+global step 1590, epoch: 3, batch: 78, loss: 0.50936, accuracy: 0.71593, speed: 114.21 step/s
+global step 1600, epoch: 3, batch: 88, loss: 0.51225, accuracy: 0.71967, speed: 107.98 step/s
+eval loss: 0.93941, accuracy: 0.63474
+global step 1610, epoch: 3, batch: 98, loss: 0.74774, accuracy: 0.73438, speed: 107.59 step/s
+global step 1620, epoch: 3, batch: 108, loss: 0.59751, accuracy: 0.74062, speed: 96.57 step/s
+global step 1630, epoch: 3, batch: 118, loss: 1.00171, accuracy: 0.72083, speed: 102.07 step/s
+global step 1640, epoch: 3, batch: 128, loss: 0.66124, accuracy: 0.72734, speed: 103.97 step/s
+global step 1650, epoch: 3, batch: 138, loss: 0.75275, accuracy: 0.71813, speed: 99.67 step/s
+global step 1660, epoch: 3, batch: 148, loss: 0.93090, accuracy: 0.71146, speed: 102.75 step/s
+global step 1670, epoch: 3, batch: 158, loss: 0.64993, accuracy: 0.71250, speed: 108.57 step/s
+global step 1680, epoch: 3, batch: 168, loss: 0.69166, accuracy: 0.70781, speed: 113.80 step/s
+global step 1690, epoch: 3, batch: 178, loss: 0.55985, accuracy: 0.70937, speed: 97.42 step/s
+global step 1700, epoch: 3, batch: 188, loss: 0.64502, accuracy: 0.70937, speed: 113.08 step/s
+eval loss: 1.01311, accuracy: 0.59183
+global step 1710, epoch: 3, batch: 198, loss: 0.58705, accuracy: 0.68125, speed: 106.87 step/s
+global step 1720, epoch: 3, batch: 208, loss: 0.68218, accuracy: 0.70781, speed: 118.27 step/s
+global step 1730, epoch: 3, batch: 218, loss: 0.71640, accuracy: 0.70521, speed: 100.46 step/s
+global step 1740, epoch: 3, batch: 228, loss: 0.71329, accuracy: 0.71016, speed: 98.88 step/s
+global step 1750, epoch: 3, batch: 238, loss: 0.56718, accuracy: 0.71188, speed: 108.71 step/s
+global step 1760, epoch: 3, batch: 248, loss: 1.04172, accuracy: 0.71510, speed: 112.54 step/s
+global step 1770, epoch: 3, batch: 258, loss: 0.57602, accuracy: 0.72054, speed: 103.04 step/s
+global step 1780, epoch: 3, batch: 268, loss: 0.74164, accuracy: 0.71602, speed: 113.64 step/s
+global step 1790, epoch: 3, batch: 278, loss: 0.55452, accuracy: 0.71840, speed: 117.55 step/s
+global step 1800, epoch: 3, batch: 288, loss: 0.65109, accuracy: 0.71406, speed: 114.88 step/s
+eval loss: 0.93898, accuracy: 0.63302
+global step 1810, epoch: 3, batch: 298, loss: 0.63020, accuracy: 0.75313, speed: 115.95 step/s
+global step 1820, epoch: 3, batch: 308, loss: 0.67304, accuracy: 0.72188, speed: 114.16 step/s
+global step 1830, epoch: 3, batch: 318, loss: 0.43281, accuracy: 0.71875, speed: 98.59 step/s
+global step 1840, epoch: 3, batch: 328, loss: 0.62190, accuracy: 0.71797, speed: 108.62 step/s
+global step 1850, epoch: 3, batch: 338, loss: 0.59911, accuracy: 0.71750, speed: 117.57 step/s
+global step 1860, epoch: 3, batch: 348, loss: 0.86967, accuracy: 0.71771, speed: 97.95 step/s
+global step 1870, epoch: 3, batch: 358, loss: 0.85186, accuracy: 0.71652, speed: 98.47 step/s
+global step 1880, epoch: 3, batch: 368, loss: 0.67760, accuracy: 0.72227, speed: 108.96 step/s
+global step 1890, epoch: 3, batch: 378, loss: 0.52722, accuracy: 0.72014, speed: 110.76 step/s
+global step 1900, epoch: 3, batch: 388, loss: 0.78309, accuracy: 0.72000, speed: 118.31 step/s
+eval loss: 0.95085, accuracy: 0.62959
+global step 1910, epoch: 3, batch: 398, loss: 0.44650, accuracy: 0.78438, speed: 104.41 step/s
+global step 1920, epoch: 3, batch: 408, loss: 0.59020, accuracy: 0.76406, speed: 111.22 step/s
+global step 1930, epoch: 3, batch: 418, loss: 0.49385, accuracy: 0.74062, speed: 125.50 step/s
+global step 1940, epoch: 3, batch: 428, loss: 0.66791, accuracy: 0.73281, speed: 117.80 step/s
+global step 1950, epoch: 3, batch: 438, loss: 0.56346, accuracy: 0.74313, speed: 98.53 step/s
+global step 1960, epoch: 3, batch: 448, loss: 0.56722, accuracy: 0.74219, speed: 103.87 step/s
+global step 1970, epoch: 3, batch: 458, loss: 0.64923, accuracy: 0.73795, speed: 121.19 step/s
+global step 1980, epoch: 3, batch: 468, loss: 0.60720, accuracy: 0.74141, speed: 106.07 step/s
+global step 1990, epoch: 3, batch: 478, loss: 0.66170, accuracy: 0.73854, speed: 100.94 step/s
+global step 2000, epoch: 3, batch: 488, loss: 0.54051, accuracy: 0.74187, speed: 109.51 step/s
+eval loss: 0.93747, accuracy: 0.62788
+global step 2010, epoch: 3, batch: 498, loss: 0.45389, accuracy: 0.74687, speed: 124.68 step/s
+global step 2020, epoch: 3, batch: 508, loss: 0.41030, accuracy: 0.74687, speed: 109.90 step/s
+global step 2030, epoch: 3, batch: 518, loss: 0.64317, accuracy: 0.73750, speed: 110.31 step/s
+global step 2040, epoch: 3, batch: 528, loss: 1.02531, accuracy: 0.73516, speed: 105.24 step/s
+global step 2050, epoch: 3, batch: 538, loss: 0.75249, accuracy: 0.72000, speed: 98.05 step/s
+global step 2060, epoch: 3, batch: 548, loss: 0.75498, accuracy: 0.71927, speed: 115.22 step/s
+global step 2070, epoch: 3, batch: 558, loss: 0.86182, accuracy: 0.72411, speed: 115.80 step/s
+global step 2080, epoch: 3, batch: 568, loss: 0.48629, accuracy: 0.72305, speed: 100.85 step/s
+global step 2090, epoch: 3, batch: 578, loss: 0.39043, accuracy: 0.72847, speed: 96.03 step/s
+global step 2100, epoch: 3, batch: 588, loss: 0.68987, accuracy: 0.72844, speed: 99.03 step/s
+eval loss: 0.97430, accuracy: 0.63577
+global step 2110, epoch: 3, batch: 598, loss: 0.69931, accuracy: 0.72500, speed: 105.73 step/s
+global step 2120, epoch: 3, batch: 608, loss: 0.52991, accuracy: 0.71406, speed: 116.09 step/s
+global step 2130, epoch: 3, batch: 618, loss: 0.60845, accuracy: 0.71146, speed: 101.62 step/s
+global step 2140, epoch: 3, batch: 628, loss: 0.72112, accuracy: 0.71094, speed: 103.01 step/s
+global step 2150, epoch: 3, batch: 638, loss: 0.65992, accuracy: 0.71313, speed: 115.64 step/s
+global step 2160, epoch: 3, batch: 648, loss: 0.69329, accuracy: 0.71354, speed: 112.19 step/s
+global step 2170, epoch: 3, batch: 658, loss: 0.48674, accuracy: 0.71652, speed: 102.64 step/s
+global step 2180, epoch: 3, batch: 668, loss: 0.83811, accuracy: 0.72227, speed: 101.24 step/s
+global step 2190, epoch: 3, batch: 678, loss: 0.65258, accuracy: 0.72326, speed: 110.62 step/s
+global step 2200, epoch: 3, batch: 688, loss: 0.88191, accuracy: 0.72688, speed: 101.42 step/s
+eval loss: 0.91065, accuracy: 0.64641
+global step 2210, epoch: 3, batch: 698, loss: 0.75263, accuracy: 0.75625, speed: 118.76 step/s
+global step 2220, epoch: 3, batch: 708, loss: 0.70824, accuracy: 0.74375, speed: 120.14 step/s
+global step 2230, epoch: 3, batch: 718, loss: 0.47533, accuracy: 0.75521, speed: 120.54 step/s
+global step 2240, epoch: 3, batch: 728, loss: 0.60684, accuracy: 0.74453, speed: 110.99 step/s
+global step 2250, epoch: 3, batch: 738, loss: 0.50137, accuracy: 0.74562, speed: 116.18 step/s
+global step 2260, epoch: 3, batch: 748, loss: 0.66105, accuracy: 0.74635, speed: 108.97 step/s
+global step 2270, epoch: 4, batch: 2, loss: 0.53014, accuracy: 0.74617, speed: 111.70 step/s
+global step 2280, epoch: 4, batch: 12, loss: 0.50887, accuracy: 0.74980, speed: 109.68 step/s
+global step 2290, epoch: 4, batch: 22, loss: 0.26572, accuracy: 0.76031, speed: 109.22 step/s
+global step 2300, epoch: 4, batch: 32, loss: 0.29196, accuracy: 0.76461, speed: 110.17 step/s
+eval loss: 1.01212, accuracy: 0.63371
+global step 2310, epoch: 4, batch: 42, loss: 0.52620, accuracy: 0.80937, speed: 109.39 step/s
+global step 2320, epoch: 4, batch: 52, loss: 0.50754, accuracy: 0.81875, speed: 110.86 step/s
+global step 2330, epoch: 4, batch: 62, loss: 0.46690, accuracy: 0.81667, speed: 114.88 step/s
+global step 2340, epoch: 4, batch: 72, loss: 0.38822, accuracy: 0.81016, speed: 107.23 step/s
+global step 2350, epoch: 4, batch: 82, loss: 0.38932, accuracy: 0.81625, speed: 91.76 step/s
+global step 2360, epoch: 4, batch: 92, loss: 0.64634, accuracy: 0.81719, speed: 122.96 step/s
+global step 2370, epoch: 4, batch: 102, loss: 0.72928, accuracy: 0.81295, speed: 111.23 step/s
+global step 2380, epoch: 4, batch: 112, loss: 0.39384, accuracy: 0.81172, speed: 112.12 step/s
+global step 2390, epoch: 4, batch: 122, loss: 0.50313, accuracy: 0.81493, speed: 99.25 step/s
+global step 2400, epoch: 4, batch: 132, loss: 0.60164, accuracy: 0.81312, speed: 111.37 step/s
+eval loss: 0.98338, accuracy: 0.64264
+global step 2410, epoch: 4, batch: 142, loss: 0.57012, accuracy: 0.81250, speed: 100.00 step/s
+global step 2420, epoch: 4, batch: 152, loss: 0.32321, accuracy: 0.81094, speed: 101.29 step/s
+global step 2430, epoch: 4, batch: 162, loss: 0.81394, accuracy: 0.80417, speed: 95.28 step/s
+global step 2440, epoch: 4, batch: 172, loss: 0.43909, accuracy: 0.80547, speed: 114.89 step/s
+global step 2450, epoch: 4, batch: 182, loss: 0.43189, accuracy: 0.80937, speed: 118.04 step/s
+global step 2460, epoch: 4, batch: 192, loss: 0.34828, accuracy: 0.81198, speed: 94.68 step/s
+global step 2470, epoch: 4, batch: 202, loss: 0.43276, accuracy: 0.81205, speed: 101.14 step/s
+global step 2480, epoch: 4, batch: 212, loss: 0.34088, accuracy: 0.81172, speed: 102.95 step/s
+global step 2490, epoch: 4, batch: 222, loss: 0.50547, accuracy: 0.81042, speed: 109.60 step/s
+global step 2500, epoch: 4, batch: 232, loss: 0.70699, accuracy: 0.80906, speed: 97.78 step/s
+eval loss: 1.00907, accuracy: 0.64229
+global step 2510, epoch: 4, batch: 242, loss: 0.38756, accuracy: 0.81563, speed: 101.55 step/s
+global step 2520, epoch: 4, batch: 252, loss: 0.47469, accuracy: 0.79219, speed: 98.18 step/s
+global step 2530, epoch: 4, batch: 262, loss: 0.51895, accuracy: 0.79896, speed: 108.23 step/s
+global step 2540, epoch: 4, batch: 272, loss: 0.27721, accuracy: 0.81641, speed: 111.69 step/s
+global step 2550, epoch: 4, batch: 282, loss: 0.51418, accuracy: 0.82812, speed: 113.92 step/s
+global step 2560, epoch: 4, batch: 292, loss: 0.34854, accuracy: 0.83125, speed: 109.79 step/s
+global step 2570, epoch: 4, batch: 302, loss: 0.42762, accuracy: 0.82589, speed: 105.21 step/s
+global step 2580, epoch: 4, batch: 312, loss: 0.66588, accuracy: 0.82852, speed: 121.80 step/s
+global step 2590, epoch: 4, batch: 322, loss: 0.45859, accuracy: 0.82778, speed: 108.02 step/s
+global step 2600, epoch: 4, batch: 332, loss: 0.46282, accuracy: 0.82500, speed: 106.55 step/s
+eval loss: 1.01857, accuracy: 0.64092
+global step 2610, epoch: 4, batch: 342, loss: 0.38543, accuracy: 0.80312, speed: 93.05 step/s
+global step 2620, epoch: 4, batch: 352, loss: 0.39685, accuracy: 0.80000, speed: 99.58 step/s
+global step 2630, epoch: 4, batch: 362, loss: 0.46655, accuracy: 0.81042, speed: 108.78 step/s
+global step 2640, epoch: 4, batch: 372, loss: 0.25277, accuracy: 0.81641, speed: 125.14 step/s
+global step 2650, epoch: 4, batch: 382, loss: 0.37409, accuracy: 0.82063, speed: 96.52 step/s
+global step 2660, epoch: 4, batch: 392, loss: 0.64737, accuracy: 0.81667, speed: 107.88 step/s
+global step 2670, epoch: 4, batch: 402, loss: 0.45569, accuracy: 0.81607, speed: 94.27 step/s
+global step 2680, epoch: 4, batch: 412, loss: 0.44923, accuracy: 0.81797, speed: 100.31 step/s
+global step 2690, epoch: 4, batch: 422, loss: 0.38369, accuracy: 0.82326, speed: 109.91 step/s
+global step 2700, epoch: 4, batch: 432, loss: 0.37794, accuracy: 0.82500, speed: 99.07 step/s
+eval loss: 1.04346, accuracy: 0.64435
+global step 2710, epoch: 4, batch: 442, loss: 0.29800, accuracy: 0.82500, speed: 110.49 step/s
+global step 2720, epoch: 4, batch: 452, loss: 0.53033, accuracy: 0.85625, speed: 95.27 step/s
+global step 2730, epoch: 4, batch: 462, loss: 0.32649, accuracy: 0.83854, speed: 100.64 step/s
+global step 2740, epoch: 4, batch: 472, loss: 0.45396, accuracy: 0.82734, speed: 101.06 step/s
+global step 2750, epoch: 4, batch: 482, loss: 0.87729, accuracy: 0.82125, speed: 99.24 step/s
+global step 2760, epoch: 4, batch: 492, loss: 0.60781, accuracy: 0.82135, speed: 103.07 step/s
+global step 2770, epoch: 4, batch: 502, loss: 0.40531, accuracy: 0.82232, speed: 115.21 step/s
+global step 2780, epoch: 4, batch: 512, loss: 0.56617, accuracy: 0.82188, speed: 109.42 step/s
+global step 2790, epoch: 4, batch: 522, loss: 0.53625, accuracy: 0.82535, speed: 123.63 step/s
+global step 2800, epoch: 4, batch: 532, loss: 0.59418, accuracy: 0.82375, speed: 112.23 step/s
+eval loss: 1.00475, accuracy: 0.65362
+global step 2810, epoch: 4, batch: 542, loss: 0.33820, accuracy: 0.82500, speed: 101.15 step/s
+global step 2820, epoch: 4, batch: 552, loss: 0.39125, accuracy: 0.81563, speed: 93.60 step/s
+global step 2830, epoch: 4, batch: 562, loss: 0.31779, accuracy: 0.82812, speed: 124.41 step/s
+global step 2840, epoch: 4, batch: 572, loss: 0.51869, accuracy: 0.82578, speed: 109.58 step/s
+global step 2850, epoch: 4, batch: 582, loss: 0.36308, accuracy: 0.82250, speed: 104.65 step/s
+global step 2860, epoch: 4, batch: 592, loss: 0.26187, accuracy: 0.83021, speed: 94.96 step/s
+global step 2870, epoch: 4, batch: 602, loss: 0.39641, accuracy: 0.83437, speed: 115.94 step/s
+global step 2880, epoch: 4, batch: 612, loss: 0.35751, accuracy: 0.82891, speed: 102.76 step/s
+global step 2890, epoch: 4, batch: 622, loss: 0.69079, accuracy: 0.82604, speed: 104.54 step/s
+global step 2900, epoch: 4, batch: 632, loss: 0.37139, accuracy: 0.82969, speed: 98.90 step/s
+eval loss: 1.01707, accuracy: 0.64847
+global step 2910, epoch: 4, batch: 642, loss: 0.51734, accuracy: 0.82812, speed: 106.50 step/s
+global step 2920, epoch: 4, batch: 652, loss: 0.48310, accuracy: 0.82188, speed: 95.72 step/s
+global step 2930, epoch: 4, batch: 662, loss: 0.38810, accuracy: 0.82083, speed: 105.12 step/s
+global step 2940, epoch: 4, batch: 672, loss: 0.62456, accuracy: 0.82188, speed: 110.05 step/s
+global step 2950, epoch: 4, batch: 682, loss: 0.49977, accuracy: 0.82000, speed: 108.03 step/s
+global step 2960, epoch: 4, batch: 692, loss: 0.55055, accuracy: 0.82292, speed: 109.34 step/s
+global step 2970, epoch: 4, batch: 702, loss: 0.69244, accuracy: 0.82188, speed: 103.75 step/s
+global step 2980, epoch: 4, batch: 712, loss: 0.32534, accuracy: 0.82305, speed: 111.31 step/s
+global step 2990, epoch: 4, batch: 722, loss: 0.16923, accuracy: 0.83090, speed: 116.69 step/s
+global step 3000, epoch: 4, batch: 732, loss: 0.35492, accuracy: 0.83375, speed: 109.38 step/s
+eval loss: 1.01200, accuracy: 0.64985
+global step 3010, epoch: 4, batch: 742, loss: 0.28924, accuracy: 0.82500, speed: 121.88 step/s
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0424 12:19:51.697796 26238 tensorrt.cc:56] You are using Paddle compiled with TensorRT, but TensorRT dynamic library is not found. Ignore this if TensorRT is not needed.
+The TensorRT that Paddle depends on is not configured correctly.
+  Suggestions:
+  1. Check if the TensorRT is installed correctly and its version is matched with paddlepaddle you installed.
+  2. Configure environment variables as follows:
+  - Linux: set LD_LIBRARY_PATH by `export LD_LIBRARY_PATH=...`
+  - Windows: set PATH by `set PATH=XXX;%PATH%`
+  - Mac: set  DYLD_LIBRARY_PATH by `export DYLD_LIBRARY_PATH=...`
+  0%|          | 0/263 [00:00<?, ?it/s]100%|██████████| 263/263 [00:00<00:00, 30213.69it/s]
+[32m[2022-04-24 12:19:53,758] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-health-chinese/ernie-health-chinese.pdparams[0m
+W0424 12:19:53.760499 26238 gpu_context.cc:278] Please NOTE: device: 0, GPU Compute Capability: 7.0, Driver API Version: 11.2, Runtime API Version: 11.2
+W0424 12:19:53.764009 26238 gpu_context.cc:306] device: 0, cuDNN Version: 8.1.
+[32m[2022-04-24 12:19:58,552] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-health-chinese/vocab.txt[0m
+global step 10, epoch: 1, batch: 10, loss: 2.27024, accuracy: 0.10625, speed: 131.03 step/s
+global step 20, epoch: 1, batch: 20, loss: 1.88822, accuracy: 0.19375, speed: 86.54 step/s
+global step 30, epoch: 1, batch: 30, loss: 1.62973, accuracy: 0.25417, speed: 112.75 step/s
+global step 40, epoch: 1, batch: 40, loss: 1.16056, accuracy: 0.32578, speed: 70.46 step/s
+global step 50, epoch: 1, batch: 50, loss: 0.90410, accuracy: 0.39313, speed: 55.19 step/s
+global step 60, epoch: 1, batch: 60, loss: 0.58226, accuracy: 0.44948, speed: 112.19 step/s
+global step 70, epoch: 1, batch: 70, loss: 0.75885, accuracy: 0.49241, speed: 103.75 step/s
+global step 80, epoch: 1, batch: 80, loss: 0.87411, accuracy: 0.51680, speed: 129.42 step/s
+global step 90, epoch: 1, batch: 90, loss: 0.49887, accuracy: 0.54167, speed: 132.20 step/s
+global step 100, epoch: 1, batch: 100, loss: 1.09949, accuracy: 0.55750, speed: 132.56 step/s
+eval loss: 0.76442, accuracy: 0.74425
+global step 110, epoch: 1, batch: 110, loss: 0.46602, accuracy: 0.75938, speed: 135.19 step/s
+global step 120, epoch: 1, batch: 120, loss: 0.61964, accuracy: 0.77031, speed: 68.00 step/s
+global step 130, epoch: 1, batch: 130, loss: 1.26605, accuracy: 0.75625, speed: 130.33 step/s
+global step 140, epoch: 1, batch: 140, loss: 0.83820, accuracy: 0.74531, speed: 131.85 step/s
+global step 150, epoch: 1, batch: 150, loss: 1.05245, accuracy: 0.74250, speed: 93.95 step/s
+global step 160, epoch: 1, batch: 160, loss: 0.54158, accuracy: 0.74740, speed: 90.10 step/s
+global step 170, epoch: 1, batch: 170, loss: 0.53646, accuracy: 0.75313, speed: 120.67 step/s
+global step 180, epoch: 1, batch: 180, loss: 0.73422, accuracy: 0.75508, speed: 99.49 step/s
+global step 190, epoch: 1, batch: 190, loss: 0.66764, accuracy: 0.75764, speed: 99.95 step/s
+global step 200, epoch: 1, batch: 200, loss: 0.66066, accuracy: 0.75906, speed: 134.44 step/s
+eval loss: 0.67913, accuracy: 0.76777
+global step 210, epoch: 1, batch: 210, loss: 0.84552, accuracy: 0.80312, speed: 108.76 step/s
+global step 220, epoch: 2, batch: 3, loss: 0.30021, accuracy: 0.80383, speed: 131.42 step/s
+global step 230, epoch: 2, batch: 13, loss: 0.28163, accuracy: 0.82577, speed: 131.34 step/s
+global step 240, epoch: 2, batch: 23, loss: 0.30527, accuracy: 0.82557, speed: 127.75 step/s
+global step 250, epoch: 2, batch: 33, loss: 0.48138, accuracy: 0.82483, speed: 129.26 step/s
+global step 260, epoch: 2, batch: 43, loss: 0.64289, accuracy: 0.82381, speed: 78.99 step/s
+global step 270, epoch: 2, batch: 53, loss: 0.25376, accuracy: 0.83116, speed: 96.67 step/s
+global step 280, epoch: 2, batch: 63, loss: 0.39140, accuracy: 0.83353, speed: 75.99 step/s
+global step 290, epoch: 2, batch: 73, loss: 0.73099, accuracy: 0.83537, speed: 80.84 step/s
+global step 300, epoch: 2, batch: 83, loss: 0.45709, accuracy: 0.83778, speed: 132.08 step/s
+eval loss: 0.66046, accuracy: 0.78159
+global step 310, epoch: 2, batch: 93, loss: 0.45868, accuracy: 0.83437, speed: 133.66 step/s
+global step 320, epoch: 2, batch: 103, loss: 0.39315, accuracy: 0.85469, speed: 76.15 step/s
+global step 330, epoch: 2, batch: 113, loss: 0.31395, accuracy: 0.85729, speed: 66.09 step/s
+global step 340, epoch: 2, batch: 123, loss: 0.39739, accuracy: 0.85234, speed: 106.75 step/s
+global step 350, epoch: 2, batch: 133, loss: 0.25653, accuracy: 0.85938, speed: 109.73 step/s
+global step 360, epoch: 2, batch: 143, loss: 0.37843, accuracy: 0.85729, speed: 121.47 step/s
+global step 370, epoch: 2, batch: 153, loss: 0.66467, accuracy: 0.85313, speed: 121.52 step/s
+global step 380, epoch: 2, batch: 163, loss: 0.53415, accuracy: 0.84844, speed: 103.97 step/s
+global step 390, epoch: 2, batch: 173, loss: 0.24821, accuracy: 0.85069, speed: 112.13 step/s
+global step 400, epoch: 2, batch: 183, loss: 0.21375, accuracy: 0.85406, speed: 133.35 step/s
+eval loss: 0.58861, accuracy: 0.79795
+global step 410, epoch: 2, batch: 193, loss: 0.34287, accuracy: 0.82812, speed: 89.64 step/s
+global step 420, epoch: 2, batch: 203, loss: 0.37409, accuracy: 0.83906, speed: 113.62 step/s
+global step 430, epoch: 2, batch: 213, loss: 0.62644, accuracy: 0.83854, speed: 65.84 step/s
+global step 440, epoch: 3, batch: 6, loss: 0.25862, accuracy: 0.85241, speed: 105.21 step/s
+global step 450, epoch: 3, batch: 16, loss: 0.32974, accuracy: 0.85696, speed: 132.13 step/s
+global step 460, epoch: 3, batch: 26, loss: 0.25662, accuracy: 0.86471, speed: 110.64 step/s
+global step 470, epoch: 3, batch: 36, loss: 0.30328, accuracy: 0.86753, speed: 107.95 step/s
+global step 480, epoch: 3, batch: 46, loss: 0.29837, accuracy: 0.87711, speed: 123.50 step/s
+global step 490, epoch: 3, batch: 56, loss: 0.27295, accuracy: 0.88350, speed: 92.34 step/s
+global step 500, epoch: 3, batch: 66, loss: 0.36277, accuracy: 0.88673, speed: 128.29 step/s
+eval loss: 0.62978, accuracy: 0.80870
+global step 510, epoch: 3, batch: 76, loss: 0.15642, accuracy: 0.93437, speed: 130.11 step/s
+global step 520, epoch: 3, batch: 86, loss: 0.30654, accuracy: 0.92500, speed: 127.58 step/s
+global step 530, epoch: 3, batch: 96, loss: 0.31744, accuracy: 0.91979, speed: 110.32 step/s
+global step 540, epoch: 3, batch: 106, loss: 0.25948, accuracy: 0.92031, speed: 122.46 step/s
+global step 550, epoch: 3, batch: 116, loss: 0.20695, accuracy: 0.92188, speed: 113.81 step/s
+global step 560, epoch: 3, batch: 126, loss: 0.32252, accuracy: 0.92031, speed: 86.49 step/s
+global step 570, epoch: 3, batch: 136, loss: 0.20210, accuracy: 0.92143, speed: 66.43 step/s
+global step 580, epoch: 3, batch: 146, loss: 0.07724, accuracy: 0.92461, speed: 131.90 step/s
+global step 590, epoch: 3, batch: 156, loss: 0.15930, accuracy: 0.92361, speed: 128.49 step/s
+global step 600, epoch: 3, batch: 166, loss: 0.20571, accuracy: 0.92250, speed: 72.98 step/s
+eval loss: 0.65388, accuracy: 0.79847
+global step 610, epoch: 3, batch: 176, loss: 0.29041, accuracy: 0.91875, speed: 103.16 step/s
+global step 620, epoch: 3, batch: 186, loss: 0.18863, accuracy: 0.92344, speed: 91.28 step/s
+global step 630, epoch: 3, batch: 196, loss: 0.12475, accuracy: 0.91875, speed: 127.80 step/s
+global step 640, epoch: 3, batch: 206, loss: 0.09826, accuracy: 0.91719, speed: 107.99 step/s
+global step 650, epoch: 3, batch: 216, loss: 0.07629, accuracy: 0.91812, speed: 65.48 step/s
+global step 660, epoch: 4, batch: 9, loss: 0.08845, accuracy: 0.92606, speed: 116.00 step/s
+global step 670, epoch: 4, batch: 19, loss: 0.24511, accuracy: 0.92995, speed: 127.75 step/s
+global step 680, epoch: 4, batch: 29, loss: 0.02909, accuracy: 0.93247, speed: 123.10 step/s
+global step 690, epoch: 4, batch: 39, loss: 0.13515, accuracy: 0.93687, speed: 122.85 step/s
+global step 700, epoch: 4, batch: 49, loss: 0.09857, accuracy: 0.93976, speed: 64.57 step/s
+eval loss: 0.65096, accuracy: 0.81125
+global step 710, epoch: 4, batch: 59, loss: 0.04845, accuracy: 0.97813, speed: 92.14 step/s
+global step 720, epoch: 4, batch: 69, loss: 0.05494, accuracy: 0.97656, speed: 65.91 step/s
+global step 730, epoch: 4, batch: 79, loss: 0.08110, accuracy: 0.97292, speed: 101.17 step/s
+global step 740, epoch: 4, batch: 89, loss: 0.06896, accuracy: 0.97578, speed: 125.87 step/s
+global step 750, epoch: 4, batch: 99, loss: 0.17574, accuracy: 0.97625, speed: 105.53 step/s
+global step 760, epoch: 4, batch: 109, loss: 0.10948, accuracy: 0.97552, speed: 127.22 step/s
+global step 770, epoch: 4, batch: 119, loss: 0.33676, accuracy: 0.97232, speed: 130.40 step/s
+global step 780, epoch: 4, batch: 129, loss: 0.09047, accuracy: 0.97070, speed: 79.00 step/s
+global step 790, epoch: 4, batch: 139, loss: 0.06160, accuracy: 0.97049, speed: 126.27 step/s
+global step 800, epoch: 4, batch: 149, loss: 0.17620, accuracy: 0.96844, speed: 90.49 step/s
+eval loss: 0.66204, accuracy: 0.80614
+global step 810, epoch: 4, batch: 159, loss: 0.16659, accuracy: 0.96875, speed: 133.13 step/s
+global step 820, epoch: 4, batch: 169, loss: 0.05590, accuracy: 0.97031, speed: 70.94 step/s
+global step 830, epoch: 4, batch: 179, loss: 0.03242, accuracy: 0.96562, speed: 129.74 step/s
+global step 840, epoch: 4, batch: 189, loss: 0.06649, accuracy: 0.96953, speed: 129.07 step/s
+global step 850, epoch: 4, batch: 199, loss: 0.11426, accuracy: 0.96875, speed: 110.29 step/s
+global step 860, epoch: 4, batch: 209, loss: 0.10053, accuracy: 0.97031, speed: 88.01 step/s
+Speed: 102.95 steps/s
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0424 12:21:46.116978 30262 tensorrt.cc:56] You are using Paddle compiled with TensorRT, but TensorRT dynamic library is not found. Ignore this if TensorRT is not needed.
+The TensorRT that Paddle depends on is not configured correctly.
+  Suggestions:
+  1. Check if the TensorRT is installed correctly and its version is matched with paddlepaddle you installed.
+  2. Configure environment variables as follows:
+  - Linux: set LD_LIBRARY_PATH by `export LD_LIBRARY_PATH=...`
+  - Windows: set PATH by `set PATH=XXX;%PATH%`
+  - Mac: set  DYLD_LIBRARY_PATH by `export DYLD_LIBRARY_PATH=...`
+LAUNCH INFO 2022-04-24 12:21:46,908 -----------  Configuration  ----------------------
+LAUNCH INFO 2022-04-24 12:21:46,908 devices: None
+LAUNCH INFO 2022-04-24 12:21:46,908 elastic_level: -1
+LAUNCH INFO 2022-04-24 12:21:46,908 elastic_timeout: 30
+LAUNCH INFO 2022-04-24 12:21:46,908 gloo_port: 6767
+LAUNCH INFO 2022-04-24 12:21:46,908 host: None
+LAUNCH INFO 2022-04-24 12:21:46,908 job_id: default
+LAUNCH INFO 2022-04-24 12:21:46,908 legacy: False
+LAUNCH INFO 2022-04-24 12:21:46,908 log_dir: log
+LAUNCH INFO 2022-04-24 12:21:46,908 log_level: INFO
+LAUNCH INFO 2022-04-24 12:21:46,908 master: None
+LAUNCH INFO 2022-04-24 12:21:46,908 max_restart: 3
+LAUNCH INFO 2022-04-24 12:21:46,908 nnodes: 1
+LAUNCH INFO 2022-04-24 12:21:46,908 nproc_per_node: None
+LAUNCH INFO 2022-04-24 12:21:46,909 rank: -1
+LAUNCH INFO 2022-04-24 12:21:46,909 run_mode: collective
+LAUNCH INFO 2022-04-24 12:21:46,909 server_num: None
+LAUNCH INFO 2022-04-24 12:21:46,909 servers: 
+LAUNCH INFO 2022-04-24 12:21:46,909 trainer_num: None
+LAUNCH INFO 2022-04-24 12:21:46,909 trainers: 
+LAUNCH INFO 2022-04-24 12:21:46,909 training_script: 4,5,6,7
+LAUNCH INFO 2022-04-24 12:21:46,909 training_script_args: ['train_classification.py', '--dataset', 'CHIP-CDN-2C', '--batch_size', '256', '--max_seq_length', '32', '--learning_rate', '6e-5', '--epochs', '16', '--use_ema', 'True']
+LAUNCH INFO 2022-04-24 12:21:46,909 with_gloo: 0
+LAUNCH INFO 2022-04-24 12:21:46,909 --------------------------------------------------
+LAUNCH WARNING 2022-04-24 12:21:46,909 Compatible mode enable with args ['--gpus']
+WARNING 2022-04-24 12:21:46,910 launch.py:518] Not found distinct arguments and compiled with cuda or xpu or npu or mlu. Default use collective mode
+WARNING 2022-04-24 12:21:46,910 launch.py:518] Not found distinct arguments and compiled with cuda or xpu or npu or mlu. Default use collective mode
+INFO 2022-04-24 12:21:46,910 launch_utils.py:558] Local start 4 processes. First process distributed environment info (Only For Debug): 
+    +=======================================================================================+
+    |                        Distributed Envs                      Value                    |
+    +---------------------------------------------------------------------------------------+
+    |                       PADDLE_TRAINER_ID                        0                      |
+    |                 PADDLE_CURRENT_ENDPOINT                 127.0.0.1:55797               |
+    |                     PADDLE_TRAINERS_NUM                        4                      |
+    |                PADDLE_TRAINER_ENDPOINTS  ... 0.1:41721,127.0.0.1:44533,127.0.0.1:60639|
+    |                     PADDLE_RANK_IN_NODE                        0                      |
+    |                 PADDLE_LOCAL_DEVICE_IDS                        4                      |
+    |                 PADDLE_WORLD_DEVICE_IDS                     4,5,6,7                   |
+    |                     FLAGS_selected_gpus                        4                      |
+    |             FLAGS_selected_accelerators                        4                      |
+    +=======================================================================================+
+
+INFO 2022-04-24 12:21:46,910 launch_utils.py:558] Local start 4 processes. First process distributed environment info (Only For Debug): 
+    +=======================================================================================+
+    |                        Distributed Envs                      Value                    |
+    +---------------------------------------------------------------------------------------+
+    |                       PADDLE_TRAINER_ID                        0                      |
+    |                 PADDLE_CURRENT_ENDPOINT                 127.0.0.1:55797               |
+    |                     PADDLE_TRAINERS_NUM                        4                      |
+    |                PADDLE_TRAINER_ENDPOINTS  ... 0.1:41721,127.0.0.1:44533,127.0.0.1:60639|
+    |                     PADDLE_RANK_IN_NODE                        0                      |
+    |                 PADDLE_LOCAL_DEVICE_IDS                        4                      |
+    |                 PADDLE_WORLD_DEVICE_IDS                     4,5,6,7                   |
+    |                     FLAGS_selected_gpus                        4                      |
+    |             FLAGS_selected_accelerators                        4                      |
+    +=======================================================================================+
+
+INFO 2022-04-24 12:21:46,911 launch_utils.py:563] details about PADDLE_TRAINER_ENDPOINTS can be found in log/endpoints.log, and detail running logs maybe found in log/workerlog.0
+INFO 2022-04-24 12:21:46,911 launch_utils.py:563] details about PADDLE_TRAINER_ENDPOINTS can be found in log/endpoints.log, and detail running logs maybe found in log/workerlog.0
+INFO 2022-04-24 12:21:54,007 launch_utils.py:343] terminate all the procs
+INFO 2022-04-24 12:21:54,007 launch_utils.py:343] terminate all the procs
+ERROR 2022-04-24 12:21:54,007 launch_utils.py:640] ABORT!!! Out of all 4 trainers, the trainer process with rank=[0, 1, 2, 3] was aborted. Please check its log.
+ERROR 2022-04-24 12:21:54,007 launch_utils.py:640] ABORT!!! Out of all 4 trainers, the trainer process with rank=[0, 1, 2, 3] was aborted. Please check its log.
+INFO 2022-04-24 12:21:58,011 launch_utils.py:343] terminate all the procs
+INFO 2022-04-24 12:21:58,011 launch_utils.py:343] terminate all the procs
+INFO 2022-04-24 12:21:58,012 launch.py:402] Local processes completed.
+INFO 2022-04-24 12:21:58,012 launch.py:402] Local processes completed.
+-----------  Configuration Arguments -----------
+backend: auto
+cluster_topo_path: None
+elastic_pre_hook: None
+elastic_server: None
+enable_auto_mapping: False
+force: False
+gpus: 4,5,6,7
+heter_devices: 
+heter_worker_num: None
+heter_workers: 
+host: None
+http_port: None
+ips: 127.0.0.1
+job_id: None
+log_dir: log
+np: None
+nproc_per_node: None
+rank_mapping_path: None
+run_mode: None
+scale: 0
+server_num: None
+servers: 
+training_script: train_classification.py
+training_script_args: ['--dataset', 'CHIP-CDN-2C', '--batch_size', '256', '--max_seq_length', '32', '--learning_rate', '6e-5', '--epochs', '16', '--use_ema', 'True']
+worker_num: None
+workers: 
+------------------------------------------------
+launch train in GPU mode!
+launch proc_id:30305 idx:0
+launch proc_id:30308 idx:1
+launch proc_id:30311 idx:2
+launch proc_id:30314 idx:3
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0424 12:21:47.363111 30305 tensorrt.cc:56] You are using Paddle compiled with TensorRT, but TensorRT dynamic library is not found. Ignore this if TensorRT is not needed.
+The TensorRT that Paddle depends on is not configured correctly.
+  Suggestions:
+  1. Check if the TensorRT is installed correctly and its version is matched with paddlepaddle you installed.
+  2. Configure environment variables as follows:
+  - Linux: set LD_LIBRARY_PATH by `export LD_LIBRARY_PATH=...`
+  - Windows: set PATH by `set PATH=XXX;%PATH%`
+  - Mac: set  DYLD_LIBRARY_PATH by `export DYLD_LIBRARY_PATH=...`
+usage: train_classification.py [-h]
+                               [--dataset {KUAKE-QIC,KUAKE-QQR,KUAKE-QTR,CHIP-STS,CHIP-CTC,CHIP-CDN-2C}]
+                               [--seed SEED] [--device {cpu,gpu,xpu,npu}]
+                               [--epochs EPOCHS] [--max_steps MAX_STEPS]
+                               [--batch_size BATCH_SIZE]
+                               [--learning_rate LEARNING_RATE]
+                               [--weight_decay WEIGHT_DECAY]
+                               [--warmup_proportion WARMUP_PROPORTION]
+                               [--max_seq_length MAX_SEQ_LENGTH]
+                               [--init_from_ckpt INIT_FROM_CKPT]
+                               [--logging_steps LOGGING_STEPS]
+                               [--save_dir SAVE_DIR] [--save_steps SAVE_STEPS]
+                               [--valid_steps VALID_STEPS] [--use_amp USE_AMP]
+                               [--scale_loss SCALE_LOSS]
+train_classification.py: error: unrecognized arguments: --use_ema True

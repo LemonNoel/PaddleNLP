@@ -1,0 +1,454 @@
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0424 11:38:07.548938 77872 tensorrt.cc:56] You are using Paddle compiled with TensorRT, but TensorRT dynamic library is not found. Ignore this if TensorRT is not needed.
+The TensorRT that Paddle depends on is not configured correctly.
+  Suggestions:
+  1. Check if the TensorRT is installed correctly and its version is matched with paddlepaddle you installed.
+  2. Configure environment variables as follows:
+  - Linux: set LD_LIBRARY_PATH by `export LD_LIBRARY_PATH=...`
+  - Windows: set PATH by `set PATH=XXX;%PATH%`
+  - Mac: set  DYLD_LIBRARY_PATH by `export DYLD_LIBRARY_PATH=...`
+[32m[2022-04-24 11:38:09,451] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-health-chinese/ernie-health-chinese.pdparams[0m
+W0424 11:38:09.453055 77872 gpu_context.cc:278] Please NOTE: device: 0, GPU Compute Capability: 7.0, Driver API Version: 11.2, Runtime API Version: 11.2
+W0424 11:38:09.457106 77872 gpu_context.cc:306] device: 0, cuDNN Version: 8.1.
+[32m[2022-04-24 11:38:14,271] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-health-chinese/vocab.txt[0m
+global step 10, epoch: 1, batch: 10, loss: 0.73225, macro f1: 0.39557, speed: 133.91 step/s
+global step 20, epoch: 1, batch: 20, loss: 0.68741, macro f1: 0.45024, speed: 133.22 step/s
+global step 30, epoch: 1, batch: 30, loss: 0.69316, macro f1: 0.46353, speed: 135.29 step/s
+global step 40, epoch: 1, batch: 40, loss: 0.75167, macro f1: 0.48894, speed: 124.97 step/s
+global step 50, epoch: 1, batch: 50, loss: 0.75947, macro f1: 0.50055, speed: 136.08 step/s
+global step 60, epoch: 1, batch: 60, loss: 0.66642, macro f1: 0.50886, speed: 136.62 step/s
+global step 70, epoch: 1, batch: 70, loss: 0.78312, macro f1: 0.52448, speed: 134.62 step/s
+global step 80, epoch: 1, batch: 80, loss: 0.72392, macro f1: 0.53388, speed: 136.38 step/s
+global step 90, epoch: 1, batch: 90, loss: 0.69285, macro f1: 0.53869, speed: 134.86 step/s
+global step 100, epoch: 1, batch: 100, loss: 0.61842, macro f1: 0.54686, speed: 134.95 step/s
+eval loss: 0.60275, macro f1: 0.70143
+global step 110, epoch: 1, batch: 110, loss: 0.60055, macro f1: 0.63209, speed: 137.75 step/s
+global step 120, epoch: 1, batch: 120, loss: 0.42230, macro f1: 0.67035, speed: 136.32 step/s
+global step 130, epoch: 1, batch: 130, loss: 0.85272, macro f1: 0.66434, speed: 135.09 step/s
+global step 140, epoch: 1, batch: 140, loss: 0.59935, macro f1: 0.66519, speed: 132.14 step/s
+global step 150, epoch: 1, batch: 150, loss: 0.63213, macro f1: 0.67575, speed: 138.21 step/s
+global step 160, epoch: 1, batch: 160, loss: 0.53121, macro f1: 0.69565, speed: 130.55 step/s
+global step 170, epoch: 1, batch: 170, loss: 0.48367, macro f1: 0.70505, speed: 129.36 step/s
+global step 180, epoch: 1, batch: 180, loss: 0.34933, macro f1: 0.71258, speed: 131.70 step/s
+global step 190, epoch: 1, batch: 190, loss: 0.34444, macro f1: 0.71596, speed: 133.10 step/s
+global step 200, epoch: 1, batch: 200, loss: 0.69217, macro f1: 0.71923, speed: 134.25 step/s
+eval loss: 0.47513, macro f1: 0.78149
+global step 210, epoch: 1, batch: 210, loss: 0.47487, macro f1: 0.82552, speed: 135.53 step/s
+global step 220, epoch: 1, batch: 220, loss: 0.42748, macro f1: 0.80921, speed: 134.98 step/s
+global step 230, epoch: 1, batch: 230, loss: 0.60650, macro f1: 0.76404, speed: 137.00 step/s
+global step 240, epoch: 1, batch: 240, loss: 0.65612, macro f1: 0.75064, speed: 137.35 step/s
+global step 250, epoch: 1, batch: 250, loss: 0.64444, macro f1: 0.74467, speed: 134.48 step/s
+global step 260, epoch: 1, batch: 260, loss: 0.23888, macro f1: 0.74437, speed: 136.39 step/s
+global step 270, epoch: 1, batch: 270, loss: 0.56279, macro f1: 0.75316, speed: 136.44 step/s
+global step 280, epoch: 1, batch: 280, loss: 0.55967, macro f1: 0.75268, speed: 136.98 step/s
+global step 290, epoch: 1, batch: 290, loss: 0.48134, macro f1: 0.75589, speed: 135.67 step/s
+global step 300, epoch: 1, batch: 300, loss: 0.50239, macro f1: 0.76263, speed: 138.65 step/s
+eval loss: 0.48927, macro f1: 0.77405
+global step 310, epoch: 1, batch: 310, loss: 0.28537, macro f1: 0.78586, speed: 118.22 step/s
+global step 320, epoch: 1, batch: 320, loss: 0.44858, macro f1: 0.79016, speed: 114.30 step/s
+global step 330, epoch: 1, batch: 330, loss: 0.36074, macro f1: 0.76867, speed: 111.86 step/s
+global step 340, epoch: 1, batch: 340, loss: 0.67176, macro f1: 0.76244, speed: 109.48 step/s
+global step 350, epoch: 1, batch: 350, loss: 0.38334, macro f1: 0.76750, speed: 110.63 step/s
+global step 360, epoch: 1, batch: 360, loss: 0.51208, macro f1: 0.76558, speed: 109.59 step/s
+global step 370, epoch: 1, batch: 370, loss: 0.51963, macro f1: 0.76326, speed: 110.28 step/s
+global step 380, epoch: 1, batch: 380, loss: 0.48558, macro f1: 0.75930, speed: 113.14 step/s
+global step 390, epoch: 1, batch: 390, loss: 0.52008, macro f1: 0.75945, speed: 112.63 step/s
+global step 400, epoch: 1, batch: 400, loss: 0.43546, macro f1: 0.76304, speed: 116.86 step/s
+eval loss: 0.48035, macro f1: 0.77450
+global step 410, epoch: 1, batch: 410, loss: 0.42130, macro f1: 0.76867, speed: 114.42 step/s
+global step 420, epoch: 1, batch: 420, loss: 0.46227, macro f1: 0.77468, speed: 113.61 step/s
+global step 430, epoch: 1, batch: 430, loss: 0.58805, macro f1: 0.76041, speed: 116.78 step/s
+global step 440, epoch: 1, batch: 440, loss: 0.42182, macro f1: 0.76511, speed: 113.16 step/s
+global step 450, epoch: 1, batch: 450, loss: 0.55295, macro f1: 0.77622, speed: 112.84 step/s
+global step 460, epoch: 1, batch: 460, loss: 0.37111, macro f1: 0.77498, speed: 115.38 step/s
+global step 470, epoch: 1, batch: 470, loss: 0.50156, macro f1: 0.78203, speed: 114.98 step/s
+global step 480, epoch: 1, batch: 480, loss: 0.40635, macro f1: 0.78122, speed: 115.72 step/s
+global step 490, epoch: 1, batch: 490, loss: 0.46412, macro f1: 0.78189, speed: 115.99 step/s
+global step 500, epoch: 1, batch: 500, loss: 0.62418, macro f1: 0.78498, speed: 113.31 step/s
+eval loss: 0.46877, macro f1: 0.79310
+global step 510, epoch: 1, batch: 510, loss: 0.39184, macro f1: 0.75616, speed: 116.55 step/s
+global step 520, epoch: 1, batch: 520, loss: 0.17760, macro f1: 0.78683, speed: 114.08 step/s
+global step 530, epoch: 1, batch: 530, loss: 0.40507, macro f1: 0.79997, speed: 114.01 step/s
+global step 540, epoch: 1, batch: 540, loss: 0.61485, macro f1: 0.80926, speed: 114.03 step/s
+global step 550, epoch: 1, batch: 550, loss: 0.25090, macro f1: 0.80488, speed: 114.40 step/s
+global step 560, epoch: 1, batch: 560, loss: 0.45716, macro f1: 0.78741, speed: 111.20 step/s
+global step 570, epoch: 1, batch: 570, loss: 0.44410, macro f1: 0.78301, speed: 107.15 step/s
+global step 580, epoch: 1, batch: 580, loss: 0.28137, macro f1: 0.79141, speed: 113.00 step/s
+global step 590, epoch: 1, batch: 590, loss: 0.49330, macro f1: 0.79443, speed: 115.47 step/s
+global step 600, epoch: 1, batch: 600, loss: 0.39877, macro f1: 0.79562, speed: 109.57 step/s
+eval loss: 0.43522, macro f1: 0.80644
+global step 610, epoch: 1, batch: 610, loss: 0.45005, macro f1: 0.77486, speed: 116.64 step/s
+global step 620, epoch: 1, batch: 620, loss: 0.34549, macro f1: 0.80624, speed: 116.30 step/s
+global step 630, epoch: 1, batch: 630, loss: 0.23974, macro f1: 0.81041, speed: 117.20 step/s
+global step 640, epoch: 1, batch: 640, loss: 0.62295, macro f1: 0.80938, speed: 114.88 step/s
+global step 650, epoch: 1, batch: 650, loss: 0.23747, macro f1: 0.80740, speed: 113.78 step/s
+global step 660, epoch: 1, batch: 660, loss: 0.15081, macro f1: 0.81874, speed: 114.36 step/s
+global step 670, epoch: 1, batch: 670, loss: 0.25426, macro f1: 0.81696, speed: 109.98 step/s
+global step 680, epoch: 1, batch: 680, loss: 0.45950, macro f1: 0.81641, speed: 107.40 step/s
+global step 690, epoch: 1, batch: 690, loss: 0.43746, macro f1: 0.81319, speed: 110.37 step/s
+global step 700, epoch: 1, batch: 700, loss: 0.20583, macro f1: 0.81372, speed: 112.74 step/s
+eval loss: 0.40836, macro f1: 0.81460
+global step 710, epoch: 1, batch: 710, loss: 0.51856, macro f1: 0.77143, speed: 116.51 step/s
+global step 720, epoch: 1, batch: 720, loss: 0.28130, macro f1: 0.77457, speed: 115.16 step/s
+global step 730, epoch: 1, batch: 730, loss: 0.36505, macro f1: 0.77913, speed: 109.10 step/s
+global step 740, epoch: 1, batch: 740, loss: 0.48626, macro f1: 0.79373, speed: 113.68 step/s
+global step 750, epoch: 1, batch: 750, loss: 0.69171, macro f1: 0.79620, speed: 110.16 step/s
+global step 760, epoch: 1, batch: 760, loss: 0.26307, macro f1: 0.79790, speed: 114.40 step/s
+global step 770, epoch: 1, batch: 770, loss: 0.77306, macro f1: 0.79909, speed: 113.50 step/s
+global step 780, epoch: 1, batch: 780, loss: 0.32955, macro f1: 0.80058, speed: 112.44 step/s
+global step 790, epoch: 1, batch: 790, loss: 0.29446, macro f1: 0.80407, speed: 113.77 step/s
+global step 800, epoch: 1, batch: 800, loss: 0.49972, macro f1: 0.80364, speed: 114.67 step/s
+eval loss: 0.40326, macro f1: 0.81439
+global step 810, epoch: 1, batch: 810, loss: 0.32714, macro f1: 0.83709, speed: 136.28 step/s
+global step 820, epoch: 1, batch: 820, loss: 0.53372, macro f1: 0.81522, speed: 136.92 step/s
+global step 830, epoch: 1, batch: 830, loss: 0.59322, macro f1: 0.81249, speed: 138.85 step/s
+global step 840, epoch: 1, batch: 840, loss: 0.43873, macro f1: 0.81562, speed: 138.75 step/s
+global step 850, epoch: 1, batch: 850, loss: 0.36749, macro f1: 0.80500, speed: 138.26 step/s
+global step 860, epoch: 1, batch: 860, loss: 0.49985, macro f1: 0.79583, speed: 135.41 step/s
+global step 870, epoch: 1, batch: 870, loss: 0.45300, macro f1: 0.80785, speed: 139.12 step/s
+global step 880, epoch: 1, batch: 880, loss: 0.44898, macro f1: 0.80838, speed: 135.12 step/s
+global step 890, epoch: 1, batch: 890, loss: 1.19040, macro f1: 0.80969, speed: 137.56 step/s
+global step 900, epoch: 1, batch: 900, loss: 0.36622, macro f1: 0.80686, speed: 138.48 step/s
+eval loss: 0.39707, macro f1: 0.80925
+global step 910, epoch: 1, batch: 910, loss: 0.56378, macro f1: 0.73124, speed: 134.54 step/s
+global step 920, epoch: 1, batch: 920, loss: 0.56099, macro f1: 0.78127, speed: 134.09 step/s
+global step 930, epoch: 1, batch: 930, loss: 0.40888, macro f1: 0.79561, speed: 133.32 step/s
+global step 940, epoch: 1, batch: 940, loss: 0.51827, macro f1: 0.79846, speed: 129.31 step/s
+global step 950, epoch: 1, batch: 950, loss: 0.30647, macro f1: 0.79976, speed: 131.92 step/s
+global step 960, epoch: 1, batch: 960, loss: 0.50635, macro f1: 0.79563, speed: 125.53 step/s
+global step 970, epoch: 1, batch: 970, loss: 0.48727, macro f1: 0.79794, speed: 130.55 step/s
+global step 980, epoch: 1, batch: 980, loss: 0.41162, macro f1: 0.79314, speed: 134.12 step/s
+global step 990, epoch: 1, batch: 990, loss: 0.47651, macro f1: 0.79718, speed: 136.73 step/s
+global step 1000, epoch: 1, batch: 1000, loss: 0.26523, macro f1: 0.80259, speed: 146.88 step/s
+eval loss: 0.43363, macro f1: 0.81093
+global step 1010, epoch: 2, batch: 10, loss: 0.33998, macro f1: 0.81874, speed: 130.94 step/s
+global step 1020, epoch: 2, batch: 20, loss: 0.23134, macro f1: 0.84941, speed: 130.50 step/s
+global step 1030, epoch: 2, batch: 30, loss: 0.33135, macro f1: 0.85778, speed: 132.43 step/s
+global step 1040, epoch: 2, batch: 40, loss: 0.50915, macro f1: 0.83698, speed: 131.47 step/s
+global step 1050, epoch: 2, batch: 50, loss: 0.41712, macro f1: 0.83942, speed: 131.12 step/s
+global step 1060, epoch: 2, batch: 60, loss: 0.25797, macro f1: 0.84360, speed: 131.14 step/s
+global step 1070, epoch: 2, batch: 70, loss: 0.28952, macro f1: 0.84356, speed: 133.72 step/s
+global step 1080, epoch: 2, batch: 80, loss: 0.61523, macro f1: 0.83585, speed: 130.55 step/s
+global step 1090, epoch: 2, batch: 90, loss: 0.33885, macro f1: 0.83872, speed: 134.54 step/s
+global step 1100, epoch: 2, batch: 100, loss: 0.19370, macro f1: 0.84301, speed: 128.08 step/s
+eval loss: 0.38775, macro f1: 0.82680
+global step 1110, epoch: 2, batch: 110, loss: 0.63339, macro f1: 0.81789, speed: 132.82 step/s
+global step 1120, epoch: 2, batch: 120, loss: 0.47231, macro f1: 0.80533, speed: 129.42 step/s
+global step 1130, epoch: 2, batch: 130, loss: 0.32498, macro f1: 0.80621, speed: 132.97 step/s
+global step 1140, epoch: 2, batch: 140, loss: 0.40761, macro f1: 0.80466, speed: 130.13 step/s
+global step 1150, epoch: 2, batch: 150, loss: 0.35895, macro f1: 0.81375, speed: 131.42 step/s
+global step 1160, epoch: 2, batch: 160, loss: 0.36249, macro f1: 0.81666, speed: 132.06 step/s
+global step 1170, epoch: 2, batch: 170, loss: 0.22231, macro f1: 0.82133, speed: 130.97 step/s
+global step 1180, epoch: 2, batch: 180, loss: 0.59872, macro f1: 0.82417, speed: 134.44 step/s
+global step 1190, epoch: 2, batch: 190, loss: 0.14938, macro f1: 0.82498, speed: 135.06 step/s
+global step 1200, epoch: 2, batch: 200, loss: 0.37200, macro f1: 0.82678, speed: 135.30 step/s
+eval loss: 0.37815, macro f1: 0.82724
+global step 1210, epoch: 2, batch: 210, loss: 0.36288, macro f1: 0.91249, speed: 134.05 step/s
+global step 1220, epoch: 2, batch: 220, loss: 0.20488, macro f1: 0.87498, speed: 134.50 step/s
+global step 1230, epoch: 2, batch: 230, loss: 0.57693, macro f1: 0.86665, speed: 133.01 step/s
+global step 1240, epoch: 2, batch: 240, loss: 0.31467, macro f1: 0.85781, speed: 130.10 step/s
+global step 1250, epoch: 2, batch: 250, loss: 0.73001, macro f1: 0.85625, speed: 130.91 step/s
+global step 1260, epoch: 2, batch: 260, loss: 0.33801, macro f1: 0.85521, speed: 133.31 step/s
+global step 1270, epoch: 2, batch: 270, loss: 0.44634, macro f1: 0.84905, speed: 131.87 step/s
+global step 1280, epoch: 2, batch: 280, loss: 0.21280, macro f1: 0.84217, speed: 133.67 step/s
+global step 1290, epoch: 2, batch: 290, loss: 0.37763, macro f1: 0.84650, speed: 133.10 step/s
+global step 1300, epoch: 2, batch: 300, loss: 0.14772, macro f1: 0.84930, speed: 131.88 step/s
+eval loss: 0.40915, macro f1: 0.83742
+global step 1310, epoch: 2, batch: 310, loss: 0.34701, macro f1: 0.80533, speed: 133.86 step/s
+global step 1320, epoch: 2, batch: 320, loss: 0.38115, macro f1: 0.83994, speed: 126.92 step/s
+global step 1330, epoch: 2, batch: 330, loss: 0.54908, macro f1: 0.85138, speed: 134.68 step/s
+global step 1340, epoch: 2, batch: 340, loss: 0.10534, macro f1: 0.84586, speed: 132.33 step/s
+global step 1350, epoch: 2, batch: 350, loss: 0.19593, macro f1: 0.85073, speed: 134.33 step/s
+global step 1360, epoch: 2, batch: 360, loss: 0.29335, macro f1: 0.84750, speed: 132.95 step/s
+global step 1370, epoch: 2, batch: 370, loss: 0.37360, macro f1: 0.84882, speed: 134.45 step/s
+global step 1380, epoch: 2, batch: 380, loss: 0.40089, macro f1: 0.84743, speed: 132.41 step/s
+global step 1390, epoch: 2, batch: 390, loss: 0.27747, macro f1: 0.84817, speed: 129.32 step/s
+global step 1400, epoch: 2, batch: 400, loss: 0.28612, macro f1: 0.85167, speed: 129.79 step/s
+eval loss: 0.36724, macro f1: 0.83980
+global step 1410, epoch: 2, batch: 410, loss: 0.01826, macro f1: 0.91228, speed: 132.44 step/s
+global step 1420, epoch: 2, batch: 420, loss: 0.39725, macro f1: 0.88714, speed: 133.10 step/s
+global step 1430, epoch: 2, batch: 430, loss: 0.53220, macro f1: 0.86454, speed: 107.16 step/s
+global step 1440, epoch: 2, batch: 440, loss: 0.12944, macro f1: 0.85858, speed: 111.50 step/s
+global step 1450, epoch: 2, batch: 450, loss: 0.58798, macro f1: 0.85289, speed: 113.90 step/s
+global step 1460, epoch: 2, batch: 460, loss: 0.34491, macro f1: 0.84949, speed: 111.50 step/s
+global step 1470, epoch: 2, batch: 470, loss: 0.25339, macro f1: 0.84986, speed: 114.33 step/s
+global step 1480, epoch: 2, batch: 480, loss: 0.12132, macro f1: 0.85707, speed: 111.85 step/s
+global step 1490, epoch: 2, batch: 490, loss: 0.41171, macro f1: 0.85981, speed: 112.43 step/s
+global step 1500, epoch: 2, batch: 500, loss: 0.30093, macro f1: 0.85929, speed: 113.24 step/s
+eval loss: 0.36910, macro f1: 0.84297
+global step 1510, epoch: 2, batch: 510, loss: 0.39178, macro f1: 0.89341, speed: 133.46 step/s
+global step 1520, epoch: 2, batch: 520, loss: 0.14212, macro f1: 0.89368, speed: 129.38 step/s
+global step 1530, epoch: 2, batch: 530, loss: 0.39752, macro f1: 0.87279, speed: 132.17 step/s
+global step 1540, epoch: 2, batch: 540, loss: 0.47354, macro f1: 0.87017, speed: 133.62 step/s
+global step 1550, epoch: 2, batch: 550, loss: 0.13093, macro f1: 0.88107, speed: 133.28 step/s
+global step 1560, epoch: 2, batch: 560, loss: 0.29707, macro f1: 0.86646, speed: 132.88 step/s
+global step 1570, epoch: 2, batch: 570, loss: 0.39441, macro f1: 0.86026, speed: 134.65 step/s
+global step 1580, epoch: 2, batch: 580, loss: 0.28057, macro f1: 0.85664, speed: 131.49 step/s
+global step 1590, epoch: 2, batch: 590, loss: 0.67971, macro f1: 0.85465, speed: 133.60 step/s
+global step 1600, epoch: 2, batch: 600, loss: 0.38759, macro f1: 0.85734, speed: 135.12 step/s
+eval loss: 0.39173, macro f1: 0.83367
+global step 1610, epoch: 2, batch: 610, loss: 0.16663, macro f1: 0.88395, speed: 132.94 step/s
+global step 1620, epoch: 2, batch: 620, loss: 0.15684, macro f1: 0.88020, speed: 131.51 step/s
+global step 1630, epoch: 2, batch: 630, loss: 0.28208, macro f1: 0.86437, speed: 114.63 step/s
+global step 1640, epoch: 2, batch: 640, loss: 0.16140, macro f1: 0.86206, speed: 134.09 step/s
+global step 1650, epoch: 2, batch: 650, loss: 0.37948, macro f1: 0.86713, speed: 136.25 step/s
+global step 1660, epoch: 2, batch: 660, loss: 0.41315, macro f1: 0.87022, speed: 135.02 step/s
+global step 1670, epoch: 2, batch: 670, loss: 0.27821, macro f1: 0.86569, speed: 131.16 step/s
+global step 1680, epoch: 2, batch: 680, loss: 0.07338, macro f1: 0.86527, speed: 132.41 step/s
+global step 1690, epoch: 2, batch: 690, loss: 0.28437, macro f1: 0.86357, speed: 134.85 step/s
+global step 1700, epoch: 2, batch: 700, loss: 0.48931, macro f1: 0.86224, speed: 123.67 step/s
+eval loss: 0.36220, macro f1: 0.83191
+global step 1710, epoch: 2, batch: 710, loss: 0.05674, macro f1: 0.84808, speed: 129.07 step/s
+global step 1720, epoch: 2, batch: 720, loss: 0.20681, macro f1: 0.86801, speed: 132.65 step/s
+global step 1730, epoch: 2, batch: 730, loss: 0.26029, macro f1: 0.87627, speed: 130.27 step/s
+global step 1740, epoch: 2, batch: 740, loss: 0.21746, macro f1: 0.87749, speed: 135.95 step/s
+global step 1750, epoch: 2, batch: 750, loss: 0.10488, macro f1: 0.88266, speed: 133.75 step/s
+global step 1760, epoch: 2, batch: 760, loss: 0.34555, macro f1: 0.88597, speed: 136.64 step/s
+global step 1770, epoch: 2, batch: 770, loss: 0.20920, macro f1: 0.89092, speed: 134.55 step/s
+global step 1780, epoch: 2, batch: 780, loss: 0.23964, macro f1: 0.88417, speed: 137.96 step/s
+global step 1790, epoch: 2, batch: 790, loss: 0.47331, macro f1: 0.87958, speed: 139.36 step/s
+global step 1800, epoch: 2, batch: 800, loss: 0.26078, macro f1: 0.87908, speed: 139.31 step/s
+eval loss: 0.35956, macro f1: 0.84107
+global step 1810, epoch: 2, batch: 810, loss: 0.30422, macro f1: 0.83124, speed: 136.44 step/s
+global step 1820, epoch: 2, batch: 820, loss: 0.33500, macro f1: 0.86206, speed: 138.76 step/s
+global step 1830, epoch: 2, batch: 830, loss: 0.53219, macro f1: 0.87292, speed: 139.35 step/s
+global step 1840, epoch: 2, batch: 840, loss: 0.13908, macro f1: 0.87008, speed: 134.85 step/s
+global step 1850, epoch: 2, batch: 850, loss: 0.24687, macro f1: 0.86123, speed: 136.43 step/s
+global step 1860, epoch: 2, batch: 860, loss: 0.14523, macro f1: 0.86036, speed: 129.70 step/s
+global step 1870, epoch: 2, batch: 870, loss: 0.17370, macro f1: 0.85982, speed: 134.93 step/s
+global step 1880, epoch: 2, batch: 880, loss: 0.75505, macro f1: 0.85702, speed: 138.98 step/s
+global step 1890, epoch: 2, batch: 890, loss: 0.25222, macro f1: 0.85902, speed: 136.55 step/s
+global step 1900, epoch: 2, batch: 900, loss: 0.45880, macro f1: 0.85497, speed: 133.36 step/s
+eval loss: 0.35697, macro f1: 0.84775
+global step 1910, epoch: 2, batch: 910, loss: 0.31976, macro f1: 0.83542, speed: 136.34 step/s
+global step 1920, epoch: 2, batch: 920, loss: 0.29832, macro f1: 0.82345, speed: 138.78 step/s
+global step 1930, epoch: 2, batch: 930, loss: 0.32551, macro f1: 0.84386, speed: 136.84 step/s
+global step 1940, epoch: 2, batch: 940, loss: 0.65116, macro f1: 0.84867, speed: 137.03 step/s
+global step 1950, epoch: 2, batch: 950, loss: 0.54520, macro f1: 0.84863, speed: 137.13 step/s
+global step 1960, epoch: 2, batch: 960, loss: 0.33291, macro f1: 0.85646, speed: 135.81 step/s
+global step 1970, epoch: 2, batch: 970, loss: 0.31590, macro f1: 0.85570, speed: 138.31 step/s
+global step 1980, epoch: 2, batch: 980, loss: 0.15744, macro f1: 0.86193, speed: 136.93 step/s
+global step 1990, epoch: 2, batch: 990, loss: 0.21924, macro f1: 0.86072, speed: 135.36 step/s
+global step 2000, epoch: 2, batch: 1000, loss: 0.35279, macro f1: 0.86047, speed: 145.15 step/s
+eval loss: 0.34692, macro f1: 0.84849
+global step 2010, epoch: 3, batch: 10, loss: 0.12452, macro f1: 0.96874, speed: 133.61 step/s
+global step 2020, epoch: 3, batch: 20, loss: 0.22338, macro f1: 0.94995, speed: 131.56 step/s
+global step 2030, epoch: 3, batch: 30, loss: 0.44435, macro f1: 0.92708, speed: 134.89 step/s
+global step 2040, epoch: 3, batch: 40, loss: 0.18584, macro f1: 0.92343, speed: 134.74 step/s
+global step 2050, epoch: 3, batch: 50, loss: 0.30528, macro f1: 0.92000, speed: 136.98 step/s
+global step 2060, epoch: 3, batch: 60, loss: 0.20190, macro f1: 0.91769, speed: 138.59 step/s
+global step 2070, epoch: 3, batch: 70, loss: 0.30077, macro f1: 0.91963, speed: 131.59 step/s
+global step 2080, epoch: 3, batch: 80, loss: 0.19276, macro f1: 0.91328, speed: 138.27 step/s
+global step 2090, epoch: 3, batch: 90, loss: 0.06566, macro f1: 0.91666, speed: 136.64 step/s
+global step 2100, epoch: 3, batch: 100, loss: 0.41425, macro f1: 0.91437, speed: 135.99 step/s
+eval loss: 0.37543, macro f1: 0.85041
+global step 2110, epoch: 3, batch: 110, loss: 0.11841, macro f1: 0.89841, speed: 139.51 step/s
+global step 2120, epoch: 3, batch: 120, loss: 0.11836, macro f1: 0.90271, speed: 138.27 step/s
+global step 2130, epoch: 3, batch: 130, loss: 0.11071, macro f1: 0.90810, speed: 138.55 step/s
+global step 2140, epoch: 3, batch: 140, loss: 0.31009, macro f1: 0.89983, speed: 121.07 step/s
+global step 2150, epoch: 3, batch: 150, loss: 0.20407, macro f1: 0.89851, speed: 138.73 step/s
+global step 2160, epoch: 3, batch: 160, loss: 0.16564, macro f1: 0.89442, speed: 134.49 step/s
+global step 2170, epoch: 3, batch: 170, loss: 0.17681, macro f1: 0.89155, speed: 110.64 step/s
+global step 2180, epoch: 3, batch: 180, loss: 0.06866, macro f1: 0.89660, speed: 112.96 step/s
+global step 2190, epoch: 3, batch: 190, loss: 0.08869, macro f1: 0.89910, speed: 114.70 step/s
+global step 2200, epoch: 3, batch: 200, loss: 0.05955, macro f1: 0.89926, speed: 115.06 step/s
+eval loss: 0.37906, macro f1: 0.84391
+global step 2210, epoch: 3, batch: 210, loss: 0.05729, macro f1: 0.88445, speed: 116.06 step/s
+global step 2220, epoch: 3, batch: 220, loss: 0.32391, macro f1: 0.90828, speed: 116.58 step/s
+global step 2230, epoch: 3, batch: 230, loss: 0.07343, macro f1: 0.90275, speed: 115.39 step/s
+global step 2240, epoch: 3, batch: 240, loss: 0.57576, macro f1: 0.90739, speed: 113.74 step/s
+global step 2250, epoch: 3, batch: 250, loss: 0.14945, macro f1: 0.90494, speed: 110.84 step/s
+global step 2260, epoch: 3, batch: 260, loss: 0.14893, macro f1: 0.89996, speed: 110.70 step/s
+global step 2270, epoch: 3, batch: 270, loss: 0.30160, macro f1: 0.89994, speed: 112.58 step/s
+global step 2280, epoch: 3, batch: 280, loss: 0.21106, macro f1: 0.89602, speed: 114.02 step/s
+global step 2290, epoch: 3, batch: 290, loss: 0.14843, macro f1: 0.89643, speed: 113.60 step/s
+global step 2300, epoch: 3, batch: 300, loss: 0.40585, macro f1: 0.89806, speed: 114.93 step/s
+eval loss: 0.34920, macro f1: 0.85398
+global step 2310, epoch: 3, batch: 310, loss: 0.14113, macro f1: 0.90595, speed: 115.76 step/s
+global step 2320, epoch: 3, batch: 320, loss: 0.07574, macro f1: 0.91249, speed: 115.85 step/s
+global step 2330, epoch: 3, batch: 330, loss: 0.30104, macro f1: 0.89998, speed: 112.28 step/s
+global step 2340, epoch: 3, batch: 340, loss: 0.09721, macro f1: 0.90780, speed: 114.97 step/s
+global step 2350, epoch: 3, batch: 350, loss: 0.25959, macro f1: 0.90491, speed: 114.44 step/s
+global step 2360, epoch: 3, batch: 360, loss: 0.24211, macro f1: 0.90729, speed: 114.61 step/s
+global step 2370, epoch: 3, batch: 370, loss: 0.32455, macro f1: 0.90971, speed: 115.67 step/s
+global step 2380, epoch: 3, batch: 380, loss: 0.22297, macro f1: 0.90614, speed: 113.77 step/s
+global step 2390, epoch: 3, batch: 390, loss: 0.35312, macro f1: 0.90256, speed: 112.85 step/s
+global step 2400, epoch: 3, batch: 400, loss: 0.22266, macro f1: 0.89923, speed: 114.17 step/s
+eval loss: 0.37124, macro f1: 0.85050
+global step 2410, epoch: 3, batch: 410, loss: 0.14175, macro f1: 0.91782, speed: 111.20 step/s
+global step 2420, epoch: 3, batch: 420, loss: 0.09561, macro f1: 0.91533, speed: 109.68 step/s
+global step 2430, epoch: 3, batch: 430, loss: 0.22570, macro f1: 0.90396, speed: 113.78 step/s
+global step 2440, epoch: 3, batch: 440, loss: 0.35202, macro f1: 0.90765, speed: 115.30 step/s
+global step 2450, epoch: 3, batch: 450, loss: 0.03864, macro f1: 0.90733, speed: 114.41 step/s
+global step 2460, epoch: 3, batch: 460, loss: 0.36523, macro f1: 0.90293, speed: 115.31 step/s
+global step 2470, epoch: 3, batch: 470, loss: 0.37254, macro f1: 0.89611, speed: 115.27 step/s
+global step 2480, epoch: 3, batch: 480, loss: 0.45315, macro f1: 0.88965, speed: 115.09 step/s
+global step 2490, epoch: 3, batch: 490, loss: 0.11711, macro f1: 0.89150, speed: 111.58 step/s
+global step 2500, epoch: 3, batch: 500, loss: 0.40817, macro f1: 0.89302, speed: 107.63 step/s
+eval loss: 0.34093, macro f1: 0.84650
+global step 2510, epoch: 3, batch: 510, loss: 0.07675, macro f1: 0.91704, speed: 130.84 step/s
+global step 2520, epoch: 3, batch: 520, loss: 0.12211, macro f1: 0.91533, speed: 135.63 step/s
+global step 2530, epoch: 3, batch: 530, loss: 0.05282, macro f1: 0.90833, speed: 128.24 step/s
+global step 2540, epoch: 3, batch: 540, loss: 0.08357, macro f1: 0.90937, speed: 136.37 step/s
+global step 2550, epoch: 3, batch: 550, loss: 0.07976, macro f1: 0.90999, speed: 137.41 step/s
+global step 2560, epoch: 3, batch: 560, loss: 0.16191, macro f1: 0.91250, speed: 135.17 step/s
+global step 2570, epoch: 3, batch: 570, loss: 0.33975, macro f1: 0.90893, speed: 137.77 step/s
+global step 2580, epoch: 3, batch: 580, loss: 0.17838, macro f1: 0.90623, speed: 137.92 step/s
+global step 2590, epoch: 3, batch: 590, loss: 0.52479, macro f1: 0.89718, speed: 134.43 step/s
+global step 2600, epoch: 3, batch: 600, loss: 0.37880, macro f1: 0.89059, speed: 136.38 step/s
+eval loss: 0.35095, macro f1: 0.84324
+global step 2610, epoch: 3, batch: 610, loss: 0.11447, macro f1: 0.88706, speed: 138.15 step/s
+global step 2620, epoch: 3, batch: 620, loss: 0.20352, macro f1: 0.88750, speed: 137.87 step/s
+global step 2630, epoch: 3, batch: 630, loss: 0.48916, macro f1: 0.89362, speed: 137.43 step/s
+global step 2640, epoch: 3, batch: 640, loss: 0.08322, macro f1: 0.89843, speed: 137.99 step/s
+global step 2650, epoch: 3, batch: 650, loss: 0.19628, macro f1: 0.90620, speed: 134.02 step/s
+global step 2660, epoch: 3, batch: 660, loss: 0.16963, macro f1: 0.90936, speed: 132.02 step/s
+global step 2670, epoch: 3, batch: 670, loss: 0.32818, macro f1: 0.90981, speed: 130.58 step/s
+global step 2680, epoch: 3, batch: 680, loss: 0.21474, macro f1: 0.90698, speed: 133.98 step/s
+global step 2690, epoch: 3, batch: 690, loss: 0.32313, macro f1: 0.90416, speed: 137.15 step/s
+global step 2700, epoch: 3, batch: 700, loss: 0.29316, macro f1: 0.90500, speed: 134.29 step/s
+eval loss: 0.33911, macro f1: 0.84771
+global step 2710, epoch: 3, batch: 710, loss: 0.07015, macro f1: 0.94357, speed: 137.66 step/s
+global step 2720, epoch: 3, batch: 720, loss: 0.19465, macro f1: 0.93064, speed: 137.71 step/s
+global step 2730, epoch: 3, batch: 730, loss: 0.06011, macro f1: 0.91859, speed: 135.59 step/s
+global step 2740, epoch: 3, batch: 740, loss: 0.23686, macro f1: 0.91245, speed: 135.23 step/s
+global step 2750, epoch: 3, batch: 750, loss: 0.21633, macro f1: 0.91123, speed: 135.91 step/s
+global step 2760, epoch: 3, batch: 760, loss: 0.09332, macro f1: 0.91354, speed: 134.42 step/s
+global step 2770, epoch: 3, batch: 770, loss: 0.21429, macro f1: 0.91428, speed: 135.80 step/s
+global step 2780, epoch: 3, batch: 780, loss: 0.06275, macro f1: 0.92109, speed: 137.40 step/s
+global step 2790, epoch: 3, batch: 790, loss: 0.13631, macro f1: 0.91875, speed: 136.75 step/s
+global step 2800, epoch: 3, batch: 800, loss: 0.55889, macro f1: 0.91687, speed: 132.00 step/s
+eval loss: 0.37882, macro f1: 0.85524
+global step 2810, epoch: 3, batch: 810, loss: 0.16268, macro f1: 0.91238, speed: 129.46 step/s
+global step 2820, epoch: 3, batch: 820, loss: 0.09822, macro f1: 0.91247, speed: 126.79 step/s
+global step 2830, epoch: 3, batch: 830, loss: 0.08477, macro f1: 0.92080, speed: 130.87 step/s
+global step 2840, epoch: 3, batch: 840, loss: 0.20694, macro f1: 0.92500, speed: 129.56 step/s
+global step 2850, epoch: 3, batch: 850, loss: 0.03653, macro f1: 0.91873, speed: 130.55 step/s
+global step 2860, epoch: 3, batch: 860, loss: 0.33907, macro f1: 0.91666, speed: 128.89 step/s
+global step 2870, epoch: 3, batch: 870, loss: 0.19085, macro f1: 0.91696, speed: 131.68 step/s
+global step 2880, epoch: 3, batch: 880, loss: 0.09249, macro f1: 0.91796, speed: 130.58 step/s
+global step 2890, epoch: 3, batch: 890, loss: 0.29551, macro f1: 0.91944, speed: 129.49 step/s
+global step 2900, epoch: 3, batch: 900, loss: 0.25183, macro f1: 0.92062, speed: 131.55 step/s
+eval loss: 0.39784, macro f1: 0.84400
+global step 2910, epoch: 3, batch: 910, loss: 0.27314, macro f1: 0.89975, speed: 133.33 step/s
+global step 2920, epoch: 3, batch: 920, loss: 0.22789, macro f1: 0.90301, speed: 136.54 step/s
+global step 2930, epoch: 3, batch: 930, loss: 0.55234, macro f1: 0.89737, speed: 137.09 step/s
+global step 2940, epoch: 3, batch: 940, loss: 0.06386, macro f1: 0.89939, speed: 136.35 step/s
+global step 2950, epoch: 3, batch: 950, loss: 0.33371, macro f1: 0.89317, speed: 123.87 step/s
+global step 2960, epoch: 3, batch: 960, loss: 0.23086, macro f1: 0.88992, speed: 130.98 step/s
+global step 2970, epoch: 3, batch: 970, loss: 0.11631, macro f1: 0.89764, speed: 134.52 step/s
+global step 2980, epoch: 3, batch: 980, loss: 0.12260, macro f1: 0.90273, speed: 137.69 step/s
+global step 2990, epoch: 3, batch: 990, loss: 0.14151, macro f1: 0.90321, speed: 136.21 step/s
+global step 3000, epoch: 3, batch: 1000, loss: 0.30152, macro f1: 0.89979, speed: 146.90 step/s
+eval loss: 0.35116, macro f1: 0.85565
+global step 3010, epoch: 4, batch: 10, loss: 0.31669, macro f1: 0.93749, speed: 137.21 step/s
+global step 3020, epoch: 4, batch: 20, loss: 0.09138, macro f1: 0.94990, speed: 137.01 step/s
+global step 3030, epoch: 4, batch: 30, loss: 0.01541, macro f1: 0.95624, speed: 136.36 step/s
+global step 3040, epoch: 4, batch: 40, loss: 0.14354, macro f1: 0.94371, speed: 135.31 step/s
+global step 3050, epoch: 4, batch: 50, loss: 0.04060, macro f1: 0.94492, speed: 133.00 step/s
+global step 3060, epoch: 4, batch: 60, loss: 0.15387, macro f1: 0.94473, speed: 136.59 step/s
+global step 3070, epoch: 4, batch: 70, loss: 0.17020, macro f1: 0.94372, speed: 133.76 step/s
+global step 3080, epoch: 4, batch: 80, loss: 0.28855, macro f1: 0.94452, speed: 135.51 step/s
+global step 3090, epoch: 4, batch: 90, loss: 0.08595, macro f1: 0.93958, speed: 137.40 step/s
+global step 3100, epoch: 4, batch: 100, loss: 0.04493, macro f1: 0.94061, speed: 131.25 step/s
+eval loss: 0.37434, macro f1: 0.85574
+global step 3110, epoch: 4, batch: 110, loss: 0.16589, macro f1: 0.92424, speed: 139.71 step/s
+global step 3120, epoch: 4, batch: 120, loss: 0.08800, macro f1: 0.94949, speed: 133.67 step/s
+global step 3130, epoch: 4, batch: 130, loss: 0.04419, macro f1: 0.94360, speed: 130.79 step/s
+global step 3140, epoch: 4, batch: 140, loss: 0.23604, macro f1: 0.94190, speed: 132.11 step/s
+global step 3150, epoch: 4, batch: 150, loss: 0.03281, macro f1: 0.94478, speed: 129.52 step/s
+global step 3160, epoch: 4, batch: 160, loss: 0.08079, macro f1: 0.94155, speed: 132.91 step/s
+global step 3170, epoch: 4, batch: 170, loss: 0.31933, macro f1: 0.93912, speed: 135.20 step/s
+global step 3180, epoch: 4, batch: 180, loss: 0.04908, macro f1: 0.93735, speed: 134.39 step/s
+global step 3190, epoch: 4, batch: 190, loss: 0.18935, macro f1: 0.93814, speed: 137.85 step/s
+global step 3200, epoch: 4, batch: 200, loss: 0.13262, macro f1: 0.93929, speed: 138.70 step/s
+eval loss: 0.41056, macro f1: 0.84945
+global step 3210, epoch: 4, batch: 210, loss: 0.22524, macro f1: 0.93079, speed: 139.11 step/s
+global step 3220, epoch: 4, batch: 220, loss: 0.07605, macro f1: 0.94053, speed: 121.96 step/s
+global step 3230, epoch: 4, batch: 230, loss: 0.04753, macro f1: 0.94368, speed: 136.52 step/s
+global step 3240, epoch: 4, batch: 240, loss: 0.03234, macro f1: 0.93588, speed: 134.30 step/s
+global step 3250, epoch: 4, batch: 250, loss: 0.37189, macro f1: 0.93614, speed: 135.30 step/s
+global step 3260, epoch: 4, batch: 260, loss: 0.05253, macro f1: 0.94061, speed: 136.93 step/s
+global step 3270, epoch: 4, batch: 270, loss: 0.04320, macro f1: 0.94463, speed: 134.08 step/s
+global step 3280, epoch: 4, batch: 280, loss: 0.06603, macro f1: 0.94685, speed: 133.25 step/s
+global step 3290, epoch: 4, batch: 290, loss: 0.02697, macro f1: 0.94580, speed: 134.24 step/s
+global step 3300, epoch: 4, batch: 300, loss: 0.13241, macro f1: 0.94745, speed: 135.08 step/s
+eval loss: 0.42557, macro f1: 0.85285
+global step 3310, epoch: 4, batch: 310, loss: 0.39084, macro f1: 0.93749, speed: 134.42 step/s
+global step 3320, epoch: 4, batch: 320, loss: 0.04811, macro f1: 0.94375, speed: 135.77 step/s
+global step 3330, epoch: 4, batch: 330, loss: 0.01780, macro f1: 0.93944, speed: 127.30 step/s
+global step 3340, epoch: 4, batch: 340, loss: 0.49156, macro f1: 0.94176, speed: 128.35 step/s
+global step 3350, epoch: 4, batch: 350, loss: 0.03325, macro f1: 0.93961, speed: 136.29 step/s
+global step 3360, epoch: 4, batch: 360, loss: 0.25557, macro f1: 0.93933, speed: 137.12 step/s
+global step 3370, epoch: 4, batch: 370, loss: 0.03884, macro f1: 0.94266, speed: 135.35 step/s
+global step 3380, epoch: 4, batch: 380, loss: 0.01971, macro f1: 0.94273, speed: 136.57 step/s
+global step 3390, epoch: 4, batch: 390, loss: 0.11296, macro f1: 0.94219, speed: 135.31 step/s
+global step 3400, epoch: 4, batch: 400, loss: 0.38952, macro f1: 0.94051, speed: 134.81 step/s
+eval loss: 0.40203, macro f1: 0.86047
+global step 3410, epoch: 4, batch: 410, loss: 0.06996, macro f1: 0.93103, speed: 136.26 step/s
+global step 3420, epoch: 4, batch: 420, loss: 0.05240, macro f1: 0.94686, speed: 137.65 step/s
+global step 3430, epoch: 4, batch: 430, loss: 0.26820, macro f1: 0.93120, speed: 133.01 step/s
+global step 3440, epoch: 4, batch: 440, loss: 0.01305, macro f1: 0.93906, speed: 134.34 step/s
+global step 3450, epoch: 4, batch: 450, loss: 0.24130, macro f1: 0.93625, speed: 130.41 step/s
+global step 3460, epoch: 4, batch: 460, loss: 0.12869, macro f1: 0.94269, speed: 137.84 step/s
+global step 3470, epoch: 4, batch: 470, loss: 0.40837, macro f1: 0.94464, speed: 137.17 step/s
+global step 3480, epoch: 4, batch: 480, loss: 0.32790, macro f1: 0.93825, speed: 136.04 step/s
+global step 3490, epoch: 4, batch: 490, loss: 0.17164, macro f1: 0.93954, speed: 138.70 step/s
+global step 3500, epoch: 4, batch: 500, loss: 0.03182, macro f1: 0.93995, speed: 137.76 step/s
+eval loss: 0.39732, macro f1: 0.85902
+global step 3510, epoch: 4, batch: 510, loss: 0.03105, macro f1: 0.94375, speed: 110.53 step/s
+global step 3520, epoch: 4, batch: 520, loss: 0.26956, macro f1: 0.93092, speed: 115.67 step/s
+global step 3530, epoch: 4, batch: 530, loss: 0.06109, macro f1: 0.93521, speed: 112.20 step/s
+global step 3540, epoch: 4, batch: 540, loss: 0.14943, macro f1: 0.93579, speed: 114.51 step/s
+global step 3550, epoch: 4, batch: 550, loss: 0.15119, macro f1: 0.93863, speed: 115.20 step/s
+global step 3560, epoch: 4, batch: 560, loss: 0.09726, macro f1: 0.93727, speed: 111.44 step/s
+global step 3570, epoch: 4, batch: 570, loss: 0.09356, macro f1: 0.93924, speed: 106.97 step/s
+global step 3580, epoch: 4, batch: 580, loss: 0.17704, macro f1: 0.94292, speed: 135.02 step/s
+global step 3590, epoch: 4, batch: 590, loss: 0.31947, macro f1: 0.93957, speed: 136.38 step/s
+global step 3600, epoch: 4, batch: 600, loss: 0.24555, macro f1: 0.94062, speed: 134.96 step/s
+eval loss: 0.40121, macro f1: 0.85871
+global step 3610, epoch: 4, batch: 610, loss: 0.19554, macro f1: 0.94987, speed: 136.27 step/s
+global step 3620, epoch: 4, batch: 620, loss: 0.26067, macro f1: 0.94373, speed: 130.66 step/s
+global step 3630, epoch: 4, batch: 630, loss: 0.08822, macro f1: 0.94998, speed: 134.18 step/s
+global step 3640, epoch: 4, batch: 640, loss: 0.03691, macro f1: 0.95467, speed: 130.72 step/s
+global step 3650, epoch: 4, batch: 650, loss: 0.03868, macro f1: 0.95500, speed: 135.57 step/s
+global step 3660, epoch: 4, batch: 660, loss: 0.02373, macro f1: 0.95621, speed: 120.27 step/s
+global step 3670, epoch: 4, batch: 670, loss: 0.04552, macro f1: 0.96059, speed: 129.18 step/s
+global step 3680, epoch: 4, batch: 680, loss: 0.08257, macro f1: 0.96009, speed: 126.40 step/s
+global step 3690, epoch: 4, batch: 690, loss: 0.32489, macro f1: 0.95685, speed: 134.31 step/s
+global step 3700, epoch: 4, batch: 700, loss: 0.23502, macro f1: 0.95245, speed: 124.66 step/s
+eval loss: 0.40217, macro f1: 0.85816
+global step 3710, epoch: 4, batch: 710, loss: 0.04731, macro f1: 0.93746, speed: 131.22 step/s
+global step 3720, epoch: 4, batch: 720, loss: 0.34305, macro f1: 0.94062, speed: 135.82 step/s
+global step 3730, epoch: 4, batch: 730, loss: 0.09583, macro f1: 0.93748, speed: 133.41 step/s
+global step 3740, epoch: 4, batch: 740, loss: 0.04853, macro f1: 0.94528, speed: 129.25 step/s
+global step 3750, epoch: 4, batch: 750, loss: 0.00915, macro f1: 0.94248, speed: 133.39 step/s
+global step 3760, epoch: 4, batch: 760, loss: 0.12250, macro f1: 0.94479, speed: 137.45 step/s
+global step 3770, epoch: 4, batch: 770, loss: 0.07425, macro f1: 0.94641, speed: 136.34 step/s
+global step 3780, epoch: 4, batch: 780, loss: 0.15109, macro f1: 0.94136, speed: 137.59 step/s
+global step 3790, epoch: 4, batch: 790, loss: 0.11294, macro f1: 0.94303, speed: 135.66 step/s
+global step 3800, epoch: 4, batch: 800, loss: 0.02360, macro f1: 0.94623, speed: 137.79 step/s
+eval loss: 0.40134, macro f1: 0.85875
+global step 3810, epoch: 4, batch: 810, loss: 0.17786, macro f1: 0.93079, speed: 138.34 step/s
+global step 3820, epoch: 4, batch: 820, loss: 0.27108, macro f1: 0.94006, speed: 139.74 step/s
+global step 3830, epoch: 4, batch: 830, loss: 0.25770, macro f1: 0.94316, speed: 137.49 step/s
+global step 3840, epoch: 4, batch: 840, loss: 0.05813, macro f1: 0.94203, speed: 137.58 step/s
+global step 3850, epoch: 4, batch: 850, loss: 0.22098, macro f1: 0.94121, speed: 138.26 step/s
+global step 3860, epoch: 4, batch: 860, loss: 0.11902, macro f1: 0.94058, speed: 111.11 step/s
+global step 3870, epoch: 4, batch: 870, loss: 0.15103, macro f1: 0.94374, speed: 129.27 step/s
+global step 3880, epoch: 4, batch: 880, loss: 0.16339, macro f1: 0.94687, speed: 129.13 step/s
+global step 3890, epoch: 4, batch: 890, loss: 0.31999, macro f1: 0.94861, speed: 128.45 step/s
+global step 3900, epoch: 4, batch: 900, loss: 0.10154, macro f1: 0.94750, speed: 131.13 step/s
+eval loss: 0.40519, macro f1: 0.85862
+global step 3910, epoch: 4, batch: 910, loss: 0.15696, macro f1: 0.94364, speed: 137.23 step/s
+global step 3920, epoch: 4, batch: 920, loss: 0.37591, macro f1: 0.94062, speed: 137.78 step/s
+global step 3930, epoch: 4, batch: 930, loss: 0.02509, macro f1: 0.94374, speed: 127.84 step/s
+global step 3940, epoch: 4, batch: 940, loss: 0.08174, macro f1: 0.94687, speed: 121.84 step/s
+global step 3950, epoch: 4, batch: 950, loss: 0.12315, macro f1: 0.94874, speed: 127.64 step/s
+global step 3960, epoch: 4, batch: 960, loss: 0.09667, macro f1: 0.94887, speed: 134.96 step/s
+global step 3970, epoch: 4, batch: 970, loss: 0.14462, macro f1: 0.94631, speed: 128.12 step/s
+global step 3980, epoch: 4, batch: 980, loss: 0.08130, macro f1: 0.95071, speed: 128.83 step/s
+global step 3990, epoch: 4, batch: 990, loss: 0.02275, macro f1: 0.94925, speed: 132.49 step/s
+global step 4000, epoch: 4, batch: 1000, loss: 0.39860, macro f1: 0.94433, speed: 138.96 step/s
+eval loss: 0.39981, macro f1: 0.86068
+Speed: 128.11 steps/s
