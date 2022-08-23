@@ -150,6 +150,8 @@ class InputFeatures(dict):
                 value = value.numpy().tolist()
             elif isinstance(value, paddle.static.Variable):
                 value = value.to_string(True)
+            elif key == "past_key_values":
+                value = None
             content[key] = value
         return str(json.dumps(content))
 
