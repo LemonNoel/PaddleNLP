@@ -35,27 +35,29 @@ CUDA_VISIBLE_DEVICES=$device python train_single.py \
 --output_dir ./checkpoints/ \
 --prompt "$prompt" \
 --max_seq_length $max_length \
---learning_rate 1e-5 \
---ppt_learning_rate 1e-4 \
+--learning_rate 3e-5 \
+--ppt_learning_rate 3e-4 \
 --do_train \
 --num_train_epochs 20 \
 --logging_steps 10 \
 --do_predict \
 --do_eval \
---do_test \
 --do_save True \
---do_predict \
---eval_steps 10 \
+--do_test \
+--eval_steps 100 \
+--save_steps 100 \
 --per_device_eval_batch_size 32 \
---per_device_train_batch_size 4 \
+--per_device_train_batch_size 8 \
 --model_name_or_path ernie-3.0-base-zh \
 --split_id few_all \
 --task_name $task_name \
 --metric_for_best_model accuracy \
 --load_best_model_at_end \
+--disable_tqdm True \
 --evaluation_strategy epoch \
 --save_strategy epoch \
---disable_tqdm True
+--do_predict \
+#--early_stop_patience 10
 #--freeze_plm \
 #--soft_encoder mlp \
 #--save_strategy no

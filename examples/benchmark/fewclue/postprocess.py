@@ -24,6 +24,28 @@ def postprocess(test_ret, test_ds, task_name, id_to_label):
             ret_list.append({"id": uid, "answer": int(np.argmax(pred))})
         return ret_list
 
+    if task_name == "iflytek":
+        with open("iflytek_label_maps.txt", "r") as fp:
+            remap = json.load(fp)
+    elif task_name == "tnews":
+        remap = {
+            'news_story': '100',
+            'news_culture': '101',
+            'news_entertainment': '102',
+            'news_sports': '103',
+            'news_finance': '104',
+            'news_house': '106',
+            'news_car': '107',
+            'news_edu': '108',
+            'news_tech': '109',
+            'news_military': '110',
+            'news_travel': '112',
+            'news_world': '113',
+            'news_stock': '114',
+            'news_agriculture': '115',
+            'news_game': '116'
+        }
+
     preds = np.argmax(test_ret.predictions, axis=1)
     for idx, example in enumerate(test_ds):
         uid = getattr(example, "uid", idx)
@@ -33,24 +55,7 @@ def postprocess(test_ret, test_ds, task_name, id_to_label):
             ret_list.append({"id": uid, "answer": preds[idx]})
         elif task_name in ["cluewsc", "eprstmt", "ocnli", "csldcp"]:
             ret_list.append({"id": uid, "label": id_to_label[preds[idx]]})
-        elif task_name == "tnews":
-            remap = {
-                'news_story': '100',
-                'news_culture': '101',
-                'news_entertainment': '102',
-                'news_sports': '103',
-                'news_finance': '104',
-                'news_house': '106',
-                'news_car': '107',
-                'news_edu': '108',
-                'news_tech': '109',
-                'news_military': '110',
-                'news_travel': '112',
-                'news_world': '113',
-                'news_stock': '114',
-                'news_agriculture': '115',
-                'news_game': '116'
-            }
+        elif task_name in ["iflytek", "tnews"]:
             ret_list.append({
                 "id": uid,
                 "label": remap[id_to_label[preds[idx]]]

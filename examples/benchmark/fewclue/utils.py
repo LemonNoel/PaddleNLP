@@ -58,6 +58,7 @@ def convert_chid(example):
     #           Replace #idiom# with candicates.
     # IDEA B.2: Take it as a token classification.
     #           Concatenate all sequences.
+    # IDEA B.3: Replace #idiom# with [mask] and take candidates as label_words.
     return InputExample(uid=example["id"],
                         text_a=example["content"],
                         text_b="，".join(example["candidates"]),
@@ -91,6 +92,7 @@ def convert_csl(example):
 def A_convert_cluewsc(example):
     # IDEA D.1: Use attention between two positions.
     # IDEA D.2: Take it as binary classification. Replace span2 with span1.
+    # IDEA D.3: Use special tokens to mark query and pronoun.
     return InputExample(uid=example.get("id", None),
                         text_a=example["text"],
                         text_b="其中" + example["target"]["span2_text"] + "指的是" +
@@ -98,13 +100,34 @@ def A_convert_cluewsc(example):
                         labels=example.get("label", None))
 
 
-def convert_cluewsc(example):
+def D2_convert_cluewsc(example):
     # IDEA D.2
     target = example["target"]
     text = example["text"][:target["span2_index"]] + "（" + target["span1_text"] + \
         "）" + example["text"][target["span2_index"] + len(target["span2_text"]):]
     return InputExample(uid=example.get("id", None),
                         text_a=text,
+                        text_b="",
+                        labels=example.get("label", None))
+
+
+def convert_cluewsc(example):
+    # IDEA D.3
+    target, text = example["target"], list(example["text"])
+    pronoun, p_index = target["span2_text"], target["span2_index"]
+    entity, e_index = target["span1_text"], target["span1_index"]
+    if p_index > e_index:
+        text.insert(p_index, "_")
+        text.insert(p_index + len(pronoun) + 1, "_")
+        text.insert(e_index, "[")
+        text.insert(e_index + len(entity) + 1, "]")
+    else:
+        text.insert(e_index, "[")
+        text.insert(e_index + len(entity) + 1, "]")
+        text.insert(p_index, "_")
+        text.insert(p_index + len(pronoun) + 1, "_")
+    return InputExample(uid=example.get("id", None),
+                        text_a="".join(text),
                         text_b="",
                         labels=example.get("label", None))
 
@@ -159,46 +182,6 @@ def load_fewclue(task_name, split_id, label_list):
 
     return train_ds, dev_ds, public_test_ds, test_ds
 
-
-LABEL_LIST = {
-    "bustm": ["0", "1"],
-    "chid": [0, 1],  # [0, 1, 2, 3, 4, 5, 6],
-    "cluewsc": ["false", "true"],
-    "csl": ["0", "1"],
-    "csldcp": [
-        "材料科学与工程", "作物学", "口腔医学", "药学", "教育学", "水利工程", "理论经济学", "食品科学与工程",
-        "畜牧学/兽医学", "体育学", "核科学与技术", "力学", "园艺学", "水产", "法学", "地质学/地质资源与地质工程",
-        "石油与天然气工程", "农林经济管理", "信息与通信工程", "图书馆、情报与档案管理", "政治学", "电气工程", "海洋科学",
-        "民族学", "航空宇航科学与技术", "化学/化学工程与技术", "哲学", "公共卫生与预防医学", "艺术学", "农业工程",
-        "船舶与海洋工程", "计算机科学与技术", "冶金工程", "交通运输工程", "动力工程及工程热物理", "纺织科学与工程", "建筑学",
-        "环境科学与工程", "公共管理", "数学", "物理学", "林学/林业工程", "心理学", "历史学", "工商管理",
-        "应用经济学", "中医学/中药学", "天文学", "机械工程", "土木工程", "光学工程", "地理学", "农业资源利用",
-        "生物学/生物科学与工程", "兵器科学与技术", "矿业工程", "大气科学", "基础医学/临床医学", "电子科学与技术",
-        "测绘科学与技术", "控制科学与工程", "军事学", "中国语言文学", "新闻传播学", "社会学", "地球物理学", "植物保护"
-    ],
-    "eprstmt": ["Negative", "Positive"],
-    "iflytek": [
-        '打车', '美颜', '影像剪辑', '摄影修图', '相机', '绘画', '二手', '电商', '团购', '外卖', '电影票务',
-        '社区服务', '社区超市', '购物咨询', '笔记', '办公', '日程管理', '女性', '经营', '收款', '其他',
-        '薅羊毛', '魔幻', '仙侠', '卡牌', '飞行空战', '射击游戏', '休闲益智', '动作类', '体育竞技', '地图导航',
-        '棋牌中心', '经营养成', '策略', 'MOBA', '辅助工具', '约会社交', '即时通讯', '工作社交', '论坛圈子',
-        '婚恋社交', '免费WIFI', '情侣社交', '社交工具', '生活社交', '微博博客', '新闻', '漫画', '小说',
-        '技术', '教辅', '问答交流', '租车', '搞笑', '杂志', '百科', '影视娱乐', '求职', '兼职', '视频',
-        '短视频', '音乐', '直播', '同城服务', '电台', 'K歌', '成人', '中小学', '职考', '公务员', '英语',
-        '视频教育', '高等教育', '成人教育', '快递物流', '艺术', '语言(非英语)', '旅游资讯', '综合预定', '民航',
-        '铁路', '酒店', '行程管理', '民宿短租', '出国', '婚庆', '工具', '亲子儿童', '母婴', '驾校', '违章',
-        '汽车咨询', '汽车交易', '日常养车', '行车辅助', '租房', '家政', '买房', '装修家居', '电子产品',
-        '问诊挂号', '养生保健', '医疗服务', '减肥瘦身', '美妆美业', '菜谱', '餐饮店', '公共交通', '体育咨讯',
-        '运动健身', '支付', '保险', '股票', '借贷', '理财', '彩票', '记账', '银行', '政务'
-    ],
-    "ocnli": ["contradiction", "neutral", "entailment"],
-    "tnews": [
-        'news_story', 'news_culture', 'news_entertainment', 'news_sports',
-        'news_finance', 'news_house', 'news_car', 'news_edu', 'news_tech',
-        'news_military', 'news_travel', 'news_world', 'news_stock',
-        'news_agriculture', 'news_game'
-    ]
-}
 
 LABEL_MAP = {
     "bustm": {
@@ -447,3 +430,5 @@ LABEL_MAP = {
         "neutral": "而且"
     }
 }
+
+LABEL_LIST = {k: list(v.keys()) for k, v in LABEL_MAP.items()}

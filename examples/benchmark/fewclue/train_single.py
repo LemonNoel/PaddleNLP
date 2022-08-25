@@ -55,6 +55,7 @@ class ModelArguments:
     export_type: str = field(default='paddle', metadata={"help": "The type to export. Support `paddle` and `onnx`."})
     do_test: bool = field(default=False, metadata={"help": "Evaluate the model on test_public dataset."})
     do_save: bool = field(default=False, metadata={"help": "Whether to save checkpoints during training."})
+    early_stop_patience: int = field(default=4, metadata={"help": "The descent steps before the training stops."})
 # yapf: enable
 
 
@@ -103,7 +104,7 @@ def main():
         freeze_dropout=training_args.freeze_dropout)
 
     # Define the metric function.
-    def _compute_metrics(eval_preds):
+    def compute_metrics(eval_preds):
         metric = Accuracy()
         correct = metric.compute(paddle.to_tensor(eval_preds.predictions),
                                  paddle.to_tensor(eval_preds.label_ids))
@@ -111,7 +112,7 @@ def main():
         acc = metric.accumulate()
         return {'accuracy': acc}
 
-    def compute_metrics(eval_preds):
+    def chid_compute_metrics(eval_preds):
         # chid IDEA B.1
         from scipy.special import softmax
         preds = softmax(eval_preds.predictions, axis=1)[:, 1]
@@ -120,11 +121,14 @@ def main():
         acc = sum(preds == labels) / len(preds)
         return {'accuracy': acc}
 
+    used_metrics = chid_compute_metrics if data_args.task_name == "chid" else compute_metrics
+
     # Deine the early-stopping callback.
     if model_args.do_save:
         callbacks = [
-            EarlyStoppingCallback(early_stopping_patience=4,
-                                  early_stopping_threshold=0.)
+            EarlyStoppingCallback(
+                early_stopping_patience=model_args.early_stop_patience,
+                early_stopping_threshold=0.)
         ]
     else:
         callbacks = None
@@ -137,7 +141,7 @@ def main():
                             train_dataset=train_ds,
                             eval_dataset=dev_ds,
                             callbacks=callbacks,
-                            compute_metrics=compute_metrics)
+                            compute_metrics=used_metrics)
 
     # Traininig.
     if training_args.do_train:
