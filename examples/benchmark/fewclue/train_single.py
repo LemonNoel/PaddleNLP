@@ -15,6 +15,8 @@
 from dataclasses import dataclass, field
 import os
 
+import numpy as np
+
 import paddle
 from paddle.static import InputSpec
 from paddle.metric import Accuracy
@@ -101,12 +103,21 @@ def main():
         freeze_dropout=training_args.freeze_dropout)
 
     # Define the metric function.
-    def compute_metrics(eval_preds):
+    def _compute_metrics(eval_preds):
         metric = Accuracy()
         correct = metric.compute(paddle.to_tensor(eval_preds.predictions),
                                  paddle.to_tensor(eval_preds.label_ids))
         metric.update(correct)
         acc = metric.accumulate()
+        return {'accuracy': acc}
+
+    def compute_metrics(eval_preds):
+        # chid IDEA B.1
+        from scipy.special import softmax
+        preds = softmax(eval_preds.predictions, axis=1)[:, 1]
+        preds = np.argmax(preds.reshape(-1, 7), axis=1)
+        labels = np.argmax(eval_preds.label_ids.reshape(-1, 7), axis=1)
+        acc = sum(preds == labels) / len(preds)
         return {'accuracy': acc}
 
     # Deine the early-stopping callback.

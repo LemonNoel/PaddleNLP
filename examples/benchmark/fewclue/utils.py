@@ -1,5 +1,5 @@
 from functools import partial
-from paddlenlp.datasets import load_dataset
+from paddlenlp.datasets import load_dataset, MapDataset
 from paddlenlp.prompt import InputExample
 
 
@@ -40,8 +40,8 @@ def convert_ocnli(example):
     return InputExample(uid=example["id"],
                         text_a=example["sentence1"],
                         text_b=example["sentence2"],
-                        labels=example.get("label", None),
-                        meta={"genre": example.get("genre", None)})
+                        labels=example.get("label", None))
+    # meta={"genre": example.get("genre", None)})
 
 
 def convert_bustm(example):
@@ -64,6 +64,21 @@ def convert_chid(example):
                         labels=example.get("answer", None))
 
 
+def convert_chid_efl(example):
+    # IDEA B.1
+    bi_examples = []
+    fragments = example["content"].split("#idiom#")
+    label = example.get("answer", None)
+    for idx, cand in enumerate(example["candidates"]):
+        text = fragments[0] + cand + fragments[1]
+        bi_examples.append(
+            InputExample(uid=example["id"],
+                         text_a=text,
+                         text_b="",
+                         labels=None if label is None else int(idx == label)))
+    return bi_examples
+
+
 def convert_csl(example):
     # Unlabeled: 19841. Long sentence.
     # IDEA C: Take it as a NER and compare list. Con: error propagation.
@@ -73,12 +88,24 @@ def convert_csl(example):
                         labels=example.get("label", None))
 
 
-def convert_cluewsc(example):
-    # IDEA D: Use attention between two positions.
+def A_convert_cluewsc(example):
+    # IDEA D.1: Use attention between two positions.
+    # IDEA D.2: Take it as binary classification. Replace span2 with span1.
     return InputExample(uid=example.get("id", None),
                         text_a=example["text"],
                         text_b="其中" + example["target"]["span2_text"] + "指的是" +
                         example["target"]["span1_text"],
+                        labels=example.get("label", None))
+
+
+def convert_cluewsc(example):
+    # IDEA D.2
+    target = example["target"]
+    text = example["text"][:target["span2_index"]] + "（" + target["span1_text"] + \
+        "）" + example["text"][target["span2_index"] + len(target["span2_text"]):]
+    return InputExample(uid=example.get("id", None),
+                        text_a=text,
+                        text_b="",
                         labels=example.get("label", None))
 
 
@@ -93,35 +120,49 @@ def load_fewclue(task_name, split_id, label_list):
     splits = [f"train_{split_id}", f"dev_{split_id}", "test_public", "test"]
     train_ds, dev_ds, public_test_ds, test_ds = load_dataset(
         "fewclue", name=task_name, splits=splits, label_list=label_list)
-    convert_fn = {
-        "eprstmt": convert_eprstmt,
-        "csldcp": convert_csldcp,
-        "tnews": convert_tnews,
-        "iflytek": convert_iflytek,
-        "ocnli": convert_ocnli,
-        "bustm": convert_bustm,
-        "chid": convert_chid,
-        "csl": convert_csl,
-        "cluewsc": convert_cluewsc
-    }[task_name]
 
-    train_ds = train_ds.map(convert_fn)
-    dev_ds = dev_ds.map(convert_fn)
-    public_test_ds = public_test_ds.map(convert_fn)
-    test_ds = test_ds.map(convert_fn)
+    if task_name == "chid":
+        # IDEA B.1
+        def convert_to_binary(dataset):
+            new_data = []
+            for example in dataset:
+                new_data.extend(convert_chid_efl(example))
+            return MapDataset(new_data)
 
-    convert_fn = partial(convert_labels_to_ids, label_dict=label_list)
+        train_ds = convert_to_binary(train_ds)
+        dev_ds = convert_to_binary(dev_ds)
+        public_test_ds = convert_to_binary(public_test_ds)
+        test_ds = convert_to_binary(test_ds)
+    else:
+        convert_fn = {
+            "eprstmt": convert_eprstmt,
+            "csldcp": convert_csldcp,
+            "tnews": convert_tnews,
+            "iflytek": convert_iflytek,
+            "ocnli": convert_ocnli,
+            "bustm": convert_bustm,
+            "chid": convert_chid,
+            "csl": convert_csl,
+            "cluewsc": convert_cluewsc
+        }[task_name]
 
-    train_ds = train_ds.map(convert_fn)
-    dev_ds = dev_ds.map(convert_fn)
-    public_test_ds = public_test_ds.map(convert_fn)
+        train_ds = train_ds.map(convert_fn)
+        dev_ds = dev_ds.map(convert_fn)
+        public_test_ds = public_test_ds.map(convert_fn)
+        test_ds = test_ds.map(convert_fn)
+
+        convert_fn = partial(convert_labels_to_ids, label_dict=label_list)
+
+        train_ds = train_ds.map(convert_fn)
+        dev_ds = dev_ds.map(convert_fn)
+        public_test_ds = public_test_ds.map(convert_fn)
 
     return train_ds, dev_ds, public_test_ds, test_ds
 
 
 LABEL_LIST = {
     "bustm": ["0", "1"],
-    "chid": [0, 1, 2, 3, 4, 5, 6],
+    "chid": [0, 1],  # [0, 1, 2, 3, 4, 5, 6],
     "cluewsc": ["false", "true"],
     "csl": ["0", "1"],
     "csldcp": [
@@ -165,17 +206,25 @@ LABEL_MAP = {
         "1": "很"
     },
     "chid": {
-        0: "一",
-        1: "二",
-        2: "三",
-        3: "四",
-        4: "五",
-        5: "六",
-        6: "七"
+        # IDEA A.0
+        # 0: "一",
+        # 1: "二",
+        # 2: "三",
+        # 3: "四",
+        # 4: "五",
+        # 5: "六",
+        # 6: "七"
+        # IDEA B.1
+        0: "不",
+        1: "很"
     },
     "cluewsc": {
-        "false": "错误",
-        "true": "正确"
+        # A
+        # "false": "错误",
+        # "true": "正确"
+        # IDEA D.2
+        "false": "不",
+        "true": "很"
     },
     "csl": {
         "0": "不",

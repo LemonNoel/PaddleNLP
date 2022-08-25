@@ -1,14 +1,29 @@
 import os
 import json
 import pathlib
+from collections import defaultdict
 
 import numpy as np
+from scipy.special import softmax
 
 from paddlenlp.utils.log import logger
 
 
 def postprocess(test_ret, test_ds, task_name, id_to_label):
     ret_list = []
+
+    # IDEA B.1
+    if task_name == "chid":
+        ret_dict = defaultdict(list)
+        preds = softmax(test_ret.predictions, axis=1)[:, 1]
+        for idx, example in enumerate(test_ds):
+            uid = getattr(example, "uid", idx // 7)
+            ret_dict[uid].append(preds[idx])
+
+        for uid, pred in ret_dict.items():
+            ret_list.append({"id": uid, "answer": int(np.argmax(pred))})
+        return ret_list
+
     preds = np.argmax(test_ret.predictions, axis=1)
     for idx, example in enumerate(test_ds):
         uid = getattr(example, "uid", idx)
@@ -16,7 +31,7 @@ def postprocess(test_ret, test_ds, task_name, id_to_label):
             ret_list.append({"id": uid, "label": str(preds[idx])})
         elif task_name == "chid":
             ret_list.append({"id": uid, "answer": preds[idx]})
-        elif task_name in ["cluewscf", "eprstmt", "ocnli", "csldcp"]:
+        elif task_name in ["cluewsc", "eprstmt", "ocnli", "csldcp"]:
             ret_list.append({"id": uid, "label": id_to_label[preds[idx]]})
         elif task_name == "tnews":
             remap = {

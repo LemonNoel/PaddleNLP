@@ -23,10 +23,11 @@ elif [ $task_name == "bustm" ]; then
     prompt="{'text':'text_a'}{'sep'}{'text':'text_b'}{'sep'}{'soft':'这两句话看起来'}{'mask'}{'soft':'像一个意思。'}"
     max_length=40
 elif [ $task_name == "chid" ]; then
-    prompt="{'soft':'已知候选词有'}{'text':'text_b'}{'sep'}{'text':'text_a'}{'soft':''问：这句话的空格处应该填第'}{'mask'}{'soft':'个词'}"
+    # prompt="{'soft':'已知候选词有'}{'text':'text_b'}{'sep'}{'text':'text_a'}{'soft':'问：这句话的空格处应该填第'}{'mask'}{'soft':'个词'}"
+    prompt="{'mask'}{'soft':通顺。'}{'text':'text_a'}"
     max_length=256
 elif [ $task_name == "cluewsc" ]; then
-    prompt="{'text':'text_a'}{'sep'}{'text':'text_b'}{'soft':'这里的描述是'}{'mask'}{'mask'}{'soft':'的'}"
+    prompt="{'mask'}{'soft':'合理。'}{'text':'text_a'}"
     max_length=128
 fi
 
@@ -34,8 +35,8 @@ CUDA_VISIBLE_DEVICES=$device python train_single.py \
 --output_dir ./checkpoints/ \
 --prompt "$prompt" \
 --max_seq_length $max_length \
---learning_rate 3e-5 \
---ppt_learning_rate 3e-4 \
+--learning_rate 1e-5 \
+--ppt_learning_rate 1e-4 \
 --do_train \
 --num_train_epochs 20 \
 --logging_steps 10 \
@@ -46,7 +47,7 @@ CUDA_VISIBLE_DEVICES=$device python train_single.py \
 --do_predict \
 --eval_steps 10 \
 --per_device_eval_batch_size 32 \
---per_device_train_batch_size 8 \
+--per_device_train_batch_size 4 \
 --model_name_or_path ernie-3.0-base-zh \
 --split_id few_all \
 --task_name $task_name \
@@ -54,6 +55,7 @@ CUDA_VISIBLE_DEVICES=$device python train_single.py \
 --load_best_model_at_end \
 --evaluation_strategy epoch \
 --save_strategy epoch \
+--disable_tqdm True
 #--freeze_plm \
 #--soft_encoder mlp \
 #--save_strategy no
