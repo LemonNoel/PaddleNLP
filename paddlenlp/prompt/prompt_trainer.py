@@ -324,7 +324,8 @@ class PromptTrainer(Trainer):
     def export_model(self, export_path, input_spec=None, export_type="paddle"):
         os.makedirs(export_path, exist_ok=True)
         self.template.save_to(export_path)
-        self.verbalizer.save_to(export_path)
+        if self.verbalizer is not None:
+            self.verbalizer.save_to(export_path)
         if input_spec is None and hasattr(self.model, "get_input_spec"):
             input_spec = self.model.get_input_spec()
         if input_spec is None:
@@ -395,8 +396,10 @@ class PromptModelForSequenceClassification(nn.Layer):
         """
         Get the parameters of template and verbalizer.
         """
-        return [p for p in self.template.parameters()
-                ] + [p for p in self.verbalizer.parameters()]
+        params = [p for p in self.template.parameters()]
+        if self.verbalizer:
+            params += [p for p in self.verbalizer.parameters()]
+        return params
 
     def get_input_spec(self):
         input_spec = [
