@@ -38,6 +38,7 @@ class MLMPromptTokenizer(object):
             "<mask>": "mask_token"
         }
         self.mask_token_id = self._tokenizer.mask_token_id
+        self.sep_token_id = self._tokenizer.sep_token_id
         self.pad_token_id = self._tokenizer.pad_token_id
         self.soft_token_id = self._tokenizer.unk_token_id
 
@@ -77,12 +78,13 @@ class MLMPromptTokenizer(object):
         encoded_input = self.add_special_tokens(encoded_input)
         encoded_input = self.pad(encoded_input, self._max_seq_len,
                                  self.pad_token_id)
+        encoded_input = self.add_token_type_ids(encoded_input)
         return encoded_input
 
     def add_special_tokens(self, input_dict):
         for key in input_dict:
             new_inputs = self._tokenizer.build_inputs_with_special_tokens(
-                input_dict[key])
+                input_dict[key], None)
             if key != "input_ids":
                 special_mask = np.array(
                     self._tokenizer.get_special_tokens_mask(input_dict[key]))
@@ -90,6 +92,22 @@ class MLMPromptTokenizer(object):
                 new_inputs[special_mask == 1] = 0
                 new_inputs = new_inputs.tolist()
             input_dict[key] = new_inputs
+        return input_dict
+
+    def add_token_type_ids(self, input_dict):
+        token_type = 0
+        input_ids = input_dict["input_ids"]
+        if self.sep_token_id in input_ids:
+            indeces = np.where(input_ids == self.sep_token_id)[0].tolist()
+            indeces.append(len(input_ids) - 1)
+            token_type_ids = [token_type] * (indeces[0] + 1)
+            for i in indeces[1:]:
+                token_type += 1
+                token_type_ids.extend([token_type] *
+                                      (indeces[i] - indeces[i - 1]))
+        else:
+            token_type_ids = [token_type] * len(input_ids)
+        input_dict["token_type_ids"] = token_type_ids
         return input_dict
 
     @staticmethod
