@@ -214,6 +214,7 @@ class ManualVerbalizer(Verbalizer):
         self.tokenizer = tokenizer
         self.prefix = prefix
         self.label_words = label_words
+        self.preds = None
 
     def process_label_words(self):
         """ Create the label-word-token array and its corresponding mask. """
@@ -267,8 +268,22 @@ class ManualVerbalizer(Verbalizer):
         real_len = logits.shape[1]
         mask_ids = mask_ids[:, -real_len:]
         logits = paddle.where(mask_ids == 1, logits, paddle.zeros_like(logits))
-        logits = logits.sum(axis=1) / mask_ids.sum(axis=1)
 
+        #_mask = paddle.tile(mask_ids == 1, (1, 1, logits.shape[-1]))
+        #_preds = paddle.masked_select(logits, _mask).reshape([logits.shape[0], -1, logits.shape[-1]])
+        #_preds = paddle.topk(_preds, k=5, axis=-1)[1].reshape([logits.shape[0], -1, 5]).numpy()
+        #if self.preds is None:
+        #    self.preds = [[] for x in range(_preds.shape[1])]
+
+        #for _sub_pred in _preds:
+        #    for idx, _x in enumerate(_sub_pred):
+        #        self.preds[idx].append(self.tokenizer.convert_ids_to_tokens(_x))
+
+        #logits = paddle.masked_select(logits, _mask).reshape([logits.shape[0], -1, logits.shape[-1]])
+
+        #return logits
+
+        logits = logits.sum(axis=1) / mask_ids.sum(axis=1)
         word_logits = self.project(logits)
         label_logits = self.aggregate(word_logits, self.word_ids_mask)
         return label_logits
@@ -307,6 +322,15 @@ class MultiMaskVerbalizer(ManualVerbalizer):
         mask_ids = batch_ids * seq_len + word_ids
         mask_logits = logits.reshape([-1, vocab_size])[mask_ids]
         mask_logits = mask_logits.reshape([batch_size, -1, vocab_size])
+
+        #_preds = paddle.topk(mask_logits, k=5, axis=-1)[1].reshape([batch_size, -1, 5]).numpy()
+        #if self.preds is None:
+        #    self.preds = [[] for x in range(_preds.shape[1])]
+
+        #for _sub_pred in _preds:
+        #    for idx, _x in enumerate(_sub_pred):
+        #        self.preds[idx].append(self.tokenizer.convert_ids_to_tokens(_x))
+
         return mask_logits
 
 
@@ -340,8 +364,12 @@ class SoftVerbalizer(Verbalizer):
             The prefix string of words, used in PLMs like RoBERTa, which is sensitive to the prefix.
     """
 
-    LAST_WEIGHT = ["ErnieForMaskedLM", "BertForMaskedLM"]
-    LAST_LINEAR = ["AlbertForMaskedLM", "RobertaForMaskedLM"]
+    LAST_WEIGHT = [
+        "ErnieForMaskedLM", "BertForMaskedLM", "RoFormerv2ForMaskedLM"
+    ]
+    LAST_LINEAR = [
+        "AlbertForMaskedLM", "RobertaForMaskedLM", "ReformerForMaskedLM"
+    ]
 
     def __init__(self, tokenizer, model, labels, label_words=None, prefix=''):
         super().__init__(labels=labels)
@@ -380,14 +408,14 @@ class SoftVerbalizer(Verbalizer):
                                                stop_gradient=True)
 
     def head_parameters(self):
-        if isinstance(self.head, nn.Linear):
+        if isinstance(self.head, nn.Linear) or len(self.head_name) == 1:
             return [(n, p) for n, p in self.head.named_parameters()]
         else:
             return [(n, p) for n, p in self.head.named_parameters()
                     if self.head_name[1] in n]
 
     def non_head_parameters(self):
-        if isinstance(self.head, nn.Linear):
+        if isinstance(self.head, nn.Linear) or len(self.head_name) == 1:
             return []
         else:
             return [(n, p) for n, p in self.head.named_parameters()
@@ -439,29 +467,33 @@ class SoftVerbalizer(Verbalizer):
                     self.head_name.append(name)
                     break
         elif model_type in self.LAST_WEIGHT:
-            # OnlyMLMHead
             last_name = [n for n, p in model.named_children()][-1]
             head = getattr(model, last_name)
             self.head_name = [last_name]
-            # LMPredictionHead
-            last_name = [n for n, p in head.named_children()][-1]
-            self.head = copy.deepcopy(getattr(head, last_name))
-            self.head_name.append("decoder")
+            # OnlyMLMHead
+            if model_type in ["ErnieForMaskedLM", "BertForMaskedLM"]:
+                last_name = [n for n, p in head.named_children()][-1]
+                self.head = copy.deepcopy(getattr(head, last_name))
+                self.head_name.append("decoder")
+            else:
+                self.head = copy.deepcopy(head)
 
+            # LMPredictionHead
             module = paddle.to_tensor(getattr(self.head, "decoder_weight"))
-            bias = paddle.to_tensor(getattr(self.head, "decoder_bias"))
             new_head = nn.Linear(len(self.labels),
                                  module.shape[1],
                                  bias_attr=False)
             new_head.weight.set_value(self._create_init_weight(module.T).T)
             setattr(self.head, "decoder_weight", new_head.weight)
             getattr(self.head, "decoder_weight").stop_gradient = False
-            setattr(
-                self.head, "decoder_bias",
-                self.head.create_parameter(shape=[len(self.labels)],
-                                           dtype=new_head.weight.dtype,
-                                           is_bias=True))
-            getattr(self.head, "decoder_bias").stop_gradient = False
+            if hasattr(self.head, "decoder_bias"):
+                bias = paddle.to_tensor(getattr(self.head, "decoder_bias"))
+                setattr(
+                    self.head, "decoder_bias",
+                    self.head.create_parameter(shape=[len(self.labels)],
+                                               dtype=new_head.weight.dtype,
+                                               is_bias=True))
+                getattr(self.head, "decoder_bias").stop_gradient = False
         else:
             raise NotImplementedError(
                 f"Please open an issue to request for support of {model_type}" +

@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
+from collections import Counter
 import os
 
 import paddle
@@ -29,11 +30,14 @@ from ..losses import RDropLoss
 from ..transformers import PretrainedTokenizer, export_model
 
 from .template import AutoTemplate
-from .verbalizer import SoftVerbalizer
+from .verbalizer import SoftVerbalizer, MultiMaskVerbalizer
 from .prompt_utils import InputFeatures, signature
 from .prompt_args import PromptTuningArguments
 
-__all__ = ["PromptTrainer", "PromptModelForSequenceClassification"]
+__all__ = [
+    "PromptTrainer", "PromptModelForSequenceClassification",
+    "PromptModelForGeneration"
+]
 
 PROMPT_NAME = "prompt.pdparams"
 
@@ -79,7 +83,6 @@ class PromptTrainer(Trainer):
                          compute_metrics=compute_metrics,
                          callbacks=callbacks,
                          optimizers=optimizers)
-
         self.load_state_dict_from_checkpoint(args.resume_from_checkpoint)
 
         self.train_dataset = self._map_dataset(self.train_dataset)
@@ -257,11 +260,15 @@ class PromptTrainer(Trainer):
         labels = inputs["labels"]
         soft_token_ids = inputs.get("soft_token_ids", None)
 
-        outputs, hidden_states = model(inputs["input_ids"],
-                                       inputs["mask_ids"],
-                                       soft_token_ids,
-                                       return_hidden_states=True)
+        outputs, hidden_states = model(
+            input_ids=inputs["input_ids"],
+            mask_ids=inputs["mask_ids"],
+            soft_token_ids=soft_token_ids,
+            # inputs["labels"], # generation
+            return_hidden_states=True)
         if self.criterion is not None:
+            if isinstance(model.verbalizer, MultiMaskVerbalizer):
+                labels = model.verbalizer.token_ids[labels].squeeze(axis=-1)
             loss = self.criterion(outputs, labels)
 
             if self.args.use_rdrop:
@@ -363,6 +370,7 @@ class PromptModelForSequenceClassification(nn.Layer):
 
     def forward(self,
                 input_ids=None,
+                token_type_ids=None,
                 mask_ids=None,
                 soft_token_ids=None,
                 **kwargs):
@@ -371,6 +379,7 @@ class PromptModelForSequenceClassification(nn.Layer):
             self.plm.eval()
         attention_mask = (input_ids != self._pad_token_id).astype("int64")
         inputs = InputFeatures(input_ids=input_ids,
+                               token_type_ids=token_type_ids,
                                mask_ids=mask_ids,
                                attention_mask=attention_mask,
                                soft_token_ids=soft_token_ids)
@@ -408,3 +417,58 @@ class PromptModelForSequenceClassification(nn.Layer):
             InputSpec(shape=[None, None], dtype="int64")  # soft_token_ids
         ]
         return input_spec
+
+
+class PromptModelForGeneration(nn.Layer):
+    """
+    PromptModel for generation tasks.
+    """
+
+    def __init__(self,
+                 model,
+                 template,
+                 max_seq_length=512,
+                 freeze_plm=False,
+                 freeze_dropout=False):
+        super().__init__()
+        self.plm = model
+        self.template = template
+        self.tokenizer = self.template.tokenizer
+        self.max_seq_length = max_seq_length
+        self.freeze_plm = freeze_plm
+        self.freeze_dropout = freeze_dropout
+        if self.freeze_plm:
+            for param in self.plm.parameters():
+                param.stop_gradient = True
+        if self.freeze_dropout:
+            self.plm.eval()
+        self.forward_keys = signature(self.plm.forward)
+        self._mask_token_id = self.template.tokenizer.mask_token_id
+        self._pad_token_id = self.template.tokenizer.pad_token_id
+
+    def forward(self,
+                input_ids,
+                mask_ids=None,
+                soft_token_ids=None,
+                labels=None,
+                **kwargs):
+        return_hidden_states = kwargs.pop('return_hidden_states', False)
+        if self.freeze_dropout:
+            self.plm.eval()
+        attention_mask = (input_ids != self._pad_token_id).astype("int64")
+        inputs = InputFeatures(input_ids=input_ids,
+                               attention_mask=attention_mask,
+                               soft_token_ids=soft_token_ids)
+        if hasattr(self.template, "process_batch"):
+            inputs = self.template.process_batch(inputs)
+        model_inputs = {
+            k: inputs[k]
+            for k in inputs.keys(keep_none=True) if k in self.forward_keys
+        }
+
+        outputs = self.plm(input_ids=inputs.input_ids,
+                           attention_mask=inputs.attention_mask,
+                           labels=labels)[0]
+        if return_hidden_states:
+            return outputs, None
+        return outputs

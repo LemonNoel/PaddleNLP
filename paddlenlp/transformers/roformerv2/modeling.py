@@ -225,15 +225,20 @@ class RoFormerv2Embeddings(Layer):
         self.norm = Norm()
         self.dropout = nn.Dropout(hidden_dropout_prob)
 
-    def forward(self, input_ids, token_type_ids=None):
+    def forward(self, input_ids, token_type_ids=None, inputs_embeds=None):
+        if input_ids is not None:
+            input_shape = input_ids.shape
+            input_embeddings = self.word_embeddings(input_ids)
+        else:
+            input_shape = inputs_embeds.shape[:-1]
+            input_embeddings = inputs_embeds
 
         if token_type_ids is None:
-            token_type_ids = paddle.zeros_like(input_ids)
+            token_type_ids = paddle.zeros(input_shape, dtype="int64")
 
-        input_embedings = self.word_embeddings(input_ids)
         token_type_embeddings = self.token_type_embeddings(token_type_ids)
 
-        embeddings = input_embedings + token_type_embeddings
+        embeddings = input_embeddings + token_type_embeddings
         embeddings = self.norm(embeddings)
         embeddings = self.dropout(embeddings)
         return embeddings
@@ -426,7 +431,8 @@ class RoFormerv2Model(RoFormerv2PretrainedModel):
                 input_ids,
                 token_type_ids=None,
                 attention_mask=None,
-                output_hidden_states=False):
+                output_hidden_states=False,
+                inputs_embeds=None):
         r'''
         The RoFormerv2Model forward method, overrides the `__call__()` special method.
 
@@ -487,6 +493,17 @@ class RoFormerv2Model(RoFormerv2PretrainedModel):
                 inputs = {k:paddle.to_tensor([v], dtype="int64") for (k, v) in inputs.items()}
                 output = model(**inputs)
         '''
+        if input_ids is not None and inputs_embeds is not None:
+            raise ValueError(
+                "You cannot specify both input_ids and inputs_embeds at the same time."
+            )
+        elif input_ids is not None:
+            input_shape = input_ids.shape
+        elif inputs_embeds is not None:
+            input_shape = inputs_embeds.shape[:-1]
+        else:
+            raise ValueError(
+                "You have to specify either input_ids or inputs_embeds")
 
         if attention_mask is None:
             attention_mask = paddle.unsqueeze(
@@ -505,7 +522,8 @@ class RoFormerv2Model(RoFormerv2PretrainedModel):
         attention_mask.stop_gradient = True
 
         embedding_output = self.embeddings(input_ids=input_ids,
-                                           token_type_ids=token_type_ids)
+                                           token_type_ids=token_type_ids,
+                                           inputs_embeds=inputs_embeds)
 
         if output_hidden_states:
             output = embedding_output
@@ -545,7 +563,11 @@ class RoFormerv2ForQuestionAnswering(RoFormerv2PretrainedModel):
         self.classifier = nn.Linear(self.roformerv2.config["hidden_size"], 2)
         self.apply(self.init_weights)
 
-    def forward(self, input_ids, token_type_ids=None, attention_mask=None):
+    def forward(self,
+                input_ids,
+                token_type_ids=None,
+                attention_mask=None,
+                inputs_embeds=None):
         r"""
         The RoFormerv2ForQuestionAnswering forward method, overrides the __call__() special method.
 
@@ -588,7 +610,8 @@ class RoFormerv2ForQuestionAnswering(RoFormerv2PretrainedModel):
         """
         sequence_output = self.roformerv2(input_ids,
                                           token_type_ids=token_type_ids,
-                                          attention_mask=attention_mask)
+                                          attention_mask=attention_mask,
+                                          inputs_embeds=inputs_embeds)
 
         logits = self.classifier(sequence_output)
         start_logits, end_logits = paddle.unstack(logits, axis=-1)
@@ -622,7 +645,11 @@ class RoFormerv2ForSequenceClassification(RoFormerv2PretrainedModel):
                                     num_classes)
         self.apply(self.init_weights)
 
-    def forward(self, input_ids, token_type_ids=None, attention_mask=None):
+    def forward(self,
+                input_ids,
+                token_type_ids=None,
+                attention_mask=None,
+                inputs_embeds=None):
         r"""
         Args:
             input_ids (Tensor):
@@ -652,7 +679,8 @@ class RoFormerv2ForSequenceClassification(RoFormerv2PretrainedModel):
         """
         sequence_output = self.roformerv2(input_ids,
                                           token_type_ids=token_type_ids,
-                                          attention_mask=attention_mask)
+                                          attention_mask=attention_mask,
+                                          inputs_embeds=inputs_embeds)
         pooled_output = sequence_output[:, 0]
 
         pooled_output = self.dropout(pooled_output)
@@ -686,7 +714,11 @@ class RoFormerv2ForTokenClassification(RoFormerv2PretrainedModel):
                                     num_classes)
         self.apply(self.init_weights)
 
-    def forward(self, input_ids, token_type_ids=None, attention_mask=None):
+    def forward(self,
+                input_ids,
+                token_type_ids=None,
+                attention_mask=None,
+                inputs_embeds=None):
         r"""
         Args:
             input_ids (Tensor):
@@ -716,7 +748,8 @@ class RoFormerv2ForTokenClassification(RoFormerv2PretrainedModel):
         """
         sequence_output = self.roformerv2(input_ids,
                                           token_type_ids=token_type_ids,
-                                          attention_mask=attention_mask)
+                                          attention_mask=attention_mask,
+                                          inputs_embeds=inputs_embeds)
 
         sequence_output = self.dropout(sequence_output)
         logits = self.classifier(sequence_output)
@@ -886,7 +919,11 @@ class RoFormerv2ForMaskedLM(RoFormerv2PretrainedModel):
 
         self.apply(self.init_weights)
 
-    def forward(self, input_ids, token_type_ids=None, attention_mask=None):
+    def forward(self,
+                input_ids,
+                token_type_ids=None,
+                attention_mask=None,
+                inputs_embeds=None):
         r"""
 
         Args:
@@ -920,7 +957,8 @@ class RoFormerv2ForMaskedLM(RoFormerv2PretrainedModel):
         """
         sequence_output = self.roformerv2(input_ids,
                                           token_type_ids=token_type_ids,
-                                          attention_mask=attention_mask)
+                                          attention_mask=attention_mask,
+                                          inputs_embeds=inputs_embeds)
 
         prediction_scores = self.cls(sequence_output)
         return prediction_scores
