@@ -1,0 +1,2066 @@
+ 
+==========
+eprstmt
+==========
+ 
+[32m[2022-08-30 19:35:48,381] [    INFO][0m - The default value for the training argument `--report_to` will change in v5 (from all installed integrations to none). In v5, you will need to use `--report_to all` to get the same behavior as now. You should start updating your code and make this info disappear :-).[0m
+[32m[2022-08-30 19:35:48,382] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:35:48,382] [    INFO][0m -      Model Configuration Arguments      [0m
+[32m[2022-08-30 19:35:48,382] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:35:48,382] [    INFO][0m - do_save                       :True[0m
+[32m[2022-08-30 19:35:48,382] [    INFO][0m - do_test                       :True[0m
+[32m[2022-08-30 19:35:48,382] [    INFO][0m - early_stop_patience           :4[0m
+[32m[2022-08-30 19:35:48,382] [    INFO][0m - export_type                   :paddle[0m
+[32m[2022-08-30 19:35:48,382] [    INFO][0m - model_name_or_path            :ernie-3.0-base-zh[0m
+[32m[2022-08-30 19:35:48,382] [    INFO][0m - [0m
+[32m[2022-08-30 19:35:48,382] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:35:48,383] [    INFO][0m -       Data Configuration Arguments      [0m
+[32m[2022-08-30 19:35:48,383] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:35:48,383] [    INFO][0m - encoder_hidden_size           :200[0m
+[32m[2022-08-30 19:35:48,383] [    INFO][0m - prompt                        :{'text':'text_a'}{'hard':'我感觉'}{'mask'}{'hard':'喜欢。'}[0m
+[32m[2022-08-30 19:35:48,383] [    INFO][0m - soft_encoder                  :lstm[0m
+[32m[2022-08-30 19:35:48,383] [    INFO][0m - split_id                      :few_all[0m
+[32m[2022-08-30 19:35:48,383] [    INFO][0m - task_name                     :eprstmt[0m
+[32m[2022-08-30 19:35:48,383] [    INFO][0m - [0m
+[32m[2022-08-30 19:35:48,383] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh.pdparams[0m
+W0830 19:35:48.384696 10727 gpu_resources.cc:61] Please NOTE: device: 0, GPU Compute Capability: 7.0, Driver API Version: 11.2, Runtime API Version: 11.2
+W0830 19:35:48.388715 10727 gpu_resources.cc:91] device: 0, cuDNN Version: 8.1.
+[32m[2022-08-30 19:35:51,424] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh_vocab.txt[0m
+[32m[2022-08-30 19:35:51,449] [    INFO][0m - tokenizer config file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/tokenizer_config.json[0m
+[32m[2022-08-30 19:35:51,449] [    INFO][0m - Special tokens file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/special_tokens_map.json[0m
+[32m[2022-08-30 19:35:51,450] [    INFO][0m - Using template: [{'add_prefix_space': '', 'text': 'text_a'}, {'add_prefix_space': '', 'hard': '我感觉'}, {'add_prefix_space': '', 'mask': None}, {'add_prefix_space': '', 'hard': '喜欢。'}][0m
+2022-08-30 19:35:51,454 INFO [download.py:119] unique_endpoints {''}
+[32m[2022-08-30 19:35:51,552] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:35:51,552] [    INFO][0m -     Training Configuration Arguments    [0m
+[32m[2022-08-30 19:35:51,552] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:35:51,552] [    INFO][0m - _no_sync_in_gradient_accumulation:True[0m
+[32m[2022-08-30 19:35:51,552] [    INFO][0m - adam_beta1                    :0.9[0m
+[32m[2022-08-30 19:35:51,552] [    INFO][0m - adam_beta2                    :0.999[0m
+[32m[2022-08-30 19:35:51,552] [    INFO][0m - adam_epsilon                  :1e-08[0m
+[32m[2022-08-30 19:35:51,552] [    INFO][0m - alpha_rdrop                   :5.0[0m
+[32m[2022-08-30 19:35:51,552] [    INFO][0m - alpha_rgl                     :0.5[0m
+[32m[2022-08-30 19:35:51,553] [    INFO][0m - current_device                :gpu:0[0m
+[32m[2022-08-30 19:35:51,553] [    INFO][0m - dataloader_drop_last          :False[0m
+[32m[2022-08-30 19:35:51,553] [    INFO][0m - dataloader_num_workers        :0[0m
+[32m[2022-08-30 19:35:51,553] [    INFO][0m - device                        :gpu[0m
+[32m[2022-08-30 19:35:51,553] [    INFO][0m - disable_tqdm                  :True[0m
+[32m[2022-08-30 19:35:51,553] [    INFO][0m - do_eval                       :False[0m
+[32m[2022-08-30 19:35:51,553] [    INFO][0m - do_export                     :False[0m
+[32m[2022-08-30 19:35:51,553] [    INFO][0m - do_predict                    :False[0m
+[32m[2022-08-30 19:35:51,553] [    INFO][0m - do_train                      :False[0m
+[32m[2022-08-30 19:35:51,553] [    INFO][0m - eval_batch_size               :32[0m
+[32m[2022-08-30 19:35:51,553] [    INFO][0m - eval_steps                    :100[0m
+[32m[2022-08-30 19:35:51,553] [    INFO][0m - evaluation_strategy           :IntervalStrategy.NO[0m
+[32m[2022-08-30 19:35:51,553] [    INFO][0m - first_max_length              :None[0m
+[32m[2022-08-30 19:35:51,554] [    INFO][0m - fp16                          :False[0m
+[32m[2022-08-30 19:35:51,554] [    INFO][0m - fp16_opt_level                :O1[0m
+[32m[2022-08-30 19:35:51,554] [    INFO][0m - freeze_dropout                :False[0m
+[32m[2022-08-30 19:35:51,554] [    INFO][0m - freeze_plm                    :True[0m
+[32m[2022-08-30 19:35:51,554] [    INFO][0m - gradient_accumulation_steps   :1[0m
+[32m[2022-08-30 19:35:51,554] [    INFO][0m - greater_is_better             :True[0m
+[32m[2022-08-30 19:35:51,554] [    INFO][0m - ignore_data_skip              :False[0m
+[32m[2022-08-30 19:35:51,554] [    INFO][0m - label_names                   :None[0m
+[32m[2022-08-30 19:35:51,554] [    INFO][0m - learning_rate                 :3e-05[0m
+[32m[2022-08-30 19:35:51,554] [    INFO][0m - load_best_model_at_end        :False[0m
+[32m[2022-08-30 19:35:51,554] [    INFO][0m - local_process_index           :0[0m
+[32m[2022-08-30 19:35:51,554] [    INFO][0m - local_rank                    :-1[0m
+[32m[2022-08-30 19:35:51,554] [    INFO][0m - log_level                     :-1[0m
+[32m[2022-08-30 19:35:51,554] [    INFO][0m - log_level_replica             :-1[0m
+[32m[2022-08-30 19:35:51,555] [    INFO][0m - log_on_each_node              :True[0m
+[32m[2022-08-30 19:35:51,555] [    INFO][0m - logging_dir                   :./checkpoints/runs/Aug30_19-35-48_instance-3bwob41y-01[0m
+[32m[2022-08-30 19:35:51,555] [    INFO][0m - logging_first_step            :False[0m
+[32m[2022-08-30 19:35:51,555] [    INFO][0m - logging_steps                 :10[0m
+[32m[2022-08-30 19:35:51,555] [    INFO][0m - logging_strategy              :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 19:35:51,555] [    INFO][0m - lr_scheduler_type             :SchedulerType.LINEAR[0m
+[32m[2022-08-30 19:35:51,555] [    INFO][0m - max_grad_norm                 :1.0[0m
+[32m[2022-08-30 19:35:51,555] [    INFO][0m - max_seq_length                :128[0m
+[32m[2022-08-30 19:35:51,555] [    INFO][0m - max_steps                     :-1[0m
+[32m[2022-08-30 19:35:51,555] [    INFO][0m - metric_for_best_model         :accuracy[0m
+[32m[2022-08-30 19:35:51,555] [    INFO][0m - minimum_eval_times            :None[0m
+[32m[2022-08-30 19:35:51,555] [    INFO][0m - no_cuda                       :False[0m
+[32m[2022-08-30 19:35:51,555] [    INFO][0m - num_train_epochs              :20.0[0m
+[32m[2022-08-30 19:35:51,555] [    INFO][0m - optim                         :OptimizerNames.ADAMW[0m
+[32m[2022-08-30 19:35:51,556] [    INFO][0m - other_max_length              :None[0m
+[32m[2022-08-30 19:35:51,556] [    INFO][0m - output_dir                    :./checkpoints/[0m
+[32m[2022-08-30 19:35:51,556] [    INFO][0m - overwrite_output_dir          :False[0m
+[32m[2022-08-30 19:35:51,556] [    INFO][0m - past_index                    :-1[0m
+[32m[2022-08-30 19:35:51,556] [    INFO][0m - per_device_eval_batch_size    :32[0m
+[32m[2022-08-30 19:35:51,556] [    INFO][0m - per_device_train_batch_size   :8[0m
+[32m[2022-08-30 19:35:51,556] [    INFO][0m - ppt_adam_beta1                :0.9[0m
+[32m[2022-08-30 19:35:51,556] [    INFO][0m - ppt_adam_beta2                :0.999[0m
+[32m[2022-08-30 19:35:51,556] [    INFO][0m - ppt_adam_epsilon              :1e-08[0m
+[32m[2022-08-30 19:35:51,556] [    INFO][0m - ppt_learning_rate             :0.0003[0m
+[32m[2022-08-30 19:35:51,556] [    INFO][0m - ppt_weight_decay              :0.0[0m
+[32m[2022-08-30 19:35:51,556] [    INFO][0m - prediction_loss_only          :False[0m
+[32m[2022-08-30 19:35:51,556] [    INFO][0m - process_index                 :0[0m
+[32m[2022-08-30 19:35:51,557] [    INFO][0m - remove_unused_columns         :True[0m
+[32m[2022-08-30 19:35:51,557] [    INFO][0m - report_to                     :['visualdl'][0m
+[32m[2022-08-30 19:35:51,557] [    INFO][0m - resume_from_checkpoint        :None[0m
+[32m[2022-08-30 19:35:51,557] [    INFO][0m - run_name                      :./checkpoints/[0m
+[32m[2022-08-30 19:35:51,557] [    INFO][0m - save_on_each_node             :False[0m
+[32m[2022-08-30 19:35:51,557] [    INFO][0m - save_steps                    :100[0m
+[32m[2022-08-30 19:35:51,557] [    INFO][0m - save_strategy                 :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 19:35:51,557] [    INFO][0m - save_total_limit              :None[0m
+[32m[2022-08-30 19:35:51,557] [    INFO][0m - scale_loss                    :32768[0m
+[32m[2022-08-30 19:35:51,557] [    INFO][0m - seed                          :42[0m
+[32m[2022-08-30 19:35:51,557] [    INFO][0m - should_log                    :True[0m
+[32m[2022-08-30 19:35:51,557] [    INFO][0m - should_save                   :True[0m
+[32m[2022-08-30 19:35:51,557] [    INFO][0m - task_type                     :multi-class[0m
+[32m[2022-08-30 19:35:51,557] [    INFO][0m - train_batch_size              :8[0m
+[32m[2022-08-30 19:35:51,558] [    INFO][0m - truncate_mode                 :tail[0m
+[32m[2022-08-30 19:35:51,558] [    INFO][0m - use_rdrop                     :False[0m
+[32m[2022-08-30 19:35:51,558] [    INFO][0m - use_rgl                       :False[0m
+[32m[2022-08-30 19:35:51,558] [    INFO][0m - warmup_ratio                  :0.0[0m
+[32m[2022-08-30 19:35:51,558] [    INFO][0m - warmup_steps                  :0[0m
+[32m[2022-08-30 19:35:51,558] [    INFO][0m - weight_decay                  :0.0[0m
+[32m[2022-08-30 19:35:51,558] [    INFO][0m - world_size                    :1[0m
+[32m[2022-08-30 19:35:51,558] [    INFO][0m - [0m
+[32m[2022-08-30 19:35:51,559] [    INFO][0m - ***** Running Prediction *****[0m
+[32m[2022-08-30 19:35:51,559] [    INFO][0m -   Num examples = 610[0m
+[32m[2022-08-30 19:35:51,559] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 19:35:51,560] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 19:35:51,560] [    INFO][0m -   Total prediction steps = 20[0m
+[32m[2022-08-30 19:35:55,116] [    INFO][0m - ***** test metrics *****[0m
+[32m[2022-08-30 19:35:55,116] [    INFO][0m -   test_accuracy           =     0.7689[0m
+[32m[2022-08-30 19:35:55,117] [    INFO][0m -   test_loss               =     0.5166[0m
+[32m[2022-08-30 19:35:55,117] [    INFO][0m -   test_runtime            = 0:00:03.55[0m
+[32m[2022-08-30 19:35:55,117] [    INFO][0m -   test_samples_per_second =    171.501[0m
+[32m[2022-08-30 19:35:55,117] [    INFO][0m -   test_steps_per_second   =      5.623[0m
+metric <function main.<locals>.compute_metrics at 0x7f19faf7c280>
+[16]
+[321]
+[321]
+[321]
+[321]
+[16]
+[321]
+[16]
+[16]
+[321]
+[16]
+[321]
+[321]
+[16]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[(('很',), 335), (('不',), 269), (('还',), 4), (('贼',), 1), (('挺',), 1)]
+run.sh: line 59: --do_train: command not found
+ 
+==========
+csldcp
+==========
+ 
+[32m[2022-08-30 19:35:58,809] [    INFO][0m - The default value for the training argument `--report_to` will change in v5 (from all installed integrations to none). In v5, you will need to use `--report_to all` to get the same behavior as now. You should start updating your code and make this info disappear :-).[0m
+[32m[2022-08-30 19:35:58,810] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:35:58,810] [    INFO][0m -      Model Configuration Arguments      [0m
+[32m[2022-08-30 19:35:58,810] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:35:58,810] [    INFO][0m - do_save                       :True[0m
+[32m[2022-08-30 19:35:58,810] [    INFO][0m - do_test                       :True[0m
+[32m[2022-08-30 19:35:58,810] [    INFO][0m - early_stop_patience           :4[0m
+[32m[2022-08-30 19:35:58,810] [    INFO][0m - export_type                   :paddle[0m
+[32m[2022-08-30 19:35:58,810] [    INFO][0m - model_name_or_path            :ernie-3.0-base-zh[0m
+[32m[2022-08-30 19:35:58,810] [    INFO][0m - [0m
+[32m[2022-08-30 19:35:58,810] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:35:58,810] [    INFO][0m -       Data Configuration Arguments      [0m
+[32m[2022-08-30 19:35:58,811] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:35:58,811] [    INFO][0m - encoder_hidden_size           :200[0m
+[32m[2022-08-30 19:35:58,811] [    INFO][0m - prompt                        :{'hard':'阅读下边'}{'mask'}{'mask'}{'hard':'相关的材料'}{'text':'text_a'}[0m
+[32m[2022-08-30 19:35:58,811] [    INFO][0m - soft_encoder                  :lstm[0m
+[32m[2022-08-30 19:35:58,811] [    INFO][0m - split_id                      :few_all[0m
+[32m[2022-08-30 19:35:58,811] [    INFO][0m - task_name                     :csldcp[0m
+[32m[2022-08-30 19:35:58,811] [    INFO][0m - [0m
+[32m[2022-08-30 19:35:58,811] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh.pdparams[0m
+W0830 19:35:58.812718 10917 gpu_resources.cc:61] Please NOTE: device: 0, GPU Compute Capability: 7.0, Driver API Version: 11.2, Runtime API Version: 11.2
+W0830 19:35:58.816613 10917 gpu_resources.cc:91] device: 0, cuDNN Version: 8.1.
+[32m[2022-08-30 19:36:01,587] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh_vocab.txt[0m
+[32m[2022-08-30 19:36:01,611] [    INFO][0m - tokenizer config file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/tokenizer_config.json[0m
+[32m[2022-08-30 19:36:01,611] [    INFO][0m - Special tokens file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/special_tokens_map.json[0m
+[32m[2022-08-30 19:36:01,612] [    INFO][0m - Using template: [{'add_prefix_space': '', 'hard': '阅读下边'}, {'add_prefix_space': '', 'mask': None}, {'add_prefix_space': '', 'mask': None}, {'add_prefix_space': '', 'hard': '相关的材料'}, {'add_prefix_space': '', 'text': 'text_a'}][0m
+2022-08-30 19:36:01,632 INFO [download.py:119] unique_endpoints {''}
+[32m[2022-08-30 19:36:01,788] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:36:01,788] [    INFO][0m -     Training Configuration Arguments    [0m
+[32m[2022-08-30 19:36:01,788] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:36:01,788] [    INFO][0m - _no_sync_in_gradient_accumulation:True[0m
+[32m[2022-08-30 19:36:01,789] [    INFO][0m - adam_beta1                    :0.9[0m
+[32m[2022-08-30 19:36:01,789] [    INFO][0m - adam_beta2                    :0.999[0m
+[32m[2022-08-30 19:36:01,789] [    INFO][0m - adam_epsilon                  :1e-08[0m
+[32m[2022-08-30 19:36:01,789] [    INFO][0m - alpha_rdrop                   :5.0[0m
+[32m[2022-08-30 19:36:01,789] [    INFO][0m - alpha_rgl                     :0.5[0m
+[32m[2022-08-30 19:36:01,789] [    INFO][0m - current_device                :gpu:0[0m
+[32m[2022-08-30 19:36:01,789] [    INFO][0m - dataloader_drop_last          :False[0m
+[32m[2022-08-30 19:36:01,789] [    INFO][0m - dataloader_num_workers        :0[0m
+[32m[2022-08-30 19:36:01,789] [    INFO][0m - device                        :gpu[0m
+[32m[2022-08-30 19:36:01,789] [    INFO][0m - disable_tqdm                  :True[0m
+[32m[2022-08-30 19:36:01,789] [    INFO][0m - do_eval                       :False[0m
+[32m[2022-08-30 19:36:01,789] [    INFO][0m - do_export                     :False[0m
+[32m[2022-08-30 19:36:01,790] [    INFO][0m - do_predict                    :False[0m
+[32m[2022-08-30 19:36:01,790] [    INFO][0m - do_train                      :False[0m
+[32m[2022-08-30 19:36:01,790] [    INFO][0m - eval_batch_size               :32[0m
+[32m[2022-08-30 19:36:01,790] [    INFO][0m - eval_steps                    :100[0m
+[32m[2022-08-30 19:36:01,790] [    INFO][0m - evaluation_strategy           :IntervalStrategy.NO[0m
+[32m[2022-08-30 19:36:01,790] [    INFO][0m - first_max_length              :None[0m
+[32m[2022-08-30 19:36:01,790] [    INFO][0m - fp16                          :False[0m
+[32m[2022-08-30 19:36:01,790] [    INFO][0m - fp16_opt_level                :O1[0m
+[32m[2022-08-30 19:36:01,790] [    INFO][0m - freeze_dropout                :False[0m
+[32m[2022-08-30 19:36:01,790] [    INFO][0m - freeze_plm                    :True[0m
+[32m[2022-08-30 19:36:01,790] [    INFO][0m - gradient_accumulation_steps   :1[0m
+[32m[2022-08-30 19:36:01,790] [    INFO][0m - greater_is_better             :True[0m
+[32m[2022-08-30 19:36:01,790] [    INFO][0m - ignore_data_skip              :False[0m
+[32m[2022-08-30 19:36:01,791] [    INFO][0m - label_names                   :None[0m
+[32m[2022-08-30 19:36:01,791] [    INFO][0m - learning_rate                 :3e-05[0m
+[32m[2022-08-30 19:36:01,791] [    INFO][0m - load_best_model_at_end        :False[0m
+[32m[2022-08-30 19:36:01,791] [    INFO][0m - local_process_index           :0[0m
+[32m[2022-08-30 19:36:01,791] [    INFO][0m - local_rank                    :-1[0m
+[32m[2022-08-30 19:36:01,791] [    INFO][0m - log_level                     :-1[0m
+[32m[2022-08-30 19:36:01,791] [    INFO][0m - log_level_replica             :-1[0m
+[32m[2022-08-30 19:36:01,791] [    INFO][0m - log_on_each_node              :True[0m
+[32m[2022-08-30 19:36:01,791] [    INFO][0m - logging_dir                   :./checkpoints/runs/Aug30_19-35-58_instance-3bwob41y-01[0m
+[32m[2022-08-30 19:36:01,791] [    INFO][0m - logging_first_step            :False[0m
+[32m[2022-08-30 19:36:01,791] [    INFO][0m - logging_steps                 :10[0m
+[32m[2022-08-30 19:36:01,791] [    INFO][0m - logging_strategy              :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 19:36:01,791] [    INFO][0m - lr_scheduler_type             :SchedulerType.LINEAR[0m
+[32m[2022-08-30 19:36:01,792] [    INFO][0m - max_grad_norm                 :1.0[0m
+[32m[2022-08-30 19:36:01,792] [    INFO][0m - max_seq_length                :256[0m
+[32m[2022-08-30 19:36:01,792] [    INFO][0m - max_steps                     :-1[0m
+[32m[2022-08-30 19:36:01,792] [    INFO][0m - metric_for_best_model         :accuracy[0m
+[32m[2022-08-30 19:36:01,792] [    INFO][0m - minimum_eval_times            :None[0m
+[32m[2022-08-30 19:36:01,792] [    INFO][0m - no_cuda                       :False[0m
+[32m[2022-08-30 19:36:01,792] [    INFO][0m - num_train_epochs              :20.0[0m
+[32m[2022-08-30 19:36:01,792] [    INFO][0m - optim                         :OptimizerNames.ADAMW[0m
+[32m[2022-08-30 19:36:01,792] [    INFO][0m - other_max_length              :None[0m
+[32m[2022-08-30 19:36:01,792] [    INFO][0m - output_dir                    :./checkpoints/[0m
+[32m[2022-08-30 19:36:01,792] [    INFO][0m - overwrite_output_dir          :False[0m
+[32m[2022-08-30 19:36:01,792] [    INFO][0m - past_index                    :-1[0m
+[32m[2022-08-30 19:36:01,792] [    INFO][0m - per_device_eval_batch_size    :32[0m
+[32m[2022-08-30 19:36:01,792] [    INFO][0m - per_device_train_batch_size   :8[0m
+[32m[2022-08-30 19:36:01,793] [    INFO][0m - ppt_adam_beta1                :0.9[0m
+[32m[2022-08-30 19:36:01,793] [    INFO][0m - ppt_adam_beta2                :0.999[0m
+[32m[2022-08-30 19:36:01,793] [    INFO][0m - ppt_adam_epsilon              :1e-08[0m
+[32m[2022-08-30 19:36:01,793] [    INFO][0m - ppt_learning_rate             :0.0003[0m
+[32m[2022-08-30 19:36:01,793] [    INFO][0m - ppt_weight_decay              :0.0[0m
+[32m[2022-08-30 19:36:01,793] [    INFO][0m - prediction_loss_only          :False[0m
+[32m[2022-08-30 19:36:01,793] [    INFO][0m - process_index                 :0[0m
+[32m[2022-08-30 19:36:01,793] [    INFO][0m - remove_unused_columns         :True[0m
+[32m[2022-08-30 19:36:01,793] [    INFO][0m - report_to                     :['visualdl'][0m
+[32m[2022-08-30 19:36:01,793] [    INFO][0m - resume_from_checkpoint        :None[0m
+[32m[2022-08-30 19:36:01,793] [    INFO][0m - run_name                      :./checkpoints/[0m
+[32m[2022-08-30 19:36:01,793] [    INFO][0m - save_on_each_node             :False[0m
+[32m[2022-08-30 19:36:01,793] [    INFO][0m - save_steps                    :100[0m
+[32m[2022-08-30 19:36:01,794] [    INFO][0m - save_strategy                 :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 19:36:01,794] [    INFO][0m - save_total_limit              :None[0m
+[32m[2022-08-30 19:36:01,794] [    INFO][0m - scale_loss                    :32768[0m
+[32m[2022-08-30 19:36:01,794] [    INFO][0m - seed                          :42[0m
+[32m[2022-08-30 19:36:01,794] [    INFO][0m - should_log                    :True[0m
+[32m[2022-08-30 19:36:01,794] [    INFO][0m - should_save                   :True[0m
+[32m[2022-08-30 19:36:01,794] [    INFO][0m - task_type                     :multi-class[0m
+[32m[2022-08-30 19:36:01,794] [    INFO][0m - train_batch_size              :8[0m
+[32m[2022-08-30 19:36:01,794] [    INFO][0m - truncate_mode                 :tail[0m
+[32m[2022-08-30 19:36:01,794] [    INFO][0m - use_rdrop                     :False[0m
+[32m[2022-08-30 19:36:01,794] [    INFO][0m - use_rgl                       :False[0m
+[32m[2022-08-30 19:36:01,794] [    INFO][0m - warmup_ratio                  :0.0[0m
+[32m[2022-08-30 19:36:01,794] [    INFO][0m - warmup_steps                  :0[0m
+[32m[2022-08-30 19:36:01,794] [    INFO][0m - weight_decay                  :0.0[0m
+[32m[2022-08-30 19:36:01,795] [    INFO][0m - world_size                    :1[0m
+[32m[2022-08-30 19:36:01,795] [    INFO][0m - [0m
+[32m[2022-08-30 19:36:01,796] [    INFO][0m - ***** Running Prediction *****[0m
+[32m[2022-08-30 19:36:01,796] [    INFO][0m -   Num examples = 1784[0m
+[32m[2022-08-30 19:36:01,796] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 19:36:01,796] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 19:36:01,796] [    INFO][0m -   Total prediction steps = 56[0m
+[32m[2022-08-30 19:36:18,621] [    INFO][0m - ***** test metrics *****[0m
+[32m[2022-08-30 19:36:18,621] [    INFO][0m -   test_accuracy           =     0.0291[0m
+[32m[2022-08-30 19:36:18,621] [    INFO][0m -   test_loss               =     4.3364[0m
+[32m[2022-08-30 19:36:18,622] [    INFO][0m -   test_runtime            = 0:00:16.82[0m
+[32m[2022-08-30 19:36:18,622] [    INFO][0m -   test_samples_per_second =    106.036[0m
+[32m[2022-08-30 19:36:18,622] [    INFO][0m -   test_steps_per_second   =      3.328[0m
+metric <function main.<locals>.compute_metrics at 0x7f63d60779d0>
+[516, 281]
+[516, 180]
+[64, 281]
+[396, 281]
+[396, 396]
+[1102, 605]
+[1102, 281]
+[461, 281]
+[516, 281]
+[516, 605]
+[5, 5]
+[47, 410]
+[516, 613]
+[516, 281]
+[516, 281]
+[47, 605]
+[1020, 281]
+[173, 281]
+[516, 613]
+[47, 410]
+[173, 133]
+[461, 605]
+[516, 605]
+[2141, 605]
+[516, 613]
+[396, 554]
+[805, 281]
+[5, 281]
+[516, 281]
+[516, 180]
+[516, 605]
+[461, 281]
+[461, 180]
+[410, 410]
+[516, 605]
+[487, 133]
+[769, 133]
+[461, 133]
+[47, 281]
+[47, 605]
+[410, 180]
+[7, 613]
+[250, 281]
+[72, 72]
+[2141, 545]
+[516, 281]
+[461, 180]
+[57, 281]
+[57, 281]
+[516, 605]
+[47, 410]
+[461, 133]
+[47, 180]
+[410, 180]
+[516, 605]
+[7, 180]
+[(('材', '章'), 218), (('材', '题'), 203), (('这', '题'), 65), (('病', '题'), 60), (('思', '题'), 59), (('思', '点'), 58), (('这', '章'), 43), (('材', '点'), 43), (('目', '题'), 41), (('这', '点'), 40), (('史', '点'), 37), (('部', '章'), 34), (('岩', '题'), 32), (('一', '点'), 32), (('思', '章'), 27), (('史', '史'), 26), (('这', '史'), 25), (('史', '题'), 25), (('部', '题'), 24), (('原', '题'), 22), (('一', '题'), 21), (('摘', '题'), 17), (('的', '题'), 17), (('史', '章'), 16), (('的', '的'), 16), (('摘', '章'), 15), (('思', '段'), 14), (('阅', '的'), 12), (('一', '史'), 11), (('史', '段'), 11), (('材', '术'), 11), (('病', '点'), 10), (('材', '段'), 10), (('目', '术'), 10), (('摘', '摘'), 10), (('法', '法'), 10), (('岩', '章'), 9), (('岩', '史'), 9), (('切', '题'), 9), (('这', '的'), 9), (('思', '史'), 9), (('岩', '点'), 8), (('引', '章'), 8), (('部', '术'), 8), (('病', '病'), 8), (('目', '章'), 8), (('一', '段'), 8), (('病', '章'), 7), (('案', '章'), 7), (('阅', '题'), 7), (('切', '术'), 7), (('几', '章'), 7), (('思', '术'), 7), (('报', '题'), 6), (('切', '点'), 6), (('摘', '点'), 6), (('介', '术'), 6), (('病', '术'), 6), (('切', '章'), 6), (('一', '个'), 6), (('案', '题'), 6), (('一', '章'), 6), (('这', '段'), 6), (('基', '题'), 5), (('部', '点'), 5), (('的', '章'), 5), (('阅', '史'), 5), (('题', '点'), 5), (('报', '点'), 4), (('主', '题'), 4), (('材', '摘'), 4), (('增', '章'), 4), (('切', '的'), 3), (('的', '病'), 3), (('的', '段'), 3), (('题', '章'), 3), (('摘', '荐'), 3), (('文', '章'), 3), (('这', '个'), 3), (('几', '点'), 3), (('题', '题'), 3), (('案', '术'), 3), (('目', '点'), 3), (('国', '章'), 3), (('引', '题'), 3), (('原', '术'), 3), (('这', '法'), 3), (('目', '史'), 2), (('病', '史'), 2), (('病', '段'), 2), (('几', '术'), 2), (('模', '题'), 2), (('原', '章'), 2), (('岩', '术'), 2), (('思', '法'), 2), (('案', '法'), 2), (('切', '摘'), 2), (('这', '术'), 2), (('介', '题'), 2), (('介', '荐'), 2), (('材', '荐'), 2), (('阅', '边'), 2), (('背', '题'), 2), (('增', '题'), 2), (('阅', '术'), 2), (('书', '点'), 2), (('的', '史'), 2), (('气', '题'), 2), (('主', '点'), 2), (('这', '边'), 2), (('引', '术'), 2), (('报', '章'), 2), (('的', '法'), 2), (('摘', '言'), 2), (('几', '题'), 2), (('藏', '点'), 2), (('请', '点'), 2), (('几', '段'), 2), (('史', '列'), 1), (('岩', '岩'), 1), (('是', '章'), 1), (('病', '言'), 1), (('摘', '段'), 1), (('引', '点'), 1), (('这', '藏'), 1), (('的', '案'), 1), (('思', '思'), 1), (('面', '题'), 1), (('材', '目'), 1), (('原', '的'), 1), (('段', '题'), 1), (('切', '言'), 1), (('材', '的'), 1), (('国', '摘'), 1), (('作', '题'), 1), (('增', '摘'), 1), (('阅', '赏'), 1), (('板', '题'), 1), (('病', '的'), 1), (('部', '，'), 1), (('阅', '摘'), 1), (('话', '点'), 1), (('部', '边'), 1), (('面', '边'), 1), (('史', '术'), 1), (('原', '字'), 1), (('核', '题'), 1), (('岩', '荐'), 1), (('气', '术'), 1), (('摘', '术'), 1), (('材', '言'), 1), (('党', '题'), 1), (('兵', '法'), 1), (('船', '题'), 1), (('一', '列'), 1), (('党', '党'), 1), (('思', '略'), 1), (('土', '题'), 1), (('环', '术'), 1), (('兵', '史'), 1), (('选', '点'), 1), (('面', '史'), 1), (('请', '段'), 1), (('本', '段'), 1), (('病', '边'), 1), (('病', '摘'), 1), (('这', '摘'), 1), (('肉', '题'), 1), (('面', '病'), 1), (('车', '题'), 1), (('图', '术'), 1), (('原', '摘'), 1), (('气', '气'), 1), (('气', '史'), 1), (('材', '法'), 1), (('一', '气'), 1), (('降', '目'), 1), (('材', '容'), 1), (('一', '术'), 1), (('阅', '点'), 1), (('边', '术'), 1), (('一', '思'), 1), (('思', '摘'), 1), (('人', '点'), 1), (('昆', '摘'), 1), (('这', '计'), 1), (('演', '题'), 1), (('史', '边'), 1), (('的', '点'), 1), (('思', '言'), 1), (('法', '史'), 1), (('一', '字'), 1), (('文', '术'), 1), (('气', '边'), 1), (('这', '略'), 1), (('网', '点'), 1), (('增', '点'), 1), (('材', '字'), 1), (('书', '法'), 1), (('博', '题'), 1), (('船', '章'), 1), (('法', '目'), 1), (('党', '点'), 1), (('一', '荐'), 1), (('阅', '略'), 1), (('材', '他'), 1), (('原', '史'), 1), (('史', '幅'), 1), (('案', '段'), 1), (('案', '容'), 1), (('法', '题'), 1), (('案', '的'), 1), (('部', '摘'), 1), (('基', '术'), 1), (('选', '术'), 1), (('史', '言'), 1), (('本', '点'), 1), (('激', '点'), 1), (('的', '边'), 1), (('国', '点'), 1), (('孔', '点'), 1), (('本', '题'), 1), (('方', '题'), 1), (('环', '点'), 1), (('的', '荐'), 1), (('思', '个'), 1), (('几', '些'), 1), (('这', '目'), 1), (('案', '列'), 1), (('增', '史'), 1), (('介', '字'), 1), (('目', '边'), 1), (('石', '术'), 1), (('评', '点'), 1)]
+run.sh: line 59: --do_train: command not found
+ 
+==========
+tnews
+==========
+ 
+[32m[2022-08-30 19:36:22,542] [    INFO][0m - The default value for the training argument `--report_to` will change in v5 (from all installed integrations to none). In v5, you will need to use `--report_to all` to get the same behavior as now. You should start updating your code and make this info disappear :-).[0m
+[32m[2022-08-30 19:36:22,542] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:36:22,542] [    INFO][0m -      Model Configuration Arguments      [0m
+[32m[2022-08-30 19:36:22,542] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:36:22,542] [    INFO][0m - do_save                       :True[0m
+[32m[2022-08-30 19:36:22,543] [    INFO][0m - do_test                       :True[0m
+[32m[2022-08-30 19:36:22,543] [    INFO][0m - early_stop_patience           :4[0m
+[32m[2022-08-30 19:36:22,543] [    INFO][0m - export_type                   :paddle[0m
+[32m[2022-08-30 19:36:22,543] [    INFO][0m - model_name_or_path            :ernie-3.0-base-zh[0m
+[32m[2022-08-30 19:36:22,543] [    INFO][0m - [0m
+[32m[2022-08-30 19:36:22,543] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:36:22,543] [    INFO][0m -       Data Configuration Arguments      [0m
+[32m[2022-08-30 19:36:22,543] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:36:22,543] [    INFO][0m - encoder_hidden_size           :200[0m
+[32m[2022-08-30 19:36:22,543] [    INFO][0m - prompt                        :{'hard':'下边播报一则'}{'mask'}{'mask'}{'hard':'新闻：'}{'text':'text_a'}[0m
+[32m[2022-08-30 19:36:22,543] [    INFO][0m - soft_encoder                  :lstm[0m
+[32m[2022-08-30 19:36:22,543] [    INFO][0m - split_id                      :few_all[0m
+[32m[2022-08-30 19:36:22,543] [    INFO][0m - task_name                     :tnews[0m
+[32m[2022-08-30 19:36:22,543] [    INFO][0m - [0m
+[32m[2022-08-30 19:36:22,544] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh.pdparams[0m
+W0830 19:36:22.545222 11319 gpu_resources.cc:61] Please NOTE: device: 0, GPU Compute Capability: 7.0, Driver API Version: 11.2, Runtime API Version: 11.2
+W0830 19:36:22.549214 11319 gpu_resources.cc:91] device: 0, cuDNN Version: 8.1.
+[32m[2022-08-30 19:36:25,342] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh_vocab.txt[0m
+[32m[2022-08-30 19:36:25,368] [    INFO][0m - tokenizer config file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/tokenizer_config.json[0m
+[32m[2022-08-30 19:36:25,369] [    INFO][0m - Special tokens file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/special_tokens_map.json[0m
+[32m[2022-08-30 19:36:25,370] [    INFO][0m - Using template: [{'add_prefix_space': '', 'hard': '下边播报一则'}, {'add_prefix_space': '', 'mask': None}, {'add_prefix_space': '', 'mask': None}, {'add_prefix_space': '', 'hard': '新闻：'}, {'add_prefix_space': '', 'text': 'text_a'}][0m
+2022-08-30 19:36:25,377 INFO [download.py:119] unique_endpoints {''}
+[32m[2022-08-30 19:36:25,497] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:36:25,498] [    INFO][0m -     Training Configuration Arguments    [0m
+[32m[2022-08-30 19:36:25,498] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:36:25,498] [    INFO][0m - _no_sync_in_gradient_accumulation:True[0m
+[32m[2022-08-30 19:36:25,498] [    INFO][0m - adam_beta1                    :0.9[0m
+[32m[2022-08-30 19:36:25,498] [    INFO][0m - adam_beta2                    :0.999[0m
+[32m[2022-08-30 19:36:25,498] [    INFO][0m - adam_epsilon                  :1e-08[0m
+[32m[2022-08-30 19:36:25,498] [    INFO][0m - alpha_rdrop                   :5.0[0m
+[32m[2022-08-30 19:36:25,498] [    INFO][0m - alpha_rgl                     :0.5[0m
+[32m[2022-08-30 19:36:25,499] [    INFO][0m - current_device                :gpu:0[0m
+[32m[2022-08-30 19:36:25,499] [    INFO][0m - dataloader_drop_last          :False[0m
+[32m[2022-08-30 19:36:25,499] [    INFO][0m - dataloader_num_workers        :0[0m
+[32m[2022-08-30 19:36:25,499] [    INFO][0m - device                        :gpu[0m
+[32m[2022-08-30 19:36:25,499] [    INFO][0m - disable_tqdm                  :True[0m
+[32m[2022-08-30 19:36:25,499] [    INFO][0m - do_eval                       :False[0m
+[32m[2022-08-30 19:36:25,499] [    INFO][0m - do_export                     :False[0m
+[32m[2022-08-30 19:36:25,499] [    INFO][0m - do_predict                    :False[0m
+[32m[2022-08-30 19:36:25,499] [    INFO][0m - do_train                      :False[0m
+[32m[2022-08-30 19:36:25,499] [    INFO][0m - eval_batch_size               :32[0m
+[32m[2022-08-30 19:36:25,499] [    INFO][0m - eval_steps                    :100[0m
+[32m[2022-08-30 19:36:25,499] [    INFO][0m - evaluation_strategy           :IntervalStrategy.NO[0m
+[32m[2022-08-30 19:36:25,499] [    INFO][0m - first_max_length              :None[0m
+[32m[2022-08-30 19:36:25,500] [    INFO][0m - fp16                          :False[0m
+[32m[2022-08-30 19:36:25,500] [    INFO][0m - fp16_opt_level                :O1[0m
+[32m[2022-08-30 19:36:25,500] [    INFO][0m - freeze_dropout                :False[0m
+[32m[2022-08-30 19:36:25,500] [    INFO][0m - freeze_plm                    :True[0m
+[32m[2022-08-30 19:36:25,500] [    INFO][0m - gradient_accumulation_steps   :1[0m
+[32m[2022-08-30 19:36:25,500] [    INFO][0m - greater_is_better             :True[0m
+[32m[2022-08-30 19:36:25,500] [    INFO][0m - ignore_data_skip              :False[0m
+[32m[2022-08-30 19:36:25,500] [    INFO][0m - label_names                   :None[0m
+[32m[2022-08-30 19:36:25,500] [    INFO][0m - learning_rate                 :3e-05[0m
+[32m[2022-08-30 19:36:25,500] [    INFO][0m - load_best_model_at_end        :False[0m
+[32m[2022-08-30 19:36:25,500] [    INFO][0m - local_process_index           :0[0m
+[32m[2022-08-30 19:36:25,500] [    INFO][0m - local_rank                    :-1[0m
+[32m[2022-08-30 19:36:25,500] [    INFO][0m - log_level                     :-1[0m
+[32m[2022-08-30 19:36:25,501] [    INFO][0m - log_level_replica             :-1[0m
+[32m[2022-08-30 19:36:25,501] [    INFO][0m - log_on_each_node              :True[0m
+[32m[2022-08-30 19:36:25,501] [    INFO][0m - logging_dir                   :./checkpoints/runs/Aug30_19-36-22_instance-3bwob41y-01[0m
+[32m[2022-08-30 19:36:25,501] [    INFO][0m - logging_first_step            :False[0m
+[32m[2022-08-30 19:36:25,501] [    INFO][0m - logging_steps                 :10[0m
+[32m[2022-08-30 19:36:25,501] [    INFO][0m - logging_strategy              :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 19:36:25,501] [    INFO][0m - lr_scheduler_type             :SchedulerType.LINEAR[0m
+[32m[2022-08-30 19:36:25,501] [    INFO][0m - max_grad_norm                 :1.0[0m
+[32m[2022-08-30 19:36:25,501] [    INFO][0m - max_seq_length                :64[0m
+[32m[2022-08-30 19:36:25,501] [    INFO][0m - max_steps                     :-1[0m
+[32m[2022-08-30 19:36:25,501] [    INFO][0m - metric_for_best_model         :accuracy[0m
+[32m[2022-08-30 19:36:25,501] [    INFO][0m - minimum_eval_times            :None[0m
+[32m[2022-08-30 19:36:25,501] [    INFO][0m - no_cuda                       :False[0m
+[32m[2022-08-30 19:36:25,502] [    INFO][0m - num_train_epochs              :20.0[0m
+[32m[2022-08-30 19:36:25,502] [    INFO][0m - optim                         :OptimizerNames.ADAMW[0m
+[32m[2022-08-30 19:36:25,502] [    INFO][0m - other_max_length              :None[0m
+[32m[2022-08-30 19:36:25,502] [    INFO][0m - output_dir                    :./checkpoints/[0m
+[32m[2022-08-30 19:36:25,502] [    INFO][0m - overwrite_output_dir          :False[0m
+[32m[2022-08-30 19:36:25,502] [    INFO][0m - past_index                    :-1[0m
+[32m[2022-08-30 19:36:25,502] [    INFO][0m - per_device_eval_batch_size    :32[0m
+[32m[2022-08-30 19:36:25,502] [    INFO][0m - per_device_train_batch_size   :8[0m
+[32m[2022-08-30 19:36:25,502] [    INFO][0m - ppt_adam_beta1                :0.9[0m
+[32m[2022-08-30 19:36:25,502] [    INFO][0m - ppt_adam_beta2                :0.999[0m
+[32m[2022-08-30 19:36:25,502] [    INFO][0m - ppt_adam_epsilon              :1e-08[0m
+[32m[2022-08-30 19:36:25,502] [    INFO][0m - ppt_learning_rate             :0.0003[0m
+[32m[2022-08-30 19:36:25,502] [    INFO][0m - ppt_weight_decay              :0.0[0m
+[32m[2022-08-30 19:36:25,503] [    INFO][0m - prediction_loss_only          :False[0m
+[32m[2022-08-30 19:36:25,503] [    INFO][0m - process_index                 :0[0m
+[32m[2022-08-30 19:36:25,503] [    INFO][0m - remove_unused_columns         :True[0m
+[32m[2022-08-30 19:36:25,503] [    INFO][0m - report_to                     :['visualdl'][0m
+[32m[2022-08-30 19:36:25,503] [    INFO][0m - resume_from_checkpoint        :None[0m
+[32m[2022-08-30 19:36:25,503] [    INFO][0m - run_name                      :./checkpoints/[0m
+[32m[2022-08-30 19:36:25,503] [    INFO][0m - save_on_each_node             :False[0m
+[32m[2022-08-30 19:36:25,503] [    INFO][0m - save_steps                    :100[0m
+[32m[2022-08-30 19:36:25,503] [    INFO][0m - save_strategy                 :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 19:36:25,503] [    INFO][0m - save_total_limit              :None[0m
+[32m[2022-08-30 19:36:25,503] [    INFO][0m - scale_loss                    :32768[0m
+[32m[2022-08-30 19:36:25,503] [    INFO][0m - seed                          :42[0m
+[32m[2022-08-30 19:36:25,503] [    INFO][0m - should_log                    :True[0m
+[32m[2022-08-30 19:36:25,504] [    INFO][0m - should_save                   :True[0m
+[32m[2022-08-30 19:36:25,504] [    INFO][0m - task_type                     :multi-class[0m
+[32m[2022-08-30 19:36:25,504] [    INFO][0m - train_batch_size              :8[0m
+[32m[2022-08-30 19:36:25,504] [    INFO][0m - truncate_mode                 :tail[0m
+[32m[2022-08-30 19:36:25,504] [    INFO][0m - use_rdrop                     :False[0m
+[32m[2022-08-30 19:36:25,504] [    INFO][0m - use_rgl                       :False[0m
+[32m[2022-08-30 19:36:25,504] [    INFO][0m - warmup_ratio                  :0.0[0m
+[32m[2022-08-30 19:36:25,504] [    INFO][0m - warmup_steps                  :0[0m
+[32m[2022-08-30 19:36:25,504] [    INFO][0m - weight_decay                  :0.0[0m
+[32m[2022-08-30 19:36:25,504] [    INFO][0m - world_size                    :1[0m
+[32m[2022-08-30 19:36:25,504] [    INFO][0m - [0m
+[32m[2022-08-30 19:36:25,506] [    INFO][0m - ***** Running Prediction *****[0m
+[32m[2022-08-30 19:36:25,506] [    INFO][0m -   Num examples = 2010[0m
+[32m[2022-08-30 19:36:25,506] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 19:36:25,506] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 19:36:25,506] [    INFO][0m -   Total prediction steps = 63[0m
+[32m[2022-08-30 19:36:31,336] [    INFO][0m - ***** test metrics *****[0m
+[32m[2022-08-30 19:36:31,336] [    INFO][0m -   test_accuracy           =      0.194[0m
+[32m[2022-08-30 19:36:31,337] [    INFO][0m -   test_loss               =     2.5342[0m
+[32m[2022-08-30 19:36:31,337] [    INFO][0m -   test_runtime            = 0:00:05.82[0m
+[32m[2022-08-30 19:36:31,337] [    INFO][0m -   test_samples_per_second =    344.785[0m
+[32m[2022-08-30 19:36:31,337] [    INFO][0m -   test_steps_per_second   =     10.807[0m
+metric <function main.<locals>.compute_metrics at 0x7f603fe241f0>
+[1023, 1007]
+[1049, 354]
+[1023, 137]
+[461, 410]
+[1187, 20]
+[410, 410]
+[210, 410]
+[20, 410]
+[306, 180]
+[946, 180]
+[20, 410]
+[210, 410]
+[82, 628]
+[442, 180]
+[628, 410]
+[82, 180]
+[467, 180]
+[210, 129]
+[410, 410]
+[337, 554]
+[20, 410]
+[210, 410]
+[210, 180]
+[306, 180]
+[261, 410]
+[1023, 753]
+[733, 410]
+[410, 410]
+[410, 410]
+[20, 410]
+[261, 410]
+[337, 180]
+[210, 133]
+[20, 410]
+[410, 410]
+[1030, 180]
+[20, 410]
+[337, 554]
+[20, 20]
+[733, 753]
+[20, 137]
+[20, 410]
+[20, 20]
+[1741, 354]
+[20, 410]
+[20, 410]
+[306, 180]
+[410, 410]
+[467, 180]
+[210, 180]
+[20, 410]
+[20, 410]
+[20, 410]
+[410, 410]
+[467, 410]
+[1023, 1023]
+[306, 354]
+[118, 180]
+[20, 180]
+[410, 410]
+[337, 180]
+[118, 180]
+[20, 410]
+[(('国', '史'), 356), (('史', '史'), 248), (('社', '史'), 86), (('国', '国'), 86), (('国', '点'), 85), (('社', '点'), 63), (('报', '点'), 58), (('党', '史'), 57), (('重', '点'), 46), (('搞', '史'), 45), (('报', '史'), 39), (('国', '关'), 36), (('体', '点'), 33), (('党', '点'), 31), (('头', '点'), 30), (('体', '史'), 25), (('军', '史'), 24), (('转', '史'), 21), (('报', '边'), 21), (('报', '藏'), 20), (('党', '边'), 20), (('央', '点'), 16), (('史', '藏'), 16), (('国', '术'), 16), (('党', '藏'), 14), (('怀', '乐'), 13), (('史', '点'), 13), (('头', '史'), 12), (('汽', '点'), 12), (('怀', '史'), 11), (('健', '史'), 10), (('警', '史'), 10), (('报', '关'), 10), (('转', '点'), 10), (('重', '史'), 9), (('体', '赛'), 9), (('警', '警'), 8), (('思', '史'), 8), (('冻', '点'), 8), (('党', '党'), 8), (('深', '点'), 8), (('体', '乐'), 7), (('国', '外'), 7), (('社', '关'), 7), (('赛', '赛'), 7), (('国', '际'), 7), (('赛', '点'), 7), (('搞', '点'), 6), (('健', '关'), 6), (('健', '点'), 6), (('搞', '乐'), 6), (('警', '点'), 6), (('军', '点'), 6), (('下', '史'), 6), (('苏', '史'), 6), (('国', '乐'), 5), (('报', '术'), 5), (('头', '乐'), 5), (('负', '点'), 5), (('监', '点'), 5), (('国', '边'), 5), (('党', '关'), 5), (('思', '点'), 5), (('健', '边'), 4), (('社', '边'), 4), (('搞', '边'), 4), (('央', '史'), 4), (('社', '术'), 4), (('苏', '点'), 4), (('国', '藏'), 4), (('社', '乐'), 3), (('怀', '点'), 3), (('搞', '国'), 3), (('独', '点'), 3), (('赛', '史'), 3), (('网', '点'), 3), (('冻', '史'), 3), (('市', '点'), 3), (('转', '赛'), 3), (('思', '关'), 3), (('最', '点'), 3), (('绝', '史'), 3), (('冻', '藏'), 3), (('科', '关'), 3), (('汽', '车'), 3), (('负', '史'), 3), (('病', '病'), 2), (('搞', '搞'), 2), (('韩', '国'), 2), (('史', '术'), 2), (('赛', '车'), 2), (('今', '日'), 2), (('转', '关'), 2), (('法', '史'), 2), (('今', '边'), 2), (('体', '坛'), 2), (('体', '球'), 2), (('体', '育'), 2), (('重', '边'), 2), (('最', '关'), 2), (('史', '边'), 2), (('转', '藏'), 2), (('野', '藏'), 2), (('最', '史'), 2), (('头', '关'), 2), (('国', '车'), 2), (('健', '国'), 2), (('军', '国'), 2), (('报', '条'), 2), (('环', '点'), 2), (('保', '史'), 2), (('思', '育'), 1), (('警', '志'), 1), (('警', '痛'), 1), (('冻', '边'), 1), (('搞', '心'), 1), (('健', '痛'), 1), (('健', '益'), 1), (('校', '点'), 1), (('搞', '车'), 1), (('社', '志'), 1), (('民', '史'), 1), (('警', '外'), 1), (('搞', '肉'), 1), (('野', '边'), 1), (('婚', '点'), 1), (('转', '见'), 1), (('科', '史'), 1), (('搞', '关'), 1), (('网', '关'), 1), (('今', '乐'), 1), (('健', '心'), 1), (('红', '乐'), 1), (('养', '关'), 1), (('科', '术'), 1), (('怀', '痛'), 1), (('党', '乐'), 1), (('史', '乐'), 1), (('人', '关'), 1), (('交', '术'), 1), (('市', '术'), 1), (('重', '构'), 1), (('肥', '点'), 1), (('汽', '史'), 1), (('转', '球'), 1), (('国', '志'), 1), (('史', '日'), 1), (('党', '日'), 1), (('法', '国'), 1), (('社', '日'), 1), (('社', '国'), 1), (('搞', '默'), 1), (('日', '史'), 1), (('史', '车'), 1), (('绝', '点'), 1), (('王', '点'), 1), (('网', '术'), 1), (('盐', '报'), 1), (('病', '藏'), 1), (('警', '藏'), 1), (('今', '史'), 1), (('三', '点'), 1), (('国', '法'), 1), (('苏', '苏'), 1), (('微', '点'), 1), (('增', '点'), 1), (('史', '岩'), 1), (('腾', '史'), 1), (('军', '术'), 1), (('交', '关'), 1), (('国', '野'), 1), (('车', '关'), 1), (('标', '关'), 1), (('街', '车'), 1), (('交', '警'), 1), (('社', '藏'), 1), (('深', '藏'), 1), (('彭', '边'), 1), (('国', '岩'), 1), (('报', '南'), 1), (('苏', '藏'), 1), (('党', '报'), 1), (('赛', '野'), 1), (('重', '术'), 1), (('头', '边'), 1), (('今', '术'), 1), (('警', '国'), 1), (('健', '藏'), 1), (('党', '气'), 1), (('苏', '兴'), 1), (('气', '点'), 1), (('农', '藏'), 1), (('警', '关'), 1), (('重', '党'), 1), (('网', '史'), 1), (('警', '标'), 1), (('社', '警'), 1), (('冻', '关'), 1), (('法', '点'), 1), (('社', '党'), 1), (('鱼', '鱼'), 1), (('社', '益'), 1), (('野', '史'), 1), (('肥', '史'), 1), (('灾', '藏'), 1), (('军', '藏'), 1), (('心', '史'), 1), (('合', '肥'), 1), (('南', '边'), 1), (('海', '点'), 1), (('重', '关'), 1), (('法', '法'), 1), (('盘', '点'), 1), (('今', '关'), 1)]
+run.sh: line 59: --do_train: command not found
+ 
+==========
+iflytek
+==========
+ 
+[32m[2022-08-30 19:36:35,552] [    INFO][0m - The default value for the training argument `--report_to` will change in v5 (from all installed integrations to none). In v5, you will need to use `--report_to all` to get the same behavior as now. You should start updating your code and make this info disappear :-).[0m
+[32m[2022-08-30 19:36:35,553] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:36:35,553] [    INFO][0m -      Model Configuration Arguments      [0m
+[32m[2022-08-30 19:36:35,553] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:36:35,553] [    INFO][0m - do_save                       :True[0m
+[32m[2022-08-30 19:36:35,553] [    INFO][0m - do_test                       :True[0m
+[32m[2022-08-30 19:36:35,553] [    INFO][0m - early_stop_patience           :4[0m
+[32m[2022-08-30 19:36:35,553] [    INFO][0m - export_type                   :paddle[0m
+[32m[2022-08-30 19:36:35,553] [    INFO][0m - model_name_or_path            :ernie-3.0-base-zh[0m
+[32m[2022-08-30 19:36:35,553] [    INFO][0m - [0m
+[32m[2022-08-30 19:36:35,553] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:36:35,553] [    INFO][0m -       Data Configuration Arguments      [0m
+[32m[2022-08-30 19:36:35,554] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:36:35,554] [    INFO][0m - encoder_hidden_size           :200[0m
+[32m[2022-08-30 19:36:35,554] [    INFO][0m - prompt                        :{'mask'}{'mask'}{'hard':'APP更新日志：'}{'text':'text_a'}[0m
+[32m[2022-08-30 19:36:35,554] [    INFO][0m - soft_encoder                  :lstm[0m
+[32m[2022-08-30 19:36:35,554] [    INFO][0m - split_id                      :few_all[0m
+[32m[2022-08-30 19:36:35,554] [    INFO][0m - task_name                     :iflytek[0m
+[32m[2022-08-30 19:36:35,554] [    INFO][0m - [0m
+[32m[2022-08-30 19:36:35,554] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh.pdparams[0m
+W0830 19:36:35.555727 11530 gpu_resources.cc:61] Please NOTE: device: 0, GPU Compute Capability: 7.0, Driver API Version: 11.2, Runtime API Version: 11.2
+W0830 19:36:35.559631 11530 gpu_resources.cc:91] device: 0, cuDNN Version: 8.1.
+[32m[2022-08-30 19:36:38,224] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh_vocab.txt[0m
+[32m[2022-08-30 19:36:38,250] [    INFO][0m - tokenizer config file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/tokenizer_config.json[0m
+[32m[2022-08-30 19:36:38,251] [    INFO][0m - Special tokens file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/special_tokens_map.json[0m
+[32m[2022-08-30 19:36:38,252] [    INFO][0m - Using template: [{'add_prefix_space': '', 'mask': None}, {'add_prefix_space': '', 'mask': None}, {'add_prefix_space': '', 'hard': 'APP更新日志：'}, {'add_prefix_space': '', 'text': 'text_a'}][0m
+2022-08-30 19:36:38,287 INFO [download.py:119] unique_endpoints {''}
+[32m[2022-08-30 19:36:38,457] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:36:38,457] [    INFO][0m -     Training Configuration Arguments    [0m
+[32m[2022-08-30 19:36:38,457] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:36:38,457] [    INFO][0m - _no_sync_in_gradient_accumulation:True[0m
+[32m[2022-08-30 19:36:38,458] [    INFO][0m - adam_beta1                    :0.9[0m
+[32m[2022-08-30 19:36:38,458] [    INFO][0m - adam_beta2                    :0.999[0m
+[32m[2022-08-30 19:36:38,458] [    INFO][0m - adam_epsilon                  :1e-08[0m
+[32m[2022-08-30 19:36:38,458] [    INFO][0m - alpha_rdrop                   :5.0[0m
+[32m[2022-08-30 19:36:38,458] [    INFO][0m - alpha_rgl                     :0.5[0m
+[32m[2022-08-30 19:36:38,458] [    INFO][0m - current_device                :gpu:0[0m
+[32m[2022-08-30 19:36:38,458] [    INFO][0m - dataloader_drop_last          :False[0m
+[32m[2022-08-30 19:36:38,458] [    INFO][0m - dataloader_num_workers        :0[0m
+[32m[2022-08-30 19:36:38,458] [    INFO][0m - device                        :gpu[0m
+[32m[2022-08-30 19:36:38,458] [    INFO][0m - disable_tqdm                  :True[0m
+[32m[2022-08-30 19:36:38,458] [    INFO][0m - do_eval                       :False[0m
+[32m[2022-08-30 19:36:38,458] [    INFO][0m - do_export                     :False[0m
+[32m[2022-08-30 19:36:38,458] [    INFO][0m - do_predict                    :False[0m
+[32m[2022-08-30 19:36:38,459] [    INFO][0m - do_train                      :False[0m
+[32m[2022-08-30 19:36:38,459] [    INFO][0m - eval_batch_size               :32[0m
+[32m[2022-08-30 19:36:38,459] [    INFO][0m - eval_steps                    :100[0m
+[32m[2022-08-30 19:36:38,459] [    INFO][0m - evaluation_strategy           :IntervalStrategy.NO[0m
+[32m[2022-08-30 19:36:38,459] [    INFO][0m - first_max_length              :None[0m
+[32m[2022-08-30 19:36:38,459] [    INFO][0m - fp16                          :False[0m
+[32m[2022-08-30 19:36:38,459] [    INFO][0m - fp16_opt_level                :O1[0m
+[32m[2022-08-30 19:36:38,459] [    INFO][0m - freeze_dropout                :False[0m
+[32m[2022-08-30 19:36:38,459] [    INFO][0m - freeze_plm                    :True[0m
+[32m[2022-08-30 19:36:38,459] [    INFO][0m - gradient_accumulation_steps   :1[0m
+[32m[2022-08-30 19:36:38,459] [    INFO][0m - greater_is_better             :True[0m
+[32m[2022-08-30 19:36:38,459] [    INFO][0m - ignore_data_skip              :False[0m
+[32m[2022-08-30 19:36:38,459] [    INFO][0m - label_names                   :None[0m
+[32m[2022-08-30 19:36:38,460] [    INFO][0m - learning_rate                 :3e-05[0m
+[32m[2022-08-30 19:36:38,460] [    INFO][0m - load_best_model_at_end        :False[0m
+[32m[2022-08-30 19:36:38,460] [    INFO][0m - local_process_index           :0[0m
+[32m[2022-08-30 19:36:38,460] [    INFO][0m - local_rank                    :-1[0m
+[32m[2022-08-30 19:36:38,460] [    INFO][0m - log_level                     :-1[0m
+[32m[2022-08-30 19:36:38,460] [    INFO][0m - log_level_replica             :-1[0m
+[32m[2022-08-30 19:36:38,460] [    INFO][0m - log_on_each_node              :True[0m
+[32m[2022-08-30 19:36:38,460] [    INFO][0m - logging_dir                   :./checkpoints/runs/Aug30_19-36-35_instance-3bwob41y-01[0m
+[32m[2022-08-30 19:36:38,460] [    INFO][0m - logging_first_step            :False[0m
+[32m[2022-08-30 19:36:38,460] [    INFO][0m - logging_steps                 :10[0m
+[32m[2022-08-30 19:36:38,460] [    INFO][0m - logging_strategy              :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 19:36:38,460] [    INFO][0m - lr_scheduler_type             :SchedulerType.LINEAR[0m
+[32m[2022-08-30 19:36:38,460] [    INFO][0m - max_grad_norm                 :1.0[0m
+[32m[2022-08-30 19:36:38,461] [    INFO][0m - max_seq_length                :320[0m
+[32m[2022-08-30 19:36:38,461] [    INFO][0m - max_steps                     :-1[0m
+[32m[2022-08-30 19:36:38,461] [    INFO][0m - metric_for_best_model         :accuracy[0m
+[32m[2022-08-30 19:36:38,461] [    INFO][0m - minimum_eval_times            :None[0m
+[32m[2022-08-30 19:36:38,461] [    INFO][0m - no_cuda                       :False[0m
+[32m[2022-08-30 19:36:38,461] [    INFO][0m - num_train_epochs              :20.0[0m
+[32m[2022-08-30 19:36:38,461] [    INFO][0m - optim                         :OptimizerNames.ADAMW[0m
+[32m[2022-08-30 19:36:38,461] [    INFO][0m - other_max_length              :None[0m
+[32m[2022-08-30 19:36:38,461] [    INFO][0m - output_dir                    :./checkpoints/[0m
+[32m[2022-08-30 19:36:38,461] [    INFO][0m - overwrite_output_dir          :False[0m
+[32m[2022-08-30 19:36:38,461] [    INFO][0m - past_index                    :-1[0m
+[32m[2022-08-30 19:36:38,461] [    INFO][0m - per_device_eval_batch_size    :32[0m
+[32m[2022-08-30 19:36:38,461] [    INFO][0m - per_device_train_batch_size   :8[0m
+[32m[2022-08-30 19:36:38,461] [    INFO][0m - ppt_adam_beta1                :0.9[0m
+[32m[2022-08-30 19:36:38,462] [    INFO][0m - ppt_adam_beta2                :0.999[0m
+[32m[2022-08-30 19:36:38,462] [    INFO][0m - ppt_adam_epsilon              :1e-08[0m
+[32m[2022-08-30 19:36:38,462] [    INFO][0m - ppt_learning_rate             :0.0003[0m
+[32m[2022-08-30 19:36:38,462] [    INFO][0m - ppt_weight_decay              :0.0[0m
+[32m[2022-08-30 19:36:38,462] [    INFO][0m - prediction_loss_only          :False[0m
+[32m[2022-08-30 19:36:38,462] [    INFO][0m - process_index                 :0[0m
+[32m[2022-08-30 19:36:38,462] [    INFO][0m - remove_unused_columns         :True[0m
+[32m[2022-08-30 19:36:38,462] [    INFO][0m - report_to                     :['visualdl'][0m
+[32m[2022-08-30 19:36:38,462] [    INFO][0m - resume_from_checkpoint        :None[0m
+[32m[2022-08-30 19:36:38,462] [    INFO][0m - run_name                      :./checkpoints/[0m
+[32m[2022-08-30 19:36:38,462] [    INFO][0m - save_on_each_node             :False[0m
+[32m[2022-08-30 19:36:38,462] [    INFO][0m - save_steps                    :100[0m
+[32m[2022-08-30 19:36:38,462] [    INFO][0m - save_strategy                 :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 19:36:38,462] [    INFO][0m - save_total_limit              :None[0m
+[32m[2022-08-30 19:36:38,463] [    INFO][0m - scale_loss                    :32768[0m
+[32m[2022-08-30 19:36:38,463] [    INFO][0m - seed                          :42[0m
+[32m[2022-08-30 19:36:38,463] [    INFO][0m - should_log                    :True[0m
+[32m[2022-08-30 19:36:38,463] [    INFO][0m - should_save                   :True[0m
+[32m[2022-08-30 19:36:38,463] [    INFO][0m - task_type                     :multi-class[0m
+[32m[2022-08-30 19:36:38,463] [    INFO][0m - train_batch_size              :8[0m
+[32m[2022-08-30 19:36:38,463] [    INFO][0m - truncate_mode                 :tail[0m
+[32m[2022-08-30 19:36:38,463] [    INFO][0m - use_rdrop                     :False[0m
+[32m[2022-08-30 19:36:38,463] [    INFO][0m - use_rgl                       :False[0m
+[32m[2022-08-30 19:36:38,463] [    INFO][0m - warmup_ratio                  :0.0[0m
+[32m[2022-08-30 19:36:38,463] [    INFO][0m - warmup_steps                  :0[0m
+[32m[2022-08-30 19:36:38,463] [    INFO][0m - weight_decay                  :0.0[0m
+[32m[2022-08-30 19:36:38,463] [    INFO][0m - world_size                    :1[0m
+[32m[2022-08-30 19:36:38,464] [    INFO][0m - [0m
+[32m[2022-08-30 19:36:38,465] [    INFO][0m - ***** Running Prediction *****[0m
+[32m[2022-08-30 19:36:38,465] [    INFO][0m -   Num examples = 1749[0m
+[32m[2022-08-30 19:36:38,465] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 19:36:38,465] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 19:36:38,465] [    INFO][0m -   Total prediction steps = 55[0m
+[32m[2022-08-30 19:36:59,039] [    INFO][0m - ***** test metrics *****[0m
+[32m[2022-08-30 19:36:59,039] [    INFO][0m -   test_accuracy           =     0.0652[0m
+[32m[2022-08-30 19:36:59,040] [    INFO][0m -   test_loss               =     4.4171[0m
+[32m[2022-08-30 19:36:59,040] [    INFO][0m -   test_runtime            = 0:00:20.57[0m
+[32m[2022-08-30 19:36:59,040] [    INFO][0m -   test_samples_per_second =     85.011[0m
+[32m[2022-08-30 19:36:59,040] [    INFO][0m -   test_steps_per_second   =      2.673[0m
+metric <function main.<locals>.compute_metrics at 0x7fe18920e310>
+[385, 266]
+[173, 753]
+[252, 276]
+[508, 222]
+[343, 753]
+[385, 753]
+[270, 753]
+[502, 753]
+[173, 753]
+[2154, 450]
+[508, 753]
+[1807, 2138]
+[414, 753]
+[146, 72]
+[663, 58]
+[508, 139]
+[173, 753]
+[2141, 442]
+[508, 139]
+[64, 410]
+[622, 1645]
+[173, 753]
+[844, 2138]
+[2141, 1645]
+[663, 58]
+[173, 753]
+[173, 136]
+[385, 275]
+[546, 139]
+[1782, 2138]
+[173, 753]
+[464, 753]
+[173, 753]
+[270, 574]
+[385, 385]
+[180, 1645]
+[173, 753]
+[173, 753]
+[575, 798]
+[1081, 753]
+[821, 753]
+[385, 753]
+[669, 753]
+[161, 276]
+[1621, 275]
+[173, 139]
+[663, 1023]
+[1356, 733]
+[173, 58]
+[173, 139]
+[343, 58]
+[508, 753]
+[536, 275]
+[1564, 320]
+[275, 275]
+[(('目', '藏'), 188), (('今', '藏'), 72), (('官', '藏'), 52), (('目', '日'), 43), (('腾', '藏'), 36), (('游', '藏'), 30), (('目', '荐'), 29), (('今', '日'), 28), (('增', '藏'), 28), (('目', '史'), 26), (('点', '藏'), 23), (('支', '藏'), 21), (('目', '标'), 16), (('独', '藏'), 16), (('官', '游'), 15), (('摘', '藏'), 15), (('目', '宴'), 14), (('游', '游'), 14), (('冻', '藏'), 14), (('游', '方'), 13), (('官', '方'), 12), (('标', '藏'), 10), (('部', '藏'), 10), (('标', '标'), 10), (('目', '术'), 10), (('汽', '藏'), 9), (('百', '藏'), 8), (('微', '藏'), 8), (('官', '标'), 8), (('赛', '藏'), 8), (('苏', '藏'), 7), (('目', '点'), 7), (('激', '藏'), 7), (('绝', '藏'), 7), (('汽', '车'), 7), (('病', '藏'), 6), (('宴', '藏'), 6), (('藏', '藏'), 6), (('健', '藏'), 6), (('目', '方'), 6), (('思', '藏'), 6), (('官', '荐'), 6), (('部', '荐'), 5), (('深', '藏'), 5), (('今', '宴'), 5), (('今', '荐'), 5), (('基', '藏'), 5), (('目', '游'), 5), (('增', '荐'), 5), (('增', '术'), 5), (('官', '术'), 5), (('增', '标'), 5), (('熊', '藏'), 5), (('摘', '荐'), 4), (('官', '交'), 4), (('英', '藏'), 4), (('官', '日'), 4), (('闪', '藏'), 4), (('今', '史'), 4), (('官', '史'), 4), (('腾', '游'), 4), (('游', '荐'), 4), (('今', '标'), 4), (('增', '点'), 4), (('游', '日'), 4), (('官', '报'), 4), (('官', '警'), 3), (('易', '藏'), 3), (('游', '点'), 3), (('增', '方'), 3), (('爱', '藏'), 3), (('女', '藏'), 3), (('小', '藏'), 3), (('官', '宴'), 3), (('聚', '藏'), 3), (('韩', '藏'), 3), (('今', '球'), 3), (('增', '日'), 3), (('皇', '藏'), 3), (('点', '点'), 3), (('法', '法'), 3), (('冻', '标'), 3), (('围', '藏'), 3), (('官', '点'), 3), (('腾', '宴'), 3), (('报', '报'), 3), (('微', '标'), 3), (('宴', '宴'), 3), (('病', '术'), 3), (('官', '法'), 3), (('党', '党'), 3), (('警', '警'), 3), (('苏', '点'), 2), (('苏', '标'), 2), (('红', '藏'), 2), (('警', '藏'), 2), (('书', '藏'), 2), (('交', '藏'), 2), (('关', '藏'), 2), (('乐', '术'), 2), (('增', '车'), 2), (('方', '藏'), 2), (('史', '藏'), 2), (('怀', '藏'), 2), (('巧', '藏'), 2), (('儿', '藏'), 2), (('水', '日'), 2), (('口', '藏'), 2), (('国', '藏'), 2), (('乐', '日'), 2), (('余', '藏'), 2), (('麦', '藏'), 2), (('独', '荐'), 2), (('支', '荐'), 2), (('今', '方'), 2), (('支', '日'), 2), (('网', '荐'), 2), (('花', '标'), 2), (('目', '见'), 2), (('增', '增'), 2), (('初', '藏'), 2), (('目', '目'), 2), (('摘', '宴'), 2), (('众', '标'), 2), (('目', '本'), 2), (('官', '官'), 2), (('头', '条'), 2), (('红', '警'), 2), (('部', '史'), 2), (('游', '史'), 2), (('苏', '荐'), 2), (('增', '法'), 2), (('外', '藏'), 2), (('图', '藏'), 2), (('独', '标'), 2), (('游', '球'), 2), (('目', '法'), 2), (('皇', '宴'), 2), (('游', '龙'), 2), (('游', '术'), 2), (('转', '藏'), 2), (('百', '度'), 2), (('官', '月'), 2), (('龙', '岩'), 2), (('传', '游'), 2), (('麻', '藏'), 2), (('冻', '点'), 2), (('病', '方'), 2), (('健', '康'), 2), (('主', '藏'), 2), (('基', '标'), 2), (('剪', '藏'), 2), (('目', '增'), 2), (('暗', '游'), 2), (('作', '游'), 2), (('点', '荐'), 2), (('今', '术'), 2), (('达', '令'), 2), (('佛', '藏'), 2), (('体', '育'), 2), (('苏', '宴'), 2), (('驾', '标'), 2), (('目', '计'), 2), (('菜', '谱'), 2), (('独', '日'), 2), (('韩', '日'), 2), (('赛', '赛'), 2), (('点', '咚'), 1), (('车', '藏'), 1), (('实', '惠'), 1), (('南', '目'), 1), (('摘', '摘'), 1), (('青', '团'), 1), (('龙', '标'), 1), (('汽', '章'), 1), (('学', '鱼'), 1), (('苏', '东'), 1), (('思', '点'), 1), (('南', '史'), 1), (('镇', '镇'), 1), (('今', '州'), 1), (('今', '利'), 1), (('悠', '苏'), 1), (('党', '会'), 1), (('美', '间'), 1), (('增', '气'), 1), (('派', '标'), 1), (('字', '藏'), 1), (('岩', '藏'), 1), (('激', '游'), 1), (('官', '鱼'), 1), (('今', '阅'), 1), (('圣', '点'), 1), (('书', '兔'), 1), (('悦', '藏'), 1), (('北', '交'), 1), (('苏', '苏'), 1), (('独', '交'), 1), (('香', '标'), 1), (('土', '藏'), 1), (('游', '交'), 1), (('益', '交'), 1), (('畅', '藏'), 1), (('印', '车'), 1), (('交', '交'), 1), (('山', '藏'), 1), (('合', '交'), 1), (('路', '桥'), 1), (('猎', '车'), 1), (('目', '黑'), 1), (('目', '研'), 1), (('交', '方'), 1), (('考', '藏'), 1), (('托', '荐'), 1), (('今', '级'), 1), (('官', '目'), 1), (('口', '研'), 1), (('畅', '荐'), 1), (('日', '学'), 1), (('笔', '果'), 1), (('增', '龙'), 1), (('捕', '鱼'), 1), (('塔', '藏'), 1), (('支', '方'), 1), (('模', '主'), 1), (('拳', '冻'), 1), (('邦', '熊'), 1), (('野', '藏'), 1), (('蜂', '藏'), 1), (('画', '画'), 1), (('标', '荐'), 1), (('主', '标'), 1), (('目', '喝'), 1), (('乐', '标'), 1), (('订', '藏'), 1), (('好', '藏'), 1), (('荣', '宴'), 1), (('yo', '日'), 1), (('微', '术'), 1), (('顺', '藏'), 1), (('石', '材'), 1), (('体', '彩'), 1), (('金', '藏'), 1), (('章', '日'), 1), (('目', '坛'), 1), (('必', '荐'), 1), (('乐', '球'), 1), (('赛', '车'), 1), (('体', '藏'), 1), (('赛', '荐'), 1), (('拳', '日'), 1), (('绝', '游'), 1), (('拳', '皇'), 1), (('游', '车'), 1), (('约', '见'), 1), (('空', '摘'), 1), (('百', '桃'), 1), (('约', '藏'), 1), (('深', '宴'), 1), (('目', '爱'), 1), (('身', '边'), 1), (('网', '爱'), 1), (('冻', '约'), 1), (('探', '藏'), 1), (('知', '藏'), 1), (('虎', '宴'), 1), (('框', '藏'), 1), (('基', '方'), 1), (('苏', '庄'), 1), (('晋', '藏'), 1), (('懒', '藏'), 1), (('绝', '冻'), 1), (('今', '麦'), 1), (('灰', '狼'), 1), (('小', '游'), 1), (('赛', '增'), 1), (('代', '练'), 1), (('腾', '赛'), 1), (('高', '手'), 1), (('代', '日'), 1), (('官', '精'), 1), (('百', '分'), 1), (('谷', '荐'), 1), (('王', '手'), 1), (('点', '游'), 1), (('悟', '宴'), 1), (('支', '条'), 1), (('飞', '日'), 1), (('捷', '日'), 1), (('快', '摘'), 1), (('人', '日'), 1), (('好', '条'), 1), (('支', '忧'), 1), (('来', '期'), 1), (('绝', '配'), 1), (('火', '藏'), 1), (('摇', '摇'), 1), (('石', '术'), 1), (('欢', '日'), 1), (('纹', '标'), 1), (('部', '乱'), 1), (('目', '唐'), 1), (('支', '标'), 1), (('目', '年'), 1), (('镇', '件'), 1), (('酒', '藏'), 1), (('书', '法'), 1), (('锤', '面'), 1), (('山', '东'), 1), (('今', '博'), 1), (('微', '影'), 1), (('海', '荐'), 1), (('目', '派'), 1), (('官', '思'), 1), (('目', '禁'), 1), (('小', '爱'), 1), (('目', '听'), 1), (('暴', '日'), 1), (('乐', '史'), 1), (('知', '标'), 1), (('汽', '警'), 1), (('三', '标'), 1), (('网', '术'), 1), (('轻', '荐'), 1), (('唐', '藏'), 1), (('目', '忧'), 1), (('作', '藏'), 1), (('基', '日'), 1), (('目', '兔'), 1), (('兼', '藏'), 1), (('今', '点'), 1), (('店', '标'), 1), (('标', '话'), 1), (('独', '术'), 1), (('豆', '豆'), 1), (('腾', '日'), 1), (('计', '藏'), 1), (('微', '话'), 1), (('环', '藏'), 1), (('mich', '术'), 1), (('计', '荐'), 1), (('目', '报'), 1), (('摘', '转'), 1), (('社', '闻'), 1), (('重', '镇'), 1), (('百', '条'), 1), (('光', '报'), 1), (('党', '路'), 1), (('铁', '史'), 1), (('党', '日'), 1), (('yh', '藏'), 1), (('百', '标'), 1), (('简', '藏'), 1), (('官', '条'), 1), (('深', '创'), 1), (('天', '标'), 1), (('唔', '哩'), 1), (('龙', '藏'), 1), (('暴', '船'), 1), (('部', '野'), 1), (('国', '国'), 1), (('乱', '游'), 1), (('汽', '标'), 1), (('皇', '方'), 1), (('点', '思'), 1), (('摘', '麦'), 1), (('腾', '点'), 1), (('官', '丰'), 1), (('掌', '门'), 1), (('国', '寿'), 1), (('支', '史'), 1), (('思', '核'), 1), (('笔', '藏'), 1), (('盘', '点'), 1), (('今', '益'), 1), (('永', '辉'), 1), (('腾', '标'), 1), (('月', '修'), 1), (('逼', '评'), 1), (('万', '日'), 1), (('聚', '宴'), 1), (('社', '坛'), 1), (('泰', '安'), 1), (('党', '族'), 1), (('饭', '团'), 1), (('昆', '坛'), 1), (('美', '荐'), 1), (('鱼', '日'), 1), (('兴', '藏'), 1), (('官', '坛'), 1), (('财', '狮'), 1), (('增', '国'), 1), (('独', '鱼'), 1), (('外', '荐'), 1), (('雅', '思'), 1), (('口', '立'), 1), (('冻', '言'), 1), (('今', '思'), 1), (('游', '途'), 1), (('基', '点'), 1), (('军', '团'), 1), (('摘', '猿'), 1), (('游', '法'), 1), (('冻', '日'), 1), (('藏', '益'), 1), (('摘', '史'), 1), (('东', '兴'), 1), (('光', '日'), 1), (('摘', '日'), 1), (('国', '荐'), 1), (('开', '藏'), 1), (('目', '度'), 1), (('基', '荐'), 1), (('交', '师'), 1), (('雪', '球'), 1), (('益', '盟'), 1), (('主', '游'), 1), (('游', '国'), 1), (('官', '人'), 1), (('腾', '方'), 1), (('跳', '藏'), 1), (('目', '主'), 1), (('腾', '主'), 1), (('心', '宴'), 1), (('天', '宴'), 1), (('病', '环'), 1), (('目', '逗'), 1), (('目', '重'), 1), (('今', '赛'), 1), (('香', '环'), 1), (('羽', '荐'), 1), (('健', '日'), 1), (('跑', '步'), 1), (('深', '环'), 1), (('目', '月'), 1), (('骑', '藏'), 1), (('目', '环'), 1), (('冻', '者'), 1), (('体', '重'), 1), (('赛', '方'), 1), (('部', '标'), 1), (('游', '标'), 1), (('代', '捷'), 1), (('冻', '果'), 1), (('增', '人'), 1), (('末', '日'), 1), (('今', '警'), 1), (('凯', '标'), 1), (('官', '谋'), 1), (('海', '标'), 1), (('街', '藏'), 1), (('官', '翼'), 1), (('定', '藏'), 1), (('目', '约'), 1), (('报', '车'), 1), (('史', '宴'), 1), (('药', '日'), 1), (('药', '藏'), 1), (('药', '网'), 1), (('咚', '咚'), 1), (('病', '病'), 1), (('精', '术'), 1), (('药', '药'), 1), (('病', '安'), 1), (('轻', '术'), 1), (('病', '约'), 1), (('mal', '奏'), 1), (('日', '史'), 1), (('目', '奏'), 1), (('腾', '鱼'), 1), (('摘', '本'), 1), (('携', '藏'), 1), (('游', '谱'), 1), (('目', '期'), 1), (('长', '游'), 1), (('tast', '标'), 1), (('独', '游'), 1), (('藏', '评'), 1), (('暴', '藏'), 1), (('日', '藏'), 1), (('被', '藏'), 1), (('增', '件'), 1), (('安', '标'), 1), (('猫', '藏'), 1), (('小', '米'), 1), (('爱', '拍'), 1), (('航', '宴'), 1), (('航', '航'), 1), (('fot', '标'), 1), (('万', '兴'), 1), (('截', '藏'), 1), (('小', '影'), 1), (('快', '手'), 1), (('目', '件'), 1), (('今', '游'), 1), (('王', '游'), 1), (('游', '宴'), 1), (('游', '岩'), 1), (('口', '域'), 1), (('赛', '日'), 1), (('冻', '游'), 1), (('传', '藏'), 1), (('史', '龙'), 1), (('方', '舟'), 1), (('方', '游'), 1), (('冻', '布'), 1), (('易', '车'), 1), (('今', '手'), 1), (('腾', '术'), 1), (('目', '邦'), 1), (('胜', '荐'), 1), (('万', '术'), 1), (('美', '手'), 1), (('转', '转'), 1), (('怀', '荐'), 1), (('轻', '藏'), 1), (('主', '人'), 1), (('摘', '水'), 1), (('尚', '标'), 1), (('一', '课'), 1), (('恒', '日'), 1), (('增', '校'), 1), (('健', '术'), 1), (('党', '报'), 1), (('尚', '构'), 1), (('关', '史'), 1), (('德', '荐'), 1), (('分', '标'), 1), (('目', '士'), 1), (('润', '润'), 1), (('三', '藏'), 1), (('麦', '麦'), 1), (('精', '选'), 1), (('冻', '花'), 1), (('万', '点'), 1), (('省', '藏'), 1), (('微', '街'), 1), (('北', '国'), 1), (('恋', '团'), 1), (('一', '件'), 1), (('蓝', '宴'), 1), (('蓝', '标'), 1), (('圣', '藏'), 1), (('养', '荐'), 1), (('苏', '岩'), 1), (('亲', '爱'), 1), (('百', '亲'), 1), (('关', '荐'), 1), (('摘', '标'), 1), (('基', '术'), 1), (('魔', '图'), 1), (('照', '送'), 1), (('修', '藏'), 1), (('目', '亲'), 1), (('空', '藏'), 1), (('聊', '藏'), 1), (('章', '鱼'), 1), (('冻', '色'), 1), (('激', '术'), 1), (('乱', '气'), 1), (('目', '画'), 1), (('乱', '藏'), 1), (('口', '人'), 1), (('苏', '游'), 1), (('官', '蒙'), 1), (('纵', '荐'), 1), (('仙', '方'), 1), (('保', '荐'), 1), (('官', '路'), 1), (('增', '屏'), 1), (('虾', '画'), 1), (('剪', '标'), 1), (('水', '藏'), 1), (('藏', '鱼'), 1), (('绝', '鱼'), 1), (('今', '播'), 1), (('榴', '日'), 1), (('乐', '藏'), 1), (('齐', '目'), 1), (('百', '术'), 1), (('核', '桃'), 1), (('增', '岩'), 1), (('苏', '支'), 1), (('点', '元'), 1), (('传', '岩'), 1), (('目', '岩'), 1), (('花', '源'), 1), (('支', '摘'), 1), (('目', '痛'), 1), (('返', '方'), 1), (('传', '客'), 1), (('目', '蜂'), 1), (('黑', '藏'), 1), (('人', '社'), 1), (('税', '税'), 1), (('地', '报'), 1), (('目', '江'), 1), (('社', '史'), 1), (('冻', '报'), 1), (('交', '警'), 1), (('汕', '日'), 1), (('常', '德'), 1), (('社', '警'), 1), (('党', '目'), 1), (('镇', '日'), 1), (('保', '交'), 1), (('目', '警'), 1), (('口', '安'), 1), (('驾', '史'), 1), (('驾', '点'), 1), (('驾', '术'), 1), (('安', '史'), 1), (('驾', '荐'), 1), (('驾', '目'), 1), (('元', '练'), 1), (('深', '车'), 1), (('框', '托'), 1), (('美', '宴'), 1), (('目', '印'), 1), (('游', '腾'), 1), (('婚', '宴'), 1), (('微', '目'), 1), (('官', '师'), 1), (('百', '荐'), 1), (('初', '荐'), 1), (('官', '计'), 1), (('电', '日'), 1), (('菜', '宴'), 1), (('面', '宴'), 1), (('日', '谱'), 1), (('钱', '标'), 1), (('目', '练'), 1), (('焦', '作'), 1), (('北', '网'), 1), (('洪', '苏'), 1), (('华', '藏'), 1), (('部', '气'), 1), (('财', '新'), 1), (('重', '区'), 1), (('洗', '藏'), 1), (('目', '盘'), 1), (('南', '苏'), 1), (('深', '深'), 1), (('腾', '岩'), 1), (('编', '藏'), 1), (('百', '点'), 1), (('爱', '学'), 1), (('粤', '藏'), 1), (('冻', '荐'), 1), (('怀', '标'), 1), (('目', '乎'), 1), (('目', '志'), 1), (('画', '术'), 1), (('目', '乐'), 1), (('篆', '藏'), 1), (('弹', '荐'), 1), (('古', '术'), 1), (('病', '点'), 1), (('乐', '赛'), 1), (('体', '日'), 1), (('篮', '球'), 1), (('赛', '球'), 1), (('电', '藏'), 1), (('学', '藏'), 1), (('桌', '球'), 1), (('激', '标'), 1), (('官', '易'), 1), (('丛', '藏'), 1), (('激', '球'), 1), (('赛', '托'), 1), (('目', '野'), 1), (('赛', '游'), 1), (('汽', '方'), 1), (('官', '车'), 1), (('增', '勾'), 1), (('增', '史'), 1), (('猎', '标'), 1), (('人', '才'), 1), (('安', '心'), 1), (('斗', '标'), 1), (('英', '才'), 1), (('智', '标'), 1), (('英', '荐'), 1), (('东', '车'), 1), (('汽', '宴'), 1), (('车', '标'), 1), (('达', '藏'), 1), (('邮', '证'), 1), (('官', '越'), 1), (('安', '能'), 1), (('人', '人'), 1), (('腾', '值'), 1), (('盛', '藏'), 1), (('汽', '途'), 1), (('目', '卡'), 1), (('蜂', '收'), 1), (('扫', '呗'), 1), (('红', '标'), 1), (('摘', '收'), 1), (('目', '屏'), 1), (('情', '日'), 1), (('江', '铃'), 1), (('路', '网'), 1), (('小', '宴'), 1), (('安', '目'), 1), (('雷', '车'), 1), (('车', '车'), 1), (('汽', '弗'), 1), (('捷', '车'), 1), (('车', '忧'), 1), (('冻', '史'), 1), (('喜', '藏'), 1), (('乐', '宴'), 1), (('汽', '圣'), 1), (('汽', '享'), 1), (('开', '思'), 1), (('汽', '本'), 1), (('汽', '站'), 1)]
+run.sh: line 59: --do_train: command not found
+ 
+==========
+ocnli
+==========
+ 
+[32m[2022-08-30 19:37:03,294] [    INFO][0m - The default value for the training argument `--report_to` will change in v5 (from all installed integrations to none). In v5, you will need to use `--report_to all` to get the same behavior as now. You should start updating your code and make this info disappear :-).[0m
+[32m[2022-08-30 19:37:03,295] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:37:03,295] [    INFO][0m -      Model Configuration Arguments      [0m
+[32m[2022-08-30 19:37:03,295] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:37:03,295] [    INFO][0m - do_save                       :True[0m
+[32m[2022-08-30 19:37:03,295] [    INFO][0m - do_test                       :True[0m
+[32m[2022-08-30 19:37:03,295] [    INFO][0m - early_stop_patience           :4[0m
+[32m[2022-08-30 19:37:03,295] [    INFO][0m - export_type                   :paddle[0m
+[32m[2022-08-30 19:37:03,295] [    INFO][0m - model_name_or_path            :ernie-3.0-base-zh[0m
+[32m[2022-08-30 19:37:03,296] [    INFO][0m - [0m
+[32m[2022-08-30 19:37:03,296] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:37:03,296] [    INFO][0m -       Data Configuration Arguments      [0m
+[32m[2022-08-30 19:37:03,296] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:37:03,296] [    INFO][0m - encoder_hidden_size           :200[0m
+[32m[2022-08-30 19:37:03,296] [    INFO][0m - prompt                        :{'hard':'请用正确的连接词填空：'}{'text':'text_a'}{'mask'}{'mask'}{'text':'text_b'}[0m
+[32m[2022-08-30 19:37:03,296] [    INFO][0m - soft_encoder                  :lstm[0m
+[32m[2022-08-30 19:37:03,296] [    INFO][0m - split_id                      :few_all[0m
+[32m[2022-08-30 19:37:03,296] [    INFO][0m - task_name                     :ocnli[0m
+[32m[2022-08-30 19:37:03,296] [    INFO][0m - [0m
+[32m[2022-08-30 19:37:03,296] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh.pdparams[0m
+W0830 19:37:03.297930 11949 gpu_resources.cc:61] Please NOTE: device: 0, GPU Compute Capability: 7.0, Driver API Version: 11.2, Runtime API Version: 11.2
+W0830 19:37:03.302040 11949 gpu_resources.cc:91] device: 0, cuDNN Version: 8.1.
+[32m[2022-08-30 19:37:06,072] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh_vocab.txt[0m
+[32m[2022-08-30 19:37:06,097] [    INFO][0m - tokenizer config file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/tokenizer_config.json[0m
+[32m[2022-08-30 19:37:06,097] [    INFO][0m - Special tokens file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/special_tokens_map.json[0m
+[32m[2022-08-30 19:37:06,098] [    INFO][0m - Using template: [{'add_prefix_space': '', 'hard': '请用正确的连接词填空：'}, {'add_prefix_space': '', 'text': 'text_a'}, {'add_prefix_space': '', 'mask': None}, {'add_prefix_space': '', 'mask': None}, {'add_prefix_space': '', 'text': 'text_b'}][0m
+2022-08-30 19:37:06,102 INFO [download.py:119] unique_endpoints {''}
+[32m[2022-08-30 19:37:06,231] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:37:06,231] [    INFO][0m -     Training Configuration Arguments    [0m
+[32m[2022-08-30 19:37:06,231] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:37:06,231] [    INFO][0m - _no_sync_in_gradient_accumulation:True[0m
+[32m[2022-08-30 19:37:06,231] [    INFO][0m - adam_beta1                    :0.9[0m
+[32m[2022-08-30 19:37:06,231] [    INFO][0m - adam_beta2                    :0.999[0m
+[32m[2022-08-30 19:37:06,231] [    INFO][0m - adam_epsilon                  :1e-08[0m
+[32m[2022-08-30 19:37:06,231] [    INFO][0m - alpha_rdrop                   :5.0[0m
+[32m[2022-08-30 19:37:06,232] [    INFO][0m - alpha_rgl                     :0.5[0m
+[32m[2022-08-30 19:37:06,232] [    INFO][0m - current_device                :gpu:0[0m
+[32m[2022-08-30 19:37:06,232] [    INFO][0m - dataloader_drop_last          :False[0m
+[32m[2022-08-30 19:37:06,232] [    INFO][0m - dataloader_num_workers        :0[0m
+[32m[2022-08-30 19:37:06,232] [    INFO][0m - device                        :gpu[0m
+[32m[2022-08-30 19:37:06,232] [    INFO][0m - disable_tqdm                  :True[0m
+[32m[2022-08-30 19:37:06,232] [    INFO][0m - do_eval                       :False[0m
+[32m[2022-08-30 19:37:06,232] [    INFO][0m - do_export                     :False[0m
+[32m[2022-08-30 19:37:06,232] [    INFO][0m - do_predict                    :False[0m
+[32m[2022-08-30 19:37:06,232] [    INFO][0m - do_train                      :False[0m
+[32m[2022-08-30 19:37:06,232] [    INFO][0m - eval_batch_size               :32[0m
+[32m[2022-08-30 19:37:06,232] [    INFO][0m - eval_steps                    :100[0m
+[32m[2022-08-30 19:37:06,233] [    INFO][0m - evaluation_strategy           :IntervalStrategy.NO[0m
+[32m[2022-08-30 19:37:06,233] [    INFO][0m - first_max_length              :None[0m
+[32m[2022-08-30 19:37:06,233] [    INFO][0m - fp16                          :False[0m
+[32m[2022-08-30 19:37:06,233] [    INFO][0m - fp16_opt_level                :O1[0m
+[32m[2022-08-30 19:37:06,233] [    INFO][0m - freeze_dropout                :False[0m
+[32m[2022-08-30 19:37:06,233] [    INFO][0m - freeze_plm                    :True[0m
+[32m[2022-08-30 19:37:06,233] [    INFO][0m - gradient_accumulation_steps   :1[0m
+[32m[2022-08-30 19:37:06,233] [    INFO][0m - greater_is_better             :True[0m
+[32m[2022-08-30 19:37:06,233] [    INFO][0m - ignore_data_skip              :False[0m
+[32m[2022-08-30 19:37:06,233] [    INFO][0m - label_names                   :None[0m
+[32m[2022-08-30 19:37:06,233] [    INFO][0m - learning_rate                 :3e-05[0m
+[32m[2022-08-30 19:37:06,233] [    INFO][0m - load_best_model_at_end        :False[0m
+[32m[2022-08-30 19:37:06,233] [    INFO][0m - local_process_index           :0[0m
+[32m[2022-08-30 19:37:06,233] [    INFO][0m - local_rank                    :-1[0m
+[32m[2022-08-30 19:37:06,234] [    INFO][0m - log_level                     :-1[0m
+[32m[2022-08-30 19:37:06,234] [    INFO][0m - log_level_replica             :-1[0m
+[32m[2022-08-30 19:37:06,234] [    INFO][0m - log_on_each_node              :True[0m
+[32m[2022-08-30 19:37:06,234] [    INFO][0m - logging_dir                   :./checkpoints/runs/Aug30_19-37-03_instance-3bwob41y-01[0m
+[32m[2022-08-30 19:37:06,234] [    INFO][0m - logging_first_step            :False[0m
+[32m[2022-08-30 19:37:06,234] [    INFO][0m - logging_steps                 :10[0m
+[32m[2022-08-30 19:37:06,234] [    INFO][0m - logging_strategy              :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 19:37:06,234] [    INFO][0m - lr_scheduler_type             :SchedulerType.LINEAR[0m
+[32m[2022-08-30 19:37:06,234] [    INFO][0m - max_grad_norm                 :1.0[0m
+[32m[2022-08-30 19:37:06,234] [    INFO][0m - max_seq_length                :64[0m
+[32m[2022-08-30 19:37:06,234] [    INFO][0m - max_steps                     :-1[0m
+[32m[2022-08-30 19:37:06,234] [    INFO][0m - metric_for_best_model         :accuracy[0m
+[32m[2022-08-30 19:37:06,234] [    INFO][0m - minimum_eval_times            :None[0m
+[32m[2022-08-30 19:37:06,235] [    INFO][0m - no_cuda                       :False[0m
+[32m[2022-08-30 19:37:06,235] [    INFO][0m - num_train_epochs              :20.0[0m
+[32m[2022-08-30 19:37:06,235] [    INFO][0m - optim                         :OptimizerNames.ADAMW[0m
+[32m[2022-08-30 19:37:06,235] [    INFO][0m - other_max_length              :None[0m
+[32m[2022-08-30 19:37:06,235] [    INFO][0m - output_dir                    :./checkpoints/[0m
+[32m[2022-08-30 19:37:06,235] [    INFO][0m - overwrite_output_dir          :False[0m
+[32m[2022-08-30 19:37:06,235] [    INFO][0m - past_index                    :-1[0m
+[32m[2022-08-30 19:37:06,235] [    INFO][0m - per_device_eval_batch_size    :32[0m
+[32m[2022-08-30 19:37:06,235] [    INFO][0m - per_device_train_batch_size   :8[0m
+[32m[2022-08-30 19:37:06,235] [    INFO][0m - ppt_adam_beta1                :0.9[0m
+[32m[2022-08-30 19:37:06,235] [    INFO][0m - ppt_adam_beta2                :0.999[0m
+[32m[2022-08-30 19:37:06,235] [    INFO][0m - ppt_adam_epsilon              :1e-08[0m
+[32m[2022-08-30 19:37:06,235] [    INFO][0m - ppt_learning_rate             :0.0003[0m
+[32m[2022-08-30 19:37:06,235] [    INFO][0m - ppt_weight_decay              :0.0[0m
+[32m[2022-08-30 19:37:06,236] [    INFO][0m - prediction_loss_only          :False[0m
+[32m[2022-08-30 19:37:06,236] [    INFO][0m - process_index                 :0[0m
+[32m[2022-08-30 19:37:06,236] [    INFO][0m - remove_unused_columns         :True[0m
+[32m[2022-08-30 19:37:06,236] [    INFO][0m - report_to                     :['visualdl'][0m
+[32m[2022-08-30 19:37:06,236] [    INFO][0m - resume_from_checkpoint        :None[0m
+[32m[2022-08-30 19:37:06,236] [    INFO][0m - run_name                      :./checkpoints/[0m
+[32m[2022-08-30 19:37:06,236] [    INFO][0m - save_on_each_node             :False[0m
+[32m[2022-08-30 19:37:06,236] [    INFO][0m - save_steps                    :100[0m
+[32m[2022-08-30 19:37:06,236] [    INFO][0m - save_strategy                 :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 19:37:06,236] [    INFO][0m - save_total_limit              :None[0m
+[32m[2022-08-30 19:37:06,236] [    INFO][0m - scale_loss                    :32768[0m
+[32m[2022-08-30 19:37:06,236] [    INFO][0m - seed                          :42[0m
+[32m[2022-08-30 19:37:06,236] [    INFO][0m - should_log                    :True[0m
+[32m[2022-08-30 19:37:06,237] [    INFO][0m - should_save                   :True[0m
+[32m[2022-08-30 19:37:06,237] [    INFO][0m - task_type                     :multi-class[0m
+[32m[2022-08-30 19:37:06,237] [    INFO][0m - train_batch_size              :8[0m
+[32m[2022-08-30 19:37:06,237] [    INFO][0m - truncate_mode                 :tail[0m
+[32m[2022-08-30 19:37:06,237] [    INFO][0m - use_rdrop                     :False[0m
+[32m[2022-08-30 19:37:06,237] [    INFO][0m - use_rgl                       :False[0m
+[32m[2022-08-30 19:37:06,237] [    INFO][0m - warmup_ratio                  :0.0[0m
+[32m[2022-08-30 19:37:06,237] [    INFO][0m - warmup_steps                  :0[0m
+[32m[2022-08-30 19:37:06,237] [    INFO][0m - weight_decay                  :0.0[0m
+[32m[2022-08-30 19:37:06,237] [    INFO][0m - world_size                    :1[0m
+[32m[2022-08-30 19:37:06,237] [    INFO][0m - [0m
+[32m[2022-08-30 19:37:06,239] [    INFO][0m - ***** Running Prediction *****[0m
+[32m[2022-08-30 19:37:06,239] [    INFO][0m -   Num examples = 2520[0m
+[32m[2022-08-30 19:37:06,239] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 19:37:06,239] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 19:37:06,239] [    INFO][0m -   Total prediction steps = 79[0m
+[32m[2022-08-30 19:37:13,664] [    INFO][0m - ***** test metrics *****[0m
+[32m[2022-08-30 19:37:13,665] [    INFO][0m -   test_accuracy           =     0.3333[0m
+[32m[2022-08-30 19:37:13,665] [    INFO][0m -   test_loss               =      1.627[0m
+[32m[2022-08-30 19:37:13,665] [    INFO][0m -   test_runtime            = 0:00:07.42[0m
+[32m[2022-08-30 19:37:13,665] [    INFO][0m -   test_samples_per_second =    339.369[0m
+[32m[2022-08-30 19:37:13,665] [    INFO][0m -   test_steps_per_second   =     10.639[0m
+metric <function main.<locals>.compute_metrics at 0x7f14731821f0>
+[647, 785]
+[599, 12043]
+[30, 30]
+[16, 554]
+[647, 218]
+[276, 1023]
+[599, 12045]
+[172, 30]
+[396, 461]
+[201, 467]
+[785, 61]
+[30, 171]
+[364, 554]
+[592, 20]
+[599, 12043]
+[508, 461]
+[647, 477]
+[467, 20]
+[12043, 17]
+[5, 281]
+[129, 1081]
+[599, 20]
+[18, 467]
+[785, 291]
+[12043, 12045]
+[599, 281]
+[30, 12043]
+[785, 2154]
+[47, 601]
+[181, 554]
+[461, 461]
+[519, 72]
+[12043, 647]
+[361, 133]
+[749, 1412]
+[12043, 20]
+[647, 554]
+[1049, 266]
+[785, 1412]
+[30, 30]
+[30, 12043]
+[785, 461]
+[16, 312]
+[16, 467]
+[266, 461]
+[467, 467]
+[12043, 676]
+[647, 554]
+[647, 461]
+[44, 17]
+[12043, 27]
+[526, 461]
+[785, 461]
+[12043, 554]
+[647, 554]
+[467, 281]
+[9, 554]
+[173, 461]
+[1007, 1007]
+[785, 159]
+[12045, 12045]
+[526, 218]
+[785, 785]
+[567, 766]
+[647, 20]
+[7, 309]
+[243, 27]
+[12045, 170]
+[117, 12043]
+[599, 12045]
+[30, 2141]
+[12043, 281]
+[785, 461]
+[647, 461]
+[12043, 676]
+[5, 554]
+[12043, 12043]
+[16, 785]
+[396, 72]
+[(('。', '。'), 58), ((',', ','), 54), (('党', '党'), 51), (('？', '？'), 44), (('请', '思'), 41), (('除', '国'), 32), (('。', '？'), 31), (('除', '。'), 30), (('请', '边'), 27), ((',', '。'), 24), (('党', '国'), 21), (('绝', '思'), 21), ((',', '但'), 20), (('，', '，'), 20), (('。', '国'), 19), (('。', '党'), 18), (('病', '病'), 17), (('不', '。'), 16), (('绝', '边'), 16), (('除', '？'), 15), (('目', '思'), 14), (('请', '次'), 14), (('请', '虑'), 13), (('除', '党'), 13), (('。', '边'), 12), (('不', '国'), 12), (('。', '气'), 12), (('。', '题'), 12), (('请', '绝'), 11), (('绝', '计'), 11), (('请', '气'), 11), (('不', '边'), 11), (('难', '思'), 11), (('除', '题'), 11), (('。', '标'), 11), (('痛', '痛'), 10), (('绝', '气'), 10), (('除', '边'), 10), (('目', '国'), 10), (('。', '思'), 10), (('绝', '绝'), 10), (('除', ','), 10), (('。', '术'), 10), (('这', '边'), 10), (('。', ','), 10), (('请', '国'), 9), (('冻', '气'), 9), (('除', '括'), 9), (('除', '思'), 9), (('。', '虑'), 9), (('党', '？'), 9), (('目', '标'), 9), (('党', '思'), 9), (('总', '气'), 9), (('不', '思'), 8), (('除', '请'), 8), (('核', '国'), 8), (('请', '计'), 8), (('请', '藏'), 8), (('。', '括'), 8), (('绝', '藏'), 8), (('除', '气'), 7), (('。', '请'), 7), (('这', '个'), 7), (('正', '思'), 7), (('请', '请'), 7), (('。', '绝'), 6), (('请', '党'), 6), (('绝', '次'), 6), (('党', '虑'), 6), (('不', '题'), 6), (('不', '？'), 6), (('党', '标'), 6), (('宴', '宴'), 6), (('不', '党'), 6), (('请', '括'), 6), (('，', '？'), 6), (('。', '藏'), 6), (('绝', '虑'), 6), (('国', '国'), 6), ((',', '国'), 6), (('请', '是'), 6), (('这', '？'), 5), (('这', '国'), 5), (('。', '这'), 5), (('请', '。'), 5), (('党', '绝'), 5), (('难', '边'), 5), (('。', '但'), 5), (('请', '亲'), 5), (('。', '次'), 5), (('请', '题'), 5), (('总', '虑'), 5), ((',', '虑'), 5), (('委', '党'), 5), (('了', '。'), 5), (('乱', '思'), 5), (('放', '边'), 5), (('请', '？'), 5), (('藏', '藏'), 5), (('党', '镇'), 5), (('总', '边'), 5), (('这', '思'), 5), (('核', '。'), 5), ((',', '见'), 5), (('正', '计'), 4), (('党', '题'), 4), (('绝', '见'), 4), (('这', '次'), 4), (('还', '还'), 4), (('。', '法'), 4), (('冻', '冻'), 4), ((',', '？'), 4), (('病', '思'), 4), (('今', '次'), 4), (('。', '，'), 4), (('？', '请'), 4), (('目', '题'), 4), (('不', '虑'), 4), (('病', '法'), 4), (('不', ','), 4), (('今', '思'), 4), (('。', '切'), 4), (('托', '气'), 4), (('除', '术'), 4), ((',', '气'), 4), (('绝', '切'), 4), ((',', '，'), 4), (('请', '见'), 4), (('目', '边'), 4), (('。', '独'), 4), (('。', '痛'), 4), (('不', '是'), 4), (('心', '思'), 4), (('请', '标'), 4), (('。', '有'), 4), (('？', '绝'), 4), (('请', ','), 4), (('?', '。'), 3), (('。', '见'), 3), (('摘', '摘'), 3), (('不', '病'), 3), (('乱', '气'), 3), (('。', '病'), 3), (('好', '思'), 3), (('有', '边'), 3), (('他', '气'), 3), (('总', '切'), 3), (('委', '思'), 3), (('党', '。'), 3), (('。', '是'), 3), (('，', '虑'), 3), (('的', '？'), 3), (('总', '思'), 3), (('除', '点'), 3), (('放', '气'), 3), (('有', '计'), 3), (('是', '思'), 3), (('警', '术'), 3), (('放', '？'), 3), (('托', '边'), 3), ((',', '放'), 3), (('请', '点'), 3), (('目', '虑'), 3), (('的', '边'), 3), (('总', '括'), 3), (('除', '镇'), 3), (('除', '次'), 3), (('正', '好'), 3), (('气', '气'), 3), (('气', '思'), 3), (('边', '边'), 3), (('，', '但'), 3), (('请', '谢'), 3), (('核', '题'), 3), (('核', '点'), 3), (('增', '点'), 3), ((',', '括'), 3), (('的', '。'), 3), (('增', '增'), 3), (('题', '思'), 3), (('核', '党'), 3), (('正', '边'), 3), ((',', '党'), 3), (('绝', '括'), 3), (('总', '这'), 3), (('。', '心'), 3), ((',', '次'), 3), (('除', '切'), 3), (('难', '气'), 3), (('已', '思'), 3), (('法', '法'), 3), (('难', '次'), 3), (('党', '兵'), 3), (('。', '冻'), 2), (('病', '边'), 2), (('那', '边'), 2), (('女', '思'), 2), (('请', '摘'), 2), (('思', '思'), 2), (('，', '国'), 2), (('难', '？'), 2), (('请', '面'), 2), (('气', '。'), 2), (('党', '藏'), 2), (('党', '次'), 2), (('核', '边'), 2), (('放', '思'), 2), (('请', '病'), 2), (('这', '作'), 2), (('正', '？'), 2), (('叙', '思'), 2), (('切', '切'), 2), (('绝', '。'), 2), (('党', '案'), 2), (('请', '心'), 2), (('正', '次'), 2), (('乱', '乱'), 2), (('点', '边'), 2), (('正', '。'), 2), (('绝', '在'), 2), (('增', '放'), 2), (('一', '些'), 2), (('假', '？'), 2), ((',', '被'), 2), (('目', '？'), 2), (('绝', '国'), 2), (('感', '思'), 2), (('绝', '乎'), 2), (('除', '绝'), 2), (('委', '气'), 2), (('除', '谢'), 2), (('党', '点'), 2), (('请', '宴'), 2), (('绝', '？'), 2), (('总', '。'), 2), (('好', '。'), 2), (('？', '他'), 2), (('正', '绝'), 2), (('请', '学'), 2), (('报', '国'), 2), ((',', '术'), 2), (('总', '增'), 2), ((',', '独'), 2), (('托', '思'), 2), (('。', '宴'), 2), (('的', '题'), 2), (('绝', '痛'), 2), ((',', '计'), 2), (('那', '思'), 2), (('已', '计'), 2), (('摘', '藏'), 2), (('报', '目'), 2), (('报', '标'), 2), ((',', '思'), 2), (('病', '术'), 2), (('船', '边'), 2), (('位', '。'), 2), (('这', '点'), 2), (('绝', '心'), 2), (('这', '是'), 2), (('绝', '宴'), 2), (('病', '宴'), 2), (('目', '气'), 2), (('是', '边'), 2), (('报', '虑'), 2), (('除', '法'), 2), ((',', '请'), 2), (('主', '党'), 2), (('不', '绝'), 2), (('党', '气'), 2), (('或', '思'), 2), (('假', '思'), 2), (('迫', '国'), 2), (('不', '定'), 2), (('。', '某'), 2), (('报', '病'), 2), (('感', '？'), 2), (('请', '个'), 2), (('难', '计'), 2), (('。', '史'), 2), (('?', '？'), 2), (('。', '镇'), 2), (('委', '边'), 2), (('。', '增'), 2), (('圣', '次'), 2), (('这', '计'), 2), (('绝', '点'), 2), (('。', '乱'), 2), (('委', '绝'), 2), (('请', '乎'), 2), ((',', '从'), 2), (('冻', '藏'), 2), (('国', '党'), 2), (('请', '法'), 2), (('明', '思'), 2), (('题', '切'), 2), (('总', '国'), 2), (('病', '绝'), 2), (('痛', '病'), 2), (('目', '亲'), 2), (('列', '气'), 2), (('叙', '乱'), 2), (('吗', '？'), 2), (('好', '乎'), 2), (('不', '宴'), 2), (('但', '边'), 2), (('绝', '，'), 2), (('正', '国'), 2), (('列', ','), 2), (('展', '。'), 2), (('总', '术'), 2), (('核', '思'), 2), (('，', '藏'), 2), (('除', '藏'), 2), (('几', '边'), 2), (('宴', '边'), 2), (('但', '计'), 2), ((',', '镇'), 2), (('题', '题'), 2), (('的', '思'), 2), (('。', '被'), 2), (('作', '？'), 2), (('核', '术'), 2), (('目', '党'), 2), (('军', '官'), 2), (('除', '案'), 2), (('党', '边'), 2), ((',', '题'), 2), (('目', '切'), 2), (('。', '点'), 2), (('难', '括'), 2), (('好', '有'), 1), (('必', '党'), 1), (('目', '镇'), 1), (('党', '委'), 1), (('？', '痛'), 1), (('明', '次'), 1), (('场', '。'), 1), (('车', '。'), 1), (('？', '边'), 1), (('。', '难'), 1), (('不', '际'), 1), (('目', '别'), 1), (('一', '气'), 1), (('？', '是'), 1), (('死', '冻'), 1), (('总', '还'), 1), (('，', '有'), 1), (('那', '气'), 1), (('面', '切'), 1), (('委', '学'), 1), (('洗', '病'), 1), (('不', '切'), 1), (('切', '虑'), 1), (('边', ','), 1), (('。', '架'), 1), (('。', '灯'), 1), (('党', '没'), 1), (('病', '点'), 1), (('请', '某'), 1), (('感', '见'), 1), (('总', '次'), 1), (('这', '气'), 1), (('藏', '言'), 1), (('除', '病'), 1), (('请', '月'), 1), (('放', '在'), 1), (('反', '藏'), 1), (('除', '乎'), 1), (('激', '术'), 1), (('，', '。'), 1), (('正', '学'), 1), (('正', '但'), 1), (('已', '次'), 1), (('法', '党'), 1), (('绝', '党'), 1), (('粮', '别'), 1), (('题', '痛'), 1), (('。', '革'), 1), (('这', '的'), 1), (('绝', '年'), 1), (('一', '。'), 1), (('尽', '藏'), 1), (('特', '术'), 1), (('很', '思'), 1), (('你', '边'), 1), (('放', '计'), 1), (('交', '法'), 1), (('交', '警'), 1), (('请', '假'), 1), (('原', '初'), 1), (('悲', '思'), 1), (('明', '绝'), 1), (('党', '括'), 1), (('几', '标'), 1), (('术', '括'), 1), (('数', '点'), 1), (('。', '亲'), 1), (('独', '思'), 1), (('深', '度'), 1), (('报', '法'), 1), (('请', '女'), 1), (('一', '个'), 1), (('党', '亲'), 1), ((',', '给'), 1), (('宴', '法'), 1), (('好', '边'), 1), (('或', ','), 1), (('总', '总'), 1), (('古', '思'), 1), (('乱', '言'), 1), (('完', '？'), 1), (('总', '藏'), 1), (('送', '送'), 1), (('是', '被'), 1), (('不', '点'), 1), (('核', '藏'), 1), (('痛', '边'), 1), ((',', '增'), 1), (('党', '还'), 1), (('日', '法'), 1), (('任', '。'), 1), (('边', '。'), 1), (('总', '痛'), 1), (('今', '国'), 1), (('已', ','), 1), (('核', '醉'), 1), (('？', '藏'), 1), (('党', '独'), 1), (('现', '在'), 1), (('还', '党'), 1), (('总', '来'), 1), (('？', '病'), 1), (('深', '次'), 1), (('他', '边'), 1), (('核', '气'), 1), (('粮', '边'), 1), ((',', '总'), 1), (('绝', '来'), 1), (('，', '思'), 1), (('？', '('), 1), (('总', '党'), 1), (('盼', '边'), 1), (('东', '术'), 1), (('请', '果'), 1), (('正', '标'), 1), (('正', '虑'), 1), (('出', '口'), 1), (('某', '次'), 1), (('交', '交'), 1), (('明', '镇'), 1), (('别', '计'), 1), (('今', '切'), 1), (('压', '题'), 1), (('除', '独'), 1), (('但', '正'), 1), (('绝', '警'), 1), (('请', '禁'), 1), (('总', '方'), 1), (('不', '法'), 1), (('病', '标'), 1), (('正', '被'), 1), (('请', '把'), 1), (('那', '健'), 1), (('正', '放'), 1), (('下', '？'), 1), (('绝', '评'), 1), (('怀', '在'), 1), (('病', '气'), 1), (('然', '计'), 1), (('有', '余'), 1), (('你', '术'), 1), (('党', '纲'), 1), ((',', '争'), 1), (('几', '年'), 1), (('压', '作'), 1), (('这', '切'), 1), (('绝', '病'), 1), (('游', '？'), 1), (('国', '史'), 1), (('正', '年'), 1), (('放', '学'), 1), (('请', '被'), 1), (('这', '病'), 1), (('已', '病'), 1), (('思', '定'), 1), (('打', '。'), 1), (('。', '拓'), 1), (('总', '？'), 1), (('，', '好'), 1), (('，', '某'), 1), (('好', '亲'), 1), (('委', '虑'), 1), (('尽', '我'), 1), (('请', '引'), 1), (('感', '兴'), 1), (('是', '标'), 1), (('放', '散'), 1), (('核', '括'), 1), (('绝', '个'), 1), (('委', '他'), 1), (('但', '是'), 1), (('下', '边'), 1), (('报', '思'), 1), (('点', '。'), 1), (('增', '切'), 1), (('实', '但'), 1), (('转', '船'), 1), (('今', '在'), 1), (('托', '题'), 1), (('压', '边'), 1), (('。', '年'), 1), ((',', '使'), 1), (('了', '？'), 1), (('。', '要'), 1), (('冻', '箱'), 1), (('谢', '题'), 1), (('不', '请'), 1), (('核', '计'), 1), (('标', '国'), 1), (('病', ','), 1), (('感', '题'), 1), (('作', '边'), 1), (('警', '心'), 1), (('托', '藏'), 1), (('反', '正'), 1), (('配', '。'), 1), (('？', '“'), 1), (('关', '乱'), 1), (('计', '报'), 1), (('。', '从'), 1), (('痛', '切'), 1), (('正', '为'), 1), (('几', '话'), 1), (('打', '次'), 1), (('怀', '痛'), 1), (('报', '言'), 1), (('总', '果'), 1), (('谢', '谢'), 1), (('了', '边'), 1), (('请', '数'), 1), (('教', '育'), 1), (('迫', '气'), 1), (('独', '气'), 1), (('乱', '托'), 1), (('，', '在'), 1), (('正', '党'), 1), (('学', '党'), 1), (('。', '低'), 1), (('环', '增'), 1), (('请', '容'), 1), (('党', '及'), 1), (('压', '？'), 1), (('出', '蒙'), 1), (('总', '停'), 1), (('绝', '女'), 1), (('是', '次'), 1), (('负', '法'), 1), (('几', '切'), 1), (('或', '绝'), 1), (('请', '外'), 1), (('？', '警'), 1), (('报', '藏'), 1), (('计', '边'), 1), (('？', '法'), 1), (('报', '年'), 1), (('病', '次'), 1), (('鱼', ','), 1), (('党', '病'), 1), (('除', '年'), 1), (('摘', '标'), 1), (('亲', '亲'), 1), (('他', '次'), 1), (('？', '国'), 1), (('绝', '法'), 1), (('部', '部'), 1), (('不', '气'), 1), (('这', '迫'), 1), (('核', '言'), 1), (('谢', '次'), 1), (('他', '党'), 1), (('目', ','), 1), (('评', '思'), 1), (('好', '次'), 1), (('交', '思'), 1), (('冻', '又'), 1), (('除', '计'), 1), (('请', '剪'), 1), (('绝', '许'), 1), (('委', '术'), 1), (('一', '计'), 1), (('切', '警'), 1), (('绝', '冻'), 1), (('已', '边'), 1), (('摘', '括'), 1), (('的', ','), 1), (('总', ','), 1), (('完', '见'), 1), (('难', '评'), 1), (('这', '亲'), 1), (('痛', '思'), 1), (('。', '女'), 1), (('切', '转'), 1), (('。', '性'), 1), (('请', '健'), 1), (('是', '党'), 1), (('街', '边'), 1), (('请', '王'), 1), (('最', '计'), 1), (('明', '边'), 1), (('增', '镇'), 1), (('写', '题'), 1), (('思', '党'), 1), (('总', '主'), 1), (('请', '船'), 1), (('党', '是'), 1), (('党', '阵'), 1), (('已', '某'), 1), (('党', '车'), 1), (('报', '党'), 1), (('?', '开'), 1), (('心', '乱'), 1), (('应', '边'), 1), (('核', '？'), 1), (('病', '？'), 1), (('今', '年'), 1), (('写', '法'), 1), (('请', '送'), 1), (('这', '党'), 1), ((',', '这'), 1), (('环', '境'), 1), (('难', '亲'), 1), (('原', '思'), 1), (('游', '气'), 1), (('激', '次'), 1), (('，', '或'), 1), (('绝', '亲'), 1), (('；', '二'), 1), (('但', '思'), 1), (('粮', '虑'), 1), (('器', '术'), 1), (('？', '没'), 1), (('这', '评'), 1), (('是', '法'), 1), (('超', '术'), 1), (('不', '标'), 1), (('。', '在'), 1), (('请', '迎'), 1), (('，', '样'), 1), ((',', '负'), 1), (('有', '藏'), 1), (('印', '虑'), 1), (('规', '题'), 1), ((',', '人'), 1), (('托', '国'), 1), (('党', '略'), 1), (('打', '切'), 1), (('树', '党'), 1), (('中', '代'), 1), (('交', '谢'), 1), (('深', '思'), 1), (('藏', '蒙'), 1), (('正', '题'), 1), (('交', '的'), 1), (('不', '儿'), 1), (('肯', '次'), 1), (('或', '党'), 1), (('认', '边'), 1), (('只', '括'), 1), (('目', '势'), 1), (('请', '独'), 1), (('?', '思'), 1), (('气', ','), 1), (('怀', '气'), 1), (('请', '使'), 1), (('题', '难'), 1), (('列', '括'), 1), (('主', '术'), 1), (('头', '被'), 1), (('于', '是'), 1), (('刚', '点'), 1), (('目', '目'), 1), (('增', '民'), 1), (('那', '见'), 1), (('总', '兴'), 1), (('痛', '目'), 1), (('鱼', '冻'), 1), (('现', '是'), 1), (('关', '于'), 1), (('除', '目'), 1), (('规', '乱'), 1), ((',', '还'), 1), (('的', '放'), 1), (('他', '思'), 1), (('请', '润'), 1), (('特', '种'), 1), (('党', '宴'), 1), (('？', '目'), 1), (('是', '国'), 1), (('党', '术'), 1), (('一', '标'), 1), (('这', '告'), 1), (('；', '；'), 1), (('主', '标'), 1), (('出', '绝'), 1), (('。', '作'), 1), (('或', '边'), 1), (('原', '？'), 1), (('好', ','), 1), (('苏', '思'), 1), (('党', '方'), 1), (('好', '没'), 1), (('不', '那'), 1), (('冻', '思'), 1), (('宴', '女'), 1), (('点', '气'), 1), (('应', '面'), 1), ((',', '迫'), 1), (('报', '点'), 1), (('迎', '思'), 1), (('党', '部'), 1), (('赛', '赛'), 1), (('总', '却'), 1), (('托', '绵'), 1), (('深', '边'), 1), (('藏', '边'), 1), (('气', '乱'), 1), (('不', '镇'), 1), (('病', '虑'), 1), (('除', '略'), 1), (('托', '言'), 1), (('。', '禁'), 1), (('不', '痛'), 1), (('？', '题'), 1), (('党', '在'), 1), (('标', '目'), 1), (('希', '谢'), 1), (('托', '。'), 1), (('还', '次'), 1), (('还', '边'), 1), ((',', '某'), 1), (('除', '迎'), 1), (('交', '国'), 1), (('遇', '见'), 1), (('列', '边'), 1), (('放', '虑'), 1), (('选', '术'), 1), (('超', '重'), 1), (('声', '痛'), 1), (('不', '括'), 1), ((',', '把'), 1), (('摘', '？'), 1), (('他', ','), 1), (('党', '见'), 1), (('请', '切'), 1), (('丛', '边'), 1), (('目', '今'), 1), (('放', '被'), 1), (('核', '镇'), 1), (('面', '赏'), 1), (('的', '虑'), 1), (('？', '那'), 1), ((',', '转'), 1), (('车', ','), 1), (('？', '次'), 1), (('但', '藏'), 1), (('不', '藏'), 1), (('明', '怪'), 1), (('增', '？'), 1), (('托', '术'), 1), (('野', '边'), 1), (('还', '请'), 1), ((',', '是'), 1), ((',', '及'), 1), (('除', '办'), 1), (('总', '望'), 1), (('请', '总'), 1), (('，', '言'), 1), (('总', '乎'), 1), (('他', '年'), 1), (('不', '目'), 1), (('丛', '乎'), 1), ((',', '要'), 1), (('。', '总'), 1), (('核', '见'), 1), (('除', '言'), 1), (('。', '个'), 1), (('党', '法'), 1), (('被', '诺'), 1), (('痛', '术'), 1), (('打', '气'), 1), (('除', '来'), 1), (('买', '菜'), 1), (('切', '党'), 1), (('是', '人'), 1), (('转', ','), 1), (('?', '好'), 1), (('正', '病'), 1), (('列', '病'), 1), (('增', '聚'), 1), (('思', '。'), 1), (('压', '压'), 1), (('这', '转'), 1), (('假', '边'), 1), (('。', '及'), 1), (('一', '年'), 1), (('谢', '藏'), 1), (('的', '请'), 1), (('思', '虑'), 1), (('放', '藏'), 1), (('正', '果'), 1), (('切', '国'), 1), (('切', '边'), 1), (('他', '见'), 1), (('兵', '军'), 1), (('几', '气'), 1), (('好', '藏'), 1), (('的', '来'), 1), ((',', '我'), 1), (('除', '还'), 1), (('国', '亲'), 1), (('环', '镇'), 1), (('标', '边'), 1), (('切', '冻'), 1), (('假', '国'), 1), (('。', '来'), 1), (('术', '。'), 1), ((',', '点'), 1), (('核', '心'), 1), (('党', '众'), 1), (('或', '括'), 1), (('今', '气'), 1), (('正', '车'), 1), (('摘', '痛'), 1), (('明', '气'), 1), (('转', '陆'), 1), ((',', '个'), 1), (('核', '法'), 1), (('核', '革'), 1), (('有', '次'), 1), (('总', '独'), 1), (('除', '个'), 1), (('难', '告'), 1), (('冻', '。'), 1), (('明', '法'), 1), (('已', '已'), 1), (('请', '案'), 1), (('除', '见'), 1), (('这', '宴'), 1), (('为', '气'), 1), (('实', '施'), 1), (('他', '。'), 1), (('术', '术'), 1), (('交', '边'), 1), (('气', '？'), 1), (('警', '边'), 1), (('这', '被'), 1), (('边', '镇'), 1), (('乱', '题'), 1), (('正', '气'), 1), (('必', '国'), 1), (('交', '次'), 1), (('除', '心'), 1), (('冻', ','), 1), (('请', '的'), 1), (('放', '是'), 1), (('?', '题'), 1), (('党', '乱'), 1), (('绝', '乱'), 1), ((',', '有'), 1), (('数', '思'), 1), (('怎', '计'), 1), ((',', '法'), 1), (('数', '乱'), 1), (('委', '闹'), 1), (('核', '虑'), 1), ((',', '绝'), 1), (('，', '术'), 1), (('目', '术'), 1), (('贺', '题'), 1), (('这', '为'), 1), (('数', '党'), 1), ((',', '已'), 1), (('或', '计'), 1), (('女', '人'), 1), (('绝', '迫'), 1), (('独', '陆'), 1), (('好', '谢'), 1), (('目', '乱'), 1), (('除', '施'), 1), (('尽', '计'), 1), (('。', '不'), 1), (('。', '书'), 1), (('核', '标'), 1), (('女', '？'), 1), (('。', '体'), 1), (('肯', '定'), 1), (('总', '有'), 1), (('除', '定'), 1), (('必', '须'), 1), (('明', '军'), 1), (('除', '评'), 1), (('党', '这'), 1), (('，', '党'), 1), (('核', '构'), 1), (('总', '送'), 1), (('一', '切'), 1), (('国', '略'), 1), (('警', '思'), 1), (('粮', '术'), 1), (('这', '顿'), 1), (('藏', '。'), 1), (('不', '必'), 1), (('除', '没'), 1), (('总', '须'), 1), (('痛', '部'), 1), (('反', '气'), 1), (('或', '题'), 1), (('目', '次'), 1), (('。', '案'), 1), (('除', '虑'), 1), (('支', '气'), 1), (('这', '面'), 1), (('环', '切'), 1), (('托', '？'), 1), (('支', '心'), 1), (('，', '评'), 1), (('夸', '？'), 1), ((',', '鱼'), 1), ((',', '船'), 1), (('正', '个'), 1), (('丛', '头'), 1), (('？', '。'), 1), (('只', '思'), 1), (('目', '楚'), 1), ((',', '宴'), 1), (('，', '余'), 1), (('明', '计'), 1), (('，', '请'), 1), (('？', '好'), 1), (('委', '病'), 1), (('不', '，'), 1), (('难', '放'), 1), (('委', '见'), 1), (('报', '增'), 1), (('这', '头'), 1), (('尽', '气'), 1), (('除', '，'), 1), (('洗', '乱'), 1), (('期', '切'), 1), (('目', '点'), 1), (('一', '国'), 1), (('原', '。'), 1), (('？', '个'), 1), (('核', '摘'), 1), (('绝', '面'), 1), (('党', '构'), 1), ((',', '藏'), 1), (('除', '某'), 1), (('总', '法'), 1), (('痛', ','), 1), ((',', '摘'), 1), (('题', '计'), 1), (('负', '术'), 1), (('不', '术'), 1), (('点', '思'), 1), ((',', '今'), 1), (('还', '思'), 1), (('不', '族'), 1), (('知', '思'), 1), ((',', '报'), 1), (('色', '色'), 1), (('不', '部'), 1), ((',', '老'), 1), (('，', '是'), 1), (('绝', '术'), 1), (('苏', '藏'), 1), (('增', '国'), 1), (('一', '是'), 1), (('托', '蒙'), 1), (('绝', '人'), 1), (('计', '点'), 1), ((',', '不'), 1), (('静', '气'), 1), (('事', '，'), 1), (('？', ','), 1), (('不', '望'), 1), (('请', '没'), 1), (('除', '东'), 1), (('一', '情'), 1), (('核', '王'), 1), (('如', '边'), 1), (('气', '法'), 1), (('事', '切'), 1), (('除', '标'), 1), (('绝', '是'), 1), (('放', '假'), 1), (('感', '有'), 1), (('不', '人'), 1), (('萨', '藏'), 1), (('心', '心'), 1), (('或', '虑'), 1), (('。', '他'), 1), (('还', '是'), 1), (('请', '空'), 1), (('关', '绝'), 1), (('被', '思'), 1), (('感', '乎'), 1), (('迎', '束'), 1), (('的', '史'), 1), (('的', '次'), 1), (('请', '填'), 1), (('请', '人'), 1), (('20', '点'), 1), (('请', '聚'), 1), (('病', '纲'), 1), (('这', '，'), 1), (('增', '术'), 1), (('怀', '心'), 1), (('车', '车'), 1), (('报', '。'), 1), (('已', '，'), 1), (('刚', '刚'), 1), (('不', '乱'), 1), (('作', '术'), 1), (('绝', '独'), 1), (('目', '年'), 1), (('除', '除'), 1), (('。', '警'), 1), (('有', '绝'), 1), (('病', '亲'), 1), (('请', '在'), 1), (('希', '望'), 1), (('的', '合'), 1), (('不', '在'), 1), (('主', '病'), 1), (('法', '警'), 1), (('？', '气'), 1)]
+run.sh: line 59: --do_train: command not found
+ 
+==========
+bustm
+==========
+ 
+[32m[2022-08-30 19:37:17,493] [    INFO][0m - The default value for the training argument `--report_to` will change in v5 (from all installed integrations to none). In v5, you will need to use `--report_to all` to get the same behavior as now. You should start updating your code and make this info disappear :-).[0m
+[32m[2022-08-30 19:37:17,493] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:37:17,493] [    INFO][0m -      Model Configuration Arguments      [0m
+[32m[2022-08-30 19:37:17,493] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:37:17,493] [    INFO][0m - do_save                       :True[0m
+[32m[2022-08-30 19:37:17,493] [    INFO][0m - do_test                       :True[0m
+[32m[2022-08-30 19:37:17,493] [    INFO][0m - early_stop_patience           :4[0m
+[32m[2022-08-30 19:37:17,494] [    INFO][0m - export_type                   :paddle[0m
+[32m[2022-08-30 19:37:17,494] [    INFO][0m - model_name_or_path            :ernie-3.0-base-zh[0m
+[32m[2022-08-30 19:37:17,494] [    INFO][0m - [0m
+[32m[2022-08-30 19:37:17,494] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:37:17,494] [    INFO][0m -       Data Configuration Arguments      [0m
+[32m[2022-08-30 19:37:17,494] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:37:17,494] [    INFO][0m - encoder_hidden_size           :200[0m
+[32m[2022-08-30 19:37:17,494] [    INFO][0m - prompt                        :{'text':'text_a'}{'sep'}{'text':'text_b'}{'sep'}{'hard':'前两句话'}{'mask'}{'hard':'像'}[0m
+[32m[2022-08-30 19:37:17,494] [    INFO][0m - soft_encoder                  :lstm[0m
+[32m[2022-08-30 19:37:17,494] [    INFO][0m - split_id                      :few_all[0m
+[32m[2022-08-30 19:37:17,494] [    INFO][0m - task_name                     :bustm[0m
+[32m[2022-08-30 19:37:17,494] [    INFO][0m - [0m
+[32m[2022-08-30 19:37:17,495] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh.pdparams[0m
+W0830 19:37:17.496011 12199 gpu_resources.cc:61] Please NOTE: device: 0, GPU Compute Capability: 7.0, Driver API Version: 11.2, Runtime API Version: 11.2
+W0830 19:37:17.500123 12199 gpu_resources.cc:91] device: 0, cuDNN Version: 8.1.
+[32m[2022-08-30 19:37:20,271] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh_vocab.txt[0m
+[32m[2022-08-30 19:37:20,297] [    INFO][0m - tokenizer config file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/tokenizer_config.json[0m
+[32m[2022-08-30 19:37:20,297] [    INFO][0m - Special tokens file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/special_tokens_map.json[0m
+[32m[2022-08-30 19:37:20,298] [    INFO][0m - Using template: [{'add_prefix_space': '', 'text': 'text_a'}, {'add_prefix_space': '', 'sep': None}, {'add_prefix_space': '', 'text': 'text_b'}, {'add_prefix_space': '', 'sep': None}, {'add_prefix_space': '', 'hard': '前两句话'}, {'add_prefix_space': '', 'mask': None}, {'add_prefix_space': '', 'hard': '像'}][0m
+2022-08-30 19:37:20,302 INFO [download.py:119] unique_endpoints {''}
+[32m[2022-08-30 19:37:20,415] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:37:20,416] [    INFO][0m -     Training Configuration Arguments    [0m
+[32m[2022-08-30 19:37:20,416] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:37:20,416] [    INFO][0m - _no_sync_in_gradient_accumulation:True[0m
+[32m[2022-08-30 19:37:20,416] [    INFO][0m - adam_beta1                    :0.9[0m
+[32m[2022-08-30 19:37:20,416] [    INFO][0m - adam_beta2                    :0.999[0m
+[32m[2022-08-30 19:37:20,416] [    INFO][0m - adam_epsilon                  :1e-08[0m
+[32m[2022-08-30 19:37:20,416] [    INFO][0m - alpha_rdrop                   :5.0[0m
+[32m[2022-08-30 19:37:20,416] [    INFO][0m - alpha_rgl                     :0.5[0m
+[32m[2022-08-30 19:37:20,416] [    INFO][0m - current_device                :gpu:0[0m
+[32m[2022-08-30 19:37:20,417] [    INFO][0m - dataloader_drop_last          :False[0m
+[32m[2022-08-30 19:37:20,417] [    INFO][0m - dataloader_num_workers        :0[0m
+[32m[2022-08-30 19:37:20,417] [    INFO][0m - device                        :gpu[0m
+[32m[2022-08-30 19:37:20,417] [    INFO][0m - disable_tqdm                  :True[0m
+[32m[2022-08-30 19:37:20,417] [    INFO][0m - do_eval                       :False[0m
+[32m[2022-08-30 19:37:20,417] [    INFO][0m - do_export                     :False[0m
+[32m[2022-08-30 19:37:20,417] [    INFO][0m - do_predict                    :False[0m
+[32m[2022-08-30 19:37:20,417] [    INFO][0m - do_train                      :False[0m
+[32m[2022-08-30 19:37:20,417] [    INFO][0m - eval_batch_size               :32[0m
+[32m[2022-08-30 19:37:20,417] [    INFO][0m - eval_steps                    :100[0m
+[32m[2022-08-30 19:37:20,417] [    INFO][0m - evaluation_strategy           :IntervalStrategy.NO[0m
+[32m[2022-08-30 19:37:20,417] [    INFO][0m - first_max_length              :None[0m
+[32m[2022-08-30 19:37:20,417] [    INFO][0m - fp16                          :False[0m
+[32m[2022-08-30 19:37:20,418] [    INFO][0m - fp16_opt_level                :O1[0m
+[32m[2022-08-30 19:37:20,418] [    INFO][0m - freeze_dropout                :False[0m
+[32m[2022-08-30 19:37:20,418] [    INFO][0m - freeze_plm                    :True[0m
+[32m[2022-08-30 19:37:20,418] [    INFO][0m - gradient_accumulation_steps   :1[0m
+[32m[2022-08-30 19:37:20,418] [    INFO][0m - greater_is_better             :True[0m
+[32m[2022-08-30 19:37:20,418] [    INFO][0m - ignore_data_skip              :False[0m
+[32m[2022-08-30 19:37:20,418] [    INFO][0m - label_names                   :None[0m
+[32m[2022-08-30 19:37:20,418] [    INFO][0m - learning_rate                 :3e-05[0m
+[32m[2022-08-30 19:37:20,418] [    INFO][0m - load_best_model_at_end        :False[0m
+[32m[2022-08-30 19:37:20,418] [    INFO][0m - local_process_index           :0[0m
+[32m[2022-08-30 19:37:20,418] [    INFO][0m - local_rank                    :-1[0m
+[32m[2022-08-30 19:37:20,418] [    INFO][0m - log_level                     :-1[0m
+[32m[2022-08-30 19:37:20,418] [    INFO][0m - log_level_replica             :-1[0m
+[32m[2022-08-30 19:37:20,419] [    INFO][0m - log_on_each_node              :True[0m
+[32m[2022-08-30 19:37:20,419] [    INFO][0m - logging_dir                   :./checkpoints/runs/Aug30_19-37-17_instance-3bwob41y-01[0m
+[32m[2022-08-30 19:37:20,419] [    INFO][0m - logging_first_step            :False[0m
+[32m[2022-08-30 19:37:20,419] [    INFO][0m - logging_steps                 :10[0m
+[32m[2022-08-30 19:37:20,419] [    INFO][0m - logging_strategy              :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 19:37:20,419] [    INFO][0m - lr_scheduler_type             :SchedulerType.LINEAR[0m
+[32m[2022-08-30 19:37:20,419] [    INFO][0m - max_grad_norm                 :1.0[0m
+[32m[2022-08-30 19:37:20,419] [    INFO][0m - max_seq_length                :40[0m
+[32m[2022-08-30 19:37:20,419] [    INFO][0m - max_steps                     :-1[0m
+[32m[2022-08-30 19:37:20,419] [    INFO][0m - metric_for_best_model         :accuracy[0m
+[32m[2022-08-30 19:37:20,419] [    INFO][0m - minimum_eval_times            :None[0m
+[32m[2022-08-30 19:37:20,419] [    INFO][0m - no_cuda                       :False[0m
+[32m[2022-08-30 19:37:20,419] [    INFO][0m - num_train_epochs              :20.0[0m
+[32m[2022-08-30 19:37:20,420] [    INFO][0m - optim                         :OptimizerNames.ADAMW[0m
+[32m[2022-08-30 19:37:20,420] [    INFO][0m - other_max_length              :None[0m
+[32m[2022-08-30 19:37:20,420] [    INFO][0m - output_dir                    :./checkpoints/[0m
+[32m[2022-08-30 19:37:20,420] [    INFO][0m - overwrite_output_dir          :False[0m
+[32m[2022-08-30 19:37:20,420] [    INFO][0m - past_index                    :-1[0m
+[32m[2022-08-30 19:37:20,420] [    INFO][0m - per_device_eval_batch_size    :32[0m
+[32m[2022-08-30 19:37:20,420] [    INFO][0m - per_device_train_batch_size   :8[0m
+[32m[2022-08-30 19:37:20,420] [    INFO][0m - ppt_adam_beta1                :0.9[0m
+[32m[2022-08-30 19:37:20,420] [    INFO][0m - ppt_adam_beta2                :0.999[0m
+[32m[2022-08-30 19:37:20,420] [    INFO][0m - ppt_adam_epsilon              :1e-08[0m
+[32m[2022-08-30 19:37:20,421] [    INFO][0m - ppt_learning_rate             :0.0003[0m
+[32m[2022-08-30 19:37:20,421] [    INFO][0m - ppt_weight_decay              :0.0[0m
+[32m[2022-08-30 19:37:20,421] [    INFO][0m - prediction_loss_only          :False[0m
+[32m[2022-08-30 19:37:20,421] [    INFO][0m - process_index                 :0[0m
+[32m[2022-08-30 19:37:20,421] [    INFO][0m - remove_unused_columns         :True[0m
+[32m[2022-08-30 19:37:20,421] [    INFO][0m - report_to                     :['visualdl'][0m
+[32m[2022-08-30 19:37:20,421] [    INFO][0m - resume_from_checkpoint        :None[0m
+[32m[2022-08-30 19:37:20,422] [    INFO][0m - run_name                      :./checkpoints/[0m
+[32m[2022-08-30 19:37:20,422] [    INFO][0m - save_on_each_node             :False[0m
+[32m[2022-08-30 19:37:20,422] [    INFO][0m - save_steps                    :100[0m
+[32m[2022-08-30 19:37:20,422] [    INFO][0m - save_strategy                 :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 19:37:20,422] [    INFO][0m - save_total_limit              :None[0m
+[32m[2022-08-30 19:37:20,422] [    INFO][0m - scale_loss                    :32768[0m
+[32m[2022-08-30 19:37:20,422] [    INFO][0m - seed                          :42[0m
+[32m[2022-08-30 19:37:20,422] [    INFO][0m - should_log                    :True[0m
+[32m[2022-08-30 19:37:20,422] [    INFO][0m - should_save                   :True[0m
+[32m[2022-08-30 19:37:20,423] [    INFO][0m - task_type                     :multi-class[0m
+[32m[2022-08-30 19:37:20,423] [    INFO][0m - train_batch_size              :8[0m
+[32m[2022-08-30 19:37:20,423] [    INFO][0m - truncate_mode                 :tail[0m
+[32m[2022-08-30 19:37:20,423] [    INFO][0m - use_rdrop                     :False[0m
+[32m[2022-08-30 19:37:20,423] [    INFO][0m - use_rgl                       :False[0m
+[32m[2022-08-30 19:37:20,423] [    INFO][0m - warmup_ratio                  :0.0[0m
+[32m[2022-08-30 19:37:20,423] [    INFO][0m - warmup_steps                  :0[0m
+[32m[2022-08-30 19:37:20,424] [    INFO][0m - weight_decay                  :0.0[0m
+[32m[2022-08-30 19:37:20,424] [    INFO][0m - world_size                    :1[0m
+[32m[2022-08-30 19:37:20,424] [    INFO][0m - [0m
+[32m[2022-08-30 19:37:20,425] [    INFO][0m - ***** Running Prediction *****[0m
+[32m[2022-08-30 19:37:20,426] [    INFO][0m -   Num examples = 1772[0m
+[32m[2022-08-30 19:37:20,426] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 19:37:20,426] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 19:37:20,426] [    INFO][0m -   Total prediction steps = 56[0m
+[32m[2022-08-30 19:37:24,642] [    INFO][0m - ***** test metrics *****[0m
+[32m[2022-08-30 19:37:24,642] [    INFO][0m -   test_accuracy           =     0.4769[0m
+[32m[2022-08-30 19:37:24,643] [    INFO][0m -   test_loss               =     0.7734[0m
+[32m[2022-08-30 19:37:24,643] [    INFO][0m -   test_runtime            = 0:00:04.21[0m
+[32m[2022-08-30 19:37:24,643] [    INFO][0m -   test_samples_per_second =    420.239[0m
+[32m[2022-08-30 19:37:24,643] [    INFO][0m -   test_steps_per_second   =     13.281[0m
+metric <function main.<locals>.compute_metrics at 0x7f0a9e9728b0>
+[16]
+[16]
+[750]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[750]
+[750]
+[1081]
+[16]
+[16]
+[16]
+[16]
+[16]
+[1081]
+[16]
+[750]
+[16]
+[16]
+[750]
+[16]
+[16]
+[16]
+[16]
+[750]
+[170]
+[16]
+[16]
+[16]
+[16]
+[16]
+[321]
+[16]
+[16]
+[16]
+[170]
+[16]
+[750]
+[16]
+[321]
+[1081]
+[16]
+[16]
+[16]
+[16]
+[16]
+[321]
+[16]
+[321]
+[(('不',), 1211), (('很',), 267), (('略',), 154), (('乱',), 68), (('好',), 27), (('病',), 24), (('切',), 4), (('放',), 4), (('报',), 2), (('气',), 2), (('？',), 2), (('有',), 1), (('主',), 1), (('摘',), 1), (('的',), 1), (('总',), 1), (('已',), 1), (('还',), 1)]
+run.sh: line 59: --do_train: command not found
+ 
+==========
+chid
+==========
+ 
+[32m[2022-08-30 19:37:28,548] [    INFO][0m - The default value for the training argument `--report_to` will change in v5 (from all installed integrations to none). In v5, you will need to use `--report_to all` to get the same behavior as now. You should start updating your code and make this info disappear :-).[0m
+[32m[2022-08-30 19:37:28,548] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:37:28,548] [    INFO][0m -      Model Configuration Arguments      [0m
+[32m[2022-08-30 19:37:28,548] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:37:28,549] [    INFO][0m - do_save                       :True[0m
+[32m[2022-08-30 19:37:28,549] [    INFO][0m - do_test                       :True[0m
+[32m[2022-08-30 19:37:28,549] [    INFO][0m - early_stop_patience           :4[0m
+[32m[2022-08-30 19:37:28,549] [    INFO][0m - export_type                   :paddle[0m
+[32m[2022-08-30 19:37:28,549] [    INFO][0m - model_name_or_path            :ernie-3.0-base-zh[0m
+[32m[2022-08-30 19:37:28,549] [    INFO][0m - [0m
+[32m[2022-08-30 19:37:28,549] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:37:28,549] [    INFO][0m -       Data Configuration Arguments      [0m
+[32m[2022-08-30 19:37:28,549] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:37:28,549] [    INFO][0m - encoder_hidden_size           :200[0m
+[32m[2022-08-30 19:37:28,549] [    INFO][0m - prompt                        :{'text':'text_a'}{'sep'}{'hard':'这句话'}{'mask'}{'hard':'通顺。'}[0m
+[32m[2022-08-30 19:37:28,549] [    INFO][0m - soft_encoder                  :lstm[0m
+[32m[2022-08-30 19:37:28,549] [    INFO][0m - split_id                      :few_all[0m
+[32m[2022-08-30 19:37:28,550] [    INFO][0m - task_name                     :chid[0m
+[32m[2022-08-30 19:37:28,550] [    INFO][0m - [0m
+[32m[2022-08-30 19:37:28,550] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh.pdparams[0m
+W0830 19:37:28.551378 12406 gpu_resources.cc:61] Please NOTE: device: 0, GPU Compute Capability: 7.0, Driver API Version: 11.2, Runtime API Version: 11.2
+W0830 19:37:28.555212 12406 gpu_resources.cc:91] device: 0, cuDNN Version: 8.1.
+[32m[2022-08-30 19:37:31,411] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh_vocab.txt[0m
+[32m[2022-08-30 19:37:31,435] [    INFO][0m - tokenizer config file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/tokenizer_config.json[0m
+[32m[2022-08-30 19:37:31,435] [    INFO][0m - Special tokens file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/special_tokens_map.json[0m
+[32m[2022-08-30 19:37:31,436] [    INFO][0m - Using template: [{'add_prefix_space': '', 'text': 'text_a'}, {'add_prefix_space': '', 'sep': None}, {'add_prefix_space': '', 'hard': '这句话'}, {'add_prefix_space': '', 'mask': None}, {'add_prefix_space': '', 'hard': '通顺。'}][0m
+2022-08-30 19:37:31,440 INFO [download.py:119] unique_endpoints {''}
+[32m[2022-08-30 19:37:31,727] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:37:31,727] [    INFO][0m -     Training Configuration Arguments    [0m
+[32m[2022-08-30 19:37:31,727] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:37:31,727] [    INFO][0m - _no_sync_in_gradient_accumulation:True[0m
+[32m[2022-08-30 19:37:31,727] [    INFO][0m - adam_beta1                    :0.9[0m
+[32m[2022-08-30 19:37:31,728] [    INFO][0m - adam_beta2                    :0.999[0m
+[32m[2022-08-30 19:37:31,728] [    INFO][0m - adam_epsilon                  :1e-08[0m
+[32m[2022-08-30 19:37:31,728] [    INFO][0m - alpha_rdrop                   :5.0[0m
+[32m[2022-08-30 19:37:31,728] [    INFO][0m - alpha_rgl                     :0.5[0m
+[32m[2022-08-30 19:37:31,728] [    INFO][0m - current_device                :gpu:0[0m
+[32m[2022-08-30 19:37:31,728] [    INFO][0m - dataloader_drop_last          :False[0m
+[32m[2022-08-30 19:37:31,728] [    INFO][0m - dataloader_num_workers        :0[0m
+[32m[2022-08-30 19:37:31,728] [    INFO][0m - device                        :gpu[0m
+[32m[2022-08-30 19:37:31,728] [    INFO][0m - disable_tqdm                  :True[0m
+[32m[2022-08-30 19:37:31,728] [    INFO][0m - do_eval                       :False[0m
+[32m[2022-08-30 19:37:31,728] [    INFO][0m - do_export                     :False[0m
+[32m[2022-08-30 19:37:31,728] [    INFO][0m - do_predict                    :False[0m
+[32m[2022-08-30 19:37:31,729] [    INFO][0m - do_train                      :False[0m
+[32m[2022-08-30 19:37:31,729] [    INFO][0m - eval_batch_size               :32[0m
+[32m[2022-08-30 19:37:31,729] [    INFO][0m - eval_steps                    :100[0m
+[32m[2022-08-30 19:37:31,729] [    INFO][0m - evaluation_strategy           :IntervalStrategy.NO[0m
+[32m[2022-08-30 19:37:31,729] [    INFO][0m - first_max_length              :None[0m
+[32m[2022-08-30 19:37:31,729] [    INFO][0m - fp16                          :False[0m
+[32m[2022-08-30 19:37:31,729] [    INFO][0m - fp16_opt_level                :O1[0m
+[32m[2022-08-30 19:37:31,729] [    INFO][0m - freeze_dropout                :False[0m
+[32m[2022-08-30 19:37:31,729] [    INFO][0m - freeze_plm                    :True[0m
+[32m[2022-08-30 19:37:31,729] [    INFO][0m - gradient_accumulation_steps   :1[0m
+[32m[2022-08-30 19:37:31,729] [    INFO][0m - greater_is_better             :True[0m
+[32m[2022-08-30 19:37:31,729] [    INFO][0m - ignore_data_skip              :False[0m
+[32m[2022-08-30 19:37:31,729] [    INFO][0m - label_names                   :None[0m
+[32m[2022-08-30 19:37:31,730] [    INFO][0m - learning_rate                 :3e-05[0m
+[32m[2022-08-30 19:37:31,730] [    INFO][0m - load_best_model_at_end        :False[0m
+[32m[2022-08-30 19:37:31,730] [    INFO][0m - local_process_index           :0[0m
+[32m[2022-08-30 19:37:31,730] [    INFO][0m - local_rank                    :-1[0m
+[32m[2022-08-30 19:37:31,730] [    INFO][0m - log_level                     :-1[0m
+[32m[2022-08-30 19:37:31,730] [    INFO][0m - log_level_replica             :-1[0m
+[32m[2022-08-30 19:37:31,730] [    INFO][0m - log_on_each_node              :True[0m
+[32m[2022-08-30 19:37:31,730] [    INFO][0m - logging_dir                   :./checkpoints/runs/Aug30_19-37-28_instance-3bwob41y-01[0m
+[32m[2022-08-30 19:37:31,730] [    INFO][0m - logging_first_step            :False[0m
+[32m[2022-08-30 19:37:31,730] [    INFO][0m - logging_steps                 :10[0m
+[32m[2022-08-30 19:37:31,730] [    INFO][0m - logging_strategy              :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 19:37:31,730] [    INFO][0m - lr_scheduler_type             :SchedulerType.LINEAR[0m
+[32m[2022-08-30 19:37:31,730] [    INFO][0m - max_grad_norm                 :1.0[0m
+[32m[2022-08-30 19:37:31,730] [    INFO][0m - max_seq_length                :256[0m
+[32m[2022-08-30 19:37:31,731] [    INFO][0m - max_steps                     :-1[0m
+[32m[2022-08-30 19:37:31,731] [    INFO][0m - metric_for_best_model         :accuracy[0m
+[32m[2022-08-30 19:37:31,731] [    INFO][0m - minimum_eval_times            :None[0m
+[32m[2022-08-30 19:37:31,731] [    INFO][0m - no_cuda                       :False[0m
+[32m[2022-08-30 19:37:31,731] [    INFO][0m - num_train_epochs              :20.0[0m
+[32m[2022-08-30 19:37:31,731] [    INFO][0m - optim                         :OptimizerNames.ADAMW[0m
+[32m[2022-08-30 19:37:31,731] [    INFO][0m - other_max_length              :None[0m
+[32m[2022-08-30 19:37:31,731] [    INFO][0m - output_dir                    :./checkpoints/[0m
+[32m[2022-08-30 19:37:31,731] [    INFO][0m - overwrite_output_dir          :False[0m
+[32m[2022-08-30 19:37:31,731] [    INFO][0m - past_index                    :-1[0m
+[32m[2022-08-30 19:37:31,731] [    INFO][0m - per_device_eval_batch_size    :32[0m
+[32m[2022-08-30 19:37:31,731] [    INFO][0m - per_device_train_batch_size   :8[0m
+[32m[2022-08-30 19:37:31,731] [    INFO][0m - ppt_adam_beta1                :0.9[0m
+[32m[2022-08-30 19:37:31,732] [    INFO][0m - ppt_adam_beta2                :0.999[0m
+[32m[2022-08-30 19:37:31,732] [    INFO][0m - ppt_adam_epsilon              :1e-08[0m
+[32m[2022-08-30 19:37:31,732] [    INFO][0m - ppt_learning_rate             :0.0003[0m
+[32m[2022-08-30 19:37:31,732] [    INFO][0m - ppt_weight_decay              :0.0[0m
+[32m[2022-08-30 19:37:31,732] [    INFO][0m - prediction_loss_only          :False[0m
+[32m[2022-08-30 19:37:31,732] [    INFO][0m - process_index                 :0[0m
+[32m[2022-08-30 19:37:31,732] [    INFO][0m - remove_unused_columns         :True[0m
+[32m[2022-08-30 19:37:31,732] [    INFO][0m - report_to                     :['visualdl'][0m
+[32m[2022-08-30 19:37:31,732] [    INFO][0m - resume_from_checkpoint        :None[0m
+[32m[2022-08-30 19:37:31,732] [    INFO][0m - run_name                      :./checkpoints/[0m
+[32m[2022-08-30 19:37:31,732] [    INFO][0m - save_on_each_node             :False[0m
+[32m[2022-08-30 19:37:31,732] [    INFO][0m - save_steps                    :100[0m
+[32m[2022-08-30 19:37:31,732] [    INFO][0m - save_strategy                 :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 19:37:31,732] [    INFO][0m - save_total_limit              :None[0m
+[32m[2022-08-30 19:37:31,733] [    INFO][0m - scale_loss                    :32768[0m
+[32m[2022-08-30 19:37:31,733] [    INFO][0m - seed                          :42[0m
+[32m[2022-08-30 19:37:31,733] [    INFO][0m - should_log                    :True[0m
+[32m[2022-08-30 19:37:31,733] [    INFO][0m - should_save                   :True[0m
+[32m[2022-08-30 19:37:31,733] [    INFO][0m - task_type                     :multi-class[0m
+[32m[2022-08-30 19:37:31,733] [    INFO][0m - train_batch_size              :8[0m
+[32m[2022-08-30 19:37:31,733] [    INFO][0m - truncate_mode                 :tail[0m
+[32m[2022-08-30 19:37:31,733] [    INFO][0m - use_rdrop                     :False[0m
+[32m[2022-08-30 19:37:31,733] [    INFO][0m - use_rgl                       :False[0m
+[32m[2022-08-30 19:37:31,733] [    INFO][0m - warmup_ratio                  :0.0[0m
+[32m[2022-08-30 19:37:31,733] [    INFO][0m - warmup_steps                  :0[0m
+[32m[2022-08-30 19:37:31,733] [    INFO][0m - weight_decay                  :0.0[0m
+[32m[2022-08-30 19:37:31,733] [    INFO][0m - world_size                    :1[0m
+[32m[2022-08-30 19:37:31,734] [    INFO][0m - [0m
+[32m[2022-08-30 19:37:31,735] [    INFO][0m - ***** Running Prediction *****[0m
+[32m[2022-08-30 19:37:31,735] [    INFO][0m -   Num examples = 14014[0m
+[32m[2022-08-30 19:37:31,735] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 19:37:31,735] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 19:37:31,735] [    INFO][0m -   Total prediction steps = 438[0m
+[32m[2022-08-30 19:39:31,179] [    INFO][0m - ***** test metrics *****[0m
+[32m[2022-08-30 19:39:31,179] [    INFO][0m -   test_accuracy           =     0.1374[0m
+[32m[2022-08-30 19:39:31,180] [    INFO][0m -   test_loss               =     0.5396[0m
+[32m[2022-08-30 19:39:31,180] [    INFO][0m -   test_runtime            = 0:01:59.44[0m
+[32m[2022-08-30 19:39:31,180] [    INFO][0m -   test_samples_per_second =    117.327[0m
+[32m[2022-08-30 19:39:31,180] [    INFO][0m -   test_steps_per_second   =      3.667[0m
+metric <function main.<locals>.chid_compute_metrics at 0x7f47730143a0>
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[16]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[364]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[16]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[171]
+[321]
+[321]
+[321]
+[321]
+[321]
+[16]
+[321]
+[321]
+[321]
+[750]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[1081]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[61]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[16]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[750]
+[321]
+[750]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[750]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[16]
+[321]
+[321]
+[321]
+[321]
+[16]
+[321]
+[321]
+[321]
+[321]
+[5]
+[750]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[16]
+[321]
+[321]
+[321]
+[321]
+[16]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[16]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[201]
+[321]
+[321]
+[16]
+[321]
+[5]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[16]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[750]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[16]
+[321]
+[321]
+[321]
+[16]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[16]
+[321]
+[321]
+[321]
+[16]
+[321]
+[321]
+[750]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[750]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[753]
+[321]
+[171]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[750]
+[321]
+[263]
+[321]
+[321]
+[321]
+[16]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[750]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[321]
+[(('很',), 12815), (('不',), 637), (('略',), 262), (('的',), 76), (('放',), 27), (('来',), 24), (('请',), 24), (('更',), 22), (('搞',), 21), (('乱',), 18), (('写',), 15), (('被',), 13), (('藏',), 9), (('已',), 9), (('”',), 7), (('党',), 7), (('能',), 7), (('还',), 7), ((',',), 7), (('史',), 6), (('好',), 1)]
+run.sh: line 59: --do_train: command not found
+ 
+==========
+csl
+==========
+ 
+[32m[2022-08-30 19:39:35,108] [    INFO][0m - The default value for the training argument `--report_to` will change in v5 (from all installed integrations to none). In v5, you will need to use `--report_to all` to get the same behavior as now. You should start updating your code and make this info disappear :-).[0m
+[32m[2022-08-30 19:39:35,108] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:39:35,108] [    INFO][0m -      Model Configuration Arguments      [0m
+[32m[2022-08-30 19:39:35,109] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:39:35,109] [    INFO][0m - do_save                       :True[0m
+[32m[2022-08-30 19:39:35,109] [    INFO][0m - do_test                       :True[0m
+[32m[2022-08-30 19:39:35,109] [    INFO][0m - early_stop_patience           :4[0m
+[32m[2022-08-30 19:39:35,109] [    INFO][0m - export_type                   :paddle[0m
+[32m[2022-08-30 19:39:35,109] [    INFO][0m - model_name_or_path            :ernie-3.0-base-zh[0m
+[32m[2022-08-30 19:39:35,109] [    INFO][0m - [0m
+[32m[2022-08-30 19:39:35,109] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:39:35,109] [    INFO][0m -       Data Configuration Arguments      [0m
+[32m[2022-08-30 19:39:35,109] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:39:35,109] [    INFO][0m - encoder_hidden_size           :200[0m
+[32m[2022-08-30 19:39:35,109] [    INFO][0m - prompt                        :{'text': 'text_a'}{'hard':'上文中找'}{'mask'}{'hard': '出这些关键词：'}{'text':'text_b'}[0m
+[32m[2022-08-30 19:39:35,109] [    INFO][0m - soft_encoder                  :lstm[0m
+[32m[2022-08-30 19:39:35,110] [    INFO][0m - split_id                      :few_all[0m
+[32m[2022-08-30 19:39:35,110] [    INFO][0m - task_name                     :csl[0m
+[32m[2022-08-30 19:39:35,110] [    INFO][0m - [0m
+[32m[2022-08-30 19:39:35,110] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh.pdparams[0m
+W0830 19:39:35.111425 14493 gpu_resources.cc:61] Please NOTE: device: 0, GPU Compute Capability: 7.0, Driver API Version: 11.2, Runtime API Version: 11.2
+W0830 19:39:35.115425 14493 gpu_resources.cc:91] device: 0, cuDNN Version: 8.1.
+[32m[2022-08-30 19:39:38,064] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh_vocab.txt[0m
+[32m[2022-08-30 19:39:38,089] [    INFO][0m - tokenizer config file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/tokenizer_config.json[0m
+[32m[2022-08-30 19:39:38,089] [    INFO][0m - Special tokens file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/special_tokens_map.json[0m
+[32m[2022-08-30 19:39:38,090] [    INFO][0m - Using template: [{'add_prefix_space': '', 'text': 'text_a'}, {'add_prefix_space': '', 'hard': '上文中找'}, {'add_prefix_space': '', 'mask': None}, {'add_prefix_space': '', 'hard': '出这些关键词：'}, {'add_prefix_space': '', 'text': 'text_b'}][0m
+2022-08-30 19:39:38,094 INFO [download.py:119] unique_endpoints {''}
+[32m[2022-08-30 19:39:38,248] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:39:38,248] [    INFO][0m -     Training Configuration Arguments    [0m
+[32m[2022-08-30 19:39:38,248] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:39:38,248] [    INFO][0m - _no_sync_in_gradient_accumulation:True[0m
+[32m[2022-08-30 19:39:38,249] [    INFO][0m - adam_beta1                    :0.9[0m
+[32m[2022-08-30 19:39:38,249] [    INFO][0m - adam_beta2                    :0.999[0m
+[32m[2022-08-30 19:39:38,249] [    INFO][0m - adam_epsilon                  :1e-08[0m
+[32m[2022-08-30 19:39:38,249] [    INFO][0m - alpha_rdrop                   :5.0[0m
+[32m[2022-08-30 19:39:38,249] [    INFO][0m - alpha_rgl                     :0.5[0m
+[32m[2022-08-30 19:39:38,249] [    INFO][0m - current_device                :gpu:0[0m
+[32m[2022-08-30 19:39:38,249] [    INFO][0m - dataloader_drop_last          :False[0m
+[32m[2022-08-30 19:39:38,249] [    INFO][0m - dataloader_num_workers        :0[0m
+[32m[2022-08-30 19:39:38,249] [    INFO][0m - device                        :gpu[0m
+[32m[2022-08-30 19:39:38,249] [    INFO][0m - disable_tqdm                  :True[0m
+[32m[2022-08-30 19:39:38,249] [    INFO][0m - do_eval                       :False[0m
+[32m[2022-08-30 19:39:38,250] [    INFO][0m - do_export                     :False[0m
+[32m[2022-08-30 19:39:38,250] [    INFO][0m - do_predict                    :False[0m
+[32m[2022-08-30 19:39:38,250] [    INFO][0m - do_train                      :False[0m
+[32m[2022-08-30 19:39:38,250] [    INFO][0m - eval_batch_size               :32[0m
+[32m[2022-08-30 19:39:38,250] [    INFO][0m - eval_steps                    :100[0m
+[32m[2022-08-30 19:39:38,250] [    INFO][0m - evaluation_strategy           :IntervalStrategy.NO[0m
+[32m[2022-08-30 19:39:38,250] [    INFO][0m - first_max_length              :None[0m
+[32m[2022-08-30 19:39:38,250] [    INFO][0m - fp16                          :False[0m
+[32m[2022-08-30 19:39:38,250] [    INFO][0m - fp16_opt_level                :O1[0m
+[32m[2022-08-30 19:39:38,250] [    INFO][0m - freeze_dropout                :False[0m
+[32m[2022-08-30 19:39:38,250] [    INFO][0m - freeze_plm                    :True[0m
+[32m[2022-08-30 19:39:38,250] [    INFO][0m - gradient_accumulation_steps   :1[0m
+[32m[2022-08-30 19:39:38,250] [    INFO][0m - greater_is_better             :True[0m
+[32m[2022-08-30 19:39:38,251] [    INFO][0m - ignore_data_skip              :False[0m
+[32m[2022-08-30 19:39:38,251] [    INFO][0m - label_names                   :None[0m
+[32m[2022-08-30 19:39:38,251] [    INFO][0m - learning_rate                 :3e-05[0m
+[32m[2022-08-30 19:39:38,251] [    INFO][0m - load_best_model_at_end        :False[0m
+[32m[2022-08-30 19:39:38,251] [    INFO][0m - local_process_index           :0[0m
+[32m[2022-08-30 19:39:38,251] [    INFO][0m - local_rank                    :-1[0m
+[32m[2022-08-30 19:39:38,251] [    INFO][0m - log_level                     :-1[0m
+[32m[2022-08-30 19:39:38,251] [    INFO][0m - log_level_replica             :-1[0m
+[32m[2022-08-30 19:39:38,251] [    INFO][0m - log_on_each_node              :True[0m
+[32m[2022-08-30 19:39:38,251] [    INFO][0m - logging_dir                   :./checkpoints/runs/Aug30_19-39-35_instance-3bwob41y-01[0m
+[32m[2022-08-30 19:39:38,251] [    INFO][0m - logging_first_step            :False[0m
+[32m[2022-08-30 19:39:38,251] [    INFO][0m - logging_steps                 :10[0m
+[32m[2022-08-30 19:39:38,251] [    INFO][0m - logging_strategy              :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 19:39:38,252] [    INFO][0m - lr_scheduler_type             :SchedulerType.LINEAR[0m
+[32m[2022-08-30 19:39:38,252] [    INFO][0m - max_grad_norm                 :1.0[0m
+[32m[2022-08-30 19:39:38,252] [    INFO][0m - max_seq_length                :320[0m
+[32m[2022-08-30 19:39:38,252] [    INFO][0m - max_steps                     :-1[0m
+[32m[2022-08-30 19:39:38,252] [    INFO][0m - metric_for_best_model         :accuracy[0m
+[32m[2022-08-30 19:39:38,252] [    INFO][0m - minimum_eval_times            :None[0m
+[32m[2022-08-30 19:39:38,252] [    INFO][0m - no_cuda                       :False[0m
+[32m[2022-08-30 19:39:38,252] [    INFO][0m - num_train_epochs              :20.0[0m
+[32m[2022-08-30 19:39:38,252] [    INFO][0m - optim                         :OptimizerNames.ADAMW[0m
+[32m[2022-08-30 19:39:38,252] [    INFO][0m - other_max_length              :None[0m
+[32m[2022-08-30 19:39:38,252] [    INFO][0m - output_dir                    :./checkpoints/[0m
+[32m[2022-08-30 19:39:38,252] [    INFO][0m - overwrite_output_dir          :False[0m
+[32m[2022-08-30 19:39:38,252] [    INFO][0m - past_index                    :-1[0m
+[32m[2022-08-30 19:39:38,253] [    INFO][0m - per_device_eval_batch_size    :32[0m
+[32m[2022-08-30 19:39:38,253] [    INFO][0m - per_device_train_batch_size   :8[0m
+[32m[2022-08-30 19:39:38,253] [    INFO][0m - ppt_adam_beta1                :0.9[0m
+[32m[2022-08-30 19:39:38,253] [    INFO][0m - ppt_adam_beta2                :0.999[0m
+[32m[2022-08-30 19:39:38,253] [    INFO][0m - ppt_adam_epsilon              :1e-08[0m
+[32m[2022-08-30 19:39:38,253] [    INFO][0m - ppt_learning_rate             :0.0003[0m
+[32m[2022-08-30 19:39:38,253] [    INFO][0m - ppt_weight_decay              :0.0[0m
+[32m[2022-08-30 19:39:38,253] [    INFO][0m - prediction_loss_only          :False[0m
+[32m[2022-08-30 19:39:38,253] [    INFO][0m - process_index                 :0[0m
+[32m[2022-08-30 19:39:38,253] [    INFO][0m - remove_unused_columns         :True[0m
+[32m[2022-08-30 19:39:38,253] [    INFO][0m - report_to                     :['visualdl'][0m
+[32m[2022-08-30 19:39:38,253] [    INFO][0m - resume_from_checkpoint        :None[0m
+[32m[2022-08-30 19:39:38,253] [    INFO][0m - run_name                      :./checkpoints/[0m
+[32m[2022-08-30 19:39:38,253] [    INFO][0m - save_on_each_node             :False[0m
+[32m[2022-08-30 19:39:38,254] [    INFO][0m - save_steps                    :100[0m
+[32m[2022-08-30 19:39:38,254] [    INFO][0m - save_strategy                 :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 19:39:38,254] [    INFO][0m - save_total_limit              :None[0m
+[32m[2022-08-30 19:39:38,254] [    INFO][0m - scale_loss                    :32768[0m
+[32m[2022-08-30 19:39:38,254] [    INFO][0m - seed                          :42[0m
+[32m[2022-08-30 19:39:38,254] [    INFO][0m - should_log                    :True[0m
+[32m[2022-08-30 19:39:38,254] [    INFO][0m - should_save                   :True[0m
+[32m[2022-08-30 19:39:38,254] [    INFO][0m - task_type                     :multi-class[0m
+[32m[2022-08-30 19:39:38,254] [    INFO][0m - train_batch_size              :8[0m
+[32m[2022-08-30 19:39:38,254] [    INFO][0m - truncate_mode                 :tail[0m
+[32m[2022-08-30 19:39:38,254] [    INFO][0m - use_rdrop                     :False[0m
+[32m[2022-08-30 19:39:38,254] [    INFO][0m - use_rgl                       :False[0m
+[32m[2022-08-30 19:39:38,254] [    INFO][0m - warmup_ratio                  :0.0[0m
+[32m[2022-08-30 19:39:38,255] [    INFO][0m - warmup_steps                  :0[0m
+[32m[2022-08-30 19:39:38,255] [    INFO][0m - weight_decay                  :0.0[0m
+[32m[2022-08-30 19:39:38,255] [    INFO][0m - world_size                    :1[0m
+[32m[2022-08-30 19:39:38,255] [    INFO][0m - [0m
+[32m[2022-08-30 19:39:38,256] [    INFO][0m - ***** Running Prediction *****[0m
+[32m[2022-08-30 19:39:38,256] [    INFO][0m -   Num examples = 2838[0m
+[32m[2022-08-30 19:39:38,256] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 19:39:38,256] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 19:39:38,257] [    INFO][0m -   Total prediction steps = 89[0m
+[32m[2022-08-30 19:40:11,981] [    INFO][0m - ***** test metrics *****[0m
+[32m[2022-08-30 19:40:11,982] [    INFO][0m -   test_accuracy           =     0.5004[0m
+[32m[2022-08-30 19:40:11,982] [    INFO][0m -   test_loss               =     2.1743[0m
+[32m[2022-08-30 19:40:11,982] [    INFO][0m -   test_runtime            = 0:00:33.72[0m
+[32m[2022-08-30 19:40:11,982] [    INFO][0m -   test_samples_per_second =     84.152[0m
+[32m[2022-08-30 19:40:11,982] [    INFO][0m -   test_steps_per_second   =      2.639[0m
+metric <function main.<locals>.compute_metrics at 0x7ff11e6fa8b0>
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[39]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[39]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[39]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[16]
+[(('不',), 2682), (('出',), 61), (('有',), 35), (('，',), 13), (('没',), 12), (('找',), 10), (('下',), 7), (('列',), 6), (('得',), 5), (('括',), 3), (('以',), 3), (('及',), 1)]
+run.sh: line 59: --do_train: command not found
+ 
+==========
+cluewsc
+==========
+ 
+[32m[2022-08-30 19:40:15,965] [    INFO][0m - The default value for the training argument `--report_to` will change in v5 (from all installed integrations to none). In v5, you will need to use `--report_to all` to get the same behavior as now. You should start updating your code and make this info disappear :-).[0m
+[32m[2022-08-30 19:40:15,966] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:40:15,966] [    INFO][0m -      Model Configuration Arguments      [0m
+[32m[2022-08-30 19:40:15,966] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:40:15,966] [    INFO][0m - do_save                       :True[0m
+[32m[2022-08-30 19:40:15,966] [    INFO][0m - do_test                       :True[0m
+[32m[2022-08-30 19:40:15,966] [    INFO][0m - early_stop_patience           :4[0m
+[32m[2022-08-30 19:40:15,966] [    INFO][0m - export_type                   :paddle[0m
+[32m[2022-08-30 19:40:15,966] [    INFO][0m - model_name_or_path            :ernie-3.0-base-zh[0m
+[32m[2022-08-30 19:40:15,966] [    INFO][0m - [0m
+[32m[2022-08-30 19:40:15,966] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:40:15,967] [    INFO][0m -       Data Configuration Arguments      [0m
+[32m[2022-08-30 19:40:15,967] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:40:15,967] [    INFO][0m - encoder_hidden_size           :200[0m
+[32m[2022-08-30 19:40:15,967] [    INFO][0m - prompt                        :{'text':'text_a'}{'sep'}{'hard':'其中代词用'}{'mask'}{'hard':'了。'}[0m
+[32m[2022-08-30 19:40:15,967] [    INFO][0m - soft_encoder                  :lstm[0m
+[32m[2022-08-30 19:40:15,967] [    INFO][0m - split_id                      :few_all[0m
+[32m[2022-08-30 19:40:15,967] [    INFO][0m - task_name                     :cluewsc[0m
+[32m[2022-08-30 19:40:15,967] [    INFO][0m - [0m
+[32m[2022-08-30 19:40:15,967] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh.pdparams[0m
+W0830 19:40:15.968760 15211 gpu_resources.cc:61] Please NOTE: device: 0, GPU Compute Capability: 7.0, Driver API Version: 11.2, Runtime API Version: 11.2
+W0830 19:40:15.972774 15211 gpu_resources.cc:91] device: 0, cuDNN Version: 8.1.
+[32m[2022-08-30 19:40:18,830] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh_vocab.txt[0m
+[32m[2022-08-30 19:40:18,856] [    INFO][0m - tokenizer config file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/tokenizer_config.json[0m
+[32m[2022-08-30 19:40:18,856] [    INFO][0m - Special tokens file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/special_tokens_map.json[0m
+[32m[2022-08-30 19:40:18,857] [    INFO][0m - Using template: [{'add_prefix_space': '', 'text': 'text_a'}, {'add_prefix_space': '', 'sep': None}, {'add_prefix_space': '', 'hard': '其中代词用'}, {'add_prefix_space': '', 'mask': None}, {'add_prefix_space': '', 'hard': '了。'}][0m
+2022-08-30 19:40:18,861 INFO [download.py:119] unique_endpoints {''}
+[32m[2022-08-30 19:40:18,961] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 19:40:18,961] [    INFO][0m -     Training Configuration Arguments    [0m
+[32m[2022-08-30 19:40:18,961] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 19:40:18,962] [    INFO][0m - _no_sync_in_gradient_accumulation:True[0m
+[32m[2022-08-30 19:40:18,962] [    INFO][0m - adam_beta1                    :0.9[0m
+[32m[2022-08-30 19:40:18,962] [    INFO][0m - adam_beta2                    :0.999[0m
+[32m[2022-08-30 19:40:18,962] [    INFO][0m - adam_epsilon                  :1e-08[0m
+[32m[2022-08-30 19:40:18,962] [    INFO][0m - alpha_rdrop                   :5.0[0m
+[32m[2022-08-30 19:40:18,962] [    INFO][0m - alpha_rgl                     :0.5[0m
+[32m[2022-08-30 19:40:18,962] [    INFO][0m - current_device                :gpu:0[0m
+[32m[2022-08-30 19:40:18,962] [    INFO][0m - dataloader_drop_last          :False[0m
+[32m[2022-08-30 19:40:18,962] [    INFO][0m - dataloader_num_workers        :0[0m
+[32m[2022-08-30 19:40:18,962] [    INFO][0m - device                        :gpu[0m
+[32m[2022-08-30 19:40:18,962] [    INFO][0m - disable_tqdm                  :True[0m
+[32m[2022-08-30 19:40:18,963] [    INFO][0m - do_eval                       :False[0m
+[32m[2022-08-30 19:40:18,963] [    INFO][0m - do_export                     :False[0m
+[32m[2022-08-30 19:40:18,963] [    INFO][0m - do_predict                    :False[0m
+[32m[2022-08-30 19:40:18,963] [    INFO][0m - do_train                      :False[0m
+[32m[2022-08-30 19:40:18,963] [    INFO][0m - eval_batch_size               :32[0m
+[32m[2022-08-30 19:40:18,963] [    INFO][0m - eval_steps                    :100[0m
+[32m[2022-08-30 19:40:18,963] [    INFO][0m - evaluation_strategy           :IntervalStrategy.NO[0m
+[32m[2022-08-30 19:40:18,963] [    INFO][0m - first_max_length              :None[0m
+[32m[2022-08-30 19:40:18,963] [    INFO][0m - fp16                          :False[0m
+[32m[2022-08-30 19:40:18,963] [    INFO][0m - fp16_opt_level                :O1[0m
+[32m[2022-08-30 19:40:18,963] [    INFO][0m - freeze_dropout                :False[0m
+[32m[2022-08-30 19:40:18,963] [    INFO][0m - freeze_plm                    :True[0m
+[32m[2022-08-30 19:40:18,963] [    INFO][0m - gradient_accumulation_steps   :1[0m
+[32m[2022-08-30 19:40:18,964] [    INFO][0m - greater_is_better             :True[0m
+[32m[2022-08-30 19:40:18,964] [    INFO][0m - ignore_data_skip              :False[0m
+[32m[2022-08-30 19:40:18,964] [    INFO][0m - label_names                   :None[0m
+[32m[2022-08-30 19:40:18,964] [    INFO][0m - learning_rate                 :3e-05[0m
+[32m[2022-08-30 19:40:18,964] [    INFO][0m - load_best_model_at_end        :False[0m
+[32m[2022-08-30 19:40:18,964] [    INFO][0m - local_process_index           :0[0m
+[32m[2022-08-30 19:40:18,964] [    INFO][0m - local_rank                    :-1[0m
+[32m[2022-08-30 19:40:18,964] [    INFO][0m - log_level                     :-1[0m
+[32m[2022-08-30 19:40:18,964] [    INFO][0m - log_level_replica             :-1[0m
+[32m[2022-08-30 19:40:18,964] [    INFO][0m - log_on_each_node              :True[0m
+[32m[2022-08-30 19:40:18,964] [    INFO][0m - logging_dir                   :./checkpoints/runs/Aug30_19-40-15_instance-3bwob41y-01[0m
+[32m[2022-08-30 19:40:18,964] [    INFO][0m - logging_first_step            :False[0m
+[32m[2022-08-30 19:40:18,964] [    INFO][0m - logging_steps                 :10[0m
+[32m[2022-08-30 19:40:18,964] [    INFO][0m - logging_strategy              :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 19:40:18,965] [    INFO][0m - lr_scheduler_type             :SchedulerType.LINEAR[0m
+[32m[2022-08-30 19:40:18,965] [    INFO][0m - max_grad_norm                 :1.0[0m
+[32m[2022-08-30 19:40:18,965] [    INFO][0m - max_seq_length                :128[0m
+[32m[2022-08-30 19:40:18,965] [    INFO][0m - max_steps                     :-1[0m
+[32m[2022-08-30 19:40:18,965] [    INFO][0m - metric_for_best_model         :accuracy[0m
+[32m[2022-08-30 19:40:18,965] [    INFO][0m - minimum_eval_times            :None[0m
+[32m[2022-08-30 19:40:18,965] [    INFO][0m - no_cuda                       :False[0m
+[32m[2022-08-30 19:40:18,965] [    INFO][0m - num_train_epochs              :20.0[0m
+[32m[2022-08-30 19:40:18,965] [    INFO][0m - optim                         :OptimizerNames.ADAMW[0m
+[32m[2022-08-30 19:40:18,965] [    INFO][0m - other_max_length              :None[0m
+[32m[2022-08-30 19:40:18,965] [    INFO][0m - output_dir                    :./checkpoints/[0m
+[32m[2022-08-30 19:40:18,965] [    INFO][0m - overwrite_output_dir          :False[0m
+[32m[2022-08-30 19:40:18,965] [    INFO][0m - past_index                    :-1[0m
+[32m[2022-08-30 19:40:18,966] [    INFO][0m - per_device_eval_batch_size    :32[0m
+[32m[2022-08-30 19:40:18,966] [    INFO][0m - per_device_train_batch_size   :8[0m
+[32m[2022-08-30 19:40:18,966] [    INFO][0m - ppt_adam_beta1                :0.9[0m
+[32m[2022-08-30 19:40:18,966] [    INFO][0m - ppt_adam_beta2                :0.999[0m
+[32m[2022-08-30 19:40:18,966] [    INFO][0m - ppt_adam_epsilon              :1e-08[0m
+[32m[2022-08-30 19:40:18,966] [    INFO][0m - ppt_learning_rate             :0.0003[0m
+[32m[2022-08-30 19:40:18,966] [    INFO][0m - ppt_weight_decay              :0.0[0m
+[32m[2022-08-30 19:40:18,966] [    INFO][0m - prediction_loss_only          :False[0m
+[32m[2022-08-30 19:40:18,966] [    INFO][0m - process_index                 :0[0m
+[32m[2022-08-30 19:40:18,966] [    INFO][0m - remove_unused_columns         :True[0m
+[32m[2022-08-30 19:40:18,966] [    INFO][0m - report_to                     :['visualdl'][0m
+[32m[2022-08-30 19:40:18,966] [    INFO][0m - resume_from_checkpoint        :None[0m
+[32m[2022-08-30 19:40:18,966] [    INFO][0m - run_name                      :./checkpoints/[0m
+[32m[2022-08-30 19:40:18,966] [    INFO][0m - save_on_each_node             :False[0m
+[32m[2022-08-30 19:40:18,967] [    INFO][0m - save_steps                    :100[0m
+[32m[2022-08-30 19:40:18,967] [    INFO][0m - save_strategy                 :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 19:40:18,967] [    INFO][0m - save_total_limit              :None[0m
+[32m[2022-08-30 19:40:18,967] [    INFO][0m - scale_loss                    :32768[0m
+[32m[2022-08-30 19:40:18,967] [    INFO][0m - seed                          :42[0m
+[32m[2022-08-30 19:40:18,967] [    INFO][0m - should_log                    :True[0m
+[32m[2022-08-30 19:40:18,967] [    INFO][0m - should_save                   :True[0m
+[32m[2022-08-30 19:40:18,967] [    INFO][0m - task_type                     :multi-class[0m
+[32m[2022-08-30 19:40:18,967] [    INFO][0m - train_batch_size              :8[0m
+[32m[2022-08-30 19:40:18,967] [    INFO][0m - truncate_mode                 :tail[0m
+[32m[2022-08-30 19:40:18,967] [    INFO][0m - use_rdrop                     :False[0m
+[32m[2022-08-30 19:40:18,967] [    INFO][0m - use_rgl                       :False[0m
+[32m[2022-08-30 19:40:18,967] [    INFO][0m - warmup_ratio                  :0.0[0m
+[32m[2022-08-30 19:40:18,967] [    INFO][0m - warmup_steps                  :0[0m
+[32m[2022-08-30 19:40:18,968] [    INFO][0m - weight_decay                  :0.0[0m
+[32m[2022-08-30 19:40:18,968] [    INFO][0m - world_size                    :1[0m
+[32m[2022-08-30 19:40:18,968] [    INFO][0m - [0m
+[32m[2022-08-30 19:40:18,969] [    INFO][0m - ***** Running Prediction *****[0m
+[32m[2022-08-30 19:40:18,969] [    INFO][0m -   Num examples = 976[0m
+[32m[2022-08-30 19:40:18,969] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 19:40:18,969] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 19:40:18,969] [    INFO][0m -   Total prediction steps = 31[0m
+[32m[2022-08-30 19:40:24,260] [    INFO][0m - ***** test metrics *****[0m
+[32m[2022-08-30 19:40:24,260] [    INFO][0m -   test_accuracy           =     0.4969[0m
+[32m[2022-08-30 19:40:24,260] [    INFO][0m -   test_loss               =     0.9512[0m
+[32m[2022-08-30 19:40:24,260] [    INFO][0m -   test_runtime            = 0:00:05.29[0m
+[32m[2022-08-30 19:40:24,260] [    INFO][0m -   test_samples_per_second =    184.477[0m
+[32m[2022-08-30 19:40:24,260] [    INFO][0m -   test_steps_per_second   =      5.859[0m
+metric <function main.<locals>.compute_metrics at 0x7ff603904310>
+[1081]
+[1081]
+[1081]
+[785]
+[785]
+[1081]
+[1081]
+[1081]
+[785]
+[1081]
+[1081]
+[1081]
+[1081]
+[1081]
+[1081]
+[1081]
+[785]
+[1081]
+[785]
+[785]
+[1081]
+[785]
+[785]
+[1081]
+[1081]
+[785]
+[785]
+[1081]
+[1081]
+[1081]
+[1081]
+[(('乱',), 593), (('绝',), 367), (('掉',), 6), (('法',), 3), (('宴',), 3), (('心',), 2), (('反',), 2)]
+run.sh: line 59: --do_train: command not found
