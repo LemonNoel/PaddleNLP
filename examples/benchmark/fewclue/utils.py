@@ -80,6 +80,27 @@ def convert_chid_efl(example):
     return bi_examples
 
 
+def convert_chid_cross(example):
+    crs_examples = []
+    fragments = example["content"].split("#idiom#")
+    label = example.get("answer", None)
+    for idx1, cand1 in enumerate(example["candidates"]):
+        text_a = fragments[0] + cand1 + fragments[1]
+        for idx2, cand2 in enumerate(example["candidates"]):
+            if idx1 == idx2:
+                continue
+            text_b = fragments[0] + cand2 + fragments[1]
+            lb = int(idx1 != label
+                     and idx2 != label) if label is not None else None
+
+            crs_examples.append(
+                InputExample(uid=example["id"],
+                             text_a=text_a,
+                             text_b=text_b,
+                             labels=lb))
+    return crs_examples
+
+
 def convert_csl(example):
     # Unlabeled: 19841. Long sentence.
     # IDEA C: Take it as a NER and compare list. Con: error propagation.
@@ -168,7 +189,7 @@ def load_fewclue(task_name, split_id, label_list):
     if task_name == "chid" or task_name == "no_csl":
         # IDEA B.1
         if task_name == "chid":
-            convert_efl = convert_chid_efl
+            convert_efl = convert_chid_cross
         elif task_name == "no_csl":
             convert_efl = convert_csl_efl
 

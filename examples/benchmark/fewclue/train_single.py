@@ -89,14 +89,13 @@ def main():
     if data_args.task_name == "cmnli":
         verbalizer = MultiMaskVerbalizer(tokenizer, labels, label_words)
     else:
-        #verbalizer = SoftVerbalizer(tokenizer, model, labels, label_words)
         verbalizer = MultiMaskVerbalizer(tokenizer, labels, label_words)
 
     # Load the few-shot datasets.
     train_ds, dev_ds, public_test_ds, test_ds = load_fewclue(
         task_name=data_args.task_name,
         split_id=data_args.split_id,
-        label_list=verbalizer.labels_to_ids)
+        label_list=None)
 
     # Define the criterion.
     criterion = paddle.nn.CrossEntropyLoss()
@@ -111,6 +110,15 @@ def main():
     state_dict = paddle.load(data_args.pretrained)
     prompt_model.set_state_dict(state_dict)
     del state_dict
+
+    verbalizer = SoftVerbalizer(tokenizer, prompt_model.plm, labels,
+                                label_words)
+    prompt_model = PromptModelForSequenceClassification(
+        prompt_model.plm,
+        template,
+        verbalizer,
+        freeze_plm=training_args.freeze_plm,
+        freeze_dropout=training_args.freeze_dropout)
 
     # Define the metric function.
     def compute_metrics(eval_preds):
@@ -137,6 +145,35 @@ def main():
         acc = (preds == label).sum() / len(label)
         return {'accuracy': acc}
 
+    def _chid_compute_mask_metrics(eval_preds):
+        predictions = softmax(eval_preds.predictions, axis=-1)
+        preds_list = []
+        for label_id, tokens in enumerate(verbalizer.token_ids):
+            token_pred = predictions[:, 0, tokens[0][0]]
+            if predictions.shape[1] > 1:
+                for i, x in enumerate(tokens[1:]):
+                    token_pred *= predictions[:, i + 1, x[0]]
+            preds_list.append(token_pred)
+        preds_list = np.stack(preds_list).T
+        preds = softmax(preds_list, axis=1)[:, 1]
+        preds = np.sum(preds.reshape(-1, 7, 6), axis=2)
+        preds = np.argmin(preds, axis=1)
+        labels = np.argmin(np.sum(eval_preds.label_ids.reshape(-1, 7, 6),
+                                  axis=2),
+                           axis=1)
+        acc = sum(preds == labels) / len(preds)
+        return {'accuracy': acc}
+
+    def chid_compute_mask_metrics(eval_preds):
+        preds = softmax(eval_preds.predictions, axis=-1)[:, 0]
+        preds = np.sum(preds.reshape(-1, 7, 6), axis=2)
+        preds = np.argmax(preds, axis=1)
+        labels = np.argmin(np.sum(eval_preds.label_ids.reshape(-1, 7, 6),
+                                  axis=2),
+                           axis=1)
+        acc = sum(preds == labels) / len(preds)
+        return {'accuracy': acc}
+
     def chid_compute_metrics(eval_preds):
         # chid IDEA B.1
         preds = softmax(eval_preds.predictions, axis=1)[:, 1]
@@ -145,33 +182,9 @@ def main():
         acc = sum(preds == labels) / len(preds)
         return {'accuracy': acc}
 
-    def csl_compute_metrics(eval_preds, data_ds):
-        preds = softmax(eval_preds.predictions, axis=1)[:, 1]
-        preds = (preds > 0.5)
-        result = {}
-        for idx, example in enumerate(data_ds):
-            if example.uid not in result:
-                result[example.uid] = preds[idx]
-            else:
-                result[example.uid] = preds[idx] and result[example.uid]
-        acc = np.mean([float(x) for x in result.values()])
-        return {'accuracy': float(acc)}
-
-    used_metrics = chid_compute_metrics if data_args.task_name == "chid" else compute_metrics
-    #if data_args.task_name == "csl":
-    #    used_metrics = partial(csl_compute_metrics, data_ds=dev_ds)
-    if data_args.task_name == "cmnli" and data_args.task_name != "chid":
+    used_metrics = chid_compute_mask_metrics if data_args.task_name == "chid" else compute_metrics
+    if data_args.task_name != "cmnli" and data_args.task_name != "chid":
         used_metrics = compute_mask_metrics
-
-    # Deine the early-stopping callback.
-    if model_args.do_save:
-        callbacks = [
-            EarlyStoppingCallback(
-                early_stopping_patience=model_args.early_stop_patience,
-                early_stopping_threshold=0.)
-        ]
-    else:
-        callbacks = None
 
     # Initialize the trainer.
     trainer = PromptTrainer(model=prompt_model,
@@ -192,9 +205,6 @@ def main():
         trainer.save_metrics("train", metrics)
         trainer.save_state()
 
-    if data_args.task_name == "no_csl":
-        trainer.compute_metrics = partial(csl_compute_metrics,
-                                          data_ds=public_test_ds)
     # Test.
     if model_args.do_test:
         test_ret = trainer.predict(public_test_ds)

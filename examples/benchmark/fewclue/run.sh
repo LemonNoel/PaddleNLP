@@ -26,9 +26,9 @@ elif [ $task_name == "bustm" ]; then
     prompt="“{'text':'text_a'}”和“{'text':'text_b'}”描述的是{'mask'}{'mask'}的事情。" # 0.7624
     max_length=64
 elif [ $task_name == "chid" ]; then
-    prompt="“{'text':'text_a'}”这句话中成语[{'text':'text_b'}]的理解正确吗？{'mask'}{'mask'}。"
+    prompt="“{'text':'text_a'}”和“{'text':'text_b'}” "
     #prompt="{'text':'text_a'}{'text':'text_b'}用在这里对吗？{'mask'}{'mask'}。"
-    max_length=256
+    max_length=512
 elif [ $task_name == "cluewsc" ]; then
     prompt="“{'text':'text_a'}”{'text':'text_b'}这里代词使用正确吗？{'mask'}{'mask'}"
     max_length=128
@@ -43,7 +43,7 @@ CUDA_VISIBLE_DEVICES=$device python train_single.py \
 --max_seq_length $max_length \
 --learning_rate 3e-6 \
 --ppt_learning_rate 3e-5 \
---num_train_epochs 30 \
+--num_train_epochs 10 \
 --logging_steps 10 \
 --do_save True \
 --do_test \
@@ -55,17 +55,17 @@ CUDA_VISIBLE_DEVICES=$device python train_single.py \
 --split_id few_all \
 --task_name $task_name \
 --metric_for_best_model accuracy \
---disable_tqdm True \
 --do_train \
 --do_predict \
 --do_eval \
 --use_rdrop \
+--disable_tqdm True \
 --alpha_rdrop 4.0 \
 --load_best_model_at_end \
 --gradient_accumulation_steps 2 \
 --pretrained "../checkpoints_cmnli/checkpoint-22000/model_state.pdparams" \
---evaluation_strategy epoch \
---save_strategy epoch 
+#--evaluation_strategy epoch \
+#--save_strategy epoch 
 #--early_stop_patience 10
 #--soft_encoder mlp \
 #--save_strategy no
