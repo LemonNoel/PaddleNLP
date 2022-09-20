@@ -2,44 +2,34 @@ task_name=$1
 device=$2
 
 if [ $task_name == "csl" ]; then
-    prompt="{'text': 'text_a'}{'hard':'上文中'}{'mask'}{'hard': '这些关键词：'}{'text':'text_b'}"
-    # prompt="“{'text':'text_a'}”和“{'text':'text_b'}”之间的逻辑关系是{'mask'}{'mask'}。"
+    prompt="“{'text':'text_a'}”{'soft':'其中'}“{'text':'text_b'}”{'mask'}{'mask'}{'soft':'这句话的关键词。'}"
     max_length=320
 elif [ $task_name == "eprstmt" ]; then
-    prompt="{'text':'text_a'}{'hard':'这个句话表示我'}{'mask'}{'hard':'喜欢这个东西'}"
-    # prompt="{'text':'text_a'}{'hard':'我感觉'}{'mask'}{'hard':'喜欢。'}"
+    prompt="“{'text':'text_a'}”{'soft':'这条评论的情感倾向是'}{'mask'}{'mask'}{'soft':'的。'}"
     max_length=128
 elif [ $task_name == "csldcp" ]; then
-    prompt="{'hard':'阅读下边有关'}{'mask'}{'mask'}{'hard':'的材料'}{'text':'text_a'}"
+    prompt="“{'text':'text_a'}”{'soft':'这篇文献的类别是'}{'mask'}{'mask'}。"
     max_length=256
 elif [ $task_name == "tnews" ]; then
-    prompt="{'hard':'下边播报一则'}{'mask'}{'mask'}{'hard':'新闻：'}{'text':'text_a'}"
+    prompt="“{'text':'text_a'}”{'soft':'上述新闻选自'}{'mask'}{'mask'}{'soft':'专栏。'}"
     max_length=64
 elif [ $task_name == "iflytek" ]; then
-    prompt="{'text':'text_a'}{'hard':'这款应用是'}{'mask'}{'mask'}{'hard':'类型的。'}"
-    # prompt="{'mask'}{'mask'}{'hard':'APP更新日志：'}{'text':'text_a'}"
+    prompt="“{'text':'text_a'}”{'soft':'因此，应用类别是'}{'mask'}{'mask'}。"
     max_length=320
 elif [ $task_name == "ocnli" ]; then
-    # prompt="{'hard':'请用正确的连接词填空：'}{'text':'text_a'}{'mask'}{'mask'}{'text':'text_b'}"
-    prompt="“{'text':'text_a'}”和“{'text':'text_b'}”之间的逻辑关系是{'mask'}{'mask'}。"
+    prompt="“{'text':'text_a'}”和“{'text':'text_b'}”{'soft':'之间的逻辑关系是'}{'mask'}{'mask'}。"
     max_length=128
 elif [ $task_name == "bustm" ]; then
-    # prompt="{'text':'text_a'}{'sep'}{'text':'text_b'}{'sep'}{'hard':'前两句话'}{'mask'}{'hard':'像'}"
-    # prompt="{'text':'text_a'}{'sep'}{'text':'text_b'}{'sep'}{'hard':'这两句话看起来'}{'mask'}{'hard':'像一个意思。'}"
-    # prompt="{'hard':'请用正确的连接词填空：'}{'text':'text_a'}（{'mask'}{'mask'}）{'text':'text_b'}"
-    prompt="“{'text':'text_a'}”和“{'text':'text_b'}”之间的逻辑关系是{'mask'}{'mask'}。"
+    prompt="“{'text':'text_a'}”和“{'text':'text_b'}”{'soft':'描述的是'}{'mask'}{'mask'}{'soft':'的事情。'}"
     max_length=64
 elif [ $task_name == "chid" ]; then
-    prompt="{'text':'text_a'}{'sep'}{'hard':'这句话中的成语使用'}{'mask'}{'mask'}"
+    prompt="“{'text':'text_a'}”{'soft':'这句话中成语'}[{'text':'text_b'}]{'soft':'的理解正确吗？'}{'mask'}{'mask'}。"
     max_length=256
 elif [ $task_name == "cluewsc" ]; then
-    prompt="{'text':'text_a'}{'hard':'其中代词使用'}{'mask'}{'mask'}"
+    prompt="“{'text':'text_a'}”{'soft':'这句话中代词'}{'text':'text_b'}{'soft':'的使用正确吗？'}{'mask'}{'mask'}"
     max_length=128
 elif [ $task_name == "cmnli" ]; then
-    # FT.a 
-    # prompt="{'hard':'请用正确的连接词填空：'}{'text':'text_a'}（{'mask'}{'mask'}）{'text':'text_b'}"
-    # FT.b
-    prompt="“{'text':'text_a'}”和“{'text':'text_b'}”之间的逻辑关系是{'mask'}{'mask'}。"
+    prompt="“{'text':'text_a'}”和“{'text':'text_b'}”{'soft':'之间的逻辑关系是'}{'mask'}{'mask'}。"
     max_length=128
 fi
 

@@ -1,6 +1,7 @@
 device=$1
 
 datasets=("eprstmt" "csldcp" "tnews" "iflytek" "ocnli" "bustm" "chid" "csl" "cluewsc")
+# datasets=("eprstmt" "ocnli" "bustm" "csl")
 
 for data in ${datasets[@]}
 do

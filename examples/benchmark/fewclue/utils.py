@@ -194,39 +194,20 @@ def load_fewclue(task_name, split_id, label_list):
 
 LABEL_MAP = {
     "bustm": {
-        # "0": "不",
-        # "1": "很"
-        # "0": "而且",
-        # "1": "所以"
-        "0": "中立",
-        "1": "蕴含"
+        "0": "不同",
+        "1": "相同"
     },
     "chid": {
-        # IDEA A.0
-        # 0: "一",
-        # 1: "二",
-        # 2: "三",
-        # 3: "四",
-        # 4: "五",
-        # 5: "六",
-        # 6: "七"
-        # IDEA B.1
         0: "错误",
         1: "正确"
     },
     "cluewsc": {
-        # A
         "false": "错误",
         "true": "正确"
-        # IDEA D.2
-        # "false": "错",
-        # "true": "对"
     },
     "csl": {
-        "0": "没",
-        "1": "有"
-        # "0": "中立",
-        # "1": "蕴含"
+        "0": "不是",
+        "1": "就是"
     },
     "csldcp": {
         '材料科学与工程': '材料',
@@ -298,8 +279,8 @@ LABEL_MAP = {
         '植物保护': '植保'
     },
     "eprstmt": {
-        'Negative': '不',
-        'Positive': '很'
+        'Negative': '消极',
+        'Positive': '积极'
     },
     "iflytek": {
         '银行': '银行',
@@ -423,36 +404,28 @@ LABEL_MAP = {
         '出国': '出国'
     },
     "tnews": {
-        'news_story': '故事',
+        'news_story': '社会',  #'故事',
         'news_culture': '文化',
         'news_entertainment': '娱乐',
         'news_sports': '体育',
         'news_finance': '财经',
         'news_house': '房产',
-        'news_car': '汽车',
+        'news_car': '时尚',  #'汽车',
         'news_edu': '教育',
         'news_tech': '科技',
         'news_military': '军事',
         'news_travel': '旅游',
-        'news_world': '国际',
+        'news_world': '时政',  #'国际',
         'news_stock': '股票',
         'news_agriculture': '农业',
-        'news_game': '电竞'
+        'news_game': '游戏',  #'电竞'
     },
     "ocnli": {
-        # "entailment": "所以",
-        # "contradiction": "但是",
-        # "neutral": "而且"
         "entailment": "蕴含",
         "contradiction": "矛盾",
         "neutral": "中立"
     },
     "cmnli": {
-        # FT.a
-        # "entailment": "所以",
-        # "contradiction": "但是",
-        # "neutral": "而且"
-        # FT.b
         "entailment": "蕴含",
         "contradiction": "矛盾",
         "neutral": "中立"

@@ -26,7 +26,7 @@ def postprocess(test_ret, test_ds, task_name, id_to_label):
 
     if task_name == "iflytek":
         with open("iflytek_label_maps.txt", "r") as fp:
-            remap = json.loads(fp.readline().strip())
+            remap = json.loads(json.loads(fp.readline().strip()))
     elif task_name == "tnews":
         remap = {
             'news_story': '100',
@@ -58,7 +58,7 @@ def postprocess(test_ret, test_ds, task_name, id_to_label):
         elif task_name in ["iflytek", "tnews"]:
             ret_list.append({
                 "id": uid,
-                "label": remap[id_to_label[preds[idx]]]
+                "label": str(remap[id_to_label[preds[idx]]])
             })
 
     return ret_list
