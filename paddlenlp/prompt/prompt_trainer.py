@@ -268,7 +268,8 @@ class PromptTrainer(Trainer):
             return_hidden_states=True)
         if self.criterion is not None:
             if isinstance(model.verbalizer, MultiMaskVerbalizer):
-                labels = model.verbalizer.token_ids[labels].squeeze(axis=-1)
+                labels = model.verbalizer.token_ids[labels].squeeze(
+                    axis=-1).reshape(outputs.shape[:2])
             loss = self.criterion(outputs, labels)
 
             if self.args.use_rdrop:
@@ -284,9 +285,14 @@ class PromptTrainer(Trainer):
         return (loss, outputs) if return_outputs else loss
 
     def _compute_rdrop_loss(self, model, inputs, outputs, loss):
-        re_outputs = model(inputs["input_ids"], inputs["mask_ids"],
-                           inputs.get("soft_token_ids", None))
-        ce_loss = (self.criterion(re_outputs, inputs["labels"]) + loss) * 0.5
+        re_outputs = model(input_ids=inputs["input_ids"],
+                           mask_ids=inputs["mask_ids"],
+                           soft_token_ids=inputs.get("soft_token_ids", None))
+        labels = inputs["labels"]
+        if isinstance(model.verbalizer, MultiMaskVerbalizer):
+            labels = model.verbalizer.token_ids[labels].squeeze(
+                axis=-1).reshape(re_outputs.shape[:2])
+        ce_loss = (self.criterion(re_outputs, labels) + loss) * 0.5
         kl_loss = self.rdrop_criterion(outputs, re_outputs)
         loss = ce_loss + self.args.alpha_rdrop * kl_loss
         return loss

@@ -1634,7 +1634,7 @@ class Trainer:
             return (loss, None, None)
 
         logits = nested_detach(logits)
-        if len(logits) == 1:
+        if len(logits) == 1 and not isinstance(logits, paddle.Tensor):
             logits = logits[0]
 
         return (loss, logits, labels)

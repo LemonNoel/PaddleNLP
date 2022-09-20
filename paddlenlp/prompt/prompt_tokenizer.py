@@ -42,6 +42,20 @@ class MLMPromptTokenizer(object):
         self.pad_token_id = self._tokenizer.pad_token_id
         self.soft_token_id = self._tokenizer.unk_token_id
 
+    def d__call__(self, input_list):
+        encoded_input = defaultdict(list)
+        for input_dict in input_list:
+            text = input_dict["text"] if input_dict["mask_ids"] != 1 else "_"
+            encoded_input["input_ids"].append(text)
+            encoded_input['mask_ids'].append(
+                [input_dict["mask_ids"]] *
+                (len(text) if input_dict["mask_ids"] == 0 else 1))
+        encoded_input["input_ids"] = "".join(encoded_input["input_ids"])
+        encoded_input["mask_ids"] = np.where(
+            np.array(list(itertools.chain(
+                *encoded_input["mask_ids"]))) > 0)[0].squeeze().tolist()
+        return encoded_input
+
     def __call__(self, input_list):
         encoded_input = defaultdict(list)
 
