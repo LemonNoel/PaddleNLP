@@ -12,25 +12,25 @@ def convert_eprstmt(example):
                         labels=example.get("label", None))
 
 
-def convert_csldcp(example):
+def convert_csldcp(example, label_set):
     # Unlabeled: 67
     return InputExample(uid=example["id"],
                         text_a=example["content"],
-                        text_b="",
+                        text_b="/".join(label_set),
                         labels=example.get("label", None))
 
 
-def convert_tnews(example):
+def convert_tnews(example, label_set):
     return InputExample(uid=example["id"],
                         text_a=example["sentence"],
-                        text_b="",
+                        text_b="/".join(label_set),
                         labels=example.get("label_desc", None))
 
 
 def convert_iflytek(example):
     return InputExample(uid=example["id"],
                         text_a=example["sentence"],
-                        text_b="",
+                        text_b="/".join(label_set),
                         labels=example.get("label_des", None))
 
 
@@ -85,7 +85,7 @@ def convert_csl(example):
     # IDEA C: Take it as a NER and compare list. Con: error propagation.
     return InputExample(uid=example["id"],
                         text_a=example["abst"],
-                        text_b=",".join(example["keyword"]),
+                        text_b="/".join(example["keyword"]),
                         labels=example.get("label", None))
 
 
@@ -95,7 +95,7 @@ def A_convert_cluewsc(example):
     # IDEA D.3: Use special tokens to mark query and pronoun.
     return InputExample(uid=example.get("id", None),
                         text_a=example["text"],
-                        text_b="其中" + example["target"]["span2_text"] + "指的是" +
+                        text_b="其中" + example["target"]["span2_text"] + "指代" +
                         example["target"]["span1_text"],
                         labels=example.get("label", None))
 
@@ -177,6 +177,10 @@ def load_fewclue(task_name, split_id, label_list):
             "csl": convert_csl,
             "cluewsc": convert_cluewsc
         }[task_name]
+
+        if task_name in ["csldcp", "tnews", "iflytek"]:
+            convert_fn = partial(convert_fn,
+                                 label_set=list(label_list.values()))
 
         train_ds = train_ds.map(convert_fn)
         dev_ds = dev_ds.map(convert_fn)
@@ -279,8 +283,8 @@ LABEL_MAP = {
         '植物保护': '植保'
     },
     "eprstmt": {
-        'Negative': '消极',
-        'Positive': '积极'
+        'Negative': '负向',
+        'Positive': '正向'
     },
     "iflytek": {
         '银行': '银行',
@@ -404,21 +408,21 @@ LABEL_MAP = {
         '出国': '出国'
     },
     "tnews": {
-        'news_story': '社会',  #'故事',
+        'news_story': '故事',
         'news_culture': '文化',
         'news_entertainment': '娱乐',
         'news_sports': '体育',
         'news_finance': '财经',
         'news_house': '房产',
-        'news_car': '时尚',  #'汽车',
+        'news_car': '汽车',
         'news_edu': '教育',
         'news_tech': '科技',
         'news_military': '军事',
         'news_travel': '旅游',
-        'news_world': '时政',  #'国际',
+        'news_world': '国际',
         'news_stock': '股票',
         'news_agriculture': '农业',
-        'news_game': '游戏',  #'电竞'
+        'news_game': '电竞'
     },
     "ocnli": {
         "entailment": "蕴含",
