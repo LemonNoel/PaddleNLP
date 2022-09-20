@@ -24,14 +24,14 @@ elif [ $task_name == "bustm" ]; then
     max_length=40
 elif [ $task_name == "chid" ]; then
     # prompt="{'soft':'已知候选词有'}{'text':'text_b'}{'sep'}{'text':'text_a'}{'soft':'问：这句话的空格处应该填第'}{'mask'}{'soft':'个词'}"
-    prompt="{'mask'}{'soft':通顺。'}{'text':'text_a'}"
+    prompt="{'mask'}{'soft':'通顺。'}{'text':'text_a'}"
     max_length=256
 elif [ $task_name == "cluewsc" ]; then
     prompt="{'mask'}{'soft':'合理。'}{'text':'text_a'}"
     max_length=128
 fi
 
-CUDA_VISIBLE_DEVICES=$device python train_single.py \
+CUDA_VISIBLE_DEVICES=$device python ../train_cls.py \
 --output_dir ./checkpoints/ \
 --prompt "$prompt" \
 --max_seq_length $max_length \
@@ -54,10 +54,10 @@ CUDA_VISIBLE_DEVICES=$device python train_single.py \
 --metric_for_best_model accuracy \
 --load_best_model_at_end \
 --disable_tqdm True \
---evaluation_strategy epoch \
---save_strategy epoch \
 --do_predict \
 #--early_stop_patience 10
 #--freeze_plm \
 #--soft_encoder mlp \
 #--save_strategy no
+#--evaluation_strategy epoch \
+#--save_strategy epoch \
