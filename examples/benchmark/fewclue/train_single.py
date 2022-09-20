@@ -21,7 +21,7 @@ import paddle
 from paddle.static import InputSpec
 from paddle.metric import Accuracy
 from paddlenlp.utils.log import logger
-from paddlenlp.transformers import ErnieTokenizer, ErnieForMaskedLM
+from paddlenlp.transformers import RoFormerv2Tokenizer, RoFormerv2ForMaskedLM
 from paddlenlp.trainer import PdArgumentParser, EarlyStoppingCallback
 from paddlenlp.prompt import (
     AutoTemplate,
@@ -29,7 +29,6 @@ from paddlenlp.prompt import (
     SoftTemplate,
     PrefixTemplate,
     ManualVerbalizer,
-    MultiMaskVerbalizer,
     SoftVerbalizer,
     PromptTuningArguments,
     PromptTrainer,
@@ -43,6 +42,9 @@ from postprocess import postprocess, save_to_file
 # yapf: disable
 @dataclass
 class DataArguments:
+    pretrained: str = field(
+        default="/ssd2/wanghuijuan03/data/zero-shot/checkpoints/checkpoint-10000/model_state.pdparams",
+        metadata={"help": "Path to the pretrained parameters"})
     task_name: str = field(default="tnews", metadata={"help": "Task name in FewCLUE."})
     split_id: str = field(default="0", metadata={"help": "The postfix of subdataset."})
     prompt: str = field(default=None, metadata={"help": "The input prompt for tuning."})
@@ -71,14 +73,9 @@ def main():
     paddle.set_device(training_args.device)
 
     # Load the pretrained language model.
-    model = ErnieForMaskedLM.from_pretrained(model_args.model_name_or_path)
-    tokenizer = ErnieTokenizer.from_pretrained(model_args.model_name_or_path)
-    # b5
-    state_dict = paddle.load(
-        '/ssd2/wanghuijuan03/data/zero-shot/checkpoints_80w/checkpoint-360000/model_state.pdparams'
-    )
-    model.set_state_dict(state_dict)
-    del state_dict
+    model = RoFormerv2ForMaskedLM.from_pretrained(model_args.model_name_or_path)
+    tokenizer = RoFormerv2Tokenizer.from_pretrained(
+        model_args.model_name_or_path)
 
     # Define the template for preprocess and the verbalizer for postprocess.
     template = ManualTemplate(tokenizer, training_args.max_seq_length,
@@ -87,16 +84,13 @@ def main():
 
     labels = LABEL_LIST[data_args.task_name]
     label_words = LABEL_MAP[data_args.task_name]
-    verbalizer = MultiMaskVerbalizer(tokenizer, labels, label_words)
-
-    logger.info(verbalizer.labels_to_ids)
+    verbalizer = SoftVerbalizer(tokenizer, model, labels, label_words)
 
     # Load the few-shot datasets.
     train_ds, dev_ds, public_test_ds, test_ds = load_fewclue(
         task_name=data_args.task_name,
         split_id=data_args.split_id,
-        verbalizer=verbalizer)
-    #label_list=verbalizer.labels_to_ids)
+        label_list=verbalizer.labels_to_ids)
 
     # Define the criterion.
     criterion = paddle.nn.CrossEntropyLoss()
@@ -111,60 +105,23 @@ def main():
 
     # Define the metric function.
     def compute_metrics(eval_preds):
-        # metric = Accuracy()
-        #predictions = paddle.argmax(paddle.to_tensor(eval_preds.predictions), axis=-1)
-        #correct = metric.compute(predictions,
-        #                         paddle.to_tensor(eval_preds.label_ids))
-        #metric.update(correct)
-        #acc = metric.accumulate()
-        predictions = paddle.nn.functional.softmax(paddle.to_tensor(
-            eval_preds.predictions),
-                                                   axis=-1).numpy()
-        preds_list = []
-
-        for label_id, tokens in enumerate(verbalizer.token_ids):
-            token_pred = predictions[:, 0, tokens[0][0]]
-            if predictions.shape[1] > 1:
-                for i, x in enumerate(tokens[1:]):
-                    token_pred *= predictions[:, i + 1, x[0]]
-            preds_list.append(token_pred)
-
-        preds_list = np.stack(preds_list).T
-        preds = np.argmax(preds_list, axis=1)
-        #preds = np.argmax(eval_preds.predictions, axis=-1)
-        label = eval_preds.label_ids
-        #total = len(preds)
-        #correct = 0
-        #for x, y in zip(preds, label):
-        #    if (x == y).all():
-        #        correct += 1
-        #acc = correct / total
-        acc = (preds == label).sum() / len(label)
+        metric = Accuracy()
+        correct = metric.compute(paddle.to_tensor(eval_preds.predictions),
+                                 paddle.to_tensor(eval_preds.label_ids))
+        metric.update(correct)
+        acc = metric.accumulate()
         return {'accuracy': acc}
 
     def chid_compute_metrics(eval_preds):
         # chid IDEA B.1
         from scipy.special import softmax
-        predictions = paddle.nn.functional.softmax(paddle.to_tensor(
-            eval_preds.predictions),
-                                                   axis=-1).numpy()
-        preds_list = []
-
-        for label_id, tokens in enumerate(verbalizer.token_ids):
-            token_pred = predictions[:, 0, tokens[0][0]]
-            for i, x in enumerate(tokens[1:]):
-                token_pred *= predictions[:, i + 1, x[0]]
-            preds_list.append(token_pred)
-
-        preds = np.stack(preds_list).T
-        preds = softmax(preds, axis=1)[:, 1]
+        preds = softmax(eval_preds.predictions, axis=1)[:, 1]
         preds = np.argmax(preds.reshape(-1, 7), axis=1)
         labels = np.argmax(eval_preds.label_ids.reshape(-1, 7), axis=1)
         acc = sum(preds == labels) / len(preds)
         return {'accuracy': acc}
 
     used_metrics = chid_compute_metrics if data_args.task_name == "chid" else compute_metrics
-    #used_metrics = compute_metrics
 
     # Deine the early-stopping callback.
     if model_args.do_save:
@@ -195,35 +152,10 @@ def main():
         trainer.save_metrics("train", metrics)
         trainer.save_state()
 
-    trainer.verbalizer.preds = None
-
     # Test.
     if model_args.do_test:
         test_ret = trainer.predict(public_test_ds)
         trainer.log_metrics("test", test_ret.metrics)
-
-    from collections import defaultdict
-    from collections import Counter
-    counts = {}
-    preds = trainer.verbalizer.preds
-
-    for idx, example in enumerate(public_test_ds):
-        #if "+".join([str(x) for x in example.labels]) not in counts:
-        if example.labels not in counts:
-            counts[example.labels] = [[[] for _ in range(5)]
-                                      for _ in range(len(preds))]
-        for mask_id, pred in enumerate(preds):
-            for j, x in enumerate(pred[idx]):
-                counts[example.labels][mask_id][j].append(x)
-
-    for key, value in counts.items():
-        print(key)
-        for idx, x in enumerate(value):
-            print('= ' + str(idx) + ' =' + '=' * 18)
-            for i in x:
-                print(Counter(i).most_common())
-                #print('-' * 10)
-                break
 
     # Prediction.
     if training_args.do_predict:

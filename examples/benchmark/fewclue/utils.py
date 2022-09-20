@@ -65,27 +65,17 @@ def convert_chid(example):
                         labels=example.get("answer", None))
 
 
-def A0_convert_chid(example):
-    choices = ["一、", "二、", "三、", "四、", "五、", "六、", "七、"]
-    text_b = " ".join(
-        [choices[i] + x for i, x in enumerate(example["candidates"])])
-    return InputExample(uid=example["id"],
-                        text_a=example["content"].replace("#idiom", "____", 1),
-                        text_b=text_b,
-                        labels=example.get("answer", None))
-
-
 def convert_chid_efl(example):
     # IDEA B.1
     bi_examples = []
     fragments = example["content"].split("#idiom#")
     label = example.get("answer", None)
     for idx, cand in enumerate(example["candidates"]):
-        text = fragments[0] + "（" + cand + "）" + fragments[1]
+        text = fragments[0] + cand + fragments[1]
         bi_examples.append(
             InputExample(uid=example["id"],
                          text_a=text,
-                         text_b="这句话中" + cand + "使用",
+                         text_b=cand,
                          labels=None if label is None else int(idx == label)))
     return bi_examples
 
@@ -100,15 +90,6 @@ def convert_csl(example):
 
 
 def convert_cluewsc(example):
-    # TEMPLATE 3
-    return InputExample(uid=example.get("id", None),
-                        text_a="“" + example["text"] + "”其中" +
-                        example["target"]["span2_text"],
-                        text_b=example["target"]["span1_text"],
-                        labels=example.get("label", None))
-
-
-def A_convert_cluewsc(example):
     # IDEA D.1: Use attention between two positions.
     # IDEA D.2: Take it as binary classification. Replace span2 with span1.
     # IDEA D.3: Use special tokens to mark query and pronoun.
@@ -130,7 +111,7 @@ def D2_convert_cluewsc(example):
                         labels=example.get("label", None))
 
 
-def D3_convert_cluewsc(example):
+def _convert_cluewsc(example):
     # IDEA D.3
     target, text = example["target"], list(example["text"])
     pronoun, p_index = target["span2_text"], target["span2_index"]
@@ -151,15 +132,13 @@ def D3_convert_cluewsc(example):
                         labels=example.get("label", None))
 
 
-def convert_labels_to_ids(example, verbalizer):
+def convert_labels_to_ids(example, label_dict):
     if example.labels is not None:
-        #example.labels = verbalizer.token_ids[verbalizer.labels_to_ids[
-        #    example.labels]].squeeze(-1)
-        example.labels = verbalizer.labels_to_ids[example.labels]
+        example.labels = label_dict[example.labels]
     return example
 
 
-def load_fewclue(task_name, split_id, verbalizer):
+def load_fewclue(task_name, split_id, label_list):
     if task_name == "cmnli":
         splits = ['train', 'dev', 'test']
         train_ds, dev_ds, test_ds = load_dataset("clue",
@@ -171,7 +150,7 @@ def load_fewclue(task_name, split_id, verbalizer):
         # Load FewCLUE datasets and convert the samples to InputExample.
         splits = [f"train_{split_id}", f"dev_{split_id}", "test_public", "test"]
         train_ds, dev_ds, public_test_ds, test_ds = load_dataset(
-            "fewclue", name=task_name, splits=splits)  #, label_list=label_list)
+            "fewclue", name=task_name, splits=splits, label_list=label_list)
 
     if task_name == "chid":
         # IDEA B.1
@@ -204,56 +183,31 @@ def load_fewclue(task_name, split_id, verbalizer):
         public_test_ds = public_test_ds.map(convert_fn)
         test_ds = test_ds.map(convert_fn)
 
-        convert_fn = partial(convert_labels_to_ids,
-                             verbalizer=verbalizer)  # label_dict=label_list)
+        convert_fn = partial(convert_labels_to_ids, label_dict=label_list)
         if task_name != "cmnli":
             train_ds = train_ds.map(convert_fn)
             dev_ds = dev_ds.map(convert_fn)
             public_test_ds = public_test_ds.map(convert_fn)
-            test_ds = test_ds.map(convert_fn)
-
-        public_test_ds = MapDataset([x for x in public_test_ds][:2000])
 
     return train_ds, dev_ds, public_test_ds, test_ds
 
 
 LABEL_MAP = {
     "bustm": {
-        # "0": "不",
-        # "1": "很"
-        # "0": "而且",
-        # "1": "所以"
-        "0": "中立",
-        "1": "蕴含"
-    },
-    "chid_a": {
-        # IDEA A.0
-        0: "一",
-        1: "二",
-        2: "三",
-        3: "四",
-        4: "五",
-        5: "六",
-        6: "七"
+        "0": "不同",
+        "1": "相同"
     },
     "chid": {
-        # IDEA B.1
         0: "错误",
         1: "正确"
     },
     "cluewsc": {
-        # A
         "false": "错误",
         "true": "正确"
-        # IDEA D.2
-        # "false": "错",
-        # "true": "对"
     },
     "csl": {
-        "0": "没",
-        "1": "有"
-        # "0": "中立",
-        # "1": "蕴含"
+        "0": "不是",
+        "1": "就是"
     },
     "csldcp": {
         '材料科学与工程': '材料',
@@ -325,8 +279,8 @@ LABEL_MAP = {
         '植物保护': '植保'
     },
     "eprstmt": {
-        'Negative': '不',
-        'Positive': '很'
+        'Negative': '消极',
+        'Positive': '积极'
     },
     "iflytek": {
         '银行': '银行',
@@ -467,19 +421,11 @@ LABEL_MAP = {
         'news_game': '电竞'
     },
     "ocnli": {
-        # "entailment": "所以",
-        # "contradiction": "但是",
-        # "neutral": "而且"
         "entailment": "蕴含",
         "contradiction": "矛盾",
         "neutral": "中立"
     },
     "cmnli": {
-        # FT.a
-        # "entailment": "所以",
-        # "contradiction": "但是",
-        # "neutral": "而且"
-        # FT.b
         "entailment": "蕴含",
         "contradiction": "矛盾",
         "neutral": "中立"

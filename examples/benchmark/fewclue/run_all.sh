@@ -1,8 +1,8 @@
 device=$1
 
-datasets=("eprstmt" "csldcp" "tnews" "iflytek" "ocnli" "bustm" "chid" "csl" "cluewsc")
-# datasets=("csldcp" "iflytek" "chid" "csl" "cmnli")
-# datasets=("ocnli" "bustm")
+#datasets=("eprstmt" "csldcp" "tnews" "iflytek" "ocnli" "bustm" "chid" "csl" "cluewsc")
+datasets=("eprstmt" "csldcp" "tnews")
+#datasets=("iflytek" "ocnli" "bustm" "chid" "csl" "cluewsc")
 
 for data in ${datasets[@]}
 do
