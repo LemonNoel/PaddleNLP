@@ -55,12 +55,7 @@ def postprocess(test_ret, test_ds, task_name, id_to_label):
             ret_list.append({"id": uid, "answer": preds[idx]})
         elif task_name in ["cluewsc", "eprstmt", "ocnli", "csldcp"]:
             ret_list.append({"id": uid, "label": id_to_label[preds[idx]]})
-        elif task_name in ["tnews"]:
-            ret_list.append({
-                "id": uid,
-                "label": remap[id_to_label[preds[idx]]]
-            })
-        elif task_name in ["iflytek"]:
+        elif task_name in ["iflytek", "tnews"]:
             ret_list.append({
                 "id": uid,
                 "label": str(remap[id_to_label[preds[idx]]])

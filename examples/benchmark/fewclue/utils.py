@@ -37,17 +37,11 @@ def convert_ocnli(example):
     # Unlabeled: 20000
     # IDEA A: Use multi-task learning.
     #         Train genre classificaiton seperately.
-    #return InputExample(uid=example["id"],
-    #                    text_a=example["sentence1"],
-    #                    text_b=example["sentence2"],
-    #                    labels=example.get("label", None))
-    # meta={"genre": example.get("genre", None)})
-    # E2.Mengzi
     return InputExample(uid=example["id"],
-                        text_a="“" + example["sentence1"] + "”和“" +
-                        example["sentence2"] + "”这两句话说的是同一件事吗？",
-                        text_b="",
+                        text_a=example["sentence1"],
+                        text_b=example["sentence2"],
                         labels=example.get("label", None))
+    # meta={"genre": example.get("genre", None)})
 
 
 def convert_bustm(example):
@@ -137,23 +131,6 @@ def convert_cluewsc(example):
                         labels=example.get("label", None))
 
 
-def convert_cluewsc(example):
-    # A7.PET
-    target, text = example["target"], list(example["text"])
-    pronoun, p_index = target["span2_text"], target["span2_index"]
-    entity, e_index = target["span1_text"], target["span1_index"]
-    if p_index > e_index:
-        text.insert(p_index + len(pronoun), "（这是代词）")
-        text.insert(e_index + len(entity), "（这是实体）")
-    else:
-        text.insert(e_index + len(entity), "（这是实体）")
-        text.insert(p_index + len(pronoun), "（这是代词）")
-    return InputExample(uid=example.get("id", None),
-                        text_a="".join(text),
-                        text_b="",
-                        labels=example.get("label", None))
-
-
 def convert_labels_to_ids(example, label_dict):
     if example.labels is not None:
         example.labels = label_dict[example.labels]
@@ -228,15 +205,12 @@ LABEL_MAP = {
         # "false": "错误",
         # "true": "正确"
         # IDEA D.2
-        # "false": "不",
-        # "true": "很"
-        # PET
-        "false": 0,
-        "true": 1
+        "false": "错",
+        "true": "对"
     },
     "csl": {
         "0": "不",
-        "1": " "
+        "1": "得"
     },
     "csldcp": {
         '材料科学与工程': '材料',

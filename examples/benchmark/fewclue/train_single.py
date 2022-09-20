@@ -45,8 +45,8 @@ class DataArguments:
     task_name: str = field(default="tnews", metadata={"help": "Task name in FewCLUE."})
     split_id: str = field(default="0", metadata={"help": "The postfix of subdataset."})
     prompt: str = field(default=None, metadata={"help": "The input prompt for tuning."})
-    soft_encoder: str = field(default="lstm", metadata={"help": "The encoder type of soft template, `lstm`, `mlp` or None."})
-    encoder_hidden_size: int = field(default=200, metadata={"help": "The dimension of soft embeddings."})
+    soft_encoder: str = field(default='lstm', metadata={"help": "The encoder type of soft template, `lstm`, `mlp` or None."})
+    encoder_hidden_size: int = field(default=None, metadata={"help": "The dimension of soft embeddings."})
 
 
 @dataclass
@@ -55,7 +55,7 @@ class ModelArguments:
     export_type: str = field(default='paddle', metadata={"help": "The type to export. Support `paddle` and `onnx`."})
     do_test: bool = field(default=False, metadata={"help": "Evaluate the model on test_public dataset."})
     do_save: bool = field(default=False, metadata={"help": "Whether to save checkpoints during training."})
-    early_stop_patience: int = field(default=4, metadata={"help": "The descent steps before the training stops."})
+    early_stop_patience: int = field(default=3, metadata={"help": "The descent steps before the training stops."})
 # yapf: enable
 
 
