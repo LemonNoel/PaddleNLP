@@ -42,11 +42,14 @@ from postprocess import postprocess, save_to_file
 # yapf: disable
 @dataclass
 class DataArguments:
+    pretrained: str = field(
+        default="/ssd2/wanghuijuan03/data/zero-shot/checkpoints/checkpoint-10000/model_state.pdparams",
+        metadata={"help": "Path to the pretrained parameters"})
     task_name: str = field(default="tnews", metadata={"help": "Task name in FewCLUE."})
     split_id: str = field(default="0", metadata={"help": "The postfix of subdataset."})
     prompt: str = field(default=None, metadata={"help": "The input prompt for tuning."})
-    soft_encoder: str = field(default='lstm', metadata={"help": "The encoder type of soft template, `lstm`, `mlp` or None."})
-    encoder_hidden_size: int = field(default=None, metadata={"help": "The dimension of soft embeddings."})
+    soft_encoder: str = field(default="lstm", metadata={"help": "The encoder type of soft template, `lstm`, `mlp` or None."})
+    encoder_hidden_size: int = field(default=200, metadata={"help": "The dimension of soft embeddings."})
 
 
 @dataclass
@@ -55,7 +58,7 @@ class ModelArguments:
     export_type: str = field(default='paddle', metadata={"help": "The type to export. Support `paddle` and `onnx`."})
     do_test: bool = field(default=False, metadata={"help": "Evaluate the model on test_public dataset."})
     do_save: bool = field(default=False, metadata={"help": "Whether to save checkpoints during training."})
-    early_stop_patience: int = field(default=3, metadata={"help": "The descent steps before the training stops."})
+    early_stop_patience: int = field(default=4, metadata={"help": "The descent steps before the training stops."})
 # yapf: enable
 
 
@@ -72,14 +75,13 @@ def main():
     # Load the pretrained language model.
     model = ErnieForMaskedLM.from_pretrained(model_args.model_name_or_path)
     tokenizer = ErnieTokenizer.from_pretrained(model_args.model_name_or_path)
+    #state_dict = paddle.load(data_args.pretrained)
+    #model.set_state_dict(state_dict)
+    #del state_dict
 
     # Define the template for preprocess and the verbalizer for postprocess.
-    template = SoftTemplate(tokenizer,
-                            training_args.max_seq_length,
-                            model,
-                            data_args.prompt,
-                            prompt_encoder=data_args.soft_encoder,
-                            encoder_hidden_size=data_args.encoder_hidden_size)
+    template = ManualTemplate(tokenizer, training_args.max_seq_length,
+                              data_args.prompt)
     logger.info("Using template: {}".format(template.template))
 
     labels = LABEL_LIST[data_args.task_name]

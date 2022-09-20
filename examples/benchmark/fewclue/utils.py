@@ -1,6 +1,7 @@
 from functools import partial
 from paddlenlp.datasets import load_dataset, MapDataset
 from paddlenlp.prompt import InputExample
+from paddlenlp.utils.log import logger
 
 
 def convert_eprstmt(example):
@@ -37,7 +38,7 @@ def convert_ocnli(example):
     # Unlabeled: 20000
     # IDEA A: Use multi-task learning.
     #         Train genre classificaiton seperately.
-    return InputExample(uid=example["id"],
+    return InputExample(uid=example.get("id", None),
                         text_a=example["sentence1"],
                         text_b=example["sentence2"],
                         labels=example.get("label", None))
@@ -74,7 +75,7 @@ def convert_chid_efl(example):
         bi_examples.append(
             InputExample(uid=example["id"],
                          text_a=text,
-                         text_b="",
+                         text_b=cand,
                          labels=None if label is None else int(idx == label)))
     return bi_examples
 
@@ -88,7 +89,7 @@ def convert_csl(example):
                         labels=example.get("label", None))
 
 
-def A_convert_cluewsc(example):
+def convert_cluewsc(example):
     # IDEA D.1: Use attention between two positions.
     # IDEA D.2: Take it as binary classification. Replace span2 with span1.
     # IDEA D.3: Use special tokens to mark query and pronoun.
@@ -110,7 +111,7 @@ def D2_convert_cluewsc(example):
                         labels=example.get("label", None))
 
 
-def D3_A7_convert_cluewsc(example):
+def _convert_cluewsc(example):
     # IDEA D.3
     target, text = example["target"], list(example["text"])
     pronoun, p_index = target["span2_text"], target["span2_index"]
@@ -131,23 +132,6 @@ def D3_A7_convert_cluewsc(example):
                         labels=example.get("label", None))
 
 
-def convert_cluewsc(example):
-    # A7.PET
-    target, text = example["target"], list(example["text"])
-    pronoun, p_index = target["span2_text"], target["span2_index"]
-    entity, e_index = target["span1_text"], target["span1_index"]
-    if p_index > e_index:
-        text.insert(p_index + len(pronoun), "（这是代词）")
-        text.insert(e_index + len(entity), "（这是实体）")
-    else:
-        text.insert(e_index + len(entity), "（这是实体）")
-        text.insert(p_index + len(pronoun), "（这是代词）")
-    return InputExample(uid=example.get("id", None),
-                        text_a="".join(text),
-                        text_b="",
-                        labels=example.get("label", None))
-
-
 def convert_labels_to_ids(example, label_dict):
     if example.labels is not None:
         example.labels = label_dict[example.labels]
@@ -155,10 +139,18 @@ def convert_labels_to_ids(example, label_dict):
 
 
 def load_fewclue(task_name, split_id, label_list):
-    # Load FewCLUE datasets and convert the samples to InputExample.
-    splits = [f"train_{split_id}", f"dev_{split_id}", "test_public", "test"]
-    train_ds, dev_ds, public_test_ds, test_ds = load_dataset(
-        "fewclue", name=task_name, splits=splits, label_list=label_list)
+    if task_name == "cmnli":
+        splits = ['train', 'dev', 'test']
+        train_ds, dev_ds, test_ds = load_dataset("clue",
+                                                 name=task_name,
+                                                 splits=splits,
+                                                 label_list=label_list)
+        public_test_ds = load_dataset("clue", name=task_name, splits=['test'])
+    else:
+        # Load FewCLUE datasets and convert the samples to InputExample.
+        splits = [f"train_{split_id}", f"dev_{split_id}", "test_public", "test"]
+        train_ds, dev_ds, public_test_ds, test_ds = load_dataset(
+            "fewclue", name=task_name, splits=splits, label_list=label_list)
 
     if task_name == "chid":
         # IDEA B.1
@@ -179,6 +171,7 @@ def load_fewclue(task_name, split_id, label_list):
             "tnews": convert_tnews,
             "iflytek": convert_iflytek,
             "ocnli": convert_ocnli,
+            "cmnli": convert_ocnli,
             "bustm": convert_bustm,
             "chid": convert_chid,
             "csl": convert_csl,
@@ -191,47 +184,30 @@ def load_fewclue(task_name, split_id, label_list):
         test_ds = test_ds.map(convert_fn)
 
         convert_fn = partial(convert_labels_to_ids, label_dict=label_list)
-
-        train_ds = train_ds.map(convert_fn)
-        dev_ds = dev_ds.map(convert_fn)
-        public_test_ds = public_test_ds.map(convert_fn)
+        if task_name != "cmnli":
+            train_ds = train_ds.map(convert_fn)
+            dev_ds = dev_ds.map(convert_fn)
+            public_test_ds = public_test_ds.map(convert_fn)
 
     return train_ds, dev_ds, public_test_ds, test_ds
 
 
 LABEL_MAP = {
     "bustm": {
-        "0": "不",
-        "1": "很"
+        "0": "不同",
+        "1": "相同"
     },
     "chid": {
-        # IDEA A.0
-        # 0: "一",
-        # 1: "二",
-        # 2: "三",
-        # 3: "四",
-        # 4: "五",
-        # 5: "六",
-        # 6: "七"
-        # IDEA B.1
-        0: "不",
-        1: "很"
+        0: "错误",
+        1: "正确"
     },
     "cluewsc": {
-        # A1/A7.PET
-        # "false": "错误",
-        # "true": "正确"
-        # IDEA D.2
-        "false": "错",
-        "true": "对"
+        "false": "错误",
+        "true": "正确"
     },
     "csl": {
-        # A7
-        "0": "不",
-        "1": "得"
-        # A7.PET
-        # "0": "不能",
-        # "1": "可以"
+        "0": "不是",
+        "1": "就是"
     },
     "csldcp": {
         '材料科学与工程': '材料',
@@ -303,8 +279,8 @@ LABEL_MAP = {
         '植物保护': '植保'
     },
     "eprstmt": {
-        'Negative': '不',
-        'Positive': '很'
+        'Negative': '消极',
+        'Positive': '积极'
     },
     "iflytek": {
         '银行': '银行',
@@ -445,10 +421,14 @@ LABEL_MAP = {
         'news_game': '电竞'
     },
     "ocnli": {
-        "entailment": "所以",
-        "contradiction": "但是",
-        "neutral": "而且"
+        "entailment": "蕴含",
+        "contradiction": "矛盾",
+        "neutral": "中立"
+    },
+    "cmnli": {
+        "entailment": "蕴含",
+        "contradiction": "矛盾",
+        "neutral": "中立"
     }
 }
-
 LABEL_LIST = {k: list(v.keys()) for k, v in LABEL_MAP.items()}
