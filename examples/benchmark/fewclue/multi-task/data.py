@@ -9,92 +9,45 @@ from paddlenlp.utils.log import logger
 __all__ = ["load_fewclue"]
 
 PROMPT = {
-    "chid": [("{'text':'text_a'}{'sep'}{'hard':'这句话中的成语使用'}{'mask'}{'mask'}", {
-        0: "错误",
-        1: "正确"
-    }), ("{'text':'text_a'}文中成语是否正确？{'mask'}", {
-        0: "否",
-        1: "是"
-    }), ("{'text':'text_a'}成语{'text':'text_b'}使用是否正确？{'mask'}", {
-        0: "否",
-        1: "是"
-    }), ("{'text':'text_a'}括号中成语填{'text':'text_b'}对吗？{'mask'}", {
-        0: "错",
-        1: "对"
-    }),
-             ("{'text':'text_a'}这句话中空格处填{'text':'text_b'}{'mask'}合适。", {
-                 0: "不",
-                 1: "很"
-             })],
-    "csl": [("标题“{'text': 'text_b'}”正文：“{'text':'text_a'}”题目和文章描述{'mask'}符。", {
-        "0": "不",
-        "1": "相"
-    }),
-            ("“{'text': 'text_a'}”这句话中讨论的关键词{'mask'}包括“{'text': 'text_b'}”", {
-                "0": "不",
-                "1": "已"
-            }),
-            ("“{'text': 'text_a'}”上文中找{'mask'}出这些关键词：“{'text':'text_b'}”", {
-                "0": "不",
-                "1": "得"
-            }),
-            ("“{'text': 'text_a'}”上文中{'mask'}'这些关键词：“{'text':'text_b'}”", {
-                "0": "无",
-                "1": "有"
-            }),
-            ("{'text':'text_a'}和{'text':'text_b'}这两句话说的是同一件事吗？{'mask'}", {
-                "0": "否",
-                "1": "是"
-            })],
-    "cluewsc": [
-        ("{'text':'text_a'}{'hard':'其中代词使用'}{'mask'}{'mask'}", {
-            "false": "错误",
-            "true": "正确"
-        }),
-        ("{'text':'text_a'}这句话中代词{'text':'text_b'}对吗？{'mask'}", {
-            "false": "错",
-            "true": "对"
-        }),
-        ("{'text':'text_a'}这句话中词语{'text':'text_b'}对吗？{'mask'}", {
-            "false": "错",
-            "true": "对"
-        }),
-        ("{'text':'text_a'}其中{'text':'text_b'}。这句话描述正确吗？{'mask'}", {
-            "false": "否",
-            "true": "是"
-        }),
-        ("{'text':'text_a'}其中{'text':'text_b'}。这句话描述正确吗？{'mask'}{'mask'}", {
-            "false": "错误",
-            "true": "正确"
-        }),
+    "chid": [
+        ("“{'text':'text_a'}”这句话中成语[{'text':'text_b'}]的理解正确吗？{'mask'}{'mask'}。",
+         {
+             0: "错误",
+             1: "正确"
+         }),
     ],
-    "eprstmt":
-    [("{'text':'text_a'}{'hard':'这个句话表示我'}{'mask'}{'hard':'喜欢这个东西'}", {
-        'Negative': '不',
-        'Positive': '很'
+    "csl":
+    [("“{'text':'text_a'}”其中“{'text':'text_b'}”{'mask'}{'mask'}这句话的关键词。", {
+        "0": "就是",
+        "1": "不是"
     })],
-    "csldcp":
-    [("{'hard':'阅读下边有关'}{'mask'}{'mask'}{'hard':'的材料'}{'text':'text_a'}",
-      json.load(open("label_map/csldcp.json", "r")))],
-    "tnews":
-    [("{'hard':'下边播报一则'}{'mask'}{'mask'}{'hard':'新闻：'}{'text':'text_a'}",
-      json.load(open("label_map/tnews.json", "r")))],
-    "iflytek":
-    [("{'text':'text_a'}{'hard':'这款应用是'}{'mask'}{'mask'}{'hard':'类型的。'}",
-      json.load(open("label_map/iflytek.json", "r")))],
-    "ocnli": [
-        ("“{'text':'text_a'}”和“{'text':'text_b'}”之间的逻辑关系是{'mask'}{'mask'}", {
-            "entailment": "蕴含",
-            "contradiction": "矛盾",
-            "neutral": "中立"
-        })
+    "cluewsc": [
+        ("“{'text':'text_a'}”这句话中代词{'text':'text_b'}的理解正确吗？{'mask'}{'mask'}", {
+            "false": "错误",
+            "true": "正确"
+        }),
     ],
-    "bustm": [
-        ("“{'text':'text_a'}”和“{'text':'text_b'}”之间的逻辑关系是{'mask'}{'mask'}", {
-            "0": "中立",
-            "1": "蕴含"
-        })
-    ],
+    "eprstmt": [("“{'text':'text_a'}”这条评论的情感倾向是{'mask'}{'mask'}的。", {
+        'Negative': '消极',
+        'Positive': '积极'
+    })],
+    "csldcp": [("“{'text':'text_a'}”这篇文献的类别是{'mask'}{'mask'}。",
+                json.load(open("label_map/csldcp.json", "r")))],
+    "tnews": [("“{'text':'text_a'}”上述新闻选自{'mask'}{'mask'}专栏。",
+               json.load(open("label_map/tnews.json", "r")))],
+    "iflytek": [("“{'text':'text_a'}”这个句子描述的应用类别是{'mask'}{'mask'}。",
+                 json.load(open("label_map/iflytek.json", "r")))],
+    "ocnli":
+    [("“{'text':'text_a'}”和“{'text':'text_b'}”这两句话之间的逻辑关系是{'mask'}{'mask'}", {
+        "entailment": "蕴含",
+        "contradiction": "矛盾",
+        "neutral": "中立"
+    })],
+    "bustm":
+    [("“{'text':'text_a'}”和“{'text':'text_b'}”描述的是{'mask'}{'mask'}的事情。", {
+        "0": "不同",
+        "1": "相同"
+    })],
 }
 
 
@@ -145,7 +98,8 @@ def cluewsc_single(x):
         text_a.insert(p_index, "_")
         text_a.insert(p_index + len(pronoun) + 1, "_")
     x.text_a = "".join(text_a)
-    x.text_b = x.text_b["span2_text"] + "指代" + x.text_b["span1_text"]
+    x.text_b = "_" + x.text_b["span2_text"] + "_指代[" + x.text_b[
+        "span1_text"] + "]"
     return x
 
 
@@ -197,7 +151,7 @@ DEFAULT_CONVERT = {
                            text_a=x["sentence"],
                            text_b="",
                            labels=x.get("label", None)),
-    "clsdcp":
+    "csldcp":
     lambda x: InputExample(uid=x["id"],
                            text_a=x["content"],
                            text_b="",

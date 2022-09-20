@@ -1,6 +1,6 @@
 task_name=$1
 device=$2
-is_train=$3
+is_train=True
 
 batch_size=8
 
@@ -28,7 +28,7 @@ elif [ $task_name == "cmnli" ]; then
 fi
 
 CUDA_VISIBLE_DEVICES=$device python train_single.py \
---output_dir ./checkpoints_$task_name/ \
+--output_dir ./checkpoints/ \
 --prompt "$prompt" \
 --max_seq_length $max_length \
 --per_device_eval_batch_size $batch_size \
@@ -49,10 +49,10 @@ CUDA_VISIBLE_DEVICES=$device python train_single.py \
 --do_train $is_train \
 --do_eval $is_train \
 --do_save $is_train \
+--do_predict $is_train \
 #--early_stop_patience 10
 #--soft_encoder mlp \
 #--save_strategy no
 #--evaluation_strategy epoch \
 #--save_strategy epoch \
 --freeze_plm \
---do_predict $is_train \

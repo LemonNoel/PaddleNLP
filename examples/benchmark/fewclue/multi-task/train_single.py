@@ -61,7 +61,7 @@ class ModelArguments:
 # yapf: enable
 
 
-def main(index):
+def main(index=0):
     # Parse the arguments.
     parser = PdArgumentParser(
         (ModelArguments, DataArguments, PromptTuningArguments))
@@ -75,6 +75,11 @@ def main(index):
     # Load the pretrained language model.
     model = ErnieForMaskedLM.from_pretrained(model_args.model_name_or_path)
     tokenizer = ErnieTokenizer.from_pretrained(model_args.model_name_or_path)
+    state_dict = paddle.load(
+        '/ssd2/wanghuijuan03/data/zero-shot/checkpoints/checkpoint-20625/model_state.pdparams'
+    )
+    model.set_state_dict(state_dict)
+    del state_dict
 
     # Define the template for preprocess and the verbalizer for postprocess.
     template = ManualTemplate(tokenizer, training_args.max_seq_length,
@@ -115,7 +120,7 @@ def main(index):
     def multimask_metrics(eval_preds):
         predictions = paddle.nn.functional.softmax(paddle.to_tensor(
             eval_preds.predictions),
-                                                   axis=-1).numpy()
+                                                   axis=-1)
         preds_list = []
 
         for label_id, tokens in enumerate(verbalizer.token_ids):
@@ -124,18 +129,18 @@ def main(index):
                 for i, x in enumerate(tokens[1:]):
                     token_pred *= predictions[:, i + 1, x[0]]
             preds_list.append(token_pred)
+        del predictions
 
-        preds_list = np.stack(preds_list).T
-        preds = np.argmax(preds_list, axis=1)
-        label = eval_preds.label_ids
-        acc = (preds == label).sum() / len(label)
-        return {'accuracy': acc}
+        preds_list = paddle.stack(preds_list).T
+        preds_list = paddle.argmax(preds_list, axis=1)
+        label = paddle.to_tensor(eval_preds.label_ids)
+        acc = (preds_list == label).sum() / len(label)
+        return {'accuracy': float(acc.numpy())}
 
     def chid_metrics(eval_preds):
-        from scipy.special import softmax
         predictions = paddle.nn.functional.softmax(paddle.to_tensor(
             eval_preds.predictions),
-                                                   axis=-1).numpy()
+                                                   axis=-1)
         preds_list = []
 
         for label_id, tokens in enumerate(verbalizer.token_ids):
@@ -144,23 +149,22 @@ def main(index):
                 for i, x in enumerate(tokens[1:]):
                     token_pred *= predictions[:, i + 1, x[0]]
             preds_list.append(token_pred)
+        del predictions
 
-        preds = np.stack(preds_list).T
-        preds = softmax(preds, axis=1)[:, 1]
-        preds = np.argmax(preds.reshape(-1, 7), axis=1)
-        labels = np.argmax(eval_preds.label_ids.reshape(-1, 7), axis=1)
+        preds = paddle.stack(preds_list).T
+        preds = paddle.nn.functional.softmax(preds, axis=1)[:, 1]
+        preds = paddle.argmax(preds.reshape([-1, 7]), axis=1)
+        labels = paddle.argmax(paddle.to_tensor(eval_preds.label_ids).reshape(
+            [-1, 7]),
+                               axis=1)
 
-        print(preds)
-        print(labels)
-
-        acc = sum(preds == labels) / len(preds)
-        return {'accuracy': acc}
+        acc = paddle.sum((preds == labels).astype("float32")) / len(preds)
+        return {'accuracy': float(acc.numpy())}
 
     def csl_metrics(eval_preds, test_ds):
-        from scipy.special import softmax
         predictions = paddle.nn.functional.softmax(paddle.to_tensor(
             eval_preds.predictions),
-                                                   axis=-1).numpy()
+                                                   axis=-1)
         preds_list = []
 
         for label_id, tokens in enumerate(verbalizer.token_ids):
@@ -170,29 +174,24 @@ def main(index):
                     token_pred *= predictions[:, i + 1, x[0]]
             preds_list.append(token_pred)
 
-        preds = np.stack(preds_list).T
-        preds = softmax(preds, axis=1)
+        preds = paddle.stack(preds_list).T
+        preds = paddle.nn.functional.softmax(preds, axis=1).numpy()
         ret_dict = defaultdict(list)
         print(preds.shape)
         print(len(test_ds))
         for idx, example in enumerate(test_ds):
             uid = getattr(example, "uid")
             ret_dict[uid].append(preds[idx])
+        del preds
         for uid, pred in ret_dict.items():
             # any()
-            #all_pred = 1
-            #for p in pred:
-            #    if p[0] > p[1]:
-            #        all_pred = 0
-            #        break
-            #ret_dict[uid] = all_pred
+            all_pred = np.stack(pred, axis=0)[:, 1]
+            ret_dict[uid] = int((all_pred > 0.5).all())
 
             # all()
-            all_pred = [1., 1.]
-            for p in pred:
-                all_pred[0] *= p[0]
-                all_pred[1] *= p[1]
-            ret_dict[uid] = int(all_pred[0] < all_pred[1])
+            # all_pred = paddle.stack(pred, axis=0)
+            # all_pred = paddle.prod(all_pred, axis=0)
+            # ret_dict[uid] = int(all_pred[0] < all_pred[1])
 
         correct = 0
         for x in test_ds:
@@ -265,7 +264,7 @@ def main(index):
                     print('-' * 10)
 
     # Prediction.
-    if False and training_args.do_predict:
+    if training_args.do_predict:
         test_ret = trainer.predict(test_ds)
         test_ret = postprocess(test_ret, test_ds, data_args.task_name,
                                verbalizer.ids_to_labels)
@@ -273,6 +272,4 @@ def main(index):
 
 
 if __name__ == '__main__':
-    for i in range(1):
-        print("=" * 20)
-        main(i)
+    main(0)

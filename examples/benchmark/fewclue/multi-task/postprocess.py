@@ -54,6 +54,7 @@ def postprocess(test_ret, test_ds, task_name, id_to_label):
             'news_game': '116'
         }
 
+    ret_list = []
     preds = np.argmax(test_ret.predictions, axis=1)
     for idx, example in enumerate(test_ds):
         uid = getattr(example, "uid", idx)
