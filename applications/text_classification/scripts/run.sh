@@ -1,0 +1,1 @@
+CUDA_VISIBLE_DEVICES=0 python warp_trainer.py --output_dir ./ckpt/ --verbalizer "{'0':'terrible', '1':'great'}"  --model_name_or_path albert-xxlarge-v2 --prompt "{'soft'}{'text':'text_a'} It is {'mask'}." --max_steps 1000 --do_train --eval_steps 100 --do_eval --per_device_train_batch_size 2 --freeze_dropout --do_predict
