@@ -7,5 +7,5 @@ do
     echo $data
     echo "=========="
     echo " "
-    bash run.sh $data 2 
+    bash run.sh $data 5 
 done 

@@ -1,0 +1,367 @@
+[33m[2022-08-30 11:04:56,610] [ WARNING][0m - evaluation_strategy reset to IntervalStrategy.STEPS for do_eval is True. you can also set evaluation_strategy='epoch'.[0m
+[32m[2022-08-30 11:04:56,610] [    INFO][0m - The default value for the training argument `--report_to` will change in v5 (from all installed integrations to none). In v5, you will need to use `--report_to all` to get the same behavior as now. You should start updating your code and make this info disappear :-).[0m
+[32m[2022-08-30 11:04:56,610] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 11:04:56,610] [    INFO][0m -      Model Configuration Arguments      [0m
+[32m[2022-08-30 11:04:56,610] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 11:04:56,610] [    INFO][0m - do_save                       :True[0m
+[32m[2022-08-30 11:04:56,610] [    INFO][0m - do_test                       :True[0m
+[32m[2022-08-30 11:04:56,610] [    INFO][0m - early_stop_patience           :4[0m
+[32m[2022-08-30 11:04:56,611] [    INFO][0m - export_type                   :paddle[0m
+[32m[2022-08-30 11:04:56,611] [    INFO][0m - model_name_or_path            :ernie-3.0-base-zh[0m
+[32m[2022-08-30 11:04:56,611] [    INFO][0m - [0m
+[32m[2022-08-30 11:04:56,611] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 11:04:56,611] [    INFO][0m -       Data Configuration Arguments      [0m
+[32m[2022-08-30 11:04:56,611] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 11:04:56,611] [    INFO][0m - encoder_hidden_size           :200[0m
+[32m[2022-08-30 11:04:56,611] [    INFO][0m - prompt                        :{'text':'text_a'}[0m
+[32m[2022-08-30 11:04:56,611] [    INFO][0m - soft_encoder                  :lstm[0m
+[32m[2022-08-30 11:04:56,611] [    INFO][0m - split_id                      :few_all[0m
+[32m[2022-08-30 11:04:56,611] [    INFO][0m - task_name                     :cluewsc[0m
+[32m[2022-08-30 11:04:56,611] [    INFO][0m - [0m
+[32m[2022-08-30 11:04:56,612] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh.pdparams[0m
+W0830 11:04:56.613545 66068 gpu_resources.cc:61] Please NOTE: device: 0, GPU Compute Capability: 7.0, Driver API Version: 11.2, Runtime API Version: 11.2
+W0830 11:04:56.617607 66068 gpu_resources.cc:91] device: 0, cuDNN Version: 8.1.
+[32m[2022-08-30 11:04:59,461] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh_vocab.txt[0m
+[32m[2022-08-30 11:04:59,487] [    INFO][0m - tokenizer config file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/tokenizer_config.json[0m
+[32m[2022-08-30 11:04:59,487] [    INFO][0m - Special tokens file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/special_tokens_map.json[0m
+[33m[2022-08-30 11:04:59,494] [ WARNING][0m - Encoder has already set as lstm, change `prompt_encoder` will reset parameters.[0m
+[33m[2022-08-30 11:04:59,499] [ WARNING][0m - No soft tokens in template. Use ManualTemplate for better performance.[0m
+[33m[2022-08-30 11:04:59,499] [ WARNING][0m - No soft tokens in template. Use ManualTemplate for better performance.[0m
+[32m[2022-08-30 11:04:59,499] [    INFO][0m - Using template: [{'add_prefix_space': '', 'text': 'text_a'}][0m
+2022-08-30 11:04:59,501 INFO [download.py:119] unique_endpoints {''}
+[32m[2022-08-30 11:04:59,602] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 11:04:59,603] [    INFO][0m -     Training Configuration Arguments    [0m
+[32m[2022-08-30 11:04:59,603] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 11:04:59,603] [    INFO][0m - _no_sync_in_gradient_accumulation:True[0m
+[32m[2022-08-30 11:04:59,603] [    INFO][0m - adam_beta1                    :0.9[0m
+[32m[2022-08-30 11:04:59,603] [    INFO][0m - adam_beta2                    :0.999[0m
+[32m[2022-08-30 11:04:59,603] [    INFO][0m - adam_epsilon                  :1e-08[0m
+[32m[2022-08-30 11:04:59,603] [    INFO][0m - alpha_rdrop                   :5.0[0m
+[32m[2022-08-30 11:04:59,603] [    INFO][0m - alpha_rgl                     :0.5[0m
+[32m[2022-08-30 11:04:59,604] [    INFO][0m - current_device                :gpu:0[0m
+[32m[2022-08-30 11:04:59,604] [    INFO][0m - dataloader_drop_last          :False[0m
+[32m[2022-08-30 11:04:59,604] [    INFO][0m - dataloader_num_workers        :0[0m
+[32m[2022-08-30 11:04:59,604] [    INFO][0m - device                        :gpu[0m
+[32m[2022-08-30 11:04:59,604] [    INFO][0m - disable_tqdm                  :True[0m
+[32m[2022-08-30 11:04:59,604] [    INFO][0m - do_eval                       :True[0m
+[32m[2022-08-30 11:04:59,604] [    INFO][0m - do_export                     :False[0m
+[32m[2022-08-30 11:04:59,604] [    INFO][0m - do_predict                    :True[0m
+[32m[2022-08-30 11:04:59,604] [    INFO][0m - do_train                      :True[0m
+[32m[2022-08-30 11:04:59,604] [    INFO][0m - eval_batch_size               :32[0m
+[32m[2022-08-30 11:04:59,604] [    INFO][0m - eval_steps                    :50[0m
+[32m[2022-08-30 11:04:59,604] [    INFO][0m - evaluation_strategy           :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 11:04:59,604] [    INFO][0m - first_max_length              :None[0m
+[32m[2022-08-30 11:04:59,605] [    INFO][0m - fp16                          :False[0m
+[32m[2022-08-30 11:04:59,605] [    INFO][0m - fp16_opt_level                :O1[0m
+[32m[2022-08-30 11:04:59,605] [    INFO][0m - freeze_dropout                :False[0m
+[32m[2022-08-30 11:04:59,605] [    INFO][0m - freeze_plm                    :False[0m
+[32m[2022-08-30 11:04:59,605] [    INFO][0m - gradient_accumulation_steps   :1[0m
+[32m[2022-08-30 11:04:59,605] [    INFO][0m - greater_is_better             :True[0m
+[32m[2022-08-30 11:04:59,605] [    INFO][0m - ignore_data_skip              :False[0m
+[32m[2022-08-30 11:04:59,605] [    INFO][0m - label_names                   :None[0m
+[32m[2022-08-30 11:04:59,605] [    INFO][0m - learning_rate                 :3e-05[0m
+[32m[2022-08-30 11:04:59,605] [    INFO][0m - load_best_model_at_end        :True[0m
+[32m[2022-08-30 11:04:59,605] [    INFO][0m - local_process_index           :0[0m
+[32m[2022-08-30 11:04:59,605] [    INFO][0m - local_rank                    :-1[0m
+[32m[2022-08-30 11:04:59,605] [    INFO][0m - log_level                     :-1[0m
+[32m[2022-08-30 11:04:59,606] [    INFO][0m - log_level_replica             :-1[0m
+[32m[2022-08-30 11:04:59,606] [    INFO][0m - log_on_each_node              :True[0m
+[32m[2022-08-30 11:04:59,606] [    INFO][0m - logging_dir                   :./checkpoints/runs/Aug30_11-04-56_instance-3bwob41y-01[0m
+[32m[2022-08-30 11:04:59,606] [    INFO][0m - logging_first_step            :False[0m
+[32m[2022-08-30 11:04:59,606] [    INFO][0m - logging_steps                 :10[0m
+[32m[2022-08-30 11:04:59,606] [    INFO][0m - logging_strategy              :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 11:04:59,606] [    INFO][0m - lr_scheduler_type             :SchedulerType.LINEAR[0m
+[32m[2022-08-30 11:04:59,606] [    INFO][0m - max_grad_norm                 :1.0[0m
+[32m[2022-08-30 11:04:59,606] [    INFO][0m - max_seq_length                :128[0m
+[32m[2022-08-30 11:04:59,606] [    INFO][0m - max_steps                     :-1[0m
+[32m[2022-08-30 11:04:59,606] [    INFO][0m - metric_for_best_model         :accuracy[0m
+[32m[2022-08-30 11:04:59,606] [    INFO][0m - minimum_eval_times            :None[0m
+[32m[2022-08-30 11:04:59,606] [    INFO][0m - no_cuda                       :False[0m
+[32m[2022-08-30 11:04:59,607] [    INFO][0m - num_train_epochs              :50.0[0m
+[32m[2022-08-30 11:04:59,607] [    INFO][0m - optim                         :OptimizerNames.ADAMW[0m
+[32m[2022-08-30 11:04:59,607] [    INFO][0m - other_max_length              :None[0m
+[32m[2022-08-30 11:04:59,607] [    INFO][0m - output_dir                    :./checkpoints/[0m
+[32m[2022-08-30 11:04:59,607] [    INFO][0m - overwrite_output_dir          :False[0m
+[32m[2022-08-30 11:04:59,607] [    INFO][0m - past_index                    :-1[0m
+[32m[2022-08-30 11:04:59,607] [    INFO][0m - per_device_eval_batch_size    :32[0m
+[32m[2022-08-30 11:04:59,607] [    INFO][0m - per_device_train_batch_size   :8[0m
+[32m[2022-08-30 11:04:59,607] [    INFO][0m - ppt_adam_beta1                :0.9[0m
+[32m[2022-08-30 11:04:59,607] [    INFO][0m - ppt_adam_beta2                :0.999[0m
+[32m[2022-08-30 11:04:59,607] [    INFO][0m - ppt_adam_epsilon              :1e-08[0m
+[32m[2022-08-30 11:04:59,607] [    INFO][0m - ppt_learning_rate             :0.0003[0m
+[32m[2022-08-30 11:04:59,607] [    INFO][0m - ppt_weight_decay              :0.0[0m
+[32m[2022-08-30 11:04:59,608] [    INFO][0m - prediction_loss_only          :False[0m
+[32m[2022-08-30 11:04:59,608] [    INFO][0m - process_index                 :0[0m
+[32m[2022-08-30 11:04:59,608] [    INFO][0m - remove_unused_columns         :True[0m
+[32m[2022-08-30 11:04:59,608] [    INFO][0m - report_to                     :['visualdl'][0m
+[32m[2022-08-30 11:04:59,608] [    INFO][0m - resume_from_checkpoint        :None[0m
+[32m[2022-08-30 11:04:59,608] [    INFO][0m - run_name                      :./checkpoints/[0m
+[32m[2022-08-30 11:04:59,608] [    INFO][0m - save_on_each_node             :False[0m
+[32m[2022-08-30 11:04:59,608] [    INFO][0m - save_steps                    :50[0m
+[32m[2022-08-30 11:04:59,608] [    INFO][0m - save_strategy                 :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 11:04:59,608] [    INFO][0m - save_total_limit              :None[0m
+[32m[2022-08-30 11:04:59,608] [    INFO][0m - scale_loss                    :32768[0m
+[32m[2022-08-30 11:04:59,608] [    INFO][0m - seed                          :42[0m
+[32m[2022-08-30 11:04:59,608] [    INFO][0m - should_log                    :True[0m
+[32m[2022-08-30 11:04:59,608] [    INFO][0m - should_save                   :True[0m
+[32m[2022-08-30 11:04:59,609] [    INFO][0m - task_type                     :multi-class[0m
+[32m[2022-08-30 11:04:59,609] [    INFO][0m - train_batch_size              :8[0m
+[32m[2022-08-30 11:04:59,609] [    INFO][0m - truncate_mode                 :tail[0m
+[32m[2022-08-30 11:04:59,609] [    INFO][0m - use_rdrop                     :False[0m
+[32m[2022-08-30 11:04:59,609] [    INFO][0m - use_rgl                       :False[0m
+[32m[2022-08-30 11:04:59,609] [    INFO][0m - warmup_ratio                  :0.0[0m
+[32m[2022-08-30 11:04:59,609] [    INFO][0m - warmup_steps                  :0[0m
+[32m[2022-08-30 11:04:59,609] [    INFO][0m - weight_decay                  :0.0[0m
+[32m[2022-08-30 11:04:59,609] [    INFO][0m - world_size                    :1[0m
+[32m[2022-08-30 11:04:59,609] [    INFO][0m - [0m
+[32m[2022-08-30 11:04:59,611] [    INFO][0m - ***** Running training *****[0m
+[32m[2022-08-30 11:04:59,611] [    INFO][0m -   Num examples = 160[0m
+[32m[2022-08-30 11:04:59,611] [    INFO][0m -   Num Epochs = 50[0m
+[32m[2022-08-30 11:04:59,611] [    INFO][0m -   Instantaneous batch size per device = 8[0m
+[32m[2022-08-30 11:04:59,611] [    INFO][0m -   Total train batch size (w. parallel, distributed & accumulation) = 8[0m
+[32m[2022-08-30 11:04:59,612] [    INFO][0m -   Gradient Accumulation steps = 1[0m
+[32m[2022-08-30 11:04:59,612] [    INFO][0m -   Total optimization steps = 1000.0[0m
+[32m[2022-08-30 11:04:59,612] [    INFO][0m -   Total num train samples = 8000[0m
+[32m[2022-08-30 11:05:01,411] [    INFO][0m - loss: 0.76998186, learning_rate: 2.97e-05, global_step: 10, interval_runtime: 1.7991, interval_samples_per_second: 4.447, interval_steps_per_second: 5.558, epoch: 0.5[0m
+[32m[2022-08-30 11:05:02,089] [    INFO][0m - loss: 0.70760527, learning_rate: 2.94e-05, global_step: 20, interval_runtime: 0.6774, interval_samples_per_second: 11.811, interval_steps_per_second: 14.763, epoch: 1.0[0m
+[32m[2022-08-30 11:05:02,853] [    INFO][0m - loss: 0.6796411, learning_rate: 2.91e-05, global_step: 30, interval_runtime: 0.7642, interval_samples_per_second: 10.468, interval_steps_per_second: 13.085, epoch: 1.5[0m
+[32m[2022-08-30 11:05:03,556] [    INFO][0m - loss: 0.65523477, learning_rate: 2.88e-05, global_step: 40, interval_runtime: 0.7033, interval_samples_per_second: 11.376, interval_steps_per_second: 14.22, epoch: 2.0[0m
+[32m[2022-08-30 11:05:04,372] [    INFO][0m - loss: 0.62150612, learning_rate: 2.8499999999999998e-05, global_step: 50, interval_runtime: 0.8152, interval_samples_per_second: 9.814, interval_steps_per_second: 12.267, epoch: 2.5[0m
+[32m[2022-08-30 11:05:04,373] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-08-30 11:05:04,373] [    INFO][0m -   Num examples = 159[0m
+[32m[2022-08-30 11:05:04,373] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 11:05:04,373] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 11:05:04,374] [    INFO][0m -   Total prediction steps = 5[0m
+[32m[2022-08-30 11:05:04,953] [    INFO][0m - eval_loss: 0.7977436184883118, eval_accuracy: 0.5534591194968553, eval_runtime: 0.5796, eval_samples_per_second: 274.305, eval_steps_per_second: 8.626, epoch: 2.5[0m
+[32m[2022-08-30 11:05:04,954] [    INFO][0m - Saving model checkpoint to ./checkpoints/checkpoint-50[0m
+[32m[2022-08-30 11:05:04,954] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-08-30 11:05:06,937] [    INFO][0m - tokenizer config file saved in ./checkpoints/checkpoint-50/tokenizer_config.json[0m
+[32m[2022-08-30 11:05:06,938] [    INFO][0m - Special tokens file saved in ./checkpoints/checkpoint-50/special_tokens_map.json[0m
+[32m[2022-08-30 11:05:09,848] [    INFO][0m - loss: 0.67657499, learning_rate: 2.8199999999999998e-05, global_step: 60, interval_runtime: 5.4764, interval_samples_per_second: 1.461, interval_steps_per_second: 1.826, epoch: 3.0[0m
+[32m[2022-08-30 11:05:10,714] [    INFO][0m - loss: 0.46927357, learning_rate: 2.79e-05, global_step: 70, interval_runtime: 0.8658, interval_samples_per_second: 9.24, interval_steps_per_second: 11.551, epoch: 3.5[0m
+[32m[2022-08-30 11:05:11,436] [    INFO][0m - loss: 0.59616427, learning_rate: 2.7600000000000003e-05, global_step: 80, interval_runtime: 0.7219, interval_samples_per_second: 11.082, interval_steps_per_second: 13.853, epoch: 4.0[0m
+[32m[2022-08-30 11:05:12,347] [    INFO][0m - loss: 0.47388554, learning_rate: 2.7300000000000003e-05, global_step: 90, interval_runtime: 0.9103, interval_samples_per_second: 8.788, interval_steps_per_second: 10.985, epoch: 4.5[0m
+[32m[2022-08-30 11:05:13,084] [    INFO][0m - loss: 0.4359458, learning_rate: 2.7000000000000002e-05, global_step: 100, interval_runtime: 0.7383, interval_samples_per_second: 10.836, interval_steps_per_second: 13.545, epoch: 5.0[0m
+[32m[2022-08-30 11:05:13,085] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-08-30 11:05:13,085] [    INFO][0m -   Num examples = 159[0m
+[32m[2022-08-30 11:05:13,085] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 11:05:13,085] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 11:05:13,085] [    INFO][0m -   Total prediction steps = 5[0m
+[32m[2022-08-30 11:05:13,747] [    INFO][0m - eval_loss: 1.0709341764450073, eval_accuracy: 0.559748427672956, eval_runtime: 0.6614, eval_samples_per_second: 240.384, eval_steps_per_second: 7.559, epoch: 5.0[0m
+[32m[2022-08-30 11:05:13,748] [    INFO][0m - Saving model checkpoint to ./checkpoints/checkpoint-100[0m
+[32m[2022-08-30 11:05:13,748] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-08-30 11:05:15,386] [    INFO][0m - tokenizer config file saved in ./checkpoints/checkpoint-100/tokenizer_config.json[0m
+[32m[2022-08-30 11:05:15,387] [    INFO][0m - Special tokens file saved in ./checkpoints/checkpoint-100/special_tokens_map.json[0m
+[32m[2022-08-30 11:05:18,304] [    INFO][0m - loss: 0.46201692, learning_rate: 2.6700000000000002e-05, global_step: 110, interval_runtime: 5.219, interval_samples_per_second: 1.533, interval_steps_per_second: 1.916, epoch: 5.5[0m
+[32m[2022-08-30 11:05:19,055] [    INFO][0m - loss: 0.32695825, learning_rate: 2.64e-05, global_step: 120, interval_runtime: 0.752, interval_samples_per_second: 10.639, interval_steps_per_second: 13.298, epoch: 6.0[0m
+[32m[2022-08-30 11:05:20,074] [    INFO][0m - loss: 0.48483415, learning_rate: 2.61e-05, global_step: 130, interval_runtime: 1.0182, interval_samples_per_second: 7.857, interval_steps_per_second: 9.821, epoch: 6.5[0m
+[32m[2022-08-30 11:05:20,844] [    INFO][0m - loss: 0.33007686, learning_rate: 2.58e-05, global_step: 140, interval_runtime: 0.7705, interval_samples_per_second: 10.383, interval_steps_per_second: 12.979, epoch: 7.0[0m
+[32m[2022-08-30 11:05:21,886] [    INFO][0m - loss: 0.33233593, learning_rate: 2.55e-05, global_step: 150, interval_runtime: 1.0416, interval_samples_per_second: 7.68, interval_steps_per_second: 9.6, epoch: 7.5[0m
+[32m[2022-08-30 11:05:21,886] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-08-30 11:05:21,886] [    INFO][0m -   Num examples = 159[0m
+[32m[2022-08-30 11:05:21,886] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 11:05:21,886] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 11:05:21,887] [    INFO][0m -   Total prediction steps = 5[0m
+[32m[2022-08-30 11:05:22,652] [    INFO][0m - eval_loss: 1.3949942588806152, eval_accuracy: 0.5471698113207547, eval_runtime: 0.7653, eval_samples_per_second: 207.759, eval_steps_per_second: 6.533, epoch: 7.5[0m
+[32m[2022-08-30 11:05:22,653] [    INFO][0m - Saving model checkpoint to ./checkpoints/checkpoint-150[0m
+[32m[2022-08-30 11:05:22,653] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-08-30 11:05:24,283] [    INFO][0m - tokenizer config file saved in ./checkpoints/checkpoint-150/tokenizer_config.json[0m
+[32m[2022-08-30 11:05:24,284] [    INFO][0m - Special tokens file saved in ./checkpoints/checkpoint-150/special_tokens_map.json[0m
+[32m[2022-08-30 11:05:27,229] [    INFO][0m - loss: 0.33158736, learning_rate: 2.52e-05, global_step: 160, interval_runtime: 5.3436, interval_samples_per_second: 1.497, interval_steps_per_second: 1.871, epoch: 8.0[0m
+[32m[2022-08-30 11:05:28,329] [    INFO][0m - loss: 0.43306432, learning_rate: 2.49e-05, global_step: 170, interval_runtime: 1.0997, interval_samples_per_second: 7.275, interval_steps_per_second: 9.094, epoch: 8.5[0m
+[32m[2022-08-30 11:05:29,144] [    INFO][0m - loss: 0.29024954, learning_rate: 2.4599999999999998e-05, global_step: 180, interval_runtime: 0.8146, interval_samples_per_second: 9.821, interval_steps_per_second: 12.276, epoch: 9.0[0m
+[32m[2022-08-30 11:05:30,282] [    INFO][0m - loss: 0.29134121, learning_rate: 2.43e-05, global_step: 190, interval_runtime: 1.139, interval_samples_per_second: 7.024, interval_steps_per_second: 8.78, epoch: 9.5[0m
+[32m[2022-08-30 11:05:31,131] [    INFO][0m - loss: 0.37814035, learning_rate: 2.4e-05, global_step: 200, interval_runtime: 0.8484, interval_samples_per_second: 9.429, interval_steps_per_second: 11.787, epoch: 10.0[0m
+[32m[2022-08-30 11:05:31,132] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-08-30 11:05:31,132] [    INFO][0m -   Num examples = 159[0m
+[32m[2022-08-30 11:05:31,132] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 11:05:31,132] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 11:05:31,132] [    INFO][0m -   Total prediction steps = 5[0m
+[32m[2022-08-30 11:05:31,988] [    INFO][0m - eval_loss: 1.4356589317321777, eval_accuracy: 0.5786163522012578, eval_runtime: 0.8561, eval_samples_per_second: 185.724, eval_steps_per_second: 5.84, epoch: 10.0[0m
+[32m[2022-08-30 11:05:31,989] [    INFO][0m - Saving model checkpoint to ./checkpoints/checkpoint-200[0m
+[32m[2022-08-30 11:05:31,989] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-08-30 11:05:33,563] [    INFO][0m - tokenizer config file saved in ./checkpoints/checkpoint-200/tokenizer_config.json[0m
+[32m[2022-08-30 11:05:33,563] [    INFO][0m - Special tokens file saved in ./checkpoints/checkpoint-200/special_tokens_map.json[0m
+[32m[2022-08-30 11:05:36,579] [    INFO][0m - loss: 0.46279182, learning_rate: 2.37e-05, global_step: 210, interval_runtime: 5.4474, interval_samples_per_second: 1.469, interval_steps_per_second: 1.836, epoch: 10.5[0m
+[32m[2022-08-30 11:05:37,408] [    INFO][0m - loss: 0.40744634, learning_rate: 2.3400000000000003e-05, global_step: 220, interval_runtime: 0.8294, interval_samples_per_second: 9.645, interval_steps_per_second: 12.056, epoch: 11.0[0m
+[32m[2022-08-30 11:05:38,657] [    INFO][0m - loss: 0.20796945, learning_rate: 2.3100000000000002e-05, global_step: 230, interval_runtime: 1.249, interval_samples_per_second: 6.405, interval_steps_per_second: 8.007, epoch: 11.5[0m
+[32m[2022-08-30 11:05:39,513] [    INFO][0m - loss: 0.27661073, learning_rate: 2.2800000000000002e-05, global_step: 240, interval_runtime: 0.8566, interval_samples_per_second: 9.34, interval_steps_per_second: 11.674, epoch: 12.0[0m
+[32m[2022-08-30 11:05:40,794] [    INFO][0m - loss: 0.31770349, learning_rate: 2.25e-05, global_step: 250, interval_runtime: 1.2806, interval_samples_per_second: 6.247, interval_steps_per_second: 7.809, epoch: 12.5[0m
+[32m[2022-08-30 11:05:40,795] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-08-30 11:05:40,795] [    INFO][0m -   Num examples = 159[0m
+[32m[2022-08-30 11:05:40,795] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 11:05:40,795] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 11:05:40,795] [    INFO][0m -   Total prediction steps = 5[0m
+[32m[2022-08-30 11:05:41,749] [    INFO][0m - eval_loss: 1.5832525491714478, eval_accuracy: 0.5471698113207547, eval_runtime: 0.9537, eval_samples_per_second: 166.717, eval_steps_per_second: 5.243, epoch: 12.5[0m
+[32m[2022-08-30 11:05:41,749] [    INFO][0m - Saving model checkpoint to ./checkpoints/checkpoint-250[0m
+[32m[2022-08-30 11:05:41,750] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-08-30 11:05:43,349] [    INFO][0m - tokenizer config file saved in ./checkpoints/checkpoint-250/tokenizer_config.json[0m
+[32m[2022-08-30 11:05:43,350] [    INFO][0m - Special tokens file saved in ./checkpoints/checkpoint-250/special_tokens_map.json[0m
+[32m[2022-08-30 11:05:46,049] [    INFO][0m - loss: 0.46423159, learning_rate: 2.22e-05, global_step: 260, interval_runtime: 5.2548, interval_samples_per_second: 1.522, interval_steps_per_second: 1.903, epoch: 13.0[0m
+[32m[2022-08-30 11:05:47,369] [    INFO][0m - loss: 0.3013166, learning_rate: 2.19e-05, global_step: 270, interval_runtime: 1.3198, interval_samples_per_second: 6.062, interval_steps_per_second: 7.577, epoch: 13.5[0m
+[32m[2022-08-30 11:05:48,254] [    INFO][0m - loss: 0.26243312, learning_rate: 2.16e-05, global_step: 280, interval_runtime: 0.8852, interval_samples_per_second: 9.038, interval_steps_per_second: 11.297, epoch: 14.0[0m
+[32m[2022-08-30 11:05:49,612] [    INFO][0m - loss: 0.32444367, learning_rate: 2.13e-05, global_step: 290, interval_runtime: 1.3581, interval_samples_per_second: 5.89, interval_steps_per_second: 7.363, epoch: 14.5[0m
+[32m[2022-08-30 11:05:50,505] [    INFO][0m - loss: 0.16097027, learning_rate: 2.1e-05, global_step: 300, interval_runtime: 0.8927, interval_samples_per_second: 8.962, interval_steps_per_second: 11.202, epoch: 15.0[0m
+[32m[2022-08-30 11:05:50,505] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-08-30 11:05:50,505] [    INFO][0m -   Num examples = 159[0m
+[32m[2022-08-30 11:05:50,505] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 11:05:50,505] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 11:05:50,506] [    INFO][0m -   Total prediction steps = 5[0m
+[32m[2022-08-30 11:05:51,570] [    INFO][0m - eval_loss: 1.8973208665847778, eval_accuracy: 0.5345911949685535, eval_runtime: 1.064, eval_samples_per_second: 149.442, eval_steps_per_second: 4.699, epoch: 15.0[0m
+[32m[2022-08-30 11:05:51,570] [    INFO][0m - Saving model checkpoint to ./checkpoints/checkpoint-300[0m
+[32m[2022-08-30 11:05:51,570] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-08-30 11:05:53,102] [    INFO][0m - tokenizer config file saved in ./checkpoints/checkpoint-300/tokenizer_config.json[0m
+[32m[2022-08-30 11:05:53,103] [    INFO][0m - Special tokens file saved in ./checkpoints/checkpoint-300/special_tokens_map.json[0m
+[32m[2022-08-30 11:05:56,265] [    INFO][0m - loss: 0.39821501, learning_rate: 2.07e-05, global_step: 310, interval_runtime: 5.7606, interval_samples_per_second: 1.389, interval_steps_per_second: 1.736, epoch: 15.5[0m
+[32m[2022-08-30 11:05:57,182] [    INFO][0m - loss: 0.20099359, learning_rate: 2.04e-05, global_step: 320, interval_runtime: 0.9162, interval_samples_per_second: 8.732, interval_steps_per_second: 10.915, epoch: 16.0[0m
+[32m[2022-08-30 11:05:58,645] [    INFO][0m - loss: 0.19962369, learning_rate: 2.01e-05, global_step: 330, interval_runtime: 1.464, interval_samples_per_second: 5.464, interval_steps_per_second: 6.83, epoch: 16.5[0m
+[32m[2022-08-30 11:05:59,575] [    INFO][0m - loss: 0.16243328, learning_rate: 1.98e-05, global_step: 340, interval_runtime: 0.9293, interval_samples_per_second: 8.609, interval_steps_per_second: 10.761, epoch: 17.0[0m
+[32m[2022-08-30 11:06:01,057] [    INFO][0m - loss: 0.16728907, learning_rate: 1.95e-05, global_step: 350, interval_runtime: 1.4821, interval_samples_per_second: 5.398, interval_steps_per_second: 6.747, epoch: 17.5[0m
+[32m[2022-08-30 11:06:01,057] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-08-30 11:06:01,057] [    INFO][0m -   Num examples = 159[0m
+[32m[2022-08-30 11:06:01,058] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 11:06:01,058] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 11:06:01,058] [    INFO][0m -   Total prediction steps = 5[0m
+[32m[2022-08-30 11:06:02,258] [    INFO][0m - eval_loss: 1.9935803413391113, eval_accuracy: 0.5911949685534591, eval_runtime: 1.1994, eval_samples_per_second: 132.562, eval_steps_per_second: 4.169, epoch: 17.5[0m
+[32m[2022-08-30 11:06:02,259] [    INFO][0m - Saving model checkpoint to ./checkpoints/checkpoint-350[0m
+[32m[2022-08-30 11:06:02,259] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-08-30 11:06:03,867] [    INFO][0m - tokenizer config file saved in ./checkpoints/checkpoint-350/tokenizer_config.json[0m
+[32m[2022-08-30 11:06:03,867] [    INFO][0m - Special tokens file saved in ./checkpoints/checkpoint-350/special_tokens_map.json[0m
+[32m[2022-08-30 11:06:06,671] [    INFO][0m - loss: 0.36639392, learning_rate: 1.9200000000000003e-05, global_step: 360, interval_runtime: 5.614, interval_samples_per_second: 1.425, interval_steps_per_second: 1.781, epoch: 18.0[0m
+[32m[2022-08-30 11:06:08,263] [    INFO][0m - loss: 0.19542737, learning_rate: 1.8900000000000002e-05, global_step: 370, interval_runtime: 1.5921, interval_samples_per_second: 5.025, interval_steps_per_second: 6.281, epoch: 18.5[0m
+[32m[2022-08-30 11:06:09,222] [    INFO][0m - loss: 0.18094407, learning_rate: 1.86e-05, global_step: 380, interval_runtime: 0.9587, interval_samples_per_second: 8.345, interval_steps_per_second: 10.431, epoch: 19.0[0m
+[32m[2022-08-30 11:06:10,843] [    INFO][0m - loss: 0.26271212, learning_rate: 1.83e-05, global_step: 390, interval_runtime: 1.6204, interval_samples_per_second: 4.937, interval_steps_per_second: 6.171, epoch: 19.5[0m
+[32m[2022-08-30 11:06:11,876] [    INFO][0m - loss: 0.36551936, learning_rate: 1.8e-05, global_step: 400, interval_runtime: 1.0336, interval_samples_per_second: 7.74, interval_steps_per_second: 9.675, epoch: 20.0[0m
+[32m[2022-08-30 11:06:11,876] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-08-30 11:06:11,876] [    INFO][0m -   Num examples = 159[0m
+[32m[2022-08-30 11:06:11,877] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 11:06:11,877] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 11:06:11,877] [    INFO][0m -   Total prediction steps = 5[0m
+[32m[2022-08-30 11:06:13,129] [    INFO][0m - eval_loss: 1.8301492929458618, eval_accuracy: 0.6037735849056604, eval_runtime: 1.2519, eval_samples_per_second: 127.003, eval_steps_per_second: 3.994, epoch: 20.0[0m
+[32m[2022-08-30 11:06:13,130] [    INFO][0m - Saving model checkpoint to ./checkpoints/checkpoint-400[0m
+[32m[2022-08-30 11:06:13,131] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-08-30 11:06:14,825] [    INFO][0m - tokenizer config file saved in ./checkpoints/checkpoint-400/tokenizer_config.json[0m
+[32m[2022-08-30 11:06:14,826] [    INFO][0m - Special tokens file saved in ./checkpoints/checkpoint-400/special_tokens_map.json[0m
+[32m[2022-08-30 11:06:18,257] [    INFO][0m - loss: 0.14940367, learning_rate: 1.77e-05, global_step: 410, interval_runtime: 6.3806, interval_samples_per_second: 1.254, interval_steps_per_second: 1.567, epoch: 20.5[0m
+[32m[2022-08-30 11:06:19,250] [    INFO][0m - loss: 0.1186591, learning_rate: 1.74e-05, global_step: 420, interval_runtime: 0.9929, interval_samples_per_second: 8.057, interval_steps_per_second: 10.072, epoch: 21.0[0m
+[32m[2022-08-30 11:06:20,996] [    INFO][0m - loss: 0.18629664, learning_rate: 1.71e-05, global_step: 430, interval_runtime: 1.7468, interval_samples_per_second: 4.58, interval_steps_per_second: 5.725, epoch: 21.5[0m
+[32m[2022-08-30 11:06:22,003] [    INFO][0m - loss: 0.06529041, learning_rate: 1.6800000000000002e-05, global_step: 440, interval_runtime: 1.0065, interval_samples_per_second: 7.948, interval_steps_per_second: 9.935, epoch: 22.0[0m
+[32m[2022-08-30 11:06:23,762] [    INFO][0m - loss: 0.08127699, learning_rate: 1.65e-05, global_step: 450, interval_runtime: 1.7592, interval_samples_per_second: 4.547, interval_steps_per_second: 5.684, epoch: 22.5[0m
+[32m[2022-08-30 11:06:23,764] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-08-30 11:06:23,764] [    INFO][0m -   Num examples = 159[0m
+[32m[2022-08-30 11:06:23,764] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 11:06:23,764] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 11:06:23,764] [    INFO][0m -   Total prediction steps = 5[0m
+[32m[2022-08-30 11:06:25,133] [    INFO][0m - eval_loss: 2.021613836288452, eval_accuracy: 0.6163522012578616, eval_runtime: 1.3688, eval_samples_per_second: 116.156, eval_steps_per_second: 3.653, epoch: 22.5[0m
+[32m[2022-08-30 11:06:25,134] [    INFO][0m - Saving model checkpoint to ./checkpoints/checkpoint-450[0m
+[32m[2022-08-30 11:06:25,134] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-08-30 11:06:26,772] [    INFO][0m - tokenizer config file saved in ./checkpoints/checkpoint-450/tokenizer_config.json[0m
+[32m[2022-08-30 11:06:26,773] [    INFO][0m - Special tokens file saved in ./checkpoints/checkpoint-450/special_tokens_map.json[0m
+[32m[2022-08-30 11:06:29,525] [    INFO][0m - loss: 0.2775162, learning_rate: 1.62e-05, global_step: 460, interval_runtime: 5.7632, interval_samples_per_second: 1.388, interval_steps_per_second: 1.735, epoch: 23.0[0m
+[32m[2022-08-30 11:06:31,368] [    INFO][0m - loss: 0.18186647, learning_rate: 1.59e-05, global_step: 470, interval_runtime: 1.8433, interval_samples_per_second: 4.34, interval_steps_per_second: 5.425, epoch: 23.5[0m
+[32m[2022-08-30 11:06:32,407] [    INFO][0m - loss: 0.18137071, learning_rate: 1.56e-05, global_step: 480, interval_runtime: 1.038, interval_samples_per_second: 7.707, interval_steps_per_second: 9.634, epoch: 24.0[0m
+[32m[2022-08-30 11:06:34,259] [    INFO][0m - loss: 0.159001, learning_rate: 1.53e-05, global_step: 490, interval_runtime: 1.8529, interval_samples_per_second: 4.318, interval_steps_per_second: 5.397, epoch: 24.5[0m
+[32m[2022-08-30 11:06:35,313] [    INFO][0m - loss: 0.11667262, learning_rate: 1.5e-05, global_step: 500, interval_runtime: 1.0535, interval_samples_per_second: 7.593, interval_steps_per_second: 9.492, epoch: 25.0[0m
+[32m[2022-08-30 11:06:35,314] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-08-30 11:06:35,314] [    INFO][0m -   Num examples = 159[0m
+[32m[2022-08-30 11:06:35,314] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 11:06:35,314] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 11:06:35,314] [    INFO][0m -   Total prediction steps = 5[0m
+[32m[2022-08-30 11:06:36,781] [    INFO][0m - eval_loss: 1.955702304840088, eval_accuracy: 0.6540880503144654, eval_runtime: 1.466, eval_samples_per_second: 108.459, eval_steps_per_second: 3.411, epoch: 25.0[0m
+[32m[2022-08-30 11:06:36,781] [    INFO][0m - Saving model checkpoint to ./checkpoints/checkpoint-500[0m
+[32m[2022-08-30 11:06:36,781] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-08-30 11:06:38,223] [    INFO][0m - tokenizer config file saved in ./checkpoints/checkpoint-500/tokenizer_config.json[0m
+[32m[2022-08-30 11:06:38,223] [    INFO][0m - Special tokens file saved in ./checkpoints/checkpoint-500/special_tokens_map.json[0m
+[32m[2022-08-30 11:06:41,803] [    INFO][0m - loss: 0.08074049, learning_rate: 1.47e-05, global_step: 510, interval_runtime: 6.4901, interval_samples_per_second: 1.233, interval_steps_per_second: 1.541, epoch: 25.5[0m
+[32m[2022-08-30 11:06:42,877] [    INFO][0m - loss: 0.07060709, learning_rate: 1.44e-05, global_step: 520, interval_runtime: 1.0741, interval_samples_per_second: 7.448, interval_steps_per_second: 9.31, epoch: 26.0[0m
+[32m[2022-08-30 11:06:44,802] [    INFO][0m - loss: 0.11053249, learning_rate: 1.4099999999999999e-05, global_step: 530, interval_runtime: 1.9249, interval_samples_per_second: 4.156, interval_steps_per_second: 5.195, epoch: 26.5[0m
+[32m[2022-08-30 11:06:45,881] [    INFO][0m - loss: 0.20369513, learning_rate: 1.3800000000000002e-05, global_step: 540, interval_runtime: 1.0785, interval_samples_per_second: 7.418, interval_steps_per_second: 9.272, epoch: 27.0[0m
+[32m[2022-08-30 11:06:47,862] [    INFO][0m - loss: 0.061338, learning_rate: 1.3500000000000001e-05, global_step: 550, interval_runtime: 1.9814, interval_samples_per_second: 4.038, interval_steps_per_second: 5.047, epoch: 27.5[0m
+[32m[2022-08-30 11:06:47,863] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-08-30 11:06:47,863] [    INFO][0m -   Num examples = 159[0m
+[32m[2022-08-30 11:06:47,863] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 11:06:47,863] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 11:06:47,863] [    INFO][0m -   Total prediction steps = 5[0m
+[32m[2022-08-30 11:06:52,048] [    INFO][0m - eval_loss: 2.2768986225128174, eval_accuracy: 0.6163522012578616, eval_runtime: 1.5412, eval_samples_per_second: 103.169, eval_steps_per_second: 3.244, epoch: 27.5[0m
+[32m[2022-08-30 11:06:52,049] [    INFO][0m - Saving model checkpoint to ./checkpoints/checkpoint-550[0m
+[32m[2022-08-30 11:06:52,049] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-08-30 11:06:53,482] [    INFO][0m - tokenizer config file saved in ./checkpoints/checkpoint-550/tokenizer_config.json[0m
+[32m[2022-08-30 11:06:53,482] [    INFO][0m - Special tokens file saved in ./checkpoints/checkpoint-550/special_tokens_map.json[0m
+[32m[2022-08-30 11:06:56,225] [    INFO][0m - loss: 0.21498108, learning_rate: 1.32e-05, global_step: 560, interval_runtime: 8.3626, interval_samples_per_second: 0.957, interval_steps_per_second: 1.196, epoch: 28.0[0m
+[32m[2022-08-30 11:06:58,251] [    INFO][0m - loss: 0.07815867, learning_rate: 1.29e-05, global_step: 570, interval_runtime: 2.0267, interval_samples_per_second: 3.947, interval_steps_per_second: 4.934, epoch: 28.5[0m
+[32m[2022-08-30 11:06:59,360] [    INFO][0m - loss: 0.15089147, learning_rate: 1.26e-05, global_step: 580, interval_runtime: 1.1086, interval_samples_per_second: 7.216, interval_steps_per_second: 9.02, epoch: 29.0[0m
+[32m[2022-08-30 11:07:01,416] [    INFO][0m - loss: 0.04423653, learning_rate: 1.2299999999999999e-05, global_step: 590, interval_runtime: 2.0557, interval_samples_per_second: 3.892, interval_steps_per_second: 4.864, epoch: 29.5[0m
+[32m[2022-08-30 11:07:02,542] [    INFO][0m - loss: 0.0892732, learning_rate: 1.2e-05, global_step: 600, interval_runtime: 1.1257, interval_samples_per_second: 7.107, interval_steps_per_second: 8.884, epoch: 30.0[0m
+[32m[2022-08-30 11:07:02,542] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-08-30 11:07:02,542] [    INFO][0m -   Num examples = 159[0m
+[32m[2022-08-30 11:07:02,542] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 11:07:02,542] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 11:07:02,543] [    INFO][0m -   Total prediction steps = 5[0m
+[32m[2022-08-30 11:07:04,239] [    INFO][0m - eval_loss: 2.331145763397217, eval_accuracy: 0.6540880503144654, eval_runtime: 1.6954, eval_samples_per_second: 93.781, eval_steps_per_second: 2.949, epoch: 30.0[0m
+[32m[2022-08-30 11:07:04,240] [    INFO][0m - Saving model checkpoint to ./checkpoints/checkpoint-600[0m
+[32m[2022-08-30 11:07:04,241] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-08-30 11:07:05,683] [    INFO][0m - tokenizer config file saved in ./checkpoints/checkpoint-600/tokenizer_config.json[0m
+[32m[2022-08-30 11:07:05,683] [    INFO][0m - Special tokens file saved in ./checkpoints/checkpoint-600/special_tokens_map.json[0m
+[32m[2022-08-30 11:07:09,513] [    INFO][0m - loss: 0.17664574, learning_rate: 1.1700000000000001e-05, global_step: 610, interval_runtime: 6.9699, interval_samples_per_second: 1.148, interval_steps_per_second: 1.435, epoch: 30.5[0m
+[32m[2022-08-30 11:07:10,650] [    INFO][0m - loss: 0.03694885, learning_rate: 1.1400000000000001e-05, global_step: 620, interval_runtime: 1.1391, interval_samples_per_second: 7.023, interval_steps_per_second: 8.779, epoch: 31.0[0m
+[32m[2022-08-30 11:07:12,820] [    INFO][0m - loss: 0.06819225, learning_rate: 1.11e-05, global_step: 630, interval_runtime: 2.1694, interval_samples_per_second: 3.688, interval_steps_per_second: 4.61, epoch: 31.5[0m
+[32m[2022-08-30 11:07:14,026] [    INFO][0m - loss: 0.06900594, learning_rate: 1.08e-05, global_step: 640, interval_runtime: 1.2064, interval_samples_per_second: 6.631, interval_steps_per_second: 8.289, epoch: 32.0[0m
+[32m[2022-08-30 11:07:16,224] [    INFO][0m - loss: 0.11245857, learning_rate: 1.05e-05, global_step: 650, interval_runtime: 2.1976, interval_samples_per_second: 3.64, interval_steps_per_second: 4.55, epoch: 32.5[0m
+[32m[2022-08-30 11:07:16,224] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-08-30 11:07:16,225] [    INFO][0m -   Num examples = 159[0m
+[32m[2022-08-30 11:07:16,225] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 11:07:16,225] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 11:07:16,225] [    INFO][0m -   Total prediction steps = 5[0m
+[32m[2022-08-30 11:07:17,985] [    INFO][0m - eval_loss: 2.4278368949890137, eval_accuracy: 0.6037735849056604, eval_runtime: 1.7592, eval_samples_per_second: 90.383, eval_steps_per_second: 2.842, epoch: 32.5[0m
+[32m[2022-08-30 11:07:17,985] [    INFO][0m - Saving model checkpoint to ./checkpoints/checkpoint-650[0m
+[32m[2022-08-30 11:07:17,985] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-08-30 11:07:19,482] [    INFO][0m - tokenizer config file saved in ./checkpoints/checkpoint-650/tokenizer_config.json[0m
+[32m[2022-08-30 11:07:19,482] [    INFO][0m - Special tokens file saved in ./checkpoints/checkpoint-650/special_tokens_map.json[0m
+[32m[2022-08-30 11:07:22,405] [    INFO][0m - loss: 0.08194316, learning_rate: 1.02e-05, global_step: 660, interval_runtime: 6.1809, interval_samples_per_second: 1.294, interval_steps_per_second: 1.618, epoch: 33.0[0m
+[32m[2022-08-30 11:07:24,686] [    INFO][0m - loss: 0.11223255, learning_rate: 9.9e-06, global_step: 670, interval_runtime: 2.281, interval_samples_per_second: 3.507, interval_steps_per_second: 4.384, epoch: 33.5[0m
+[32m[2022-08-30 11:07:25,877] [    INFO][0m - loss: 0.05138375, learning_rate: 9.600000000000001e-06, global_step: 680, interval_runtime: 1.1908, interval_samples_per_second: 6.718, interval_steps_per_second: 8.398, epoch: 34.0[0m
+[32m[2022-08-30 11:07:28,228] [    INFO][0m - loss: 0.06485828, learning_rate: 9.3e-06, global_step: 690, interval_runtime: 2.3516, interval_samples_per_second: 3.402, interval_steps_per_second: 4.252, epoch: 34.5[0m
+[32m[2022-08-30 11:07:29,428] [    INFO][0m - loss: 0.09564668, learning_rate: 9e-06, global_step: 700, interval_runtime: 1.2002, interval_samples_per_second: 6.666, interval_steps_per_second: 8.332, epoch: 35.0[0m
+[32m[2022-08-30 11:07:29,429] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-08-30 11:07:29,429] [    INFO][0m -   Num examples = 159[0m
+[32m[2022-08-30 11:07:29,429] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 11:07:29,429] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 11:07:29,429] [    INFO][0m -   Total prediction steps = 5[0m
+[32m[2022-08-30 11:07:31,276] [    INFO][0m - eval_loss: 2.3787600994110107, eval_accuracy: 0.6352201257861635, eval_runtime: 1.8464, eval_samples_per_second: 86.112, eval_steps_per_second: 2.708, epoch: 35.0[0m
+[32m[2022-08-30 11:07:31,276] [    INFO][0m - Saving model checkpoint to ./checkpoints/checkpoint-700[0m
+[32m[2022-08-30 11:07:31,277] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-08-30 11:07:32,679] [    INFO][0m - tokenizer config file saved in ./checkpoints/checkpoint-700/tokenizer_config.json[0m
+[32m[2022-08-30 11:07:32,679] [    INFO][0m - Special tokens file saved in ./checkpoints/checkpoint-700/special_tokens_map.json[0m
+[32m[2022-08-30 11:07:34,399] [    INFO][0m - 
+Training completed. 
+[0m
+[32m[2022-08-30 11:07:34,399] [    INFO][0m - Loading best model from ./checkpoints/checkpoint-500 (score: 0.6540880503144654).[0m
+[32m[2022-08-30 11:07:35,575] [    INFO][0m - train_runtime: 155.9623, train_samples_per_second: 51.294, train_steps_per_second: 6.412, train_loss: 0.27032872063773017, epoch: 35.0[0m
+[32m[2022-08-30 11:07:35,576] [    INFO][0m - Saving model checkpoint to ./checkpoints/[0m
+[32m[2022-08-30 11:07:35,577] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-08-30 11:07:37,482] [    INFO][0m - tokenizer config file saved in ./checkpoints/tokenizer_config.json[0m
+[32m[2022-08-30 11:07:37,483] [    INFO][0m - Special tokens file saved in ./checkpoints/special_tokens_map.json[0m
+[32m[2022-08-30 11:07:37,484] [    INFO][0m - ***** train metrics *****[0m
+[32m[2022-08-30 11:07:37,484] [    INFO][0m -   epoch                    =       35.0[0m
+[32m[2022-08-30 11:07:37,484] [    INFO][0m -   train_loss               =     0.2703[0m
+[32m[2022-08-30 11:07:37,484] [    INFO][0m -   train_runtime            = 0:02:35.96[0m
+[32m[2022-08-30 11:07:37,484] [    INFO][0m -   train_samples_per_second =     51.294[0m
+[32m[2022-08-30 11:07:37,485] [    INFO][0m -   train_steps_per_second   =      6.412[0m
+[32m[2022-08-30 11:07:37,489] [    INFO][0m - ***** Running Prediction *****[0m
+[32m[2022-08-30 11:07:37,489] [    INFO][0m -   Num examples = 976[0m
+[32m[2022-08-30 11:07:37,489] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 11:07:37,489] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 11:07:37,489] [    INFO][0m -   Total prediction steps = 31[0m
+[32m[2022-08-30 11:07:49,118] [    INFO][0m - ***** test metrics *****[0m
+[32m[2022-08-30 11:07:49,119] [    INFO][0m -   test_accuracy           =     0.5482[0m
+[32m[2022-08-30 11:07:49,119] [    INFO][0m -   test_loss               =     2.6905[0m
+[32m[2022-08-30 11:07:49,119] [    INFO][0m -   test_runtime            = 0:00:11.62[0m
+[32m[2022-08-30 11:07:49,119] [    INFO][0m -   test_samples_per_second =     83.926[0m
+[32m[2022-08-30 11:07:49,119] [    INFO][0m -   test_steps_per_second   =      2.666[0m
+[32m[2022-08-30 11:07:49,119] [    INFO][0m - ***** Running Prediction *****[0m
+[32m[2022-08-30 11:07:49,120] [    INFO][0m -   Num examples = 290[0m
+[32m[2022-08-30 11:07:49,120] [    INFO][0m -   Pre device batch size = 32[0m
+[32m[2022-08-30 11:07:49,120] [    INFO][0m -   Total Batch size = 32[0m
+[32m[2022-08-30 11:07:49,120] [    INFO][0m -   Total prediction steps = 10[0m
+[32m[2022-08-30 11:07:52,948] [    INFO][0m - Predictions for cluewscf saved to ./fewclue_submit_examples.[0m
+metric <function main.<locals>.compute_metrics at 0x7f01ca3373a0>

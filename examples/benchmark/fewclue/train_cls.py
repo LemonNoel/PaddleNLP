@@ -74,12 +74,8 @@ def main():
     tokenizer = ErnieTokenizer.from_pretrained(model_args.model_name_or_path)
 
     # Define the template for preprocess.
-    template = SoftTemplate(tokenizer,
-                            training_args.max_seq_length,
-                            model,
-                            data_args.prompt,
-                            prompt_encoder=data_args.soft_encoder,
-                            encoder_hidden_size=data_args.encoder_hidden_size)
+    template = ManualTemplate(tokenizer, training_args.max_seq_length,
+                              data_args.prompt)
     logger.info("Using template: {}".format(template.template))
 
     # Load the few-shot datasets.
@@ -91,6 +87,8 @@ def main():
 
     # Define the criterion.
     criterion = paddle.nn.CrossEntropyLoss()
+    # E2.PET.bce
+    # criterion = paddle.nn.BCEWithLogitsLoss()
 
     # Initialize the prompt model with the above variables.
     prompt_model = PromptModelForSequenceClassification(
