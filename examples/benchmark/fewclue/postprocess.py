@@ -16,7 +16,16 @@ def postprocess(test_ret, test_ds, task_name, id_to_label, verbalizer=None):
     # IDEA B.1
     if task_name == "chid":
         ret_dict = defaultdict(list)
-        preds = softmax(test_ret.predictions, axis=1)[:, 1]
+        predictions = softmax(test_ret.predictions, axis=1)
+        preds_list = []
+        for label_id, tokens in enumerate(verbalizer.token_ids):
+            token_pred = predictions[:, 0, tokens[0][0]]
+            if predictions.shape[1] > 1:
+                for i, x in enumerate(tokens[1:]):
+                    token_pred *= predictions[:, i + 1, x[0]]
+            preds_list.append(token_pred)
+        preds_list = np.stack(preds_list).T
+        preds = softmax(preds_list, axis=1)[:, 1]
         for idx, example in enumerate(test_ds):
             uid = getattr(example, "uid", idx // 7)
             ret_dict[uid].append(preds[idx])
@@ -48,9 +57,7 @@ def postprocess(test_ret, test_ds, task_name, id_to_label, verbalizer=None):
         }
 
     if verbalizer is not None:
-        preds = paddle.nn.functional.softmax(paddle.to_tensor(
-            test_ret.predictions),
-                                             axis=-1).numpy()
+        preds = softmax(test_ret.predictions, axis=-1)
         preds_list = []
 
         for label_id, tokens in enumerate(verbalizer.token_ids):

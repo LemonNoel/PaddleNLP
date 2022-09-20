@@ -98,10 +98,6 @@ def main():
         split_id=data_args.split_id,
         label_list=verbalizer.labels_to_ids)
 
-    for x in train_ds:
-        print(x)
-        break
-
     # Define the criterion.
     criterion = paddle.nn.CrossEntropyLoss()
 
@@ -126,9 +122,7 @@ def main():
         return {'accuracy': acc}
 
     def compute_mask_metrics(eval_preds):
-        predictions = paddle.nn.functional.softmax(paddle.to_tensor(
-            eval_preds.predictions),
-                                                   axis=-1).numpy()
+        predictions = softmax(eval_preds.predictions, axis=-1)
         preds_list = []
 
         for label_id, tokens in enumerate(verbalizer.token_ids):
@@ -141,22 +135,6 @@ def main():
         preds = np.argmax(preds_list, axis=1)
         label = eval_preds.label_ids
         acc = (preds == label).sum() / len(label)
-        return {'accuracy': acc}
-
-    def chid_compute_mask_metrics(eval_preds):
-        predictions = softmax(eval_preds.predictions, axis=-1)
-        preds_list = []
-        for label_id, tokens in enumerate(verbalizer.token_ids):
-            token_pred = predictions[:, 0, tokens[0][0]]
-            if predictions.shape[1] > 1:
-                for i, x in enumerate(tokens[1:]):
-                    token_pred *= predictions[:, i + 1, x[0]]
-            preds_list.append(token_pred)
-        preds_list = np.stack(preds_list).T
-        preds = softmax(preds_list, axis=1)[:, 1]
-        preds = np.argmax(preds.reshape(-1, 7), axis=1)
-        labels = np.argmax(eval_preds.label_ids.reshape(-1, 7), axis=1)
-        acc = sum(preds == labels) / len(preds)
         return {'accuracy': acc}
 
     def chid_compute_metrics(eval_preds):
@@ -179,10 +157,10 @@ def main():
         acc = np.mean([float(x) for x in result.values()])
         return {'accuracy': float(acc)}
 
-    used_metrics = chid_compute_mask_metrics if data_args.task_name == "chid" else compute_metrics
+    used_metrics = chid_compute_metrics if data_args.task_name == "chid" else compute_metrics
     #if data_args.task_name == "csl":
     #    used_metrics = partial(csl_compute_metrics, data_ds=dev_ds)
-    if data_args.task_name != "cmnli" and data_args.task_name != "chid":
+    if data_args.task_name == "cmnli" and data_args.task_name != "chid":
         used_metrics = compute_mask_metrics
 
     # Deine the early-stopping callback.

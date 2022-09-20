@@ -26,8 +26,8 @@ elif [ $task_name == "bustm" ]; then
     prompt="“{'text':'text_a'}”和“{'text':'text_b'}”描述的是{'mask'}{'mask'}的事情。" # 0.7624
     max_length=64
 elif [ $task_name == "chid" ]; then
-    #prompt="“{'text':'text_a'}”这句话中成语[{'text':'text_b'}]的理解正确吗？{'mask'}{'mask'}。"
-    prompt="{'text':'text_a'}{'text':'text_b'}用在这里对吗？{'mask'}{'mask'}。"
+    prompt="“{'text':'text_a'}”这句话中成语[{'text':'text_b'}]的理解正确吗？{'mask'}{'mask'}。"
+    #prompt="{'text':'text_a'}{'text':'text_b'}用在这里对吗？{'mask'}{'mask'}。"
     max_length=256
 elif [ $task_name == "cluewsc" ]; then
     prompt="“{'text':'text_a'}”{'text':'text_b'}这里代词使用正确吗？{'mask'}{'mask'}"
@@ -49,8 +49,8 @@ CUDA_VISIBLE_DEVICES=$device python train_single.py \
 --do_test \
 --eval_steps 200 \
 --save_steps 200 \
---per_device_eval_batch_size 16 \
---per_device_train_batch_size 16 \
+--per_device_eval_batch_size 8 \
+--per_device_train_batch_size 8 \
 --model_name_or_path ernie-1.0-large-zh-cw \
 --split_id few_all \
 --task_name $task_name \
@@ -59,8 +59,11 @@ CUDA_VISIBLE_DEVICES=$device python train_single.py \
 --do_train \
 --do_predict \
 --do_eval \
+--use_rdrop \
+--alpha_rdrop 4.0 \
 --load_best_model_at_end \
---pretrained "./checkpoints_cmnli/checkpoint-22000/model_state.pdparams" \
+--gradient_accumulation_steps 2 \
+--pretrained "../checkpoints_cmnli/checkpoint-22000/model_state.pdparams" \
 --evaluation_strategy epoch \
 --save_strategy epoch 
 #--early_stop_patience 10
