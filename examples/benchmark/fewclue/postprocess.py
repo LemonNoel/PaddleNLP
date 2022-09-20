@@ -6,10 +6,11 @@ from collections import defaultdict
 import numpy as np
 from scipy.special import softmax
 
+import paddle
 from paddlenlp.utils.log import logger
 
 
-def postprocess(test_ret, test_ds, task_name, id_to_label):
+def postprocess(test_ret, test_ds, task_name, id_to_label, verbalizer=None):
     ret_list = []
 
     # IDEA B.1
@@ -46,7 +47,22 @@ def postprocess(test_ret, test_ds, task_name, id_to_label):
             'news_game': '116'
         }
 
-    preds = np.argmax(test_ret.predictions, axis=1)
+    if verbalizer is not None:
+        preds = paddle.nn.functional.softmax(paddle.to_tensor(
+            test_ret.predictions),
+                                             axis=-1).numpy()
+        preds_list = []
+
+        for label_id, tokens in enumerate(verbalizer.token_ids):
+            token_pred = preds[:, 0, tokens[0][0]]
+            if preds.shape[1] > 1:
+                for i, x in enumerate(tokens[1:]):
+                    token_pred *= preds[:, i + 1, x[0]]
+            preds_list.append(token_pred)
+        preds_list = np.stack(preds_list).T
+        preds = np.argmax(preds_list, axis=1)
+    else:
+        preds = np.argmax(test_ret.predictions, axis=1)
     for idx, example in enumerate(test_ds):
         uid = getattr(example, "uid", idx)
         if task_name in ["bustm", "csl"]:

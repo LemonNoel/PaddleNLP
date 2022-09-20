@@ -75,7 +75,7 @@ def convert_chid_efl(example):
         bi_examples.append(
             InputExample(uid=example["id"],
                          text_a=text,
-                         text_b=cand,
+                         text_b="",
                          labels=None if label is None else int(idx == label)))
     return bi_examples
 
@@ -85,8 +85,21 @@ def convert_csl(example):
     # IDEA C: Take it as a NER and compare list. Con: error propagation.
     return InputExample(uid=example["id"],
                         text_a=example["abst"],
-                        text_b=",".join(example["keyword"]),
+                        text_b="、".join(example["keyword"]),
                         labels=example.get("label", None))
+
+
+def convert_csl_efl(example):
+    bi_examples = []
+    text = example["abst"]
+    label = example.get("label", None)
+    for keyword in example["keyword"]:
+        bi_examples.append(
+            InputExample(uid=example["id"],
+                         text_a=text,
+                         text_b=keyword,
+                         labels=int(label) if label is not None else None))
+    return bi_examples
 
 
 def convert_cluewsc(example):
@@ -152,12 +165,17 @@ def load_fewclue(task_name, split_id, label_list):
         train_ds, dev_ds, public_test_ds, test_ds = load_dataset(
             "fewclue", name=task_name, splits=splits, label_list=label_list)
 
-    if task_name == "chid":
+    if task_name == "chid" or task_name == "no_csl":
         # IDEA B.1
+        if task_name == "chid":
+            convert_efl = convert_chid_efl
+        elif task_name == "no_csl":
+            convert_efl = convert_csl_efl
+
         def convert_to_binary(dataset):
             new_data = []
             for example in dataset:
-                new_data.extend(convert_chid_efl(example))
+                new_data.extend(convert_efl(example))
             return MapDataset(new_data)
 
         train_ds = convert_to_binary(train_ds)
@@ -206,8 +224,8 @@ LABEL_MAP = {
         "true": "正确"
     },
     "csl": {
-        "0": "不是",
-        "1": "就是"
+        '0': "没有",
+        '1': "包括"
     },
     "csldcp": {
         '材料科学与工程': '材料',
@@ -279,8 +297,8 @@ LABEL_MAP = {
         '植物保护': '植保'
     },
     "eprstmt": {
-        'Negative': '消极',
-        'Positive': '积极'
+        'Negative': '生气',  #'消极',
+        'Positive': '高兴'  #'积极'
     },
     "iflytek": {
         '银行': '银行',
@@ -421,9 +439,9 @@ LABEL_MAP = {
         'news_game': '电竞'
     },
     "ocnli": {
-        "entailment": "蕴含",
-        "contradiction": "矛盾",
-        "neutral": "中立"
+        "entailment": "蕴含",  # "所以", # "蕴含",
+        "contradiction": "矛盾",  # "但是", # "矛盾",
+        "neutral": "中立"  #"而且" # "中立"
     },
     "cmnli": {
         "entailment": "蕴含",
