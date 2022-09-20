@@ -1,0 +1,879 @@
+[33m[2022-09-05 15:08:04,496] [ WARNING][0m - evaluation_strategy reset to IntervalStrategy.STEPS for do_eval is True. you can also set evaluation_strategy='epoch'.[0m
+[32m[2022-09-05 15:08:04,497] [    INFO][0m - The default value for the training argument `--report_to` will change in v5 (from all installed integrations to none). In v5, you will need to use `--report_to all` to get the same behavior as now. You should start updating your code and make this info disappear :-).[0m
+[32m[2022-09-05 15:08:04,497] [    INFO][0m - ============================================================[0m
+[32m[2022-09-05 15:08:04,497] [    INFO][0m -      Model Configuration Arguments      [0m
+[32m[2022-09-05 15:08:04,497] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-09-05 15:08:04,497] [    INFO][0m - do_save                       :True[0m
+[32m[2022-09-05 15:08:04,497] [    INFO][0m - do_test                       :True[0m
+[32m[2022-09-05 15:08:04,497] [    INFO][0m - early_stop_patience           :4[0m
+[32m[2022-09-05 15:08:04,497] [    INFO][0m - export_type                   :paddle[0m
+[32m[2022-09-05 15:08:04,497] [    INFO][0m - model_name_or_path            :ernie-3.0-base-zh[0m
+[32m[2022-09-05 15:08:04,497] [    INFO][0m - [0m
+[32m[2022-09-05 15:08:04,498] [    INFO][0m - ============================================================[0m
+[32m[2022-09-05 15:08:04,498] [    INFO][0m -       Data Configuration Arguments      [0m
+[32m[2022-09-05 15:08:04,498] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-09-05 15:08:04,498] [    INFO][0m - encoder_hidden_size           :200[0m
+[32m[2022-09-05 15:08:04,498] [    INFO][0m - prompt                        :[0m
+[32m[2022-09-05 15:08:04,498] [    INFO][0m - soft_encoder                  :lstm[0m
+[32m[2022-09-05 15:08:04,498] [    INFO][0m - split_id                      :few_all[0m
+[32m[2022-09-05 15:08:04,498] [    INFO][0m - task_name                     :chid[0m
+[32m[2022-09-05 15:08:04,498] [    INFO][0m - [0m
+[32m[2022-09-05 15:08:04,498] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh.pdparams[0m
+W0905 15:08:04.499941 62951 gpu_resources.cc:61] Please NOTE: device: 0, GPU Compute Capability: 7.0, Driver API Version: 11.2, Runtime API Version: 11.2
+W0905 15:08:04.504050 62951 gpu_resources.cc:91] device: 0, cuDNN Version: 8.1.
+[32m[2022-09-05 15:08:08,461] [    INFO][0m - Already cached /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/ernie_3.0_base_zh_vocab.txt[0m
+[32m[2022-09-05 15:08:08,490] [    INFO][0m - tokenizer config file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/tokenizer_config.json[0m
+[32m[2022-09-05 15:08:08,490] [    INFO][0m - Special tokens file saved in /ssd2/wanghuijuan03/.paddlenlp/models/ernie-3.0-base-zh/special_tokens_map.json[0m
+[32m[2022-09-05 15:08:08,492] [    INFO][0m - Using template: [{'add_prefix_space': '', 'text': 'text_a'}, {'add_prefix_space': '', 'hard': '这句话中空格处填'}, {'add_prefix_space': '', 'text': 'text_b'}, {'add_prefix_space': '', 'mask': None}, {'add_prefix_space': '', 'hard': '合适。'}][0m
+2022-09-05 15:08:08,496 INFO [download.py:119] unique_endpoints {''}
+[32m[2022-09-05 15:08:08,789] [    INFO][0m - ============================================================[0m
+[32m[2022-09-05 15:08:08,789] [    INFO][0m -     Training Configuration Arguments    [0m
+[32m[2022-09-05 15:08:08,789] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-09-05 15:08:08,789] [    INFO][0m - _no_sync_in_gradient_accumulation:True[0m
+[32m[2022-09-05 15:08:08,790] [    INFO][0m - adam_beta1                    :0.9[0m
+[32m[2022-09-05 15:08:08,790] [    INFO][0m - adam_beta2                    :0.999[0m
+[32m[2022-09-05 15:08:08,790] [    INFO][0m - adam_epsilon                  :1e-08[0m
+[32m[2022-09-05 15:08:08,790] [    INFO][0m - alpha_rdrop                   :5.0[0m
+[32m[2022-09-05 15:08:08,790] [    INFO][0m - alpha_rgl                     :0.5[0m
+[32m[2022-09-05 15:08:08,790] [    INFO][0m - current_device                :gpu:0[0m
+[32m[2022-09-05 15:08:08,790] [    INFO][0m - dataloader_drop_last          :False[0m
+[32m[2022-09-05 15:08:08,790] [    INFO][0m - dataloader_num_workers        :0[0m
+[32m[2022-09-05 15:08:08,790] [    INFO][0m - device                        :gpu[0m
+[32m[2022-09-05 15:08:08,790] [    INFO][0m - disable_tqdm                  :True[0m
+[32m[2022-09-05 15:08:08,790] [    INFO][0m - do_eval                       :True[0m
+[32m[2022-09-05 15:08:08,790] [    INFO][0m - do_export                     :False[0m
+[32m[2022-09-05 15:08:08,791] [    INFO][0m - do_predict                    :False[0m
+[32m[2022-09-05 15:08:08,791] [    INFO][0m - do_train                      :True[0m
+[32m[2022-09-05 15:08:08,791] [    INFO][0m - eval_batch_size               :8[0m
+[32m[2022-09-05 15:08:08,791] [    INFO][0m - eval_steps                    :100[0m
+[32m[2022-09-05 15:08:08,791] [    INFO][0m - evaluation_strategy           :IntervalStrategy.STEPS[0m
+[32m[2022-09-05 15:08:08,791] [    INFO][0m - first_max_length              :None[0m
+[32m[2022-09-05 15:08:08,791] [    INFO][0m - fp16                          :False[0m
+[32m[2022-09-05 15:08:08,791] [    INFO][0m - fp16_opt_level                :O1[0m
+[32m[2022-09-05 15:08:08,791] [    INFO][0m - freeze_dropout                :False[0m
+[32m[2022-09-05 15:08:08,791] [    INFO][0m - freeze_plm                    :False[0m
+[32m[2022-09-05 15:08:08,791] [    INFO][0m - gradient_accumulation_steps   :1[0m
+[32m[2022-09-05 15:08:08,791] [    INFO][0m - greater_is_better             :True[0m
+[32m[2022-09-05 15:08:08,791] [    INFO][0m - ignore_data_skip              :False[0m
+[32m[2022-09-05 15:08:08,791] [    INFO][0m - label_names                   :None[0m
+[32m[2022-09-05 15:08:08,792] [    INFO][0m - learning_rate                 :1e-05[0m
+[32m[2022-09-05 15:08:08,792] [    INFO][0m - load_best_model_at_end        :True[0m
+[32m[2022-09-05 15:08:08,792] [    INFO][0m - local_process_index           :0[0m
+[32m[2022-09-05 15:08:08,792] [    INFO][0m - local_rank                    :-1[0m
+[32m[2022-09-05 15:08:08,792] [    INFO][0m - log_level                     :-1[0m
+[32m[2022-09-05 15:08:08,792] [    INFO][0m - log_level_replica             :-1[0m
+[32m[2022-09-05 15:08:08,792] [    INFO][0m - log_on_each_node              :True[0m
+[32m[2022-09-05 15:08:08,792] [    INFO][0m - logging_dir                   :./checkpoints_chid/runs/Sep05_15-08-04_instance-3bwob41y-01[0m
+[32m[2022-09-05 15:08:08,792] [    INFO][0m - logging_first_step            :False[0m
+[32m[2022-09-05 15:08:08,792] [    INFO][0m - logging_steps                 :10[0m
+[32m[2022-09-05 15:08:08,792] [    INFO][0m - logging_strategy              :IntervalStrategy.STEPS[0m
+[32m[2022-09-05 15:08:08,792] [    INFO][0m - lr_scheduler_type             :SchedulerType.LINEAR[0m
+[32m[2022-09-05 15:08:08,792] [    INFO][0m - max_grad_norm                 :1.0[0m
+[32m[2022-09-05 15:08:08,793] [    INFO][0m - max_seq_length                :256[0m
+[32m[2022-09-05 15:08:08,793] [    INFO][0m - max_steps                     :-1[0m
+[32m[2022-09-05 15:08:08,793] [    INFO][0m - metric_for_best_model         :accuracy[0m
+[32m[2022-09-05 15:08:08,793] [    INFO][0m - minimum_eval_times            :None[0m
+[32m[2022-09-05 15:08:08,793] [    INFO][0m - no_cuda                       :False[0m
+[32m[2022-09-05 15:08:08,793] [    INFO][0m - num_train_epochs              :50.0[0m
+[32m[2022-09-05 15:08:08,793] [    INFO][0m - optim                         :OptimizerNames.ADAMW[0m
+[32m[2022-09-05 15:08:08,793] [    INFO][0m - other_max_length              :None[0m
+[32m[2022-09-05 15:08:08,793] [    INFO][0m - output_dir                    :./checkpoints_chid/[0m
+[32m[2022-09-05 15:08:08,793] [    INFO][0m - overwrite_output_dir          :False[0m
+[32m[2022-09-05 15:08:08,793] [    INFO][0m - past_index                    :-1[0m
+[32m[2022-09-05 15:08:08,793] [    INFO][0m - per_device_eval_batch_size    :8[0m
+[32m[2022-09-05 15:08:08,793] [    INFO][0m - per_device_train_batch_size   :8[0m
+[32m[2022-09-05 15:08:08,793] [    INFO][0m - ppt_adam_beta1                :0.9[0m
+[32m[2022-09-05 15:08:08,794] [    INFO][0m - ppt_adam_beta2                :0.999[0m
+[32m[2022-09-05 15:08:08,794] [    INFO][0m - ppt_adam_epsilon              :1e-08[0m
+[32m[2022-09-05 15:08:08,794] [    INFO][0m - ppt_learning_rate             :0.0001[0m
+[32m[2022-09-05 15:08:08,794] [    INFO][0m - ppt_weight_decay              :0.0[0m
+[32m[2022-09-05 15:08:08,794] [    INFO][0m - prediction_loss_only          :False[0m
+[32m[2022-09-05 15:08:08,794] [    INFO][0m - process_index                 :0[0m
+[32m[2022-09-05 15:08:08,794] [    INFO][0m - remove_unused_columns         :True[0m
+[32m[2022-09-05 15:08:08,794] [    INFO][0m - report_to                     :['visualdl'][0m
+[32m[2022-09-05 15:08:08,794] [    INFO][0m - resume_from_checkpoint        :None[0m
+[32m[2022-09-05 15:08:08,794] [    INFO][0m - run_name                      :./checkpoints_chid/[0m
+[32m[2022-09-05 15:08:08,794] [    INFO][0m - save_on_each_node             :False[0m
+[32m[2022-09-05 15:08:08,794] [    INFO][0m - save_steps                    :100[0m
+[32m[2022-09-05 15:08:08,794] [    INFO][0m - save_strategy                 :IntervalStrategy.STEPS[0m
+[32m[2022-09-05 15:08:08,794] [    INFO][0m - save_total_limit              :None[0m
+[32m[2022-09-05 15:08:08,795] [    INFO][0m - scale_loss                    :32768[0m
+[32m[2022-09-05 15:08:08,795] [    INFO][0m - seed                          :42[0m
+[32m[2022-09-05 15:08:08,795] [    INFO][0m - should_log                    :True[0m
+[32m[2022-09-05 15:08:08,795] [    INFO][0m - should_save                   :True[0m
+[32m[2022-09-05 15:08:08,795] [    INFO][0m - task_type                     :multi-class[0m
+[32m[2022-09-05 15:08:08,795] [    INFO][0m - train_batch_size              :8[0m
+[32m[2022-09-05 15:08:08,795] [    INFO][0m - truncate_mode                 :tail[0m
+[32m[2022-09-05 15:08:08,795] [    INFO][0m - use_rdrop                     :False[0m
+[32m[2022-09-05 15:08:08,795] [    INFO][0m - use_rgl                       :False[0m
+[32m[2022-09-05 15:08:08,795] [    INFO][0m - warmup_ratio                  :0.0[0m
+[32m[2022-09-05 15:08:08,795] [    INFO][0m - warmup_steps                  :0[0m
+[32m[2022-09-05 15:08:08,795] [    INFO][0m - weight_decay                  :0.0[0m
+[32m[2022-09-05 15:08:08,795] [    INFO][0m - world_size                    :1[0m
+[32m[2022-09-05 15:08:08,795] [    INFO][0m - [0m
+[32m[2022-09-05 15:08:08,797] [    INFO][0m - ***** Running training *****[0m
+[32m[2022-09-05 15:08:08,797] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:08:08,797] [    INFO][0m -   Num Epochs = 50[0m
+[32m[2022-09-05 15:08:08,797] [    INFO][0m -   Instantaneous batch size per device = 8[0m
+[32m[2022-09-05 15:08:08,797] [    INFO][0m -   Total train batch size (w. parallel, distributed & accumulation) = 8[0m
+[32m[2022-09-05 15:08:08,797] [    INFO][0m -   Gradient Accumulation steps = 1[0m
+[32m[2022-09-05 15:08:08,798] [    INFO][0m -   Total optimization steps = 8850.0[0m
+[32m[2022-09-05 15:08:08,798] [    INFO][0m -   Total num train samples = 70700[0m
+[32m[2022-09-05 15:08:11,222] [    INFO][0m - loss: 2.33096924, learning_rate: 9.988700564971753e-06, global_step: 10, interval_runtime: 2.4237, interval_samples_per_second: 3.301, interval_steps_per_second: 4.126, epoch: 0.0565[0m
+[32m[2022-09-05 15:08:12,730] [    INFO][0m - loss: 0.64067574, learning_rate: 9.977401129943504e-06, global_step: 20, interval_runtime: 1.5078, interval_samples_per_second: 5.306, interval_steps_per_second: 6.632, epoch: 0.113[0m
+[32m[2022-09-05 15:08:14,240] [    INFO][0m - loss: 0.62240453, learning_rate: 9.966101694915256e-06, global_step: 30, interval_runtime: 1.5105, interval_samples_per_second: 5.296, interval_steps_per_second: 6.62, epoch: 0.1695[0m
+[32m[2022-09-05 15:08:15,744] [    INFO][0m - loss: 0.692519, learning_rate: 9.954802259887007e-06, global_step: 40, interval_runtime: 1.5035, interval_samples_per_second: 5.321, interval_steps_per_second: 6.651, epoch: 0.226[0m
+[32m[2022-09-05 15:08:17,251] [    INFO][0m - loss: 0.4592557, learning_rate: 9.943502824858759e-06, global_step: 50, interval_runtime: 1.5066, interval_samples_per_second: 5.31, interval_steps_per_second: 6.638, epoch: 0.2825[0m
+[32m[2022-09-05 15:08:18,757] [    INFO][0m - loss: 0.3226877, learning_rate: 9.93220338983051e-06, global_step: 60, interval_runtime: 1.5062, interval_samples_per_second: 5.311, interval_steps_per_second: 6.639, epoch: 0.339[0m
+[32m[2022-09-05 15:08:20,266] [    INFO][0m - loss: 1.10798235, learning_rate: 9.92090395480226e-06, global_step: 70, interval_runtime: 1.5095, interval_samples_per_second: 5.3, interval_steps_per_second: 6.625, epoch: 0.3955[0m
+[32m[2022-09-05 15:08:21,776] [    INFO][0m - loss: 0.74852819, learning_rate: 9.909604519774013e-06, global_step: 80, interval_runtime: 1.5097, interval_samples_per_second: 5.299, interval_steps_per_second: 6.624, epoch: 0.452[0m
+[32m[2022-09-05 15:08:23,288] [    INFO][0m - loss: 0.53707309, learning_rate: 9.898305084745763e-06, global_step: 90, interval_runtime: 1.5117, interval_samples_per_second: 5.292, interval_steps_per_second: 6.615, epoch: 0.5085[0m
+[32m[2022-09-05 15:08:24,799] [    INFO][0m - loss: 0.4448513, learning_rate: 9.887005649717516e-06, global_step: 100, interval_runtime: 1.5116, interval_samples_per_second: 5.292, interval_steps_per_second: 6.615, epoch: 0.565[0m
+[32m[2022-09-05 15:08:24,800] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:08:24,800] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:08:24,800] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:08:24,800] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:08:24,801] [    INFO][0m -   Total prediction steps = 177[0m
+[32m[2022-09-05 15:08:36,336] [    INFO][0m - eval_loss: 0.4244772493839264, eval_accuracy: 0.09405940594059406, eval_runtime: 11.5346, eval_samples_per_second: 122.588, eval_steps_per_second: 15.345, epoch: 0.565[0m
+[32m[2022-09-05 15:08:36,364] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-100[0m
+[32m[2022-09-05 15:08:36,364] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:08:39,537] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-100/tokenizer_config.json[0m
+[32m[2022-09-05 15:08:39,538] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-100/special_tokens_map.json[0m
+[32m[2022-09-05 15:08:46,792] [    INFO][0m - loss: 0.55026622, learning_rate: 9.875706214689266e-06, global_step: 110, interval_runtime: 21.9924, interval_samples_per_second: 0.364, interval_steps_per_second: 0.455, epoch: 0.6215[0m
+[32m[2022-09-05 15:08:48,304] [    INFO][0m - loss: 0.40845256, learning_rate: 9.864406779661017e-06, global_step: 120, interval_runtime: 1.5122, interval_samples_per_second: 5.29, interval_steps_per_second: 6.613, epoch: 0.678[0m
+[32m[2022-09-05 15:08:49,813] [    INFO][0m - loss: 0.52761054, learning_rate: 9.85310734463277e-06, global_step: 130, interval_runtime: 1.5088, interval_samples_per_second: 5.302, interval_steps_per_second: 6.628, epoch: 0.7345[0m
+[32m[2022-09-05 15:08:51,329] [    INFO][0m - loss: 0.45456839, learning_rate: 9.84180790960452e-06, global_step: 140, interval_runtime: 1.5162, interval_samples_per_second: 5.276, interval_steps_per_second: 6.595, epoch: 0.791[0m
+[32m[2022-09-05 15:08:52,849] [    INFO][0m - loss: 0.58622837, learning_rate: 9.830508474576272e-06, global_step: 150, interval_runtime: 1.5202, interval_samples_per_second: 5.263, interval_steps_per_second: 6.578, epoch: 0.8475[0m
+[32m[2022-09-05 15:08:54,372] [    INFO][0m - loss: 0.51357245, learning_rate: 9.819209039548023e-06, global_step: 160, interval_runtime: 1.5229, interval_samples_per_second: 5.253, interval_steps_per_second: 6.566, epoch: 0.904[0m
+[32m[2022-09-05 15:08:55,889] [    INFO][0m - loss: 0.41612034, learning_rate: 9.807909604519775e-06, global_step: 170, interval_runtime: 1.5167, interval_samples_per_second: 5.275, interval_steps_per_second: 6.593, epoch: 0.9605[0m
+[32m[2022-09-05 15:08:57,427] [    INFO][0m - loss: 0.39445424, learning_rate: 9.796610169491526e-06, global_step: 180, interval_runtime: 1.5385, interval_samples_per_second: 5.2, interval_steps_per_second: 6.5, epoch: 1.0169[0m
+[32m[2022-09-05 15:08:58,941] [    INFO][0m - loss: 0.48981938, learning_rate: 9.785310734463278e-06, global_step: 190, interval_runtime: 1.514, interval_samples_per_second: 5.284, interval_steps_per_second: 6.605, epoch: 1.0734[0m
+[32m[2022-09-05 15:09:00,458] [    INFO][0m - loss: 0.45277224, learning_rate: 9.774011299435029e-06, global_step: 200, interval_runtime: 1.5163, interval_samples_per_second: 5.276, interval_steps_per_second: 6.595, epoch: 1.1299[0m
+[32m[2022-09-05 15:09:00,458] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:09:00,458] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:09:00,458] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:09:00,458] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:09:00,459] [    INFO][0m -   Total prediction steps = 177[0m
+[32m[2022-09-05 15:09:11,979] [    INFO][0m - eval_loss: 0.4122883379459381, eval_accuracy: 0.18316831683168316, eval_runtime: 11.5205, eval_samples_per_second: 122.738, eval_steps_per_second: 15.364, epoch: 1.1299[0m
+[32m[2022-09-05 15:09:12,006] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-200[0m
+[32m[2022-09-05 15:09:12,006] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:09:15,123] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-200/tokenizer_config.json[0m
+[32m[2022-09-05 15:09:15,124] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-200/special_tokens_map.json[0m
+[32m[2022-09-05 15:09:21,934] [    INFO][0m - loss: 0.37669895, learning_rate: 9.762711864406781e-06, global_step: 210, interval_runtime: 21.4759, interval_samples_per_second: 0.373, interval_steps_per_second: 0.466, epoch: 1.1864[0m
+[32m[2022-09-05 15:09:23,456] [    INFO][0m - loss: 0.55694666, learning_rate: 9.751412429378532e-06, global_step: 220, interval_runtime: 1.5226, interval_samples_per_second: 5.254, interval_steps_per_second: 6.568, epoch: 1.2429[0m
+[32m[2022-09-05 15:09:24,977] [    INFO][0m - loss: 0.4453639, learning_rate: 9.740112994350284e-06, global_step: 230, interval_runtime: 1.5207, interval_samples_per_second: 5.261, interval_steps_per_second: 6.576, epoch: 1.2994[0m
+[32m[2022-09-05 15:09:26,494] [    INFO][0m - loss: 0.50627246, learning_rate: 9.728813559322035e-06, global_step: 240, interval_runtime: 1.5173, interval_samples_per_second: 5.272, interval_steps_per_second: 6.591, epoch: 1.3559[0m
+[32m[2022-09-05 15:09:28,010] [    INFO][0m - loss: 0.29341974, learning_rate: 9.717514124293787e-06, global_step: 250, interval_runtime: 1.5161, interval_samples_per_second: 5.277, interval_steps_per_second: 6.596, epoch: 1.4124[0m
+[32m[2022-09-05 15:09:29,530] [    INFO][0m - loss: 0.66584525, learning_rate: 9.706214689265538e-06, global_step: 260, interval_runtime: 1.5193, interval_samples_per_second: 5.266, interval_steps_per_second: 6.582, epoch: 1.4689[0m
+[32m[2022-09-05 15:09:31,048] [    INFO][0m - loss: 0.4498404, learning_rate: 9.69491525423729e-06, global_step: 270, interval_runtime: 1.5185, interval_samples_per_second: 5.268, interval_steps_per_second: 6.585, epoch: 1.5254[0m
+[32m[2022-09-05 15:09:32,572] [    INFO][0m - loss: 0.52410498, learning_rate: 9.68361581920904e-06, global_step: 280, interval_runtime: 1.5241, interval_samples_per_second: 5.249, interval_steps_per_second: 6.561, epoch: 1.5819[0m
+[32m[2022-09-05 15:09:34,099] [    INFO][0m - loss: 0.31577632, learning_rate: 9.672316384180791e-06, global_step: 290, interval_runtime: 1.5264, interval_samples_per_second: 5.241, interval_steps_per_second: 6.551, epoch: 1.6384[0m
+[32m[2022-09-05 15:09:35,623] [    INFO][0m - loss: 0.62298236, learning_rate: 9.661016949152544e-06, global_step: 300, interval_runtime: 1.5241, interval_samples_per_second: 5.249, interval_steps_per_second: 6.561, epoch: 1.6949[0m
+[32m[2022-09-05 15:09:35,623] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:09:35,623] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:09:35,623] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:09:35,623] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:09:35,623] [    INFO][0m -   Total prediction steps = 177[0m
+[32m[2022-09-05 15:09:47,192] [    INFO][0m - eval_loss: 0.4454888701438904, eval_accuracy: 0.14356435643564355, eval_runtime: 11.5684, eval_samples_per_second: 122.229, eval_steps_per_second: 15.3, epoch: 1.6949[0m
+[32m[2022-09-05 15:09:47,219] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-300[0m
+[32m[2022-09-05 15:09:47,220] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:09:50,495] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-300/tokenizer_config.json[0m
+[32m[2022-09-05 15:09:50,495] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-300/special_tokens_map.json[0m
+[32m[2022-09-05 15:09:57,714] [    INFO][0m - loss: 0.37910402, learning_rate: 9.649717514124294e-06, global_step: 310, interval_runtime: 22.0914, interval_samples_per_second: 0.362, interval_steps_per_second: 0.453, epoch: 1.7514[0m
+[32m[2022-09-05 15:09:59,239] [    INFO][0m - loss: 0.40746093, learning_rate: 9.638418079096045e-06, global_step: 320, interval_runtime: 1.5248, interval_samples_per_second: 5.247, interval_steps_per_second: 6.558, epoch: 1.8079[0m
+[32m[2022-09-05 15:10:00,763] [    INFO][0m - loss: 0.61002922, learning_rate: 9.627118644067797e-06, global_step: 330, interval_runtime: 1.5237, interval_samples_per_second: 5.25, interval_steps_per_second: 6.563, epoch: 1.8644[0m
+[32m[2022-09-05 15:10:02,295] [    INFO][0m - loss: 0.31402044, learning_rate: 9.615819209039548e-06, global_step: 340, interval_runtime: 1.5326, interval_samples_per_second: 5.22, interval_steps_per_second: 6.525, epoch: 1.9209[0m
+[32m[2022-09-05 15:10:03,823] [    INFO][0m - loss: 0.33855698, learning_rate: 9.6045197740113e-06, global_step: 350, interval_runtime: 1.5276, interval_samples_per_second: 5.237, interval_steps_per_second: 6.546, epoch: 1.9774[0m
+[32m[2022-09-05 15:10:05,359] [    INFO][0m - loss: 0.43339267, learning_rate: 9.593220338983051e-06, global_step: 360, interval_runtime: 1.5359, interval_samples_per_second: 5.209, interval_steps_per_second: 6.511, epoch: 2.0339[0m
+[32m[2022-09-05 15:10:06,885] [    INFO][0m - loss: 0.39926848, learning_rate: 9.581920903954803e-06, global_step: 370, interval_runtime: 1.5267, interval_samples_per_second: 5.24, interval_steps_per_second: 6.55, epoch: 2.0904[0m
+[32m[2022-09-05 15:10:08,410] [    INFO][0m - loss: 0.60257258, learning_rate: 9.570621468926554e-06, global_step: 380, interval_runtime: 1.5248, interval_samples_per_second: 5.247, interval_steps_per_second: 6.558, epoch: 2.1469[0m
+[32m[2022-09-05 15:10:09,939] [    INFO][0m - loss: 0.5914104, learning_rate: 9.559322033898306e-06, global_step: 390, interval_runtime: 1.5287, interval_samples_per_second: 5.233, interval_steps_per_second: 6.541, epoch: 2.2034[0m
+[32m[2022-09-05 15:10:11,465] [    INFO][0m - loss: 0.45340605, learning_rate: 9.548022598870057e-06, global_step: 400, interval_runtime: 1.5263, interval_samples_per_second: 5.242, interval_steps_per_second: 6.552, epoch: 2.2599[0m
+[32m[2022-09-05 15:10:11,466] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:10:11,466] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:10:11,466] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:10:11,466] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:10:11,467] [    INFO][0m -   Total prediction steps = 177[0m
+[32m[2022-09-05 15:10:23,102] [    INFO][0m - eval_loss: 0.4136684834957123, eval_accuracy: 0.23267326732673269, eval_runtime: 11.6353, eval_samples_per_second: 121.526, eval_steps_per_second: 15.212, epoch: 2.2599[0m
+[32m[2022-09-05 15:10:23,132] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-400[0m
+[32m[2022-09-05 15:10:23,132] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:10:26,541] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-400/tokenizer_config.json[0m
+[32m[2022-09-05 15:10:26,541] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-400/special_tokens_map.json[0m
+[32m[2022-09-05 15:10:33,741] [    INFO][0m - loss: 0.53149624, learning_rate: 9.53672316384181e-06, global_step: 410, interval_runtime: 22.2758, interval_samples_per_second: 0.359, interval_steps_per_second: 0.449, epoch: 2.3164[0m
+[32m[2022-09-05 15:10:35,275] [    INFO][0m - loss: 0.35461237, learning_rate: 9.52542372881356e-06, global_step: 420, interval_runtime: 1.5337, interval_samples_per_second: 5.216, interval_steps_per_second: 6.52, epoch: 2.3729[0m
+[32m[2022-09-05 15:10:36,812] [    INFO][0m - loss: 0.43200221, learning_rate: 9.514124293785312e-06, global_step: 430, interval_runtime: 1.5367, interval_samples_per_second: 5.206, interval_steps_per_second: 6.507, epoch: 2.4294[0m
+[32m[2022-09-05 15:10:38,346] [    INFO][0m - loss: 0.49401598, learning_rate: 9.502824858757063e-06, global_step: 440, interval_runtime: 1.534, interval_samples_per_second: 5.215, interval_steps_per_second: 6.519, epoch: 2.4859[0m
+[32m[2022-09-05 15:10:39,882] [    INFO][0m - loss: 0.43333154, learning_rate: 9.491525423728815e-06, global_step: 450, interval_runtime: 1.5365, interval_samples_per_second: 5.207, interval_steps_per_second: 6.508, epoch: 2.5424[0m
+[32m[2022-09-05 15:10:41,416] [    INFO][0m - loss: 0.58577576, learning_rate: 9.480225988700566e-06, global_step: 460, interval_runtime: 1.5338, interval_samples_per_second: 5.216, interval_steps_per_second: 6.52, epoch: 2.5989[0m
+[32m[2022-09-05 15:10:42,951] [    INFO][0m - loss: 0.54244833, learning_rate: 9.468926553672318e-06, global_step: 470, interval_runtime: 1.5347, interval_samples_per_second: 5.213, interval_steps_per_second: 6.516, epoch: 2.6554[0m
+[32m[2022-09-05 15:10:44,485] [    INFO][0m - loss: 0.43304558, learning_rate: 9.457627118644069e-06, global_step: 480, interval_runtime: 1.5348, interval_samples_per_second: 5.212, interval_steps_per_second: 6.515, epoch: 2.7119[0m
+[32m[2022-09-05 15:10:46,021] [    INFO][0m - loss: 0.44131126, learning_rate: 9.44632768361582e-06, global_step: 490, interval_runtime: 1.5358, interval_samples_per_second: 5.209, interval_steps_per_second: 6.511, epoch: 2.7684[0m
+[32m[2022-09-05 15:10:47,553] [    INFO][0m - loss: 0.36516461, learning_rate: 9.435028248587572e-06, global_step: 500, interval_runtime: 1.532, interval_samples_per_second: 5.222, interval_steps_per_second: 6.527, epoch: 2.8249[0m
+[32m[2022-09-05 15:10:47,554] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:10:47,554] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:10:47,554] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:10:47,554] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:10:47,554] [    INFO][0m -   Total prediction steps = 177[0m
+[32m[2022-09-05 15:10:59,167] [    INFO][0m - eval_loss: 0.4086410403251648, eval_accuracy: 0.2623762376237624, eval_runtime: 11.6116, eval_samples_per_second: 121.775, eval_steps_per_second: 15.243, epoch: 2.8249[0m
+[32m[2022-09-05 15:10:59,194] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-500[0m
+[32m[2022-09-05 15:10:59,194] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:11:02,666] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-500/tokenizer_config.json[0m
+[32m[2022-09-05 15:11:02,666] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-500/special_tokens_map.json[0m
+[32m[2022-09-05 15:11:09,656] [    INFO][0m - loss: 0.37160549, learning_rate: 9.423728813559322e-06, global_step: 510, interval_runtime: 22.1025, interval_samples_per_second: 0.362, interval_steps_per_second: 0.452, epoch: 2.8814[0m
+[32m[2022-09-05 15:11:11,185] [    INFO][0m - loss: 0.35372205, learning_rate: 9.412429378531073e-06, global_step: 520, interval_runtime: 1.5296, interval_samples_per_second: 5.23, interval_steps_per_second: 6.537, epoch: 2.9379[0m
+[32m[2022-09-05 15:11:12,713] [    INFO][0m - loss: 0.32972257, learning_rate: 9.401129943502825e-06, global_step: 530, interval_runtime: 1.5272, interval_samples_per_second: 5.238, interval_steps_per_second: 6.548, epoch: 2.9944[0m
+[32m[2022-09-05 15:11:14,259] [    INFO][0m - loss: 0.33405793, learning_rate: 9.389830508474576e-06, global_step: 540, interval_runtime: 1.5464, interval_samples_per_second: 5.173, interval_steps_per_second: 6.467, epoch: 3.0508[0m
+[32m[2022-09-05 15:11:15,791] [    INFO][0m - loss: 0.45832314, learning_rate: 9.378531073446328e-06, global_step: 550, interval_runtime: 1.532, interval_samples_per_second: 5.222, interval_steps_per_second: 6.527, epoch: 3.1073[0m
+[32m[2022-09-05 15:11:17,326] [    INFO][0m - loss: 0.52428727, learning_rate: 9.367231638418079e-06, global_step: 560, interval_runtime: 1.5347, interval_samples_per_second: 5.213, interval_steps_per_second: 6.516, epoch: 3.1638[0m
+[32m[2022-09-05 15:11:18,859] [    INFO][0m - loss: 0.44862928, learning_rate: 9.355932203389831e-06, global_step: 570, interval_runtime: 1.5331, interval_samples_per_second: 5.218, interval_steps_per_second: 6.523, epoch: 3.2203[0m
+[32m[2022-09-05 15:11:20,394] [    INFO][0m - loss: 0.38907919, learning_rate: 9.344632768361582e-06, global_step: 580, interval_runtime: 1.5355, interval_samples_per_second: 5.21, interval_steps_per_second: 6.512, epoch: 3.2768[0m
+[32m[2022-09-05 15:11:21,927] [    INFO][0m - loss: 0.48409266, learning_rate: 9.333333333333334e-06, global_step: 590, interval_runtime: 1.5327, interval_samples_per_second: 5.22, interval_steps_per_second: 6.524, epoch: 3.3333[0m
+[32m[2022-09-05 15:11:23,455] [    INFO][0m - loss: 0.45485506, learning_rate: 9.322033898305085e-06, global_step: 600, interval_runtime: 1.5282, interval_samples_per_second: 5.235, interval_steps_per_second: 6.544, epoch: 3.3898[0m
+[32m[2022-09-05 15:11:23,456] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:11:23,456] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:11:23,456] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:11:23,456] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:11:23,456] [    INFO][0m -   Total prediction steps = 177[0m
+[32m[2022-09-05 15:11:34,943] [    INFO][0m - eval_loss: 0.435520201921463, eval_accuracy: 0.24257425742574257, eval_runtime: 11.4867, eval_samples_per_second: 123.099, eval_steps_per_second: 15.409, epoch: 3.3898[0m
+[32m[2022-09-05 15:11:34,973] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-600[0m
+[32m[2022-09-05 15:11:34,973] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:11:38,955] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-600/tokenizer_config.json[0m
+[32m[2022-09-05 15:11:38,955] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-600/special_tokens_map.json[0m
+[32m[2022-09-05 15:11:45,969] [    INFO][0m - loss: 0.39525113, learning_rate: 9.310734463276837e-06, global_step: 610, interval_runtime: 22.514, interval_samples_per_second: 0.355, interval_steps_per_second: 0.444, epoch: 3.4463[0m
+[32m[2022-09-05 15:11:47,504] [    INFO][0m - loss: 0.45598378, learning_rate: 9.299435028248588e-06, global_step: 620, interval_runtime: 1.5344, interval_samples_per_second: 5.214, interval_steps_per_second: 6.517, epoch: 3.5028[0m
+[32m[2022-09-05 15:11:49,043] [    INFO][0m - loss: 0.42088723, learning_rate: 9.28813559322034e-06, global_step: 630, interval_runtime: 1.539, interval_samples_per_second: 5.198, interval_steps_per_second: 6.498, epoch: 3.5593[0m
+[32m[2022-09-05 15:11:50,581] [    INFO][0m - loss: 0.43709688, learning_rate: 9.276836158192091e-06, global_step: 640, interval_runtime: 1.5383, interval_samples_per_second: 5.2, interval_steps_per_second: 6.501, epoch: 3.6158[0m
+[32m[2022-09-05 15:11:52,119] [    INFO][0m - loss: 0.37039497, learning_rate: 9.265536723163843e-06, global_step: 650, interval_runtime: 1.5377, interval_samples_per_second: 5.203, interval_steps_per_second: 6.503, epoch: 3.6723[0m
+[32m[2022-09-05 15:11:53,662] [    INFO][0m - loss: 0.38451807, learning_rate: 9.254237288135594e-06, global_step: 660, interval_runtime: 1.5433, interval_samples_per_second: 5.184, interval_steps_per_second: 6.48, epoch: 3.7288[0m
+[32m[2022-09-05 15:11:55,203] [    INFO][0m - loss: 0.32769513, learning_rate: 9.242937853107346e-06, global_step: 670, interval_runtime: 1.5409, interval_samples_per_second: 5.192, interval_steps_per_second: 6.49, epoch: 3.7853[0m
+[32m[2022-09-05 15:11:56,745] [    INFO][0m - loss: 0.38896756, learning_rate: 9.231638418079097e-06, global_step: 680, interval_runtime: 1.5422, interval_samples_per_second: 5.187, interval_steps_per_second: 6.484, epoch: 3.8418[0m
+[32m[2022-09-05 15:11:58,280] [    INFO][0m - loss: 0.51276846, learning_rate: 9.220338983050847e-06, global_step: 690, interval_runtime: 1.5354, interval_samples_per_second: 5.21, interval_steps_per_second: 6.513, epoch: 3.8983[0m
+[32m[2022-09-05 15:11:59,818] [    INFO][0m - loss: 0.48829598, learning_rate: 9.2090395480226e-06, global_step: 700, interval_runtime: 1.5375, interval_samples_per_second: 5.203, interval_steps_per_second: 6.504, epoch: 3.9548[0m
+[32m[2022-09-05 15:11:59,818] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:11:59,819] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:11:59,819] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:11:59,819] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:11:59,819] [    INFO][0m -   Total prediction steps = 177[0m
+[32m[2022-09-05 15:12:11,497] [    INFO][0m - eval_loss: 0.4513024091720581, eval_accuracy: 0.28217821782178215, eval_runtime: 11.6777, eval_samples_per_second: 121.085, eval_steps_per_second: 15.157, epoch: 3.9548[0m
+[32m[2022-09-05 15:12:11,527] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-700[0m
+[32m[2022-09-05 15:12:11,527] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:12:14,453] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-700/tokenizer_config.json[0m
+[32m[2022-09-05 15:12:14,453] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-700/special_tokens_map.json[0m
+[32m[2022-09-05 15:12:21,435] [    INFO][0m - loss: 0.48406301, learning_rate: 9.19774011299435e-06, global_step: 710, interval_runtime: 21.6166, interval_samples_per_second: 0.37, interval_steps_per_second: 0.463, epoch: 4.0113[0m
+[32m[2022-09-05 15:12:22,960] [    INFO][0m - loss: 0.39534652, learning_rate: 9.186440677966101e-06, global_step: 720, interval_runtime: 1.5255, interval_samples_per_second: 5.244, interval_steps_per_second: 6.555, epoch: 4.0678[0m
+[32m[2022-09-05 15:12:24,490] [    INFO][0m - loss: 0.44568071, learning_rate: 9.175141242937853e-06, global_step: 730, interval_runtime: 1.5297, interval_samples_per_second: 5.23, interval_steps_per_second: 6.537, epoch: 4.1243[0m
+[32m[2022-09-05 15:12:26,015] [    INFO][0m - loss: 0.40162859, learning_rate: 9.163841807909604e-06, global_step: 740, interval_runtime: 1.5253, interval_samples_per_second: 5.245, interval_steps_per_second: 6.556, epoch: 4.1808[0m
+[32m[2022-09-05 15:12:27,543] [    INFO][0m - loss: 0.33646991, learning_rate: 9.152542372881356e-06, global_step: 750, interval_runtime: 1.5282, interval_samples_per_second: 5.235, interval_steps_per_second: 6.544, epoch: 4.2373[0m
+[32m[2022-09-05 15:12:29,078] [    INFO][0m - loss: 0.46774511, learning_rate: 9.141242937853107e-06, global_step: 760, interval_runtime: 1.5343, interval_samples_per_second: 5.214, interval_steps_per_second: 6.518, epoch: 4.2938[0m
+[32m[2022-09-05 15:12:30,611] [    INFO][0m - loss: 0.42581105, learning_rate: 9.12994350282486e-06, global_step: 770, interval_runtime: 1.5337, interval_samples_per_second: 5.216, interval_steps_per_second: 6.52, epoch: 4.3503[0m
+[32m[2022-09-05 15:12:32,147] [    INFO][0m - loss: 0.47158494, learning_rate: 9.11864406779661e-06, global_step: 780, interval_runtime: 1.536, interval_samples_per_second: 5.208, interval_steps_per_second: 6.511, epoch: 4.4068[0m
+[32m[2022-09-05 15:12:33,684] [    INFO][0m - loss: 0.4488708, learning_rate: 9.107344632768362e-06, global_step: 790, interval_runtime: 1.5363, interval_samples_per_second: 5.207, interval_steps_per_second: 6.509, epoch: 4.4633[0m
+[32m[2022-09-05 15:12:35,219] [    INFO][0m - loss: 0.40698447, learning_rate: 9.096045197740113e-06, global_step: 800, interval_runtime: 1.5358, interval_samples_per_second: 5.209, interval_steps_per_second: 6.511, epoch: 4.5198[0m
+[32m[2022-09-05 15:12:35,220] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:12:35,220] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:12:35,220] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:12:35,220] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:12:35,220] [    INFO][0m -   Total prediction steps = 177[0m
+[32m[2022-09-05 15:12:46,734] [    INFO][0m - eval_loss: 0.4042510390281677, eval_accuracy: 0.2722772277227723, eval_runtime: 11.5137, eval_samples_per_second: 122.81, eval_steps_per_second: 15.373, epoch: 4.5198[0m
+[32m[2022-09-05 15:12:46,761] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-800[0m
+[32m[2022-09-05 15:12:46,761] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:12:49,388] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-800/tokenizer_config.json[0m
+[32m[2022-09-05 15:12:49,388] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-800/special_tokens_map.json[0m
+[32m[2022-09-05 15:12:56,014] [    INFO][0m - loss: 0.36701038, learning_rate: 9.084745762711865e-06, global_step: 810, interval_runtime: 20.7946, interval_samples_per_second: 0.385, interval_steps_per_second: 0.481, epoch: 4.5763[0m
+[32m[2022-09-05 15:12:57,546] [    INFO][0m - loss: 0.35523939, learning_rate: 9.073446327683618e-06, global_step: 820, interval_runtime: 1.5325, interval_samples_per_second: 5.22, interval_steps_per_second: 6.525, epoch: 4.6328[0m
+[32m[2022-09-05 15:12:59,070] [    INFO][0m - loss: 0.43493443, learning_rate: 9.062146892655368e-06, global_step: 830, interval_runtime: 1.5237, interval_samples_per_second: 5.25, interval_steps_per_second: 6.563, epoch: 4.6893[0m
+[32m[2022-09-05 15:13:00,602] [    INFO][0m - loss: 0.47465754, learning_rate: 9.05084745762712e-06, global_step: 840, interval_runtime: 1.5319, interval_samples_per_second: 5.222, interval_steps_per_second: 6.528, epoch: 4.7458[0m
+[32m[2022-09-05 15:13:02,132] [    INFO][0m - loss: 0.48914371, learning_rate: 9.039548022598871e-06, global_step: 850, interval_runtime: 1.5303, interval_samples_per_second: 5.228, interval_steps_per_second: 6.535, epoch: 4.8023[0m
+[32m[2022-09-05 15:13:03,671] [    INFO][0m - loss: 0.51552563, learning_rate: 9.028248587570622e-06, global_step: 860, interval_runtime: 1.5382, interval_samples_per_second: 5.201, interval_steps_per_second: 6.501, epoch: 4.8588[0m
+[32m[2022-09-05 15:13:05,204] [    INFO][0m - loss: 0.3903615, learning_rate: 9.016949152542374e-06, global_step: 870, interval_runtime: 1.5336, interval_samples_per_second: 5.216, interval_steps_per_second: 6.521, epoch: 4.9153[0m
+[32m[2022-09-05 15:13:06,747] [    INFO][0m - loss: 0.47059212, learning_rate: 9.005649717514125e-06, global_step: 880, interval_runtime: 1.5422, interval_samples_per_second: 5.187, interval_steps_per_second: 6.484, epoch: 4.9718[0m
+[32m[2022-09-05 15:13:08,296] [    INFO][0m - loss: 0.33122988, learning_rate: 8.994350282485876e-06, global_step: 890, interval_runtime: 1.5491, interval_samples_per_second: 5.164, interval_steps_per_second: 6.456, epoch: 5.0282[0m
+[32m[2022-09-05 15:13:09,828] [    INFO][0m - loss: 0.53119392, learning_rate: 8.983050847457628e-06, global_step: 900, interval_runtime: 1.5325, interval_samples_per_second: 5.22, interval_steps_per_second: 6.525, epoch: 5.0847[0m
+[32m[2022-09-05 15:13:09,829] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:13:09,829] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:13:09,829] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:13:09,829] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:13:09,829] [    INFO][0m -   Total prediction steps = 177[0m
+[32m[2022-09-05 15:13:21,416] [    INFO][0m - eval_loss: 0.4919743835926056, eval_accuracy: 0.3217821782178218, eval_runtime: 11.5864, eval_samples_per_second: 122.039, eval_steps_per_second: 15.276, epoch: 5.0847[0m
+[32m[2022-09-05 15:13:21,443] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-900[0m
+[32m[2022-09-05 15:13:21,443] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:13:24,623] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-900/tokenizer_config.json[0m
+[32m[2022-09-05 15:13:24,623] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-900/special_tokens_map.json[0m
+[32m[2022-09-05 15:13:31,264] [    INFO][0m - loss: 0.54425716, learning_rate: 8.971751412429379e-06, global_step: 910, interval_runtime: 21.4361, interval_samples_per_second: 0.373, interval_steps_per_second: 0.467, epoch: 5.1412[0m
+[32m[2022-09-05 15:13:32,801] [    INFO][0m - loss: 0.42047892, learning_rate: 8.960451977401131e-06, global_step: 920, interval_runtime: 1.5365, interval_samples_per_second: 5.207, interval_steps_per_second: 6.508, epoch: 5.1977[0m
+[32m[2022-09-05 15:13:34,337] [    INFO][0m - loss: 0.39474831, learning_rate: 8.949152542372881e-06, global_step: 930, interval_runtime: 1.5356, interval_samples_per_second: 5.21, interval_steps_per_second: 6.512, epoch: 5.2542[0m
+[32m[2022-09-05 15:13:35,864] [    INFO][0m - loss: 0.2196244, learning_rate: 8.937853107344634e-06, global_step: 940, interval_runtime: 1.5273, interval_samples_per_second: 5.238, interval_steps_per_second: 6.548, epoch: 5.3107[0m
+[32m[2022-09-05 15:13:37,399] [    INFO][0m - loss: 0.76639881, learning_rate: 8.926553672316384e-06, global_step: 950, interval_runtime: 1.5351, interval_samples_per_second: 5.211, interval_steps_per_second: 6.514, epoch: 5.3672[0m
+[32m[2022-09-05 15:13:38,933] [    INFO][0m - loss: 0.50506101, learning_rate: 8.915254237288137e-06, global_step: 960, interval_runtime: 1.5346, interval_samples_per_second: 5.213, interval_steps_per_second: 6.517, epoch: 5.4237[0m
+[32m[2022-09-05 15:13:40,471] [    INFO][0m - loss: 0.37836945, learning_rate: 8.903954802259887e-06, global_step: 970, interval_runtime: 1.537, interval_samples_per_second: 5.205, interval_steps_per_second: 6.506, epoch: 5.4802[0m
+[32m[2022-09-05 15:13:42,004] [    INFO][0m - loss: 0.38943384, learning_rate: 8.89265536723164e-06, global_step: 980, interval_runtime: 1.5338, interval_samples_per_second: 5.216, interval_steps_per_second: 6.52, epoch: 5.5367[0m
+[32m[2022-09-05 15:13:43,541] [    INFO][0m - loss: 0.52608881, learning_rate: 8.88135593220339e-06, global_step: 990, interval_runtime: 1.5371, interval_samples_per_second: 5.204, interval_steps_per_second: 6.506, epoch: 5.5932[0m
+[32m[2022-09-05 15:13:45,075] [    INFO][0m - loss: 0.4027967, learning_rate: 8.870056497175143e-06, global_step: 1000, interval_runtime: 1.5338, interval_samples_per_second: 5.216, interval_steps_per_second: 6.52, epoch: 5.6497[0m
+[32m[2022-09-05 15:13:45,076] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:13:45,076] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:13:45,076] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:13:45,076] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:13:45,076] [    INFO][0m -   Total prediction steps = 177[0m
+====================
+[6 2 1 2 4 3 6 0 0 6 1 3 6 5 4 4 4 6 5 4 0 3 1 1 5 2 5 4 1 1 6 5 5 4 2 5 2
+ 0 1 0 1 4 0 5 5 5 3 6 2 4 0 2 0 5 3 2 2 4 0 5 3 6 3 0 5 2 2 3 2 6 0 4 1 1
+ 2 4 0 2 5 6 5 5 1 5 5 3 2 1 2 6 0 6 5 2 6 4 5 0 0 0 0 6 0 2 5 6 5 3 3 0 3
+ 0 6 3 6 0 5 6 4 6 2 2 3 6 0 1 1 1 6 3 6 0 3 6 3 0 1 2 3 1 6 2 3 5 1 0 4 5
+ 0 1 5 0 3 6 3 6 1 6 1 1 5 3 6 4 1 4 3 0 5 3 6 4 1 1 5 0 4 4 2 1 4 2 1 3 4
+ 3 5 2 1 3 6 2 6 5 3 2 0 4 4 2 1 4]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[6 5 3 2 4 3 5 2 0 6 1 2 6 5 4 6 4 6 5 4 2 1 6 1 6 1 5 4 6 1 1 3 0 0 2 4 4
+ 6 2 4 1 3 2 4 0 2 3 1 2 4 3 2 3 0 1 4 2 6 0 3 0 2 3 4 5 0 3 5 3 6 4 6 1 1
+ 6 4 3 5 5 2 1 2 5 2 6 2 3 6 1 0 1 6 2 2 6 4 6 0 4 2 3 2 4 2 3 5 5 3 3 0 5
+ 0 6 4 3 0 0 5 5 3 0 3 3 6 0 1 6 1 3 5 5 1 6 5 3 0 6 6 4 1 0 6 1 5 3 4 4 0
+ 0 0 3 4 3 4 1 2 1 6 1 3 5 4 5 0 2 4 1 4 1 3 2 6 1 4 3 2 2 0 5 1 4 1 6 0 5
+ 2 5 1 1 1 0 1 1 5 6 4 2 0 0 6 1 4]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[2 2 2 0 4 3 2 4 0 6 0 6 5 6 0 0 3 1 1 4 0 6 6 6 5 0 5 1 3 1 2 6 5 0 2 5 2
+ 4 0 4 1 6 0 0 0 5 3 0 1 4 6 4 3 0 3 6 2 2 2 5 0 1 3 5 6 1 3 5 2 6 0 0 5 5
+ 2 5 0 5 5 5 0 1 2 0 5 4 2 0 1 1 0 6 5 2 1 4 6 2 0 4 0 6 1 2 5 5 4 3 3 6 3
+ 1 3 4 2 0 3 1 4 6 5 6 0 4 0 1 6 1 6 5 5 2 6 5 3 6 6 5 1 1 6 1 0 1 3 1 4 3
+ 5 2 3 0 3 4 1 6 1 6 1 5 5 4 4 4 5 2 5 0 5 1 1 3 1 4 3 3 6 5 5 1 0 0 6 0 1
+ 3 2 5 6 1 3 6 1 5 5 1 1 1 2 2 0 1]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[2 5 2 0 4 5 3 4 0 1 2 6 5 5 0 1 0 1 5 0 0 0 2 0 3 5 5 1 3 1 3 6 5 3 3 5 3
+ 4 2 4 1 0 1 3 0 6 3 5 2 4 6 6 3 3 5 6 1 6 0 3 3 4 0 1 6 1 3 5 2 6 5 4 0 5
+ 6 5 6 6 0 2 3 5 5 6 5 4 6 6 4 6 0 6 2 2 1 4 5 2 1 4 3 0 1 6 4 5 4 4 6 6 3
+ 1 3 6 6 0 3 4 5 2 0 2 0 4 2 1 6 1 6 5 5 5 6 5 2 1 6 5 3 1 2 5 6 1 2 0 4 6
+ 6 2 3 0 5 0 2 5 0 2 3 5 1 6 4 0 2 2 5 4 1 1 4 3 3 0 2 2 2 1 6 1 0 3 3 0 1
+ 6 2 6 0 1 3 1 1 5 6 1 4 1 1 1 6 3]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[2 2 0 0 4 5 3 4 0 3 2 1 5 5 1 1 0 1 2 4 0 4 2 0 5 1 5 1 3 4 3 3 2 3 6 1 3
+ 2 0 4 3 0 0 2 0 3 3 5 1 6 6 4 3 3 3 6 5 0 0 5 1 1 3 0 1 4 3 3 2 6 1 4 0 5
+ 6 6 6 6 0 2 3 4 5 5 5 4 6 0 2 6 3 6 1 2 1 4 0 0 1 4 4 0 5 2 4 5 4 4 2 1 4
+ 1 4 4 6 4 3 1 6 2 2 0 0 6 0 0 6 5 6 5 5 4 3 4 5 1 6 5 0 1 2 6 5 5 2 0 4 0
+ 2 2 3 0 5 0 3 6 0 2 3 5 1 6 1 0 3 2 1 0 1 0 2 4 0 6 4 2 6 1 6 1 6 5 6 5 3
+ 2 5 6 0 1 3 1 1 5 5 1 2 6 2 1 1 5]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[6 2 0 0 4 5 4 1 0 2 2 1 6 5 0 4 2 1 2 6 2 2 2 0 4 1 5 1 3 1 0 3 1 3 6 1 2
+ 2 2 4 5 6 4 2 0 3 3 5 1 1 3 4 2 1 3 6 5 6 2 3 1 4 3 0 1 2 5 4 3 6 1 4 0 2
+ 6 4 0 6 0 2 3 5 5 5 6 4 6 0 2 6 0 3 1 2 4 4 0 0 2 4 0 0 5 6 4 5 5 4 3 1 4
+ 1 4 4 6 0 2 4 6 2 1 0 6 6 3 0 6 5 3 5 5 4 6 4 5 1 1 2 0 4 6 0 5 6 3 3 4 6
+ 2 2 3 0 2 0 3 1 0 6 1 1 1 6 4 0 3 2 0 0 1 0 2 4 0 0 5 2 1 1 6 1 2 3 6 5 3
+ 2 2 6 0 1 3 1 1 5 1 1 2 6 2 2 1 4]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[6 4 0 0 4 1 4 1 0 3 2 1 6 5 0 0 4 6 2 4 2 6 2 2 4 1 5 1 3 1 3 3 3 6 6 6 4
+ 0 0 4 5 3 4 2 0 4 3 5 1 1 3 4 3 1 3 6 5 6 2 3 5 4 3 0 1 0 3 4 3 6 1 6 0 2
+ 6 6 0 6 0 5 3 6 5 5 6 6 6 6 2 2 1 5 1 2 4 4 0 0 1 4 2 0 4 6 4 5 5 4 2 1 4
+ 1 4 3 5 4 3 4 6 2 1 0 6 6 1 0 1 5 3 5 6 5 5 4 5 0 1 2 1 1 6 0 5 5 2 0 4 6
+ 0 2 3 0 6 2 3 6 0 0 0 1 1 6 1 0 3 1 6 4 0 0 1 4 0 6 5 2 1 1 6 4 6 3 0 4 3
+ 2 1 2 1 1 0 1 2 5 1 1 2 6 0 1 1 4]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[6 2 0 0 2 0 5 1 1 3 2 2 6 5 0 4 3 1 2 6 2 2 2 2 0 1 5 1 3 4 3 2 0 6 3 0 4
+ 0 6 2 5 3 4 3 0 3 3 5 3 1 4 4 5 1 3 3 5 6 4 5 1 4 3 0 6 5 5 3 3 0 6 4 0 0
+ 3 0 0 6 0 5 3 6 5 6 2 6 6 6 2 0 1 5 5 4 1 4 0 1 4 4 3 0 4 6 5 5 5 4 2 1 4
+ 1 4 4 5 3 2 4 0 2 2 1 3 4 1 0 3 2 5 4 6 5 6 4 5 0 1 5 0 1 4 4 5 6 2 6 4 1
+ 2 2 3 0 2 6 1 5 6 2 0 1 1 6 1 0 3 4 5 0 0 0 2 4 0 0 0 2 0 1 6 4 6 5 3 4 0
+ 2 1 4 1 1 3 1 2 0 1 1 2 6 2 1 1 4]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[6 0 0 1 2 0 4 1 2 3 2 1 6 5 0 4 3 1 0 4 2 2 2 2 0 1 5 1 3 4 3 2 2 6 3 1 4
+ 2 6 3 5 3 5 3 0 3 3 4 3 1 6 4 2 1 3 3 0 6 2 3 1 4 3 0 6 5 5 6 3 6 6 6 0 2
+ 6 6 6 6 1 5 3 5 5 6 2 6 6 6 5 0 4 5 1 4 4 4 5 1 4 4 2 0 4 6 4 5 5 4 2 1 4
+ 1 4 3 6 0 3 4 0 2 2 1 3 5 2 5 1 5 5 0 6 5 6 4 5 1 4 5 0 1 6 0 5 5 2 6 4 6
+ 2 2 3 0 2 6 5 5 6 2 0 1 0 4 1 0 3 1 6 4 0 0 2 4 6 4 0 3 0 1 6 4 6 3 4 4 0
+ 2 1 4 1 1 3 1 2 5 1 1 2 6 2 1 1 4]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[6 2 0 0 3 0 5 1 0 3 2 4 6 5 0 4 3 1 2 4 2 2 2 2 0 1 5 1 3 4 3 2 5 6 3 1 4
+ 0 4 3 5 3 5 2 0 3 3 4 3 1 6 4 5 1 0 3 0 6 2 5 1 4 3 0 6 5 5 3 3 0 6 4 0 0
+ 6 0 0 6 0 5 3 5 5 6 2 6 6 6 6 0 1 5 5 2 4 4 0 1 4 4 2 0 4 6 4 5 5 4 2 1 4
+ 1 4 3 6 4 3 4 0 2 2 1 2 6 2 1 1 5 3 5 5 5 6 4 5 1 0 5 0 1 6 6 5 3 2 6 4 6
+ 2 2 3 0 0 0 0 5 0 0 0 1 0 4 1 0 3 1 5 4 0 0 2 4 6 0 0 2 0 1 6 4 6 3 3 4 0
+ 2 1 4 1 1 3 1 2 5 1 1 2 6 1 1 1 4]
+[32m[2022-09-05 15:13:56,703] [    INFO][0m - eval_loss: 0.40258297324180603, eval_accuracy: 0.30198019801980197, eval_runtime: 11.6267, eval_samples_per_second: 121.617, eval_steps_per_second: 15.224, epoch: 5.6497[0m
+[32m[2022-09-05 15:13:56,730] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-1000[0m
+[32m[2022-09-05 15:13:56,730] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:14:00,148] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-1000/tokenizer_config.json[0m
+[32m[2022-09-05 15:14:00,148] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-1000/special_tokens_map.json[0m
+[32m[2022-09-05 15:14:07,141] [    INFO][0m - loss: 0.36138852, learning_rate: 8.858757062146893e-06, global_step: 1010, interval_runtime: 22.0663, interval_samples_per_second: 0.363, interval_steps_per_second: 0.453, epoch: 5.7062[0m
+[32m[2022-09-05 15:14:08,668] [    INFO][0m - loss: 0.32433202, learning_rate: 8.847457627118646e-06, global_step: 1020, interval_runtime: 1.5262, interval_samples_per_second: 5.242, interval_steps_per_second: 6.552, epoch: 5.7627[0m
+[32m[2022-09-05 15:14:10,200] [    INFO][0m - loss: 0.37305808, learning_rate: 8.836158192090396e-06, global_step: 1030, interval_runtime: 1.5329, interval_samples_per_second: 5.219, interval_steps_per_second: 6.524, epoch: 5.8192[0m
+[32m[2022-09-05 15:14:11,735] [    INFO][0m - loss: 0.36582253, learning_rate: 8.824858757062149e-06, global_step: 1040, interval_runtime: 1.5341, interval_samples_per_second: 5.215, interval_steps_per_second: 6.518, epoch: 5.8757[0m
+[32m[2022-09-05 15:14:13,281] [    INFO][0m - loss: 0.65890384, learning_rate: 8.8135593220339e-06, global_step: 1050, interval_runtime: 1.5463, interval_samples_per_second: 5.174, interval_steps_per_second: 6.467, epoch: 5.9322[0m
+[32m[2022-09-05 15:14:14,822] [    INFO][0m - loss: 0.66720514, learning_rate: 8.80225988700565e-06, global_step: 1060, interval_runtime: 1.5412, interval_samples_per_second: 5.191, interval_steps_per_second: 6.488, epoch: 5.9887[0m
+[32m[2022-09-05 15:14:16,377] [    INFO][0m - loss: 0.46998744, learning_rate: 8.790960451977402e-06, global_step: 1070, interval_runtime: 1.5551, interval_samples_per_second: 5.144, interval_steps_per_second: 6.43, epoch: 6.0452[0m
+[32m[2022-09-05 15:14:17,917] [    INFO][0m - loss: 0.3067085, learning_rate: 8.779661016949153e-06, global_step: 1080, interval_runtime: 1.5396, interval_samples_per_second: 5.196, interval_steps_per_second: 6.495, epoch: 6.1017[0m
+[32m[2022-09-05 15:14:19,461] [    INFO][0m - loss: 0.42608533, learning_rate: 8.768361581920905e-06, global_step: 1090, interval_runtime: 1.544, interval_samples_per_second: 5.181, interval_steps_per_second: 6.477, epoch: 6.1582[0m
+[32m[2022-09-05 15:14:21,009] [    INFO][0m - loss: 0.38486409, learning_rate: 8.757062146892656e-06, global_step: 1100, interval_runtime: 1.5477, interval_samples_per_second: 5.169, interval_steps_per_second: 6.461, epoch: 6.2147[0m
+[32m[2022-09-05 15:14:21,009] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:14:21,009] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:14:21,009] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:14:21,009] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:14:21,009] [    INFO][0m -   Total prediction steps = 177[0m
+[32m[2022-09-05 15:14:32,598] [    INFO][0m - eval_loss: 0.5304500460624695, eval_accuracy: 0.3118811881188119, eval_runtime: 11.5885, eval_samples_per_second: 122.018, eval_steps_per_second: 15.274, epoch: 6.2147[0m
+[32m[2022-09-05 15:14:32,625] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-1100[0m
+[32m[2022-09-05 15:14:32,625] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:14:35,750] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-1100/tokenizer_config.json[0m
+[32m[2022-09-05 15:14:35,750] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-1100/special_tokens_map.json[0m
+[32m[2022-09-05 15:14:42,756] [    INFO][0m - loss: 0.22781599, learning_rate: 8.745762711864407e-06, global_step: 1110, interval_runtime: 21.7466, interval_samples_per_second: 0.368, interval_steps_per_second: 0.46, epoch: 6.2712[0m
+[32m[2022-09-05 15:14:44,288] [    INFO][0m - loss: 0.32846618, learning_rate: 8.734463276836159e-06, global_step: 1120, interval_runtime: 1.5329, interval_samples_per_second: 5.219, interval_steps_per_second: 6.524, epoch: 6.3277[0m
+[32m[2022-09-05 15:14:45,824] [    INFO][0m - loss: 0.5134387, learning_rate: 8.72316384180791e-06, global_step: 1130, interval_runtime: 1.5357, interval_samples_per_second: 5.209, interval_steps_per_second: 6.512, epoch: 6.3842[0m
+[32m[2022-09-05 15:14:47,358] [    INFO][0m - loss: 0.478021, learning_rate: 8.711864406779662e-06, global_step: 1140, interval_runtime: 1.5335, interval_samples_per_second: 5.217, interval_steps_per_second: 6.521, epoch: 6.4407[0m
+[32m[2022-09-05 15:14:48,897] [    INFO][0m - loss: 0.28176887, learning_rate: 8.700564971751413e-06, global_step: 1150, interval_runtime: 1.5389, interval_samples_per_second: 5.198, interval_steps_per_second: 6.498, epoch: 6.4972[0m
+[32m[2022-09-05 15:14:50,434] [    INFO][0m - loss: 0.26225693, learning_rate: 8.689265536723165e-06, global_step: 1160, interval_runtime: 1.5376, interval_samples_per_second: 5.203, interval_steps_per_second: 6.504, epoch: 6.5537[0m
+[32m[2022-09-05 15:14:51,976] [    INFO][0m - loss: 0.17919636, learning_rate: 8.677966101694915e-06, global_step: 1170, interval_runtime: 1.5416, interval_samples_per_second: 5.19, interval_steps_per_second: 6.487, epoch: 6.6102[0m
+[32m[2022-09-05 15:14:53,515] [    INFO][0m - loss: 0.35888286, learning_rate: 8.666666666666668e-06, global_step: 1180, interval_runtime: 1.5392, interval_samples_per_second: 5.198, interval_steps_per_second: 6.497, epoch: 6.6667[0m
+[32m[2022-09-05 15:14:55,058] [    INFO][0m - loss: 0.31665354, learning_rate: 8.655367231638418e-06, global_step: 1190, interval_runtime: 1.543, interval_samples_per_second: 5.185, interval_steps_per_second: 6.481, epoch: 6.7232[0m
+[32m[2022-09-05 15:14:56,596] [    INFO][0m - loss: 0.65965605, learning_rate: 8.64406779661017e-06, global_step: 1200, interval_runtime: 1.5388, interval_samples_per_second: 5.199, interval_steps_per_second: 6.499, epoch: 6.7797[0m
+[32m[2022-09-05 15:14:56,597] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:14:56,597] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:14:56,597] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:14:56,597] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:14:56,597] [    INFO][0m -   Total prediction steps = 177[0m
+[32m[2022-09-05 15:15:08,224] [    INFO][0m - eval_loss: 0.8430474400520325, eval_accuracy: 0.3316831683168317, eval_runtime: 11.6257, eval_samples_per_second: 121.627, eval_steps_per_second: 15.225, epoch: 6.7797[0m
+[32m[2022-09-05 15:15:08,253] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-1200[0m
+[32m[2022-09-05 15:15:08,254] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:15:11,593] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-1200/tokenizer_config.json[0m
+[32m[2022-09-05 15:15:11,593] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-1200/special_tokens_map.json[0m
+[32m[2022-09-05 15:15:18,694] [    INFO][0m - loss: 0.30242486, learning_rate: 8.632768361581921e-06, global_step: 1210, interval_runtime: 22.0973, interval_samples_per_second: 0.362, interval_steps_per_second: 0.453, epoch: 6.8362[0m
+[32m[2022-09-05 15:15:20,227] [    INFO][0m - loss: 0.47548819, learning_rate: 8.621468926553674e-06, global_step: 1220, interval_runtime: 1.5327, interval_samples_per_second: 5.22, interval_steps_per_second: 6.525, epoch: 6.8927[0m
+[32m[2022-09-05 15:15:21,759] [    INFO][0m - loss: 0.29195499, learning_rate: 8.610169491525424e-06, global_step: 1230, interval_runtime: 1.5328, interval_samples_per_second: 5.219, interval_steps_per_second: 6.524, epoch: 6.9492[0m
+[32m[2022-09-05 15:15:23,321] [    INFO][0m - loss: 0.35506437, learning_rate: 8.598870056497177e-06, global_step: 1240, interval_runtime: 1.5611, interval_samples_per_second: 5.125, interval_steps_per_second: 6.406, epoch: 7.0056[0m
+[32m[2022-09-05 15:15:24,859] [    INFO][0m - loss: 0.32629805, learning_rate: 8.587570621468927e-06, global_step: 1250, interval_runtime: 1.5387, interval_samples_per_second: 5.199, interval_steps_per_second: 6.499, epoch: 7.0621[0m
+[32m[2022-09-05 15:15:26,405] [    INFO][0m - loss: 0.19866064, learning_rate: 8.57627118644068e-06, global_step: 1260, interval_runtime: 1.5458, interval_samples_per_second: 5.175, interval_steps_per_second: 6.469, epoch: 7.1186[0m
+[32m[2022-09-05 15:15:27,945] [    INFO][0m - loss: 0.33363984, learning_rate: 8.56497175141243e-06, global_step: 1270, interval_runtime: 1.5401, interval_samples_per_second: 5.194, interval_steps_per_second: 6.493, epoch: 7.1751[0m
+[32m[2022-09-05 15:15:29,485] [    INFO][0m - loss: 0.37792709, learning_rate: 8.553672316384181e-06, global_step: 1280, interval_runtime: 1.5395, interval_samples_per_second: 5.196, interval_steps_per_second: 6.495, epoch: 7.2316[0m
+[32m[2022-09-05 15:15:31,031] [    INFO][0m - loss: 0.29571042, learning_rate: 8.542372881355933e-06, global_step: 1290, interval_runtime: 1.5468, interval_samples_per_second: 5.172, interval_steps_per_second: 6.465, epoch: 7.2881[0m
+[32m[2022-09-05 15:15:32,582] [    INFO][0m - loss: 0.38200059, learning_rate: 8.531073446327684e-06, global_step: 1300, interval_runtime: 1.5506, interval_samples_per_second: 5.159, interval_steps_per_second: 6.449, epoch: 7.3446[0m
+[32m[2022-09-05 15:15:32,583] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:15:32,583] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:15:32,583] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:15:32,583] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:15:32,583] [    INFO][0m -   Total prediction steps = 177[0m
+[32m[2022-09-05 15:15:44,175] [    INFO][0m - eval_loss: 0.74905925989151, eval_accuracy: 0.3811881188118812, eval_runtime: 11.5917, eval_samples_per_second: 121.984, eval_steps_per_second: 15.27, epoch: 7.3446[0m
+[32m[2022-09-05 15:15:44,205] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-1300[0m
+[32m[2022-09-05 15:15:44,205] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:15:47,641] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-1300/tokenizer_config.json[0m
+[32m[2022-09-05 15:15:47,641] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-1300/special_tokens_map.json[0m
+[32m[2022-09-05 15:15:54,634] [    INFO][0m - loss: 0.43258266, learning_rate: 8.519774011299435e-06, global_step: 1310, interval_runtime: 22.0515, interval_samples_per_second: 0.363, interval_steps_per_second: 0.453, epoch: 7.4011[0m
+[32m[2022-09-05 15:15:56,183] [    INFO][0m - loss: 0.27155495, learning_rate: 8.508474576271187e-06, global_step: 1320, interval_runtime: 1.549, interval_samples_per_second: 5.164, interval_steps_per_second: 6.456, epoch: 7.4576[0m
+[32m[2022-09-05 15:15:57,722] [    INFO][0m - loss: 0.448244, learning_rate: 8.497175141242938e-06, global_step: 1330, interval_runtime: 1.5389, interval_samples_per_second: 5.198, interval_steps_per_second: 6.498, epoch: 7.5141[0m
+[32m[2022-09-05 15:15:59,256] [    INFO][0m - loss: 0.25900321, learning_rate: 8.48587570621469e-06, global_step: 1340, interval_runtime: 1.5339, interval_samples_per_second: 5.216, interval_steps_per_second: 6.519, epoch: 7.5706[0m
+[32m[2022-09-05 15:16:00,790] [    INFO][0m - loss: 0.37383246, learning_rate: 8.47457627118644e-06, global_step: 1350, interval_runtime: 1.5345, interval_samples_per_second: 5.213, interval_steps_per_second: 6.517, epoch: 7.6271[0m
+[32m[2022-09-05 15:16:02,333] [    INFO][0m - loss: 0.18855009, learning_rate: 8.463276836158193e-06, global_step: 1360, interval_runtime: 1.5429, interval_samples_per_second: 5.185, interval_steps_per_second: 6.481, epoch: 7.6836[0m
+[32m[2022-09-05 15:16:03,874] [    INFO][0m - loss: 0.32686894, learning_rate: 8.451977401129944e-06, global_step: 1370, interval_runtime: 1.5406, interval_samples_per_second: 5.193, interval_steps_per_second: 6.491, epoch: 7.7401[0m
+[32m[2022-09-05 15:16:05,415] [    INFO][0m - loss: 0.56582813, learning_rate: 8.440677966101696e-06, global_step: 1380, interval_runtime: 1.5414, interval_samples_per_second: 5.19, interval_steps_per_second: 6.488, epoch: 7.7966[0m
+[32m[2022-09-05 15:16:06,957] [    INFO][0m - loss: 0.33889949, learning_rate: 8.429378531073447e-06, global_step: 1390, interval_runtime: 1.5416, interval_samples_per_second: 5.189, interval_steps_per_second: 6.487, epoch: 7.8531[0m
+[32m[2022-09-05 15:16:08,493] [    INFO][0m - loss: 0.23120139, learning_rate: 8.418079096045199e-06, global_step: 1400, interval_runtime: 1.5358, interval_samples_per_second: 5.209, interval_steps_per_second: 6.511, epoch: 7.9096[0m
+[32m[2022-09-05 15:16:08,493] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:16:08,493] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:16:08,493] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:16:08,493] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:16:08,493] [    INFO][0m -   Total prediction steps = 177[0m
+[32m[2022-09-05 15:16:20,168] [    INFO][0m - eval_loss: 0.8697247505187988, eval_accuracy: 0.38613861386138615, eval_runtime: 11.6744, eval_samples_per_second: 121.119, eval_steps_per_second: 15.161, epoch: 7.9096[0m
+[32m[2022-09-05 15:16:20,199] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-1400[0m
+[32m[2022-09-05 15:16:20,200] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:16:23,643] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-1400/tokenizer_config.json[0m
+[32m[2022-09-05 15:16:23,643] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-1400/special_tokens_map.json[0m
+[32m[2022-09-05 15:16:30,559] [    INFO][0m - loss: 0.15399884, learning_rate: 8.40677966101695e-06, global_step: 1410, interval_runtime: 22.0663, interval_samples_per_second: 0.363, interval_steps_per_second: 0.453, epoch: 7.9661[0m
+[32m[2022-09-05 15:16:32,108] [    INFO][0m - loss: 0.63478537, learning_rate: 8.395480225988702e-06, global_step: 1420, interval_runtime: 1.5496, interval_samples_per_second: 5.163, interval_steps_per_second: 6.453, epoch: 8.0226[0m
+[32m[2022-09-05 15:16:33,648] [    INFO][0m - loss: 0.18668877, learning_rate: 8.384180790960452e-06, global_step: 1430, interval_runtime: 1.5394, interval_samples_per_second: 5.197, interval_steps_per_second: 6.496, epoch: 8.0791[0m
+[32m[2022-09-05 15:16:35,184] [    INFO][0m - loss: 0.251524, learning_rate: 8.372881355932205e-06, global_step: 1440, interval_runtime: 1.536, interval_samples_per_second: 5.208, interval_steps_per_second: 6.51, epoch: 8.1356[0m
+[32m[2022-09-05 15:16:36,721] [    INFO][0m - loss: 0.4635376, learning_rate: 8.361581920903955e-06, global_step: 1450, interval_runtime: 1.5375, interval_samples_per_second: 5.203, interval_steps_per_second: 6.504, epoch: 8.1921[0m
+[32m[2022-09-05 15:16:38,270] [    INFO][0m - loss: 0.20187132, learning_rate: 8.350282485875708e-06, global_step: 1460, interval_runtime: 1.549, interval_samples_per_second: 5.165, interval_steps_per_second: 6.456, epoch: 8.2486[0m
+[32m[2022-09-05 15:16:39,816] [    INFO][0m - loss: 0.17620887, learning_rate: 8.338983050847458e-06, global_step: 1470, interval_runtime: 1.5453, interval_samples_per_second: 5.177, interval_steps_per_second: 6.471, epoch: 8.3051[0m
+[32m[2022-09-05 15:16:41,360] [    INFO][0m - loss: 0.05215225, learning_rate: 8.327683615819209e-06, global_step: 1480, interval_runtime: 1.5446, interval_samples_per_second: 5.179, interval_steps_per_second: 6.474, epoch: 8.3616[0m
+[32m[2022-09-05 15:16:42,911] [    INFO][0m - loss: 0.15043371, learning_rate: 8.316384180790961e-06, global_step: 1490, interval_runtime: 1.5508, interval_samples_per_second: 5.158, interval_steps_per_second: 6.448, epoch: 8.4181[0m
+[32m[2022-09-05 15:16:44,456] [    INFO][0m - loss: 0.17533419, learning_rate: 8.305084745762712e-06, global_step: 1500, interval_runtime: 1.5444, interval_samples_per_second: 5.18, interval_steps_per_second: 6.475, epoch: 8.4746[0m
+[32m[2022-09-05 15:16:44,456] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:16:44,456] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:16:44,456] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:16:44,456] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:16:44,456] [    INFO][0m -   Total prediction steps = 177[0m
+[32m[2022-09-05 15:16:56,260] [    INFO][0m - eval_loss: 2.2944633960723877, eval_accuracy: 0.3811881188118812, eval_runtime: 11.8032, eval_samples_per_second: 119.798, eval_steps_per_second: 14.996, epoch: 8.4746[0m
+[32m[2022-09-05 15:16:56,291] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-1500[0m
+[32m[2022-09-05 15:16:56,291] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:16:59,687] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-1500/tokenizer_config.json[0m
+[32m[2022-09-05 15:16:59,688] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-1500/special_tokens_map.json[0m
+[32m[2022-09-05 15:17:06,610] [    INFO][0m - loss: 0.25370114, learning_rate: 8.293785310734463e-06, global_step: 1510, interval_runtime: 22.1545, interval_samples_per_second: 0.361, interval_steps_per_second: 0.451, epoch: 8.5311[0m
+[32m[2022-09-05 15:17:08,150] [    INFO][0m - loss: 0.20060246, learning_rate: 8.282485875706215e-06, global_step: 1520, interval_runtime: 1.5398, interval_samples_per_second: 5.196, interval_steps_per_second: 6.495, epoch: 8.5876[0m
+[32m[2022-09-05 15:17:09,682] [    INFO][0m - loss: 0.15574921, learning_rate: 8.271186440677966e-06, global_step: 1530, interval_runtime: 1.5326, interval_samples_per_second: 5.22, interval_steps_per_second: 6.525, epoch: 8.6441[0m
+[32m[2022-09-05 15:17:11,223] [    INFO][0m - loss: 0.5043612, learning_rate: 8.259887005649718e-06, global_step: 1540, interval_runtime: 1.5405, interval_samples_per_second: 5.193, interval_steps_per_second: 6.491, epoch: 8.7006[0m
+[32m[2022-09-05 15:17:12,756] [    INFO][0m - loss: 0.17180424, learning_rate: 8.248587570621469e-06, global_step: 1550, interval_runtime: 1.533, interval_samples_per_second: 5.219, interval_steps_per_second: 6.523, epoch: 8.7571[0m
+[32m[2022-09-05 15:17:14,297] [    INFO][0m - loss: 0.21524086, learning_rate: 8.237288135593221e-06, global_step: 1560, interval_runtime: 1.5415, interval_samples_per_second: 5.19, interval_steps_per_second: 6.487, epoch: 8.8136[0m
+[32m[2022-09-05 15:17:15,839] [    INFO][0m - loss: 0.42788467, learning_rate: 8.225988700564972e-06, global_step: 1570, interval_runtime: 1.5416, interval_samples_per_second: 5.189, interval_steps_per_second: 6.487, epoch: 8.8701[0m
+[32m[2022-09-05 15:17:17,378] [    INFO][0m - loss: 0.30714457, learning_rate: 8.214689265536724e-06, global_step: 1580, interval_runtime: 1.5394, interval_samples_per_second: 5.197, interval_steps_per_second: 6.496, epoch: 8.9266[0m
+[32m[2022-09-05 15:17:18,919] [    INFO][0m - loss: 0.5699132, learning_rate: 8.203389830508475e-06, global_step: 1590, interval_runtime: 1.5404, interval_samples_per_second: 5.193, interval_steps_per_second: 6.492, epoch: 8.9831[0m
+[32m[2022-09-05 15:17:20,470] [    INFO][0m - loss: 0.06169997, learning_rate: 8.192090395480227e-06, global_step: 1600, interval_runtime: 1.5511, interval_samples_per_second: 5.158, interval_steps_per_second: 6.447, epoch: 9.0395[0m
+[32m[2022-09-05 15:17:20,471] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:17:20,471] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:17:20,471] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:17:20,471] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:17:20,471] [    INFO][0m -   Total prediction steps = 177[0m
+[32m[2022-09-05 15:17:32,114] [    INFO][0m - eval_loss: 1.9403666257858276, eval_accuracy: 0.39603960396039606, eval_runtime: 11.6427, eval_samples_per_second: 121.449, eval_steps_per_second: 15.203, epoch: 9.0395[0m
+[32m[2022-09-05 15:17:32,141] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-1600[0m
+[32m[2022-09-05 15:17:32,141] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:17:35,505] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-1600/tokenizer_config.json[0m
+[32m[2022-09-05 15:17:35,506] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-1600/special_tokens_map.json[0m
+[32m[2022-09-05 15:17:42,430] [    INFO][0m - loss: 0.22604811, learning_rate: 8.18079096045198e-06, global_step: 1610, interval_runtime: 21.9601, interval_samples_per_second: 0.364, interval_steps_per_second: 0.455, epoch: 9.096[0m
+[32m[2022-09-05 15:17:43,970] [    INFO][0m - loss: 0.31563168, learning_rate: 8.16949152542373e-06, global_step: 1620, interval_runtime: 1.5404, interval_samples_per_second: 5.193, interval_steps_per_second: 6.492, epoch: 9.1525[0m
+[32m[2022-09-05 15:17:45,513] [    INFO][0m - loss: 0.23225546, learning_rate: 8.158192090395482e-06, global_step: 1630, interval_runtime: 1.5431, interval_samples_per_second: 5.184, interval_steps_per_second: 6.48, epoch: 9.209[0m
+[32m[2022-09-05 15:17:47,059] [    INFO][0m - loss: 0.12713107, learning_rate: 8.146892655367233e-06, global_step: 1640, interval_runtime: 1.5451, interval_samples_per_second: 5.178, interval_steps_per_second: 6.472, epoch: 9.2655[0m
+[32m[2022-09-05 15:17:48,603] [    INFO][0m - loss: 0.42264562, learning_rate: 8.135593220338983e-06, global_step: 1650, interval_runtime: 1.5444, interval_samples_per_second: 5.18, interval_steps_per_second: 6.475, epoch: 9.322[0m
+[32m[2022-09-05 15:17:50,147] [    INFO][0m - loss: 0.14176536, learning_rate: 8.124293785310736e-06, global_step: 1660, interval_runtime: 1.5438, interval_samples_per_second: 5.182, interval_steps_per_second: 6.478, epoch: 9.3785[0m
+[32m[2022-09-05 15:17:51,692] [    INFO][0m - loss: 0.20792782, learning_rate: 8.112994350282486e-06, global_step: 1670, interval_runtime: 1.5451, interval_samples_per_second: 5.178, interval_steps_per_second: 6.472, epoch: 9.435[0m
+[32m[2022-09-05 15:17:53,238] [    INFO][0m - loss: 0.17733552, learning_rate: 8.101694915254237e-06, global_step: 1680, interval_runtime: 1.5465, interval_samples_per_second: 5.173, interval_steps_per_second: 6.466, epoch: 9.4915[0m
+[32m[2022-09-05 15:17:54,788] [    INFO][0m - loss: 0.13274392, learning_rate: 8.09039548022599e-06, global_step: 1690, interval_runtime: 1.5493, interval_samples_per_second: 5.164, interval_steps_per_second: 6.454, epoch: 9.548[0m
+[32m[2022-09-05 15:17:56,344] [    INFO][0m - loss: 0.3256979, learning_rate: 8.07909604519774e-06, global_step: 1700, interval_runtime: 1.556, interval_samples_per_second: 5.142, interval_steps_per_second: 6.427, epoch: 9.6045[0m
+[32m[2022-09-05 15:17:56,344] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:17:56,344] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:17:56,344] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:17:56,345] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:17:56,345] [    INFO][0m -   Total prediction steps = 177[0m
+[32m[2022-09-05 15:18:08,110] [    INFO][0m - eval_loss: 1.8548380136489868, eval_accuracy: 0.39603960396039606, eval_runtime: 11.7647, eval_samples_per_second: 120.19, eval_steps_per_second: 15.045, epoch: 9.6045[0m
+[32m[2022-09-05 15:18:08,137] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-1700[0m
+[32m[2022-09-05 15:18:08,138] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:18:11,219] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-1700/tokenizer_config.json[0m
+[32m[2022-09-05 15:18:11,220] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-1700/special_tokens_map.json[0m
+[32m[2022-09-05 15:18:18,266] [    INFO][0m - loss: 0.16203684, learning_rate: 8.067796610169492e-06, global_step: 1710, interval_runtime: 21.9223, interval_samples_per_second: 0.365, interval_steps_per_second: 0.456, epoch: 9.661[0m
+[32m[2022-09-05 15:18:19,802] [    INFO][0m - loss: 0.26623268, learning_rate: 8.056497175141243e-06, global_step: 1720, interval_runtime: 1.536, interval_samples_per_second: 5.208, interval_steps_per_second: 6.51, epoch: 9.7175[0m
+[32m[2022-09-05 15:18:21,342] [    INFO][0m - loss: 0.15803664, learning_rate: 8.045197740112995e-06, global_step: 1730, interval_runtime: 1.5399, interval_samples_per_second: 5.195, interval_steps_per_second: 6.494, epoch: 9.774[0m
+[32m[2022-09-05 15:18:22,885] [    INFO][0m - loss: 0.19600964, learning_rate: 8.033898305084746e-06, global_step: 1740, interval_runtime: 1.5432, interval_samples_per_second: 5.184, interval_steps_per_second: 6.48, epoch: 9.8305[0m
+[32m[2022-09-05 15:18:24,426] [    INFO][0m - loss: 0.15761762, learning_rate: 8.022598870056498e-06, global_step: 1750, interval_runtime: 1.5406, interval_samples_per_second: 5.193, interval_steps_per_second: 6.491, epoch: 9.887[0m
+[32m[2022-09-05 15:18:25,965] [    INFO][0m - loss: 0.2787859, learning_rate: 8.011299435028249e-06, global_step: 1760, interval_runtime: 1.5389, interval_samples_per_second: 5.199, interval_steps_per_second: 6.498, epoch: 9.9435[0m
+[32m[2022-09-05 15:18:27,468] [    INFO][0m - loss: 0.30111427, learning_rate: 8.000000000000001e-06, global_step: 1770, interval_runtime: 1.5035, interval_samples_per_second: 5.321, interval_steps_per_second: 6.651, epoch: 10.0[0m
+[32m[2022-09-05 15:18:29,075] [    INFO][0m - loss: 0.16734788, learning_rate: 7.988700564971752e-06, global_step: 1780, interval_runtime: 1.6069, interval_samples_per_second: 4.979, interval_steps_per_second: 6.223, epoch: 10.0565[0m
+[32m[2022-09-05 15:18:30,619] [    INFO][0m - loss: 0.05994946, learning_rate: 7.977401129943504e-06, global_step: 1790, interval_runtime: 1.5438, interval_samples_per_second: 5.182, interval_steps_per_second: 6.478, epoch: 10.113[0m
+[32m[2022-09-05 15:18:32,160] [    INFO][0m - loss: 0.11783397, learning_rate: 7.966101694915255e-06, global_step: 1800, interval_runtime: 1.5415, interval_samples_per_second: 5.19, interval_steps_per_second: 6.487, epoch: 10.1695[0m
+[32m[2022-09-05 15:18:32,161] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:18:32,161] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:18:32,161] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:18:32,161] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:18:32,161] [    INFO][0m -   Total prediction steps = 177[0m
+[32m[2022-09-05 15:18:43,793] [    INFO][0m - eval_loss: 1.9106167554855347, eval_accuracy: 0.42574257425742573, eval_runtime: 11.631, eval_samples_per_second: 121.572, eval_steps_per_second: 15.218, epoch: 10.1695[0m
+[32m[2022-09-05 15:18:43,819] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-1800[0m
+[32m[2022-09-05 15:18:43,820] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:18:46,917] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-1800/tokenizer_config.json[0m
+[32m[2022-09-05 15:18:46,917] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-1800/special_tokens_map.json[0m
+[32m[2022-09-05 15:18:53,804] [    INFO][0m - loss: 0.0746889, learning_rate: 7.954802259887007e-06, global_step: 1810, interval_runtime: 21.6436, interval_samples_per_second: 0.37, interval_steps_per_second: 0.462, epoch: 10.226[0m
+[32m[2022-09-05 15:18:55,345] [    INFO][0m - loss: 0.02092318, learning_rate: 7.943502824858758e-06, global_step: 1820, interval_runtime: 1.5409, interval_samples_per_second: 5.192, interval_steps_per_second: 6.49, epoch: 10.2825[0m
+[32m[2022-09-05 15:18:56,891] [    INFO][0m - loss: 0.23331594, learning_rate: 7.93220338983051e-06, global_step: 1830, interval_runtime: 1.5455, interval_samples_per_second: 5.176, interval_steps_per_second: 6.47, epoch: 10.339[0m
+[32m[2022-09-05 15:18:58,425] [    INFO][0m - loss: 0.20411963, learning_rate: 7.920903954802261e-06, global_step: 1840, interval_runtime: 1.534, interval_samples_per_second: 5.215, interval_steps_per_second: 6.519, epoch: 10.3955[0m
+[32m[2022-09-05 15:18:59,962] [    INFO][0m - loss: 0.18859423, learning_rate: 7.909604519774012e-06, global_step: 1850, interval_runtime: 1.5374, interval_samples_per_second: 5.204, interval_steps_per_second: 6.504, epoch: 10.452[0m
+[32m[2022-09-05 15:19:01,498] [    INFO][0m - loss: 0.03500515, learning_rate: 7.898305084745764e-06, global_step: 1860, interval_runtime: 1.5361, interval_samples_per_second: 5.208, interval_steps_per_second: 6.51, epoch: 10.5085[0m
+[32m[2022-09-05 15:19:03,036] [    INFO][0m - loss: 0.24711494, learning_rate: 7.887005649717515e-06, global_step: 1870, interval_runtime: 1.5374, interval_samples_per_second: 5.203, interval_steps_per_second: 6.504, epoch: 10.565[0m
+[32m[2022-09-05 15:19:04,885] [    INFO][0m - loss: 0.14652617, learning_rate: 7.875706214689265e-06, global_step: 1880, interval_runtime: 1.5429, interval_samples_per_second: 5.185, interval_steps_per_second: 6.481, epoch: 10.6215[0m
+[32m[2022-09-05 15:19:06,429] [    INFO][0m - loss: 0.21846545, learning_rate: 7.864406779661017e-06, global_step: 1890, interval_runtime: 1.8506, interval_samples_per_second: 4.323, interval_steps_per_second: 5.404, epoch: 10.678[0m
+[32m[2022-09-05 15:19:07,978] [    INFO][0m - loss: 0.09765215, learning_rate: 7.853107344632768e-06, global_step: 1900, interval_runtime: 1.5491, interval_samples_per_second: 5.164, interval_steps_per_second: 6.456, epoch: 10.7345[0m
+[32m[2022-09-05 15:19:07,979] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:19:07,979] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:19:07,979] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:19:07,979] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:19:07,979] [    INFO][0m -   Total prediction steps = 177[0m
+[32m[2022-09-05 15:19:19,686] [    INFO][0m - eval_loss: 1.884583592414856, eval_accuracy: 0.40594059405940597, eval_runtime: 11.7067, eval_samples_per_second: 120.786, eval_steps_per_second: 15.12, epoch: 10.7345[0m
+[32m[2022-09-05 15:19:19,716] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-1900[0m
+[32m[2022-09-05 15:19:19,717] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:19:22,994] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-1900/tokenizer_config.json[0m
+[32m[2022-09-05 15:19:22,995] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-1900/special_tokens_map.json[0m
+[32m[2022-09-05 15:19:29,963] [    INFO][0m - loss: 0.1901605, learning_rate: 7.84180790960452e-06, global_step: 1910, interval_runtime: 21.9842, interval_samples_per_second: 0.364, interval_steps_per_second: 0.455, epoch: 10.791[0m
+[32m[2022-09-05 15:19:31,501] [    INFO][0m - loss: 0.25497718, learning_rate: 7.830508474576271e-06, global_step: 1920, interval_runtime: 1.5383, interval_samples_per_second: 5.201, interval_steps_per_second: 6.501, epoch: 10.8475[0m
+[32m[2022-09-05 15:19:33,042] [    INFO][0m - loss: 0.21335135, learning_rate: 7.819209039548023e-06, global_step: 1930, interval_runtime: 1.5415, interval_samples_per_second: 5.19, interval_steps_per_second: 6.487, epoch: 10.904[0m
+[32m[2022-09-05 15:19:34,584] [    INFO][0m - loss: 0.04476454, learning_rate: 7.807909604519774e-06, global_step: 1940, interval_runtime: 1.5419, interval_samples_per_second: 5.188, interval_steps_per_second: 6.486, epoch: 10.9605[0m
+[32m[2022-09-05 15:19:36,139] [    INFO][0m - loss: 0.01109882, learning_rate: 7.796610169491526e-06, global_step: 1950, interval_runtime: 1.5545, interval_samples_per_second: 5.146, interval_steps_per_second: 6.433, epoch: 11.0169[0m
+[32m[2022-09-05 15:19:37,681] [    INFO][0m - loss: 0.19651122, learning_rate: 7.785310734463277e-06, global_step: 1960, interval_runtime: 1.5417, interval_samples_per_second: 5.189, interval_steps_per_second: 6.486, epoch: 11.0734[0m
+[32m[2022-09-05 15:19:39,223] [    INFO][0m - loss: 0.09537724, learning_rate: 7.77401129943503e-06, global_step: 1970, interval_runtime: 1.543, interval_samples_per_second: 5.185, interval_steps_per_second: 6.481, epoch: 11.1299[0m
+[32m[2022-09-05 15:19:40,765] [    INFO][0m - loss: 0.00253049, learning_rate: 7.76271186440678e-06, global_step: 1980, interval_runtime: 1.5414, interval_samples_per_second: 5.19, interval_steps_per_second: 6.488, epoch: 11.1864[0m
+[32m[2022-09-05 15:19:42,314] [    INFO][0m - loss: 0.15005043, learning_rate: 7.751412429378532e-06, global_step: 1990, interval_runtime: 1.5495, interval_samples_per_second: 5.163, interval_steps_per_second: 6.454, epoch: 11.2429[0m
+[32m[2022-09-05 15:19:43,868] [    INFO][0m - loss: 0.18882958, learning_rate: 7.740112994350283e-06, global_step: 2000, interval_runtime: 1.5534, interval_samples_per_second: 5.15, interval_steps_per_second: 6.438, epoch: 11.2994[0m
+[32m[2022-09-05 15:19:43,869] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:19:43,869] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:19:43,869] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:19:43,869] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:19:43,869] [    INFO][0m -   Total prediction steps = 177[0m
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[5 2 0 0 4 0 0 1 1 3 2 4 0 5 0 4 3 1 2 4 2 2 2 2 0 1 5 1 3 4 3 2 5 6 3 5 4
+ 0 4 3 5 3 5 3 0 3 3 4 3 1 6 4 5 1 0 3 0 6 2 3 3 4 3 0 6 5 3 3 3 0 6 4 6 3
+ 6 6 0 6 0 5 3 5 5 6 2 6 6 6 6 0 1 5 5 2 4 2 0 1 4 4 2 0 4 6 4 5 5 4 2 6 4
+ 1 4 3 6 4 3 4 0 2 2 1 0 4 0 0 3 5 3 5 5 5 6 4 5 0 5 5 0 1 4 4 5 6 2 6 4 1
+ 2 2 3 0 0 0 0 5 0 0 0 1 0 4 1 0 3 1 5 4 0 0 2 4 6 0 0 2 0 1 6 4 1 3 3 4 0
+ 2 1 4 0 1 3 1 2 5 6 1 2 6 1 1 1 4]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[5 4 0 0 4 0 2 1 2 3 2 2 0 5 0 0 3 1 2 4 2 2 4 2 0 1 5 1 3 4 3 1 0 6 3 5 4
+ 0 4 4 5 3 5 3 0 3 3 4 3 1 6 3 5 1 0 3 0 6 2 2 4 4 3 0 6 5 5 3 3 6 6 6 6 3
+ 5 6 0 6 0 5 6 6 5 6 2 6 6 6 5 0 2 5 5 4 4 4 0 1 4 4 2 0 4 6 4 6 5 4 2 6 4
+ 1 4 3 6 4 3 5 0 2 6 0 4 4 4 1 0 5 3 1 5 5 6 4 5 1 0 5 1 1 4 6 5 3 2 6 4 1
+ 5 2 3 0 0 6 0 5 0 0 0 1 0 4 1 0 3 1 5 0 0 3 2 4 6 0 0 3 0 1 6 4 1 5 0 4 3
+ 2 1 4 0 1 3 1 2 5 6 1 2 6 1 1 1 4]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[5 4 0 0 4 0 2 1 0 3 2 2 0 5 0 0 3 2 2 4 2 2 2 2 0 1 2 1 3 4 3 2 0 6 3 1 4
+ 0 4 3 5 3 5 3 0 3 3 4 3 1 6 3 2 1 3 3 0 6 2 3 3 4 3 0 6 0 3 6 3 6 2 6 6 2
+ 5 6 6 6 1 6 6 6 5 6 2 6 6 6 5 0 2 5 1 4 4 2 0 1 4 4 2 0 4 6 4 6 5 4 2 6 4
+ 1 4 3 4 4 2 5 0 2 5 0 0 5 3 3 1 5 3 1 5 5 6 4 5 1 5 5 1 0 4 6 5 3 2 6 4 0
+ 2 2 3 0 0 2 0 5 0 0 0 5 0 0 1 0 2 1 5 4 0 3 2 4 6 4 5 3 0 1 6 4 1 3 0 4 0
+ 2 1 4 0 1 3 1 2 5 6 1 2 6 1 1 1 4]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[5 4 0 0 4 0 2 1 2 3 2 2 0 0 0 0 3 1 2 4 2 2 2 2 0 1 5 1 3 4 3 2 5 6 3 5 4
+ 2 4 3 5 3 0 3 3 3 3 4 3 1 6 4 3 1 3 3 0 6 2 2 3 4 3 0 6 0 5 3 3 6 6 6 6 3
+ 5 6 6 6 0 6 2 6 5 6 2 6 6 6 2 0 2 5 5 2 4 4 0 1 4 4 2 0 4 6 4 5 5 4 2 2 4
+ 1 4 3 4 4 2 5 0 2 5 1 0 5 3 1 3 5 3 5 5 5 6 4 5 1 5 5 1 1 4 6 5 3 2 6 4 0
+ 5 2 3 0 0 2 5 5 0 0 1 1 0 0 1 0 3 1 5 0 0 0 2 4 6 6 5 3 0 1 6 4 1 0 4 4 3
+ 2 2 4 0 1 3 1 2 5 1 1 2 1 1 1 1 4]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[5 4 0 0 4 0 2 1 0 3 2 2 0 0 0 0 3 2 2 4 2 2 2 2 0 1 5 1 3 4 3 2 5 6 3 1 4
+ 2 4 1 5 3 5 3 3 3 3 4 3 1 6 4 5 1 3 3 0 6 2 2 3 4 6 0 6 0 5 6 3 6 6 6 6 3
+ 0 6 0 6 0 6 2 5 5 6 6 6 6 6 6 0 4 5 5 2 4 2 0 1 4 4 2 6 4 6 4 5 5 4 2 6 4
+ 1 4 3 4 4 2 5 0 2 2 0 0 0 3 0 3 5 3 5 5 5 6 4 5 0 5 5 1 1 4 6 5 3 2 6 4 0
+ 2 2 3 0 0 2 0 5 0 0 0 5 0 4 1 0 3 1 5 4 0 0 2 4 6 0 5 3 0 1 6 4 6 5 0 1 3
+ 2 1 4 0 1 3 1 1 5 1 1 2 1 1 1 1 4]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[5 4 0 0 4 0 2 1 0 3 2 2 0 0 0 0 3 2 2 4 2 2 2 2 0 1 2 1 3 4 3 2 0 6 3 5 4
+ 0 4 6 5 3 5 3 3 3 3 4 3 1 5 4 5 1 3 3 0 6 2 2 3 4 6 0 6 0 5 6 3 6 6 6 6 3
+ 5 6 0 6 0 6 2 5 5 6 2 6 6 6 5 0 4 5 5 2 4 2 6 1 4 4 2 6 4 6 4 5 5 4 3 6 4
+ 1 4 3 4 4 4 5 0 2 2 0 0 5 3 5 3 5 3 5 5 5 6 4 5 0 5 5 1 0 4 6 5 3 2 6 4 0
+ 2 2 3 0 0 2 0 5 0 0 0 5 0 0 4 0 3 1 5 4 0 0 2 4 6 0 5 3 0 1 6 4 1 3 0 1 3
+ 2 1 4 0 1 3 1 2 5 1 1 2 6 1 1 1 4]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[5 0 0 0 4 1 2 1 0 3 2 2 0 3 0 0 3 2 4 4 2 6 2 2 0 1 2 1 2 4 3 2 2 6 3 1 4
+ 2 4 6 5 3 5 3 3 3 3 4 3 1 5 4 3 1 3 3 0 6 6 2 3 6 3 0 6 0 3 3 3 6 6 4 6 3
+ 5 6 0 6 1 6 6 5 1 6 2 6 6 6 5 5 4 5 5 2 4 2 5 1 4 4 2 6 4 6 4 2 5 4 4 6 4
+ 1 4 3 4 4 4 5 0 2 2 0 0 5 3 5 0 5 3 5 5 4 6 4 5 0 5 5 1 0 4 6 5 3 2 6 4 0
+ 5 2 3 0 0 2 0 5 0 0 3 5 0 0 1 0 0 1 5 4 0 3 2 4 6 4 5 3 0 1 6 4 1 3 4 1 3
+ 2 1 4 0 1 3 1 2 5 1 1 2 1 1 1 1 4]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[5 4 0 0 4 0 2 1 0 3 2 2 0 0 0 0 0 2 2 4 2 2 2 2 0 1 2 1 6 4 3 3 5 3 3 5 4
+ 2 4 6 5 3 5 3 3 3 3 4 3 1 5 1 3 1 3 3 0 6 6 2 4 3 3 0 2 5 3 3 3 6 6 6 6 3
+ 5 6 0 6 0 6 6 6 5 6 2 6 6 6 5 5 4 5 5 2 4 2 5 1 4 4 2 6 4 6 4 5 5 4 4 6 4
+ 1 4 3 4 4 4 5 0 2 3 0 0 5 3 5 3 5 5 5 5 5 6 4 3 6 5 5 1 2 4 6 5 3 2 6 4 0
+ 5 2 3 0 0 2 0 5 0 0 0 5 0 0 4 0 0 1 6 4 0 0 2 4 6 0 5 3 0 1 6 2 1 5 4 1 3
+ 2 1 4 0 1 3 1 2 5 1 1 2 1 1 1 1 2]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[5 4 0 0 4 1 2 1 5 3 2 2 0 3 0 0 3 2 4 4 2 6 2 2 0 1 2 1 3 4 3 3 2 6 3 1 4
+ 2 4 6 5 3 5 3 3 3 3 4 3 1 5 4 5 1 3 3 0 6 6 2 4 3 3 0 6 5 3 3 1 6 6 6 6 3
+ 5 6 0 6 0 6 6 5 1 6 2 6 6 6 5 5 4 5 1 2 4 2 6 1 1 4 2 6 4 6 4 5 0 4 4 6 4
+ 1 4 3 4 4 4 5 0 2 3 0 0 5 1 5 3 5 5 5 5 5 6 4 5 0 5 5 1 2 4 6 5 3 2 6 4 0
+ 5 2 3 0 0 6 0 5 5 0 0 5 0 0 4 0 3 1 6 4 0 0 2 1 6 4 5 3 0 1 6 2 1 3 4 1 3
+ 2 1 4 0 1 3 1 1 5 1 1 1 1 1 1 1 2]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[32m[2022-09-05 15:19:55,579] [    INFO][0m - eval_loss: 2.3775386810302734, eval_accuracy: 0.37623762376237624, eval_runtime: 11.7099, eval_samples_per_second: 120.753, eval_steps_per_second: 15.115, epoch: 11.2994[0m
+[32m[2022-09-05 15:19:55,595] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-2000[0m
+[32m[2022-09-05 15:19:55,595] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:19:58,350] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-2000/tokenizer_config.json[0m
+[32m[2022-09-05 15:19:58,350] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-2000/special_tokens_map.json[0m
+[32m[2022-09-05 15:20:05,172] [    INFO][0m - loss: 0.32074127, learning_rate: 7.728813559322035e-06, global_step: 2010, interval_runtime: 21.3043, interval_samples_per_second: 0.376, interval_steps_per_second: 0.469, epoch: 11.3559[0m
+[32m[2022-09-05 15:20:06,707] [    INFO][0m - loss: 0.00469134, learning_rate: 7.717514124293786e-06, global_step: 2020, interval_runtime: 1.5345, interval_samples_per_second: 5.213, interval_steps_per_second: 6.517, epoch: 11.4124[0m
+[32m[2022-09-05 15:20:08,248] [    INFO][0m - loss: 0.05769089, learning_rate: 7.706214689265538e-06, global_step: 2030, interval_runtime: 1.5419, interval_samples_per_second: 5.188, interval_steps_per_second: 6.485, epoch: 11.4689[0m
+[32m[2022-09-05 15:20:09,793] [    INFO][0m - loss: 0.01358647, learning_rate: 7.694915254237289e-06, global_step: 2040, interval_runtime: 1.5442, interval_samples_per_second: 5.181, interval_steps_per_second: 6.476, epoch: 11.5254[0m
+[32m[2022-09-05 15:20:11,335] [    INFO][0m - loss: 0.29475691, learning_rate: 7.68361581920904e-06, global_step: 2050, interval_runtime: 1.5425, interval_samples_per_second: 5.186, interval_steps_per_second: 6.483, epoch: 11.5819[0m
+[32m[2022-09-05 15:20:12,879] [    INFO][0m - loss: 0.12354219, learning_rate: 7.672316384180792e-06, global_step: 2060, interval_runtime: 1.5442, interval_samples_per_second: 5.181, interval_steps_per_second: 6.476, epoch: 11.6384[0m
+[32m[2022-09-05 15:20:14,426] [    INFO][0m - loss: 0.13020928, learning_rate: 7.661016949152543e-06, global_step: 2070, interval_runtime: 1.5465, interval_samples_per_second: 5.173, interval_steps_per_second: 6.466, epoch: 11.6949[0m
+[32m[2022-09-05 15:20:15,970] [    INFO][0m - loss: 0.00603035, learning_rate: 7.649717514124295e-06, global_step: 2080, interval_runtime: 1.5437, interval_samples_per_second: 5.182, interval_steps_per_second: 6.478, epoch: 11.7514[0m
+[32m[2022-09-05 15:20:17,511] [    INFO][0m - loss: 0.0002961, learning_rate: 7.638418079096046e-06, global_step: 2090, interval_runtime: 1.5418, interval_samples_per_second: 5.189, interval_steps_per_second: 6.486, epoch: 11.8079[0m
+[32m[2022-09-05 15:20:19,057] [    INFO][0m - loss: 0.20645106, learning_rate: 7.627118644067797e-06, global_step: 2100, interval_runtime: 1.5453, interval_samples_per_second: 5.177, interval_steps_per_second: 6.471, epoch: 11.8644[0m
+[32m[2022-09-05 15:20:19,057] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:20:19,057] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:20:19,057] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:20:19,057] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:20:19,058] [    INFO][0m -   Total prediction steps = 177[0m
+[32m[2022-09-05 15:20:30,608] [    INFO][0m - eval_loss: 1.811171054840088, eval_accuracy: 0.4207920792079208, eval_runtime: 11.5501, eval_samples_per_second: 122.423, eval_steps_per_second: 15.324, epoch: 11.8644[0m
+[32m[2022-09-05 15:20:30,635] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-2100[0m
+[32m[2022-09-05 15:20:30,635] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:20:34,068] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-2100/tokenizer_config.json[0m
+[32m[2022-09-05 15:20:34,068] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-2100/special_tokens_map.json[0m
+[32m[2022-09-05 15:20:41,029] [    INFO][0m - loss: 0.24064214, learning_rate: 7.6158192090395485e-06, global_step: 2110, interval_runtime: 21.9722, interval_samples_per_second: 0.364, interval_steps_per_second: 0.455, epoch: 11.9209[0m
+[32m[2022-09-05 15:20:42,562] [    INFO][0m - loss: 0.050911, learning_rate: 7.6045197740113e-06, global_step: 2120, interval_runtime: 1.533, interval_samples_per_second: 5.219, interval_steps_per_second: 6.523, epoch: 11.9774[0m
+[32m[2022-09-05 15:20:44,112] [    INFO][0m - loss: 0.15236895, learning_rate: 7.5932203389830515e-06, global_step: 2130, interval_runtime: 1.55, interval_samples_per_second: 5.161, interval_steps_per_second: 6.452, epoch: 12.0339[0m
+[32m[2022-09-05 15:20:45,654] [    INFO][0m - loss: 0.15331652, learning_rate: 7.581920903954802e-06, global_step: 2140, interval_runtime: 1.5422, interval_samples_per_second: 5.188, interval_steps_per_second: 6.484, epoch: 12.0904[0m
+[32m[2022-09-05 15:20:47,191] [    INFO][0m - loss: 0.00396879, learning_rate: 7.5706214689265545e-06, global_step: 2150, interval_runtime: 1.5371, interval_samples_per_second: 5.205, interval_steps_per_second: 6.506, epoch: 12.1469[0m
+[32m[2022-09-05 15:20:48,733] [    INFO][0m - loss: 0.1129773, learning_rate: 7.559322033898305e-06, global_step: 2160, interval_runtime: 1.5416, interval_samples_per_second: 5.19, interval_steps_per_second: 6.487, epoch: 12.2034[0m
+[32m[2022-09-05 15:20:50,270] [    INFO][0m - loss: 0.18902603, learning_rate: 7.5480225988700574e-06, global_step: 2170, interval_runtime: 1.5367, interval_samples_per_second: 5.206, interval_steps_per_second: 6.507, epoch: 12.2599[0m
+[32m[2022-09-05 15:20:51,810] [    INFO][0m - loss: 0.12868763, learning_rate: 7.536723163841808e-06, global_step: 2180, interval_runtime: 1.5401, interval_samples_per_second: 5.194, interval_steps_per_second: 6.493, epoch: 12.3164[0m
+[32m[2022-09-05 15:20:53,354] [    INFO][0m - loss: 0.00446714, learning_rate: 7.52542372881356e-06, global_step: 2190, interval_runtime: 1.5446, interval_samples_per_second: 5.179, interval_steps_per_second: 6.474, epoch: 12.3729[0m
+[32m[2022-09-05 15:20:54,898] [    INFO][0m - loss: 0.03075107, learning_rate: 7.514124293785311e-06, global_step: 2200, interval_runtime: 1.544, interval_samples_per_second: 5.181, interval_steps_per_second: 6.477, epoch: 12.4294[0m
+[32m[2022-09-05 15:20:54,899] [    INFO][0m - ***** Running Evaluation *****[0m
+[32m[2022-09-05 15:20:54,899] [    INFO][0m -   Num examples = 1414[0m
+[32m[2022-09-05 15:20:54,899] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:20:54,899] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:20:54,899] [    INFO][0m -   Total prediction steps = 177[0m
+[32m[2022-09-05 15:21:06,556] [    INFO][0m - eval_loss: 2.494478940963745, eval_accuracy: 0.39603960396039606, eval_runtime: 11.6566, eval_samples_per_second: 121.305, eval_steps_per_second: 15.185, epoch: 12.4294[0m
+[32m[2022-09-05 15:21:06,572] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/checkpoint-2200[0m
+[32m[2022-09-05 15:21:06,573] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:21:10,030] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/checkpoint-2200/tokenizer_config.json[0m
+[32m[2022-09-05 15:21:10,031] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/checkpoint-2200/special_tokens_map.json[0m
+[32m[2022-09-05 15:21:15,302] [    INFO][0m - 
+Training completed. 
+[0m
+[32m[2022-09-05 15:21:15,302] [    INFO][0m - Loading best model from ./checkpoints_chid/checkpoint-1800 (score: 0.42574257425742573).[0m
+[32m[2022-09-05 15:21:16,435] [    INFO][0m - train_runtime: 787.6361, train_samples_per_second: 89.762, train_steps_per_second: 11.236, train_loss: 0.3516829668960153, epoch: 12.4294[0m
+[32m[2022-09-05 15:21:16,436] [    INFO][0m - Saving model checkpoint to ./checkpoints_chid/[0m
+[32m[2022-09-05 15:21:16,437] [    INFO][0m - Trainer.model is not a `PretrainedModel`, only saving its state dict.[0m
+[32m[2022-09-05 15:21:19,824] [    INFO][0m - tokenizer config file saved in ./checkpoints_chid/tokenizer_config.json[0m
+[32m[2022-09-05 15:21:19,825] [    INFO][0m - Special tokens file saved in ./checkpoints_chid/special_tokens_map.json[0m
+[32m[2022-09-05 15:21:19,826] [    INFO][0m - ***** train metrics *****[0m
+[32m[2022-09-05 15:21:19,826] [    INFO][0m -   epoch                    =    12.4294[0m
+[32m[2022-09-05 15:21:19,826] [    INFO][0m -   train_loss               =     0.3517[0m
+[32m[2022-09-05 15:21:19,827] [    INFO][0m -   train_runtime            = 0:13:07.63[0m
+[32m[2022-09-05 15:21:19,827] [    INFO][0m -   train_samples_per_second =     89.762[0m
+[32m[2022-09-05 15:21:19,827] [    INFO][0m -   train_steps_per_second   =     11.236[0m
+[32m[2022-09-05 15:21:19,841] [    INFO][0m - ***** Running Prediction *****[0m
+[32m[2022-09-05 15:21:19,841] [    INFO][0m -   Num examples = 14014[0m
+[32m[2022-09-05 15:21:19,841] [    INFO][0m -   Pre device batch size = 8[0m
+[32m[2022-09-05 15:21:19,841] [    INFO][0m -   Total Batch size = 8[0m
+[32m[2022-09-05 15:21:19,841] [    INFO][0m -   Total prediction steps = 1752[0m
+[32m[2022-09-05 15:23:34,985] [    INFO][0m - ***** test metrics *****[0m
+[32m[2022-09-05 15:23:34,986] [    INFO][0m -   test_accuracy           =     0.3896[0m
+[32m[2022-09-05 15:23:34,986] [    INFO][0m -   test_loss               =     1.8357[0m
+[32m[2022-09-05 15:23:34,986] [    INFO][0m -   test_runtime            = 0:02:15.14[0m
+[32m[2022-09-05 15:23:34,986] [    INFO][0m -   test_samples_per_second =    103.696[0m
+[32m[2022-09-05 15:23:34,986] [    INFO][0m -   test_steps_per_second   =     12.964[0m
+[5 4 0 0 4 1 2 1 5 3 2 2 0 0 0 0 3 2 4 4 2 2 0 2 0 1 2 1 3 4 3 2 2 6 3 1 4
+ 2 4 6 5 3 5 3 3 3 2 4 3 1 1 4 5 1 3 3 0 6 6 2 4 3 3 0 2 5 3 3 3 6 6 4 6 3
+ 5 6 0 6 0 6 2 5 1 6 2 6 6 6 5 5 4 5 5 2 4 2 6 1 1 4 2 6 4 6 4 2 0 4 3 6 4
+ 1 4 3 4 6 4 5 0 2 3 0 0 5 3 5 3 5 5 5 5 5 6 4 5 6 5 5 1 2 4 6 5 3 2 6 4 0
+ 2 2 3 0 0 6 0 5 5 0 0 5 0 0 4 0 0 1 5 4 0 0 2 4 6 0 5 3 0 1 6 4 1 5 4 1 3
+ 2 1 4 0 1 6 1 1 5 1 1 1 1 1 1 1 2]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[5 4 0 0 4 1 2 1 2 3 2 2 0 3 0 0 3 2 2 4 2 6 0 2 0 1 2 1 6 4 3 3 2 6 3 1 4
+ 2 4 3 4 3 5 3 3 3 2 4 3 1 3 4 5 1 3 3 0 6 6 2 4 3 6 0 2 5 3 3 1 6 6 6 6 3
+ 5 6 0 6 0 6 2 6 1 6 2 6 6 6 5 5 4 5 5 2 4 2 0 1 1 4 2 6 4 1 4 5 0 4 4 6 4
+ 1 4 3 4 4 4 5 0 2 3 0 0 5 1 5 0 5 5 5 0 5 6 5 5 0 2 5 2 1 4 6 5 3 2 6 4 0
+ 5 2 3 0 0 2 0 5 5 0 0 5 0 0 0 0 3 1 6 4 0 3 1 1 6 0 1 3 0 1 6 4 1 5 4 1 0
+ 2 1 4 1 1 3 1 1 5 1 1 1 1 1 1 1 2]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[5 4 0 0 4 0 2 1 2 2 2 2 0 0 0 0 3 2 4 4 2 6 0 2 0 1 2 1 6 4 3 2 2 3 3 1 4
+ 2 4 6 3 3 5 3 3 3 2 4 3 1 3 4 5 1 3 3 0 6 6 2 4 3 3 0 2 5 3 3 1 6 2 6 6 3
+ 5 6 0 6 1 6 2 6 1 6 2 6 6 6 5 5 4 5 5 2 4 2 6 1 1 4 2 6 4 1 4 2 0 0 4 6 4
+ 1 4 3 0 6 4 5 0 2 3 1 0 5 1 5 0 5 5 5 0 5 6 4 5 0 5 5 2 0 4 6 5 3 5 4 4 0
+ 5 2 3 0 0 6 0 5 5 0 0 5 0 0 0 0 0 1 6 4 0 3 1 4 6 0 1 3 0 1 6 2 1 5 4 1 0
+ 2 1 4 0 1 6 1 1 5 1 6 1 1 1 1 1 2]
+[2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3
+ 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+ 6 6 6 6 6 6 6 6 6 6 6 6 6 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+ 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+[1 4 1 ... 1 1 0]
+[1 1 1 ... 1 1 1]
+0
+= 0 ===================
+[('不', 8628), ('很', 3384)]
+----------
+[('很', 8628), ('不', 3384)]
+----------
+[('的', 6883), ('挺', 2491), ('丌', 475), ('太', 410), ('好', 376), ('大', 340), ('以', 280), ('较', 208), ('没', 164), ('有', 121), ('常', 67), ('得', 51), ('无', 34), ('别', 26), ('是', 13), ('了', 11), ('分', 11), ('发', 10), ('。', 9), ('一', 5), ('上', 4), ('最', 4), ('小', 3), ('会', 2), ('过', 2), ('都', 2), ('、', 1), ('更', 1), ('后', 1), ('个', 1), ('来', 1), ('难', 1), ('其', 1), ('么', 1), ('能', 1), ('关', 1)]
+----------
+[('好', 2225), ('的', 1155), ('较', 1093), ('太', 1025), ('挺', 961), ('得', 919), ('没', 902), ('大', 818), ('丌', 742), ('有', 378), ('以', 344), ('常', 326), ('。', 155), ('是', 135), ('无', 115), ('别', 115), ('分', 99), (',', 98), ('小', 78), ('最', 66), ('了', 57), ('一', 29), ('地', 27), ('发', 24), ('更', 14), ('都', 10), ('上', 10), ('甚', 9), ('到', 9), ('也', 8), ('难', 8), ('当', 7), ('个', 5), ('为', 4), ('还', 4), ('么', 4), ('能', 3), ('着', 3), ('行', 2), ('会', 2), ('人', 2), ('后', 2), ('之', 2), ('多', 2), ('，', 1), ('刚', 1), ('比', 1), ('这', 1), ('非', 1), ('里', 1), ('过', 1), ('于', 1), ('且', 1), ('乎', 1), ('就', 1), ('动', 1), ('你', 1), ('、', 1), ('平', 1), ('只', 1)]
+----------
+[('太', 1747), ('最', 1300), ('较', 1130), ('没', 1067), ('的', 877), ('大', 769), ('丌', 579), ('有', 548), ('得', 542), ('好', 519), ('常', 444), ('以', 359), ('是', 307), ('挺', 284), ('。', 282), (',', 215), ('分', 187), ('无', 164), ('别', 142), ('小', 92), ('了', 86), ('地', 44), ('更', 44), ('一', 34), ('发', 31), ('也', 24), ('甚', 20), ('多', 14), ('为', 12), ('到', 12), ('难', 12), ('当', 11), ('还', 9), ('只', 9), ('上', 9), ('都', 9), ('人', 7), ('么', 7), ('，', 7), ('过', 6), ('着', 5), ('之', 5), ('非', 4), ('就', 3), ('会', 3), ('于', 3), ('其', 3), ('行', 2), ('要', 2), ('、', 2), ('看', 2), ('能', 2), ('里', 2), ('天', 1), ('次', 1), ('可', 1), ('比', 1), ('个', 1), ('用', 1), ('合', 1), ('我', 1), ('在', 1), ('颇', 1), ('出', 1), ('和', 1), ('点', 1)]
+----------
+1
+= 0 ===================
+[('很', 1299), ('不', 703)]
+----------
+[('不', 1299), ('很', 703)]
+----------
+[('挺', 923), ('的', 699), ('好', 207), ('常', 26), ('大', 26), ('较', 24), ('太', 23), ('丌', 14), ('以', 12), ('有', 10), ('没', 7), ('别', 5), ('得', 4), ('分', 4), ('最', 3), ('了', 2), ('都', 2), ('是', 2), ('无', 1), ('。', 1), ('上', 1), ('难', 1), ('点', 1), ('个', 1), ('更', 1), ('小', 1), ('成', 1)]
+----------
+[('好', 855), ('挺', 311), ('的', 129), ('较', 102), ('太', 96), ('常', 92), ('得', 88), ('没', 67), ('大', 43), ('。', 40), ('丌', 25), ('以', 18), ('别', 15), ('分', 14), ('是', 14), ('有', 12), ('最', 12), (',', 11), ('了', 8), ('地', 8), ('小', 8), ('无', 7), ('都', 5), ('发', 3), ('更', 3), ('个', 2), ('着', 2), ('到', 2), ('当', 2), ('下', 1), ('过', 1), ('人', 1), ('还', 1), ('也', 1), ('其', 1), ('比', 1), ('之', 1)]
+----------
+[('最', 546), ('太', 420), ('的', 154), ('较', 124), ('好', 116), ('常', 89), ('没', 62), ('挺', 59), ('得', 57), ('。', 46), ('大', 39), ('是', 37), (',', 37), ('别', 34), ('有', 28), ('丌', 27), ('分', 20), ('以', 15), ('了', 10), ('地', 9), ('无', 9), ('也', 8), ('小', 7), ('发', 7), ('都', 5), ('更', 4), ('当', 4), ('，', 4), ('着', 3), ('只', 3), ('多', 2), ('甚', 2), ('一', 2), ('就', 2), ('平', 1), ('么', 1), ('非', 1), ('主', 1), ('次', 1), ('长', 1), ('人', 1), ('活', 1), ('到', 1), ('为', 1), ('众', 1)]
+----------
+run.sh: line 58: --freeze_plm: command not found
