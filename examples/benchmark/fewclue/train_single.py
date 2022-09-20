@@ -80,8 +80,8 @@ def main():
     del state_dict
 
     # Define the template for preprocess and the verbalizer for postprocess.
-    template = SoftTemplate(tokenizer, training_args.max_seq_length, model,
-                            data_args.prompt)
+    template = ManualTemplate(tokenizer, training_args.max_seq_length,
+                              data_args.prompt)
     logger.info("Using template: {}".format(template.template))
 
     labels = LABEL_LIST[data_args.task_name]

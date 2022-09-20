@@ -180,7 +180,7 @@ def load_fewclue(task_name, split_id, label_list):
 
         if task_name in ["csldcp", "tnews", "iflytek"]:
             convert_fn = partial(convert_fn,
-                                 label_set=list(label_list.values()))
+                                 list(label_set=label_list.values()))
 
         train_ds = train_ds.map(convert_fn)
         dev_ds = dev_ds.map(convert_fn)
