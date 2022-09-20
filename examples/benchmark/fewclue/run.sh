@@ -33,7 +33,8 @@ elif [ $task_name == "cmnli" ]; then
     max_length=128
 fi
 
-CUDA_VISIBLE_DEVICES=$device python train_single.py \
+CUDA_VISIBLE_DEVICES=$device python ../train_single.py \
+--pretrained "/ssd2/wanghuijuan03/data/zero-shot/checkpoints/checkpoint-15000/model_state.pdparams" \
 --output_dir ./checkpoints/ \
 --prompt "$prompt" \
 --max_seq_length $max_length \
