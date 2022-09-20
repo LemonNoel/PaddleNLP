@@ -1,4 +1,5 @@
-datasets=("eprstmt" "csldcp" "tnews" "iflytek" "ocnli" "bustm" "chid" "csl" "cluewsc")
+device=$1
+datasets=("ocnli" "bustm" "cluewsc")
 
 for data in ${datasets[@]}
 do
@@ -7,5 +8,5 @@ do
     echo $data
     echo "=========="
     echo " "
-    bash run.sh $data 2 
+    bash run.sh $data $device
 done 

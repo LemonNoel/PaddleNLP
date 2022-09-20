@@ -21,7 +21,7 @@ import paddle
 from paddle.static import InputSpec
 from paddle.metric import Accuracy
 from paddlenlp.utils.log import logger
-from paddlenlp.transformers import RoFormerv2Tokenizer, RoFormerv2ForMaskedLM
+from paddlenlp.transformers import ErnieTokenizer, ErnieForMaskedLM
 from paddlenlp.trainer import PdArgumentParser, EarlyStoppingCallback
 from paddlenlp.prompt import (
     AutoTemplate,
@@ -70,13 +70,16 @@ def main():
     paddle.set_device(training_args.device)
 
     # Load the pretrained language model.
-    model = RoFormerv2ForMaskedLM.from_pretrained(model_args.model_name_or_path)
-    tokenizer = RoFormerv2Tokenizer.from_pretrained(
-        model_args.model_name_or_path)
+    model = ErnieForMaskedLM.from_pretrained(model_args.model_name_or_path)
+    tokenizer = ErnieTokenizer.from_pretrained(model_args.model_name_or_path)
 
     # Define the template for preprocess and the verbalizer for postprocess.
-    template = ManualTemplate(tokenizer, training_args.max_seq_length,
-                              data_args.prompt)
+    template = SoftTemplate(tokenizer,
+                            training_args.max_seq_length,
+                            model,
+                            data_args.prompt,
+                            prompt_encoder=data_args.soft_encoder,
+                            encoder_hidden_size=data_args.encoder_hidden_size)
     logger.info("Using template: {}".format(template.template))
 
     labels = LABEL_LIST[data_args.task_name]

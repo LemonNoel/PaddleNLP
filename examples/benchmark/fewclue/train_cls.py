@@ -21,7 +21,7 @@ import paddle
 from paddle.static import InputSpec
 from paddle.metric import Accuracy
 from paddlenlp.utils.log import logger
-from paddlenlp.transformers import RoFormerv2Tokenizer, RoFormerv2ForSequenceClassification
+from paddlenlp.transformers import ErnieTokenizer, ErnieForSequenceClassification
 from paddlenlp.trainer import PdArgumentParser, EarlyStoppingCallback
 from paddlenlp.prompt import (
     AutoTemplate,
@@ -69,10 +69,9 @@ def main():
 
     # Load the pretrained language model.
     labels = LABEL_LIST[data_args.task_name]
-    model = RoFormerv2ForSequenceClassification.from_pretrained(
+    model = ErnieForSequenceClassification.from_pretrained(
         model_args.model_name_or_path, num_classes=len(labels))
-    tokenizer = RoFormerv2Tokenizer.from_pretrained(
-        model_args.model_name_or_path)
+    tokenizer = ErnieTokenizer.from_pretrained(model_args.model_name_or_path)
 
     # Define the template for preprocess.
     template = SoftTemplate(tokenizer,

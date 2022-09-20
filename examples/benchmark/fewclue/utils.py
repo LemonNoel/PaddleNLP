@@ -111,7 +111,7 @@ def D2_convert_cluewsc(example):
                         labels=example.get("label", None))
 
 
-def convert_cluewsc(example):
+def D3_convert_cluewsc(example):
     # IDEA D.3
     target, text = example["target"], list(example["text"])
     pronoun, p_index = target["span2_text"], target["span2_index"]
@@ -129,6 +129,15 @@ def convert_cluewsc(example):
     return InputExample(uid=example.get("id", None),
                         text_a="".join(text),
                         text_b="",
+                        labels=example.get("label", None))
+
+
+def convert_cluewsc(example):
+    # C1
+    return InputExample(uid=example.get("id", None),
+                        text_a=example["text"],
+                        text_b=example["target"]["span2_text"] + "是指" +
+                        example["target"]["span1_text"],
                         labels=example.get("label", None))
 
 
@@ -185,8 +194,12 @@ def load_fewclue(task_name, split_id, label_list):
 
 LABEL_MAP = {
     "bustm": {
-        "0": "不",
-        "1": "很"
+        # A
+        # "0": "不",
+        # "1": "很"
+        # C1
+        "0": 0,
+        "1": 1
     },
     "chid": {
         # IDEA A.0
@@ -206,8 +219,11 @@ LABEL_MAP = {
         # "false": "错误",
         # "true": "正确"
         # IDEA D.2
-        "false": "不",
-        "true": "很"
+        # "false": "不",
+        # "true": "很"
+        # C1
+        "false": 0,
+        "true": 1
     },
     "csl": {
         "0": "不",
@@ -425,9 +441,14 @@ LABEL_MAP = {
         'news_game': '电竞'
     },
     "ocnli": {
-        "entailment": "所以",
-        "contradiction": "但是",
-        "neutral": "而且"
+        # A
+        # "entailment": "所以",
+        # "contradiction": "但是",
+        # "neutral": "而且"
+        # C1
+        "entailment": 0,
+        "contradiction": 1,
+        "neutral": 2
     }
 }
 
