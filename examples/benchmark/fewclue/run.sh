@@ -34,7 +34,7 @@ elif [ $task_name == "cmnli" ]; then
 fi
 
 CUDA_VISIBLE_DEVICES=$device python ../train_single.py \
---pretrained "/ssd2/wanghuijuan03/data/zero-shot/checkpoints/checkpoint-5000/model_state.pdparams" \
+--pretrained "/ssd2/wanghuijuan03/data/zero-shot/checkpoints_80w_pre/checkpoint-120000/model_state.pdparams" \
 --output_dir ./checkpoints/ \
 --prompt "$prompt" \
 --max_seq_length $max_length \
