@@ -21,7 +21,7 @@ import paddle
 from paddle.static import InputSpec
 from paddle.metric import Accuracy
 from paddlenlp.utils.log import logger
-from paddlenlp.transformers import ErnieTokenizer, ErnieForSequenceClassification
+from paddlenlp.transformers import RoFormerv2Tokenizer, RoFormerv2ForSequenceClassification
 from paddlenlp.trainer import PdArgumentParser, EarlyStoppingCallback
 from paddlenlp.prompt import (
     AutoTemplate,
@@ -69,13 +69,18 @@ def main():
 
     # Load the pretrained language model.
     labels = LABEL_LIST[data_args.task_name]
-    model = ErnieForSequenceClassification.from_pretrained(
+    model = RoFormerv2ForSequenceClassification.from_pretrained(
         model_args.model_name_or_path, num_classes=len(labels))
-    tokenizer = ErnieTokenizer.from_pretrained(model_args.model_name_or_path)
+    tokenizer = RoFormerv2Tokenizer.from_pretrained(
+        model_args.model_name_or_path)
 
     # Define the template for preprocess.
-    template = ManualTemplate(tokenizer, training_args.max_seq_length,
-                              data_args.prompt)
+    template = SoftTemplate(tokenizer,
+                            training_args.max_seq_length,
+                            model,
+                            data_args.prompt,
+                            prompt_encoder=data_args.soft_encoder,
+                            encoder_hidden_size=data_args.encoder_hidden_size)
     logger.info("Using template: {}".format(template.template))
 
     # Load the few-shot datasets.
@@ -87,8 +92,6 @@ def main():
 
     # Define the criterion.
     criterion = paddle.nn.CrossEntropyLoss()
-    # E2.PET.bce
-    # criterion = paddle.nn.BCEWithLogitsLoss()
 
     # Initialize the prompt model with the above variables.
     prompt_model = PromptModelForSequenceClassification(

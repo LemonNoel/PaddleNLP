@@ -58,6 +58,7 @@ def convert_chid(example):
     #           Replace #idiom# with candicates.
     # IDEA B.2: Take it as a token classification.
     #           Concatenate all sequences.
+    # IDEA B.3: Replace #idiom# with [mask] and take candidates as label_words.
     return InputExample(uid=example["id"],
                         text_a=example["content"],
                         text_b="，".join(example["candidates"]),
@@ -110,7 +111,7 @@ def D2_convert_cluewsc(example):
                         labels=example.get("label", None))
 
 
-def D3_A7_convert_cluewsc(example):
+def convert_cluewsc(example):
     # IDEA D.3
     target, text = example["target"], list(example["text"])
     pronoun, p_index = target["span2_text"], target["span2_index"]
@@ -125,23 +126,6 @@ def D3_A7_convert_cluewsc(example):
         text.insert(e_index + len(entity) + 1, "]")
         text.insert(p_index, "_")
         text.insert(p_index + len(pronoun) + 1, "_")
-    return InputExample(uid=example.get("id", None),
-                        text_a="".join(text),
-                        text_b="",
-                        labels=example.get("label", None))
-
-
-def convert_cluewsc(example):
-    # A7.PET
-    target, text = example["target"], list(example["text"])
-    pronoun, p_index = target["span2_text"], target["span2_index"]
-    entity, e_index = target["span1_text"], target["span1_index"]
-    if p_index > e_index:
-        text.insert(p_index + len(pronoun), "（这是代词）")
-        text.insert(e_index + len(entity), "（这是实体）")
-    else:
-        text.insert(e_index + len(entity), "（这是实体）")
-        text.insert(p_index + len(pronoun), "（这是代词）")
     return InputExample(uid=example.get("id", None),
                         text_a="".join(text),
                         text_b="",
@@ -218,20 +202,16 @@ LABEL_MAP = {
         1: "很"
     },
     "cluewsc": {
-        # A1/A7.PET
+        # A
         # "false": "错误",
         # "true": "正确"
         # IDEA D.2
-        "false": "错",
-        "true": "对"
+        "false": "不",
+        "true": "很"
     },
     "csl": {
-        # A7
         "0": "不",
-        "1": "得"
-        # A7.PET
-        # "0": "不能",
-        # "1": "可以"
+        "1": "已"
     },
     "csldcp": {
         '材料科学与工程': '材料',
