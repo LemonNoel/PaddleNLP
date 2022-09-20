@@ -1,0 +1,144 @@
+[33m[2022-08-30 11:47:03,642] [ WARNING][0m - evaluation_strategy reset to IntervalStrategy.STEPS for do_eval is True. you can also set evaluation_strategy='epoch'.[0m
+[32m[2022-08-30 11:47:03,642] [    INFO][0m - The default value for the training argument `--report_to` will change in v5 (from all installed integrations to none). In v5, you will need to use `--report_to all` to get the same behavior as now. You should start updating your code and make this info disappear :-).[0m
+[32m[2022-08-30 11:47:03,642] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 11:47:03,642] [    INFO][0m -      Model Configuration Arguments      [0m
+[32m[2022-08-30 11:47:03,642] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 11:47:03,642] [    INFO][0m - do_save                       :True[0m
+[32m[2022-08-30 11:47:03,643] [    INFO][0m - do_test                       :True[0m
+[32m[2022-08-30 11:47:03,643] [    INFO][0m - early_stop_patience           :4[0m
+[32m[2022-08-30 11:47:03,643] [    INFO][0m - export_type                   :paddle[0m
+[32m[2022-08-30 11:47:03,643] [    INFO][0m - model_name_or_path            :albert-chinese-xlarge[0m
+[32m[2022-08-30 11:47:03,643] [    INFO][0m - [0m
+[32m[2022-08-30 11:47:03,643] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 11:47:03,643] [    INFO][0m -       Data Configuration Arguments      [0m
+[32m[2022-08-30 11:47:03,643] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 11:47:03,643] [    INFO][0m - encoder_hidden_size           :200[0m
+[32m[2022-08-30 11:47:03,643] [    INFO][0m - prompt                        :{'hard':'请用正确的连接词填空：'}{'text':'text_a'}{'mask'}{'mask'}{'text':'text_b'}[0m
+[32m[2022-08-30 11:47:03,643] [    INFO][0m - soft_encoder                  :lstm[0m
+[32m[2022-08-30 11:47:03,643] [    INFO][0m - split_id                      :few_all[0m
+[32m[2022-08-30 11:47:03,643] [    INFO][0m - task_name                     :ocnli[0m
+[32m[2022-08-30 11:47:03,644] [    INFO][0m - [0m
+[32m[2022-08-30 11:47:03,644] [    INFO][0m - Downloading https://bj.bcebos.com/paddlenlp/models/transformers/albert/albert-chinese-xlarge.pdparams and saved to /ssd2/wanghuijuan03/.paddlenlp/models/albert-chinese-xlarge[0m
+[32m[2022-08-30 11:47:03,644] [    INFO][0m - Downloading albert-chinese-xlarge.pdparams from https://bj.bcebos.com/paddlenlp/models/transformers/albert/albert-chinese-xlarge.pdparams[0m
+  0%|          | 0.00/346M [00:00<?, ?B/s]  1%|▏         | 5.03M/346M [00:00<00:06, 52.8MB/s]  3%|▎         | 11.4M/346M [00:00<00:05, 60.7MB/s]  6%|▌         | 19.1M/346M [00:00<00:04, 70.1MB/s]  8%|▊         | 28.1M/346M [00:00<00:04, 79.8MB/s] 11%|█         | 37.2M/346M [00:00<00:03, 85.3MB/s] 13%|█▎        | 45.3M/346M [00:00<00:03, 84.2MB/s] 16%|█▌        | 53.7M/346M [00:00<00:03, 85.5MB/s] 18%|█▊        | 62.8M/346M [00:00<00:03, 88.4MB/s] 21%|██        | 72.0M/346M [00:00<00:03, 90.8MB/s] 23%|██▎       | 80.6M/346M [00:01<00:04, 67.1MB/s] 26%|██▌       | 89.6M/346M [00:01<00:03, 73.8MB/s] 29%|██▊       | 98.7M/346M [00:01<00:03, 79.3MB/s] 31%|███       | 108M/346M [00:01<00:02, 83.4MB/s]  34%|███▎      | 116M/346M [00:01<00:03, 77.0MB/s] 36%|███▌      | 125M/346M [00:01<00:02, 81.6MB/s] 39%|███▊      | 134M/346M [00:01<00:02, 85.0MB/s] 41%|████▏     | 143M/346M [00:01<00:02, 87.7MB/s] 44%|████▍     | 152M/346M [00:01<00:02, 89.3MB/s] 47%|████▋     | 161M/346M [00:02<00:02, 91.3MB/s] 49%|████▉     | 170M/346M [00:02<00:01, 93.1MB/s] 52%|█████▏    | 179M/346M [00:02<00:01, 93.3MB/s] 54%|█████▍    | 188M/346M [00:02<00:01, 93.2MB/s] 57%|█████▋    | 197M/346M [00:02<00:01, 93.5MB/s] 60%|█████▉    | 206M/346M [00:02<00:01, 93.0MB/s] 62%|██████▏   | 215M/346M [00:02<00:01, 76.3MB/s] 65%|██████▍   | 224M/346M [00:02<00:01, 80.2MB/s] 67%|██████▋   | 232M/346M [00:02<00:01, 81.5MB/s] 70%|██████▉   | 241M/346M [00:03<00:01, 84.9MB/s] 72%|███████▏  | 250M/346M [00:03<00:01, 84.1MB/s] 75%|███████▌  | 260M/346M [00:03<00:01, 90.0MB/s] 78%|███████▊  | 270M/346M [00:03<00:00, 93.1MB/s] 81%|████████  | 279M/346M [00:03<00:00, 80.3MB/s] 83%|████████▎ | 287M/346M [00:03<00:00, 75.4MB/s] 85%|████████▌ | 295M/346M [00:03<00:00, 77.7MB/s] 87%|████████▋ | 302M/346M [00:03<00:00, 77.3MB/s] 90%|████████▉ | 311M/346M [00:03<00:00, 81.2MB/s] 92%|█████████▏| 319M/346M [00:04<00:00, 81.9MB/s] 95%|█████████▍| 327M/346M [00:04<00:00, 78.1MB/s] 97%|█████████▋| 336M/346M [00:04<00:00, 81.7MB/s]100%|█████████▉| 345M/346M [00:04<00:00, 84.9MB/s]100%|██████████| 346M/346M [00:04<00:00, 82.9MB/s]W0830 11:47:08.121404 29185 gpu_resources.cc:61] Please NOTE: device: 0, GPU Compute Capability: 7.0, Driver API Version: 11.2, Runtime API Version: 11.2
+W0830 11:47:08.126044 29185 gpu_resources.cc:91] device: 0, cuDNN Version: 8.1.
+
+[32m[2022-08-30 11:47:12,440] [    INFO][0m - Downloading https://bj.bcebos.com/paddlenlp/models/transformers/albert/albert-chinese-xlarge.vocab.txt and saved to /ssd2/wanghuijuan03/.paddlenlp/models/albert-chinese-xlarge[0m
+[32m[2022-08-30 11:47:12,440] [    INFO][0m - Downloading albert-chinese-xlarge.vocab.txt from https://bj.bcebos.com/paddlenlp/models/transformers/albert/albert-chinese-xlarge.vocab.txt[0m
+  0%|          | 0.00/107k [00:00<?, ?B/s]100%|██████████| 107k/107k [00:00<00:00, 27.3MB/s]
+[32m[2022-08-30 11:47:12,577] [    INFO][0m - tokenizer config file saved in /ssd2/wanghuijuan03/.paddlenlp/models/albert-chinese-xlarge/tokenizer_config.json[0m
+[32m[2022-08-30 11:47:12,577] [    INFO][0m - Special tokens file saved in /ssd2/wanghuijuan03/.paddlenlp/models/albert-chinese-xlarge/special_tokens_map.json[0m
+[32m[2022-08-30 11:47:12,579] [    INFO][0m - Using template: [{'add_prefix_space': '', 'hard': '请用正确的连接词填空：'}, {'add_prefix_space': '', 'text': 'text_a'}, {'add_prefix_space': '', 'mask': None}, {'add_prefix_space': '', 'mask': None}, {'add_prefix_space': '', 'text': 'text_b'}][0m
+2022-08-30 11:47:12,589 INFO [download.py:119] unique_endpoints {''}
+[32m[2022-08-30 11:47:12,716] [    INFO][0m - ============================================================[0m
+[32m[2022-08-30 11:47:12,716] [    INFO][0m -     Training Configuration Arguments    [0m
+[32m[2022-08-30 11:47:12,717] [    INFO][0m - paddle commit id              :65f388690048d0965ec7d3b43fb6ee9d8c6dee7c[0m
+[32m[2022-08-30 11:47:12,717] [    INFO][0m - _no_sync_in_gradient_accumulation:True[0m
+[32m[2022-08-30 11:47:12,717] [    INFO][0m - adam_beta1                    :0.9[0m
+[32m[2022-08-30 11:47:12,717] [    INFO][0m - adam_beta2                    :0.999[0m
+[32m[2022-08-30 11:47:12,717] [    INFO][0m - adam_epsilon                  :1e-08[0m
+[32m[2022-08-30 11:47:12,717] [    INFO][0m - alpha_rdrop                   :5.0[0m
+[32m[2022-08-30 11:47:12,717] [    INFO][0m - alpha_rgl                     :0.5[0m
+[32m[2022-08-30 11:47:12,717] [    INFO][0m - current_device                :gpu:0[0m
+[32m[2022-08-30 11:47:12,717] [    INFO][0m - dataloader_drop_last          :False[0m
+[32m[2022-08-30 11:47:12,717] [    INFO][0m - dataloader_num_workers        :0[0m
+[32m[2022-08-30 11:47:12,718] [    INFO][0m - device                        :gpu[0m
+[32m[2022-08-30 11:47:12,718] [    INFO][0m - disable_tqdm                  :True[0m
+[32m[2022-08-30 11:47:12,718] [    INFO][0m - do_eval                       :True[0m
+[32m[2022-08-30 11:47:12,718] [    INFO][0m - do_export                     :False[0m
+[32m[2022-08-30 11:47:12,718] [    INFO][0m - do_predict                    :True[0m
+[32m[2022-08-30 11:47:12,718] [    INFO][0m - do_train                      :True[0m
+[32m[2022-08-30 11:47:12,718] [    INFO][0m - eval_batch_size               :32[0m
+[32m[2022-08-30 11:47:12,718] [    INFO][0m - eval_steps                    :100[0m
+[32m[2022-08-30 11:47:12,718] [    INFO][0m - evaluation_strategy           :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 11:47:12,718] [    INFO][0m - first_max_length              :None[0m
+[32m[2022-08-30 11:47:12,718] [    INFO][0m - fp16                          :False[0m
+[32m[2022-08-30 11:47:12,718] [    INFO][0m - fp16_opt_level                :O1[0m
+[32m[2022-08-30 11:47:12,718] [    INFO][0m - freeze_dropout                :False[0m
+[32m[2022-08-30 11:47:12,718] [    INFO][0m - freeze_plm                    :False[0m
+[32m[2022-08-30 11:47:12,719] [    INFO][0m - gradient_accumulation_steps   :1[0m
+[32m[2022-08-30 11:47:12,719] [    INFO][0m - greater_is_better             :True[0m
+[32m[2022-08-30 11:47:12,719] [    INFO][0m - ignore_data_skip              :False[0m
+[32m[2022-08-30 11:47:12,719] [    INFO][0m - label_names                   :None[0m
+[32m[2022-08-30 11:47:12,719] [    INFO][0m - learning_rate                 :3e-05[0m
+[32m[2022-08-30 11:47:12,719] [    INFO][0m - load_best_model_at_end        :True[0m
+[32m[2022-08-30 11:47:12,719] [    INFO][0m - local_process_index           :0[0m
+[32m[2022-08-30 11:47:12,719] [    INFO][0m - local_rank                    :-1[0m
+[32m[2022-08-30 11:47:12,719] [    INFO][0m - log_level                     :-1[0m
+[32m[2022-08-30 11:47:12,719] [    INFO][0m - log_level_replica             :-1[0m
+[32m[2022-08-30 11:47:12,719] [    INFO][0m - log_on_each_node              :True[0m
+[32m[2022-08-30 11:47:12,719] [    INFO][0m - logging_dir                   :./checkpoints/runs/Aug30_11-47-03_instance-3bwob41y-01[0m
+[32m[2022-08-30 11:47:12,719] [    INFO][0m - logging_first_step            :False[0m
+[32m[2022-08-30 11:47:12,720] [    INFO][0m - logging_steps                 :10[0m
+[32m[2022-08-30 11:47:12,720] [    INFO][0m - logging_strategy              :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 11:47:12,720] [    INFO][0m - lr_scheduler_type             :SchedulerType.LINEAR[0m
+[32m[2022-08-30 11:47:12,720] [    INFO][0m - max_grad_norm                 :1.0[0m
+[32m[2022-08-30 11:47:12,720] [    INFO][0m - max_seq_length                :64[0m
+[32m[2022-08-30 11:47:12,720] [    INFO][0m - max_steps                     :-1[0m
+[32m[2022-08-30 11:47:12,720] [    INFO][0m - metric_for_best_model         :accuracy[0m
+[32m[2022-08-30 11:47:12,720] [    INFO][0m - minimum_eval_times            :None[0m
+[32m[2022-08-30 11:47:12,720] [    INFO][0m - no_cuda                       :False[0m
+[32m[2022-08-30 11:47:12,720] [    INFO][0m - num_train_epochs              :100.0[0m
+[32m[2022-08-30 11:47:12,720] [    INFO][0m - optim                         :OptimizerNames.ADAMW[0m
+[32m[2022-08-30 11:47:12,720] [    INFO][0m - other_max_length              :None[0m
+[32m[2022-08-30 11:47:12,720] [    INFO][0m - output_dir                    :./checkpoints/[0m
+[32m[2022-08-30 11:47:12,720] [    INFO][0m - overwrite_output_dir          :False[0m
+[32m[2022-08-30 11:47:12,721] [    INFO][0m - past_index                    :-1[0m
+[32m[2022-08-30 11:47:12,721] [    INFO][0m - per_device_eval_batch_size    :32[0m
+[32m[2022-08-30 11:47:12,721] [    INFO][0m - per_device_train_batch_size   :8[0m
+[32m[2022-08-30 11:47:12,721] [    INFO][0m - ppt_adam_beta1                :0.9[0m
+[32m[2022-08-30 11:47:12,721] [    INFO][0m - ppt_adam_beta2                :0.999[0m
+[32m[2022-08-30 11:47:12,721] [    INFO][0m - ppt_adam_epsilon              :1e-08[0m
+[32m[2022-08-30 11:47:12,721] [    INFO][0m - ppt_learning_rate             :0.0003[0m
+[32m[2022-08-30 11:47:12,721] [    INFO][0m - ppt_weight_decay              :0.0[0m
+[32m[2022-08-30 11:47:12,721] [    INFO][0m - prediction_loss_only          :False[0m
+[32m[2022-08-30 11:47:12,721] [    INFO][0m - process_index                 :0[0m
+[32m[2022-08-30 11:47:12,721] [    INFO][0m - remove_unused_columns         :True[0m
+[32m[2022-08-30 11:47:12,721] [    INFO][0m - report_to                     :['visualdl'][0m
+[32m[2022-08-30 11:47:12,721] [    INFO][0m - resume_from_checkpoint        :None[0m
+[32m[2022-08-30 11:47:12,721] [    INFO][0m - run_name                      :./checkpoints/[0m
+[32m[2022-08-30 11:47:12,722] [    INFO][0m - save_on_each_node             :False[0m
+[32m[2022-08-30 11:47:12,722] [    INFO][0m - save_steps                    :100[0m
+[32m[2022-08-30 11:47:12,722] [    INFO][0m - save_strategy                 :IntervalStrategy.STEPS[0m
+[32m[2022-08-30 11:47:12,722] [    INFO][0m - save_total_limit              :None[0m
+[32m[2022-08-30 11:47:12,722] [    INFO][0m - scale_loss                    :32768[0m
+[32m[2022-08-30 11:47:12,722] [    INFO][0m - seed                          :42[0m
+[32m[2022-08-30 11:47:12,722] [    INFO][0m - should_log                    :True[0m
+[32m[2022-08-30 11:47:12,722] [    INFO][0m - should_save                   :True[0m
+[32m[2022-08-30 11:47:12,722] [    INFO][0m - task_type                     :multi-class[0m
+[32m[2022-08-30 11:47:12,722] [    INFO][0m - train_batch_size              :8[0m
+[32m[2022-08-30 11:47:12,722] [    INFO][0m - truncate_mode                 :tail[0m
+[32m[2022-08-30 11:47:12,722] [    INFO][0m - use_rdrop                     :False[0m
+[32m[2022-08-30 11:47:12,722] [    INFO][0m - use_rgl                       :False[0m
+[32m[2022-08-30 11:47:12,722] [    INFO][0m - warmup_ratio                  :0.0[0m
+[32m[2022-08-30 11:47:12,723] [    INFO][0m - warmup_steps                  :0[0m
+[32m[2022-08-30 11:47:12,723] [    INFO][0m - weight_decay                  :0.0[0m
+[32m[2022-08-30 11:47:12,723] [    INFO][0m - world_size                    :1[0m
+[32m[2022-08-30 11:47:12,723] [    INFO][0m - [0m
+[32m[2022-08-30 11:47:12,724] [    INFO][0m - ***** Running training *****[0m
+[32m[2022-08-30 11:47:12,724] [    INFO][0m -   Num examples = 160[0m
+[32m[2022-08-30 11:47:12,724] [    INFO][0m -   Num Epochs = 100[0m
+[32m[2022-08-30 11:47:12,724] [    INFO][0m -   Instantaneous batch size per device = 8[0m
+[32m[2022-08-30 11:47:12,724] [    INFO][0m -   Total train batch size (w. parallel, distributed & accumulation) = 8[0m
+[32m[2022-08-30 11:47:12,724] [    INFO][0m -   Gradient Accumulation steps = 1[0m
+[32m[2022-08-30 11:47:12,724] [    INFO][0m -   Total optimization steps = 2000.0[0m
+[32m[2022-08-30 11:47:12,724] [    INFO][0m -   Total num train samples = 16000[0m
+metric <function main.<locals>.compute_metrics at 0x7f412b235280>
+Traceback (most recent call last):
+  File "train_single.py", line 166, in <module>
+    main()
+  File "train_single.py", line 145, in main
+    train_result = trainer.train(resume_from_checkpoint=None)
+  File "/ssd2/wanghuijuan03/prompt/PaddleNLP/paddlenlp/trainer/trainer_base.py", line 558, in train
+    tr_loss_step = self.training_step(model, inputs)
+  File "/ssd2/wanghuijuan03/prompt/PaddleNLP/paddlenlp/trainer/trainer_base.py", line 1063, in training_step
+    loss = self.compute_loss(model, inputs)
+  File "/ssd2/wanghuijuan03/prompt/PaddleNLP/paddlenlp/prompt/prompt_trainer.py", line 263, in compute_loss
+    outputs, hidden_states = model(inputs["input_ids"],
+  File "/ssd2/wanghuijuan03/anaconda3/envs/prompt/lib/python3.8/site-packages/paddle/fluid/dygraph/layers.py", line 927, in __call__
+    return self.forward(*inputs, **kwargs)
+  File "/ssd2/wanghuijuan03/prompt/PaddleNLP/paddlenlp/prompt/prompt_trainer.py", line 394, in forward
+    outputs = self.verbalizer.process_outputs(outputs, inputs=inputs)
+  File "/ssd2/wanghuijuan03/prompt/PaddleNLP/paddlenlp/prompt/verbalizer.py", line 401, in process_outputs
+    mask_ids = inputs["mask_ids"].unsqueeze(2)
+AttributeError: 'NoneType' object has no attribute 'unsqueeze'
