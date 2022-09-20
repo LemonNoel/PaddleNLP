@@ -21,7 +21,7 @@ import paddle
 from paddle.static import InputSpec
 from paddle.metric import Accuracy
 from paddlenlp.utils.log import logger
-from paddlenlp.transformers import ErnieTokenizer, ErnieForMaskedLM, ErnieForSequenceClassification
+from paddlenlp.transformers import ErnieTokenizer, ErnieForMaskedLM
 from paddlenlp.trainer import PdArgumentParser, EarlyStoppingCallback
 from paddlenlp.prompt import (
     AutoTemplate,
@@ -42,6 +42,9 @@ from postprocess import postprocess, save_to_file
 # yapf: disable
 @dataclass
 class DataArguments:
+    pretrained: str = field(
+        default="/ssd2/wanghuijuan03/data/zero-shot/checkpoints/checkpoint-10000/model_state.pdparams",
+        metadata={"help": "Path to the pretrained parameters"})
     task_name: str = field(default="tnews", metadata={"help": "Task name in FewCLUE."})
     split_id: str = field(default="0", metadata={"help": "The postfix of subdataset."})
     prompt: str = field(default=None, metadata={"help": "The input prompt for tuning."})
@@ -70,38 +73,20 @@ def main():
     paddle.set_device(training_args.device)
 
     # Load the pretrained language model.
-    if data_args.task_name in ["cluewsc"]:
-        model = ErnieForSequenceClassification.from_pretrained(
-            model_args.model_name_or_path)
-    else:
-        model = ErnieForMaskedLM.from_pretrained(model_args.model_name_or_path)
+    model = ErnieForMaskedLM.from_pretrained(model_args.model_name_or_path)
     tokenizer = ErnieTokenizer.from_pretrained(model_args.model_name_or_path)
-    state_dict = paddle.load(
-        '/ssd2/wanghuijuan03/data/zero-shot/checkpoints_80w_pre/checkpoint-210000/model_state.pdparams'
-    )
+    state_dict = paddle.load(data_args.pretrained)
     model.set_state_dict(state_dict)
     del state_dict
 
     # Define the template for preprocess and the verbalizer for postprocess.
-    template = AutoTemplate.create_from(
-        tokenizer=tokenizer,
-        max_seq_length=training_args.max_seq_length,
-        template=data_args.prompt,
-        model=model,
-        prompt_encoder=data_args.soft_encoder,
-        encoder_hidden_size=data_args.encoder_hidden_size)
+    template = ManualTemplate(tokenizer, training_args.max_seq_length,
+                              data_args.prompt)
     logger.info("Using template: {}".format(template.template))
 
     labels = LABEL_LIST[data_args.task_name]
     label_words = LABEL_MAP[data_args.task_name]
-    if data_args.task_name in ["csldcp", "iflytek", "ocnli", "chid", "csl"]:
-        verbalizer = SoftVerbalizer(tokenizer, model, labels, label_words)
-    elif data_args.task_name in ["cluewsc"]:
-        verbalizer = None
-    else:
-        verbalizer = ManualVerbalizer(tokenizer, labels, label_words)
-    if verbalizer is not None:
-        logger.info(verbalizer.labels_to_ids)
+    verbalizer = SoftVerbalizer(tokenizer, model, labels, label_words)
 
     # Load the few-shot datasets.
     train_ds, dev_ds, public_test_ds, test_ds = load_fewclue(
@@ -119,10 +104,6 @@ def main():
         verbalizer,
         freeze_plm=training_args.freeze_plm,
         freeze_dropout=training_args.freeze_dropout)
-
-    #state_dict = paddle.load('./cmnli/xbase/model_state.pdparams')
-    #prompt_model.set_state_dict(state_dict)
-    #del state_dict
 
     # Define the metric function.
     def compute_metrics(eval_preds):
@@ -177,9 +158,6 @@ def main():
     if model_args.do_test:
         test_ret = trainer.predict(public_test_ds)
         trainer.log_metrics("test", test_ret.metrics)
-
-    from collections import Counter
-    print(Counter(trainer.verbalizer.preds).most_common())
 
     # Prediction.
     if training_args.do_predict:
