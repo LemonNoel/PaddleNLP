@@ -12,25 +12,25 @@ def convert_eprstmt(example):
                         labels=example.get("label", None))
 
 
-def convert_csldcp(example, label_set):
+def convert_csldcp(example):
     # Unlabeled: 67
     return InputExample(uid=example["id"],
                         text_a=example["content"],
-                        text_b="/".join(label_set),
+                        text_b="",
                         labels=example.get("label", None))
 
 
-def convert_tnews(example, label_set):
+def convert_tnews(example):
     return InputExample(uid=example["id"],
                         text_a=example["sentence"],
-                        text_b="/".join(label_set),
+                        text_b="",
                         labels=example.get("label_desc", None))
 
 
 def convert_iflytek(example):
     return InputExample(uid=example["id"],
                         text_a=example["sentence"],
-                        text_b="/".join(label_set),
+                        text_b="",
                         labels=example.get("label_des", None))
 
 
@@ -85,7 +85,7 @@ def convert_csl(example):
     # IDEA C: Take it as a NER and compare list. Con: error propagation.
     return InputExample(uid=example["id"],
                         text_a=example["abst"],
-                        text_b="/".join(example["keyword"]),
+                        text_b=",".join(example["keyword"]),
                         labels=example.get("label", None))
 
 
@@ -95,7 +95,7 @@ def A_convert_cluewsc(example):
     # IDEA D.3: Use special tokens to mark query and pronoun.
     return InputExample(uid=example.get("id", None),
                         text_a=example["text"],
-                        text_b="其中" + example["target"]["span2_text"] + "指代" +
+                        text_b="其中" + example["target"]["span2_text"] + "指的是" +
                         example["target"]["span1_text"],
                         labels=example.get("label", None))
 
@@ -178,10 +178,6 @@ def load_fewclue(task_name, split_id, label_list):
             "cluewsc": convert_cluewsc
         }[task_name]
 
-        if task_name in ["csldcp", "tnews", "iflytek"]:
-            convert_fn = partial(convert_fn,
-                                 list(label_set=label_list.values()))
-
         train_ds = train_ds.map(convert_fn)
         dev_ds = dev_ds.map(convert_fn)
         public_test_ds = public_test_ds.map(convert_fn)
@@ -198,20 +194,39 @@ def load_fewclue(task_name, split_id, label_list):
 
 LABEL_MAP = {
     "bustm": {
-        "0": "不同",
-        "1": "相同"
+        "0": "不",
+        "1": "很"
+        # "0": "而且",
+        # "1": "所以"
+        #"0": "中立",
+        #"1": "蕴含"
     },
     "chid": {
-        0: "错误",
-        1: "正确"
+        # IDEA A.0
+        # 0: "一",
+        # 1: "二",
+        # 2: "三",
+        # 3: "四",
+        # 4: "五",
+        # 5: "六",
+        # 6: "七"
+        # IDEA B.1
+        0: "不",
+        1: "很"
     },
     "cluewsc": {
-        "false": "错误",
-        "true": "正确"
+        # A
+        #"false": "错误",
+        #"true": "正确"
+        # IDEA D.2
+        "false": "否",
+        "true": "是"
     },
     "csl": {
-        "0": "不是",
-        "1": "就是"
+        "0": "不",
+        "1": "得"
+        # "0": "中立",
+        # "1": "蕴含"
     },
     "csldcp": {
         '材料科学与工程': '材料',
@@ -283,8 +298,8 @@ LABEL_MAP = {
         '植物保护': '植保'
     },
     "eprstmt": {
-        'Negative': '负向',
-        'Positive': '正向'
+        'Negative': '不',
+        'Positive': '很'
     },
     "iflytek": {
         '银行': '银行',
@@ -408,8 +423,8 @@ LABEL_MAP = {
         '出国': '出国'
     },
     "tnews": {
-        'news_story': '故事',
-        'news_culture': '文化',
+        'news_story': '社会',  #'故事',
+        'news_culture': '时尚',  #'文化',
         'news_entertainment': '娱乐',
         'news_sports': '体育',
         'news_finance': '财经',
@@ -422,17 +437,28 @@ LABEL_MAP = {
         'news_world': '国际',
         'news_stock': '股票',
         'news_agriculture': '农业',
-        'news_game': '电竞'
+        'news_game': '游戏'  #'电竞'
     },
     "ocnli": {
-        "entailment": "蕴含",
-        "contradiction": "矛盾",
-        "neutral": "中立"
+        "entailment": "所以",
+        "contradiction": "但是",
+        "neutral": "而且"
     },
     "cmnli": {
+        # FT.a
+        # "entailment": "所以",
+        # "contradiction": "但是",
+        # "neutral": "而且"
+        # FT.b
         "entailment": "蕴含",
         "contradiction": "矛盾",
         "neutral": "中立"
     }
 }
+import json
+
+json.dump(LABEL_MAP["tnews"], open("tnews.json", "w"))
+json.dump(LABEL_MAP["iflytek"], open("iflytek.json", "w"))
+json.dump(LABEL_MAP["csldcp"], open("csldcp.json", "w"))
+
 LABEL_LIST = {k: list(v.keys()) for k, v in LABEL_MAP.items()}
