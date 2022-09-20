@@ -42,9 +42,6 @@ from postprocess import postprocess, save_to_file
 # yapf: disable
 @dataclass
 class DataArguments:
-    pretrained: str = field(
-        default="/ssd2/wanghuijuan03/data/zero-shot/checkpoints/checkpoint-10000/model_state.pdparams",
-        metadata={"help": "Path to the pretrained parameters"})
     task_name: str = field(default="tnews", metadata={"help": "Task name in FewCLUE."})
     split_id: str = field(default="0", metadata={"help": "The postfix of subdataset."})
     prompt: str = field(default=None, metadata={"help": "The input prompt for tuning."})
@@ -75,18 +72,19 @@ def main():
     # Load the pretrained language model.
     model = ErnieForMaskedLM.from_pretrained(model_args.model_name_or_path)
     tokenizer = ErnieTokenizer.from_pretrained(model_args.model_name_or_path)
-    #state_dict = paddle.load(data_args.pretrained)
-    #model.set_state_dict(state_dict)
-    #del state_dict
 
     # Define the template for preprocess and the verbalizer for postprocess.
-    template = ManualTemplate(tokenizer, training_args.max_seq_length,
-                              data_args.prompt)
+    template = SoftTemplate(tokenizer,
+                            training_args.max_seq_length,
+                            model,
+                            data_args.prompt,
+                            prompt_encoder=data_args.soft_encoder,
+                            encoder_hidden_size=data_args.encoder_hidden_size)
     logger.info("Using template: {}".format(template.template))
 
     labels = LABEL_LIST[data_args.task_name]
     label_words = LABEL_MAP[data_args.task_name]
-    verbalizer = SoftVerbalizer(tokenizer, model, labels, label_words)
+    verbalizer = ManualVerbalizer(tokenizer, labels, label_words)
 
     # Load the few-shot datasets.
     train_ds, dev_ds, public_test_ds, test_ds = load_fewclue(
@@ -158,6 +156,9 @@ def main():
     if model_args.do_test:
         test_ret = trainer.predict(public_test_ds)
         trainer.log_metrics("test", test_ret.metrics)
+
+    from collections import Counter
+    print(Counter(trainer.verbalizer.preds).most_common())
 
     # Prediction.
     if training_args.do_predict:
