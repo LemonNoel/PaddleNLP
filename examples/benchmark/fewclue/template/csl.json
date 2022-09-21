@@ -1,0 +1,7 @@
+{
+    "template": "{'soft': '以下几个词中有和文本主题关系不大的吗？'}{'text': 'text_b'}{'text': 'text_a'}",
+    "verbalizer": {
+        "0": "没",
+        "1": "有"
+    }
+}

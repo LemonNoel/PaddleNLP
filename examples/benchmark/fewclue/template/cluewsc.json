@@ -1,0 +1,7 @@
+{
+    "template": "下边一段话中{'text': 'text_b'}“{'text': 'text_a'}”",
+    "verbalizer": {
+        "true": "正确",
+        "false": "错误"
+     }
+}

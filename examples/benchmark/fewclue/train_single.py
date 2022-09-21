@@ -15,6 +15,7 @@
 from dataclasses import dataclass, field
 from functools import partial
 import os
+import json
 
 import numpy as np
 from scipy.special import softmax
@@ -23,7 +24,7 @@ import paddle
 from paddle.static import InputSpec
 from paddle.metric import Accuracy
 from paddlenlp.utils.log import logger
-from paddlenlp.transformers import ErnieTokenizer, ErnieForMaskedLM
+from paddlenlp.transformers import AutoTokenizer, AutoModelForMaskedLM, AutoModelForSequenceClassification
 from paddlenlp.trainer import PdArgumentParser, EarlyStoppingCallback
 from paddlenlp.prompt import (
     AutoTemplate,
@@ -45,14 +46,15 @@ from postprocess import postprocess, save_to_file
 # yapf: disable
 @dataclass
 class DataArguments:
-    pretrained: str = field(
-        default="/ssd2/wanghuijuan03/data/zero-shot/checkpoints/checkpoint-10000/model_state.pdparams",
-        metadata={"help": "Path to the pretrained parameters"})
-    task_name: str = field(default="tnews", metadata={"help": "Task name in FewCLUE."})
+    ckpt_plm: str = field(default=None, metadata={"help": "Path to the pretrained MaskedLM parameters"})
+    ckpt_model: str = field(default=None, metadata={"help": "Path to the pretrained PromptForSequenceClassification parameters"})
+    task_name: str = field(default="eprstmt", metadata={"help": "Task name."})
     split_id: str = field(default="0", metadata={"help": "The postfix of subdataset."})
-    prompt: str = field(default=None, metadata={"help": "The input prompt for tuning."})
+    t_type: str = field(default="auto", metadata={"help": "The class used for template"})
+    v_type: str = field(default="manual", metadata={"help": "The class used for verbalizer, including manual, multi, soft, cls"})
     soft_encoder: str = field(default="lstm", metadata={"help": "The encoder type of soft template, `lstm`, `mlp` or None."})
     encoder_hidden_size: int = field(default=200, metadata={"help": "The dimension of soft embeddings."})
+    do_analyze: bool = field(default=False, metadata={"help": "Whether to save all predictions for analysis"})
 
 
 @dataclass
@@ -70,27 +72,64 @@ def main():
     parser = PdArgumentParser(
         (ModelArguments, DataArguments, PromptTuningArguments))
     model_args, data_args, training_args = parser.parse_args_into_dataclasses()
+    configs = json.load(open("template/%s.json" % data_args.task_name, "r"))
+    data_args.prompt = configs["template"]
+    data_args.verbalizer = configs["verbalizer"]
+
     training_args.print_config(model_args, "Model")
     training_args.print_config(data_args, "Data")
 
     paddle.set_device(training_args.device)
 
     # Load the pretrained language model.
-    model = ErnieForMaskedLM.from_pretrained(model_args.model_name_or_path)
-    tokenizer = ErnieTokenizer.from_pretrained(model_args.model_name_or_path)
+    tokenizer = AutoTokenizer.from_pretrained(model_args.model_name_or_path)
+    if data_args.v_type == "cls":
+        model = AutoModelForSequenceClassification.from_pretrained(
+            model_args.model_name_or_path,
+            num_classes=len(data_args.verbalizer))
+    else:
+        model = AutoModelForMaskedLM.from_pretrained(
+            model_args.model_name_or_path)
+    if data_args.ckpt_plm is not None:
+        print("Loading Pretrained Model from %s" % data_args.ckpt_plm)
+        state_dict = paddle.load(data_args.ckpt_plm)
+        model.set_state_dict(state_dict)
+        del state_dict
 
     # Define the template for preprocess and the verbalizer for postprocess.
-    template = ManualTemplate(tokenizer, training_args.max_seq_length,
-                              data_args.prompt)
+    if data_args.t_type == "auto":
+        template = AutoTemplate.create_from(data_args.prompt, tokenizer,
+                                            training_args.max_seq_length, model,
+                                            data_args.soft_encoder,
+                                            data_args.encoder_hidden_size)
+    elif data_args.t_type == "prefix":
+        template = PrefixTemplate(tokenizer, training_args.max_seq_length,
+                                  model, data_args.prompt,
+                                  data_args.soft_encoder,
+                                  data_args.encoder_hidden_size)
+    else:
+        raise ValueError(
+            "Unsupported Template %s. Please use `auto` or `prefix`" %
+            data_args.t_type)
     logger.info("Using template: {}".format(template.template))
 
-    labels = LABEL_LIST[data_args.task_name]
-    label_words = LABEL_MAP[data_args.task_name]
-    if data_args.task_name == "cmnli":
-        verbalizer = MultiMaskVerbalizer(tokenizer, labels, label_words)
+    if data_args.v_type == "manual":
+        verbalizer = ManualVerbalizer(tokenizer,
+                                      label_words=data_args.verbalizer)
+    elif data_args.v_type == "multi":
+        verbalizer = MultiMaskVerbalizer(tokenizer,
+                                         label_words=data_args.verbalizer)
+    elif data_args.v_type == "soft":
+        verbalizer = SoftVerbalizer(tokenizer,
+                                    model,
+                                    label_words=data_args.verbalizer)
+    elif data_args.v_type == "cls":
+        verbalizer = ManualVerbalizer(tokenizer,
+                                      label_words=data_args.verbalizer)
     else:
-        #verbalizer = SoftVerbalizer(tokenizer, model, labels, label_words)
-        verbalizer = MultiMaskVerbalizer(tokenizer, labels, label_words)
+        raise ValueError(
+            "Unsupported Verbalizer %s. Please use `manual`, `multi` or `soft`"
+            % data_args.v_type)
 
     # Load the few-shot datasets.
     train_ds, dev_ds, public_test_ds, test_ds = load_fewclue(
@@ -98,8 +137,13 @@ def main():
         split_id=data_args.split_id,
         label_list=verbalizer.labels_to_ids)
 
+    if data_args.v_type == "cls":
+        verbalizer = None
+
     for x in train_ds:
-        print(x)
+        logger.info(
+            "Example: " +
+            json.dumps([x.text_a, x.text_b, x.labels], ensure_ascii=False))
         break
 
     # Define the criterion.
@@ -112,12 +156,14 @@ def main():
         verbalizer,
         freeze_plm=training_args.freeze_plm,
         freeze_dropout=training_args.freeze_dropout)
-    state_dict = paddle.load(data_args.pretrained)
-    prompt_model.set_state_dict(state_dict)
-    del state_dict
+    if data_args.ckpt_model is not None:
+        print("Loading PromptModel from %s..." % data_args.ckpt_model)
+        state_dict = paddle.load(data_args.ckpt_model)
+        prompt_model.set_state_dict(state_dict)
+        del state_dict
 
     # Define the metric function.
-    def compute_metrics(eval_preds):
+    def cls_compute_metrics(eval_preds):
         metric = Accuracy()
         correct = metric.compute(paddle.to_tensor(eval_preds.predictions),
                                  paddle.to_tensor(eval_preds.label_ids))
@@ -125,41 +171,37 @@ def main():
         acc = metric.accumulate()
         return {'accuracy': acc}
 
-    def compute_mask_metrics(eval_preds):
-        predictions = softmax(eval_preds.predictions, axis=-1)
-        preds_list = []
-
-        for label_id, tokens in enumerate(verbalizer.token_ids):
-            token_pred = predictions[:, 0, tokens[0][0]]
-            if predictions.shape[1] > 1:
-                for i, x in enumerate(tokens[1:]):
-                    token_pred *= predictions[:, i + 1, x[0]]
-            preds_list.append(token_pred)
-        preds_list = np.stack(preds_list).T
-        preds = np.argmax(preds_list, axis=1)
-        label = eval_preds.label_ids
-        acc = (preds == label).sum() / len(label)
-        return {'accuracy': acc}
-
-    def chid_compute_mask_metrics(eval_preds):
-        predictions = softmax(eval_preds.predictions, axis=-1)
-        preds_list = []
-        for label_id, tokens in enumerate(verbalizer.token_ids):
-            token_pred = predictions[:, 0, tokens[0][0]]
-            if predictions.shape[1] > 1:
-                for i, x in enumerate(tokens[1:]):
-                    token_pred *= predictions[:, i + 1, x[0]]
-            preds_list.append(token_pred)
-        preds_list = np.stack(preds_list).T
-        preds = softmax(preds_list, axis=1)[:, 1]
+    def cls_compute_metrics_chid(eval_preds):
+        # chid IDEA B.1
+        preds = softmax(eval_preds.predictions, axis=1)[:, 1]
         preds = np.argmax(preds.reshape(-1, 7), axis=1)
         labels = np.argmax(eval_preds.label_ids.reshape(-1, 7), axis=1)
         acc = sum(preds == labels) / len(preds)
         return {'accuracy': acc}
 
-    def chid_compute_metrics(eval_preds):
-        # chid IDEA B.1
-        preds = softmax(eval_preds.predictions, axis=1)[:, 1]
+    def multi_uniprediction(preds, token_ids):
+        preds_list = []
+        for label_id, tokens in enumerate(token_ids):
+            token_pred = preds[:, 0, tokens[0][0]]
+            if preds.shape[1] > 1:
+                for i, x in enumerate(tokens[1:]):
+                    token_pred *= preds[:, i + 1, x[0]]
+            preds_list.append(token_pred)
+        preds_list = np.stack(preds_list).T
+        return preds_list
+
+    def multi_compute_metrics(eval_preds):
+        predictions = softmax(eval_preds.predictions, axis=-1)
+        preds = multi_uniprediction(predictions, verbalizer.token_ids)
+        preds = np.argmax(preds, axis=1)
+        label = eval_preds.label_ids
+        acc = (preds == label).sum() / len(label)
+        return {'accuracy': acc}
+
+    def multi_compute_metrics_chid(eval_preds):
+        predictions = softmax(eval_preds.predictions, axis=-1)
+        preds = multi_uniprediction(predictions, verbalizer.token_ids)
+        preds = softmax(preds, axis=1)[:, 1]
         preds = np.argmax(preds.reshape(-1, 7), axis=1)
         labels = np.argmax(eval_preds.label_ids.reshape(-1, 7), axis=1)
         acc = sum(preds == labels) / len(preds)
@@ -177,11 +219,14 @@ def main():
         acc = np.mean([float(x) for x in result.values()])
         return {'accuracy': float(acc)}
 
-    used_metrics = chid_compute_mask_metrics if data_args.task_name == "chid" else compute_metrics
-    #if data_args.task_name == "csl":
-    #    used_metrics = partial(csl_compute_metrics, data_ds=dev_ds)
-    if data_args.task_name != "chid" or data_args.task_name == "cmnli":
-        used_metrics = compute_mask_metrics
+    if data_args.v_type == "multi":
+        compute_metrics = multi_compute_metrics
+        if data_args.task_name == "chid":
+            compute_metrics = multi_compute_metrics_chid
+    else:
+        compute_metrics = cls_compute_metrics
+        if data_args.task_name == "chid":
+            compute_metrics = cls_compute_metrics_chid
 
     # Deine the early-stopping callback.
     if model_args.do_save:
@@ -201,7 +246,7 @@ def main():
                             train_dataset=train_ds,
                             eval_dataset=dev_ds,
                             callbacks=None,
-                            compute_metrics=used_metrics)
+                            compute_metrics=compute_metrics)
 
     # Traininig.
     if training_args.do_train:
@@ -211,16 +256,51 @@ def main():
         trainer.log_metrics("train", metrics)
         trainer.save_metrics("train", metrics)
         trainer.save_state()
+        state_dict = trainer.model.plm.state_dict()
+        paddle.save(state_dict,
+                    os.path.join(training_args.output_dir, "best_plm.pdparams"))
 
-    if data_args.task_name == "no_csl":
-        trainer.compute_metrics = partial(csl_compute_metrics,
-                                          data_ds=public_test_ds)
+    # if data_args.task_name == "csl":
+    #    trainer.compute_metrics = partial(csl_compute_metrics, data_ds=public_test_ds)
+
     # Test.
     if model_args.do_test:
         test_ret = trainer.predict(public_test_ds)
         trainer.log_metrics("test", test_ret.metrics)
+        preds = test_ret.predictions
+        preds = np.argmax(np.array(preds), axis=-1)
+        id2label = {
+            idx: l
+            for idx, l in enumerate(
+                sorted([x for x in data_args.verbalizer.keys()]))
+        }
+        labels = [id2label[x] for x in test_ret.label_ids]
+        with open(os.path.join(training_args.output_dir, "test_analysis.txt"),
+                  "w") as fp:
+            if data_args.v_type == "multi":
+                mask_preds = multi_uniprediction(
+                    softmax(test_ret.predictions, axis=-1),
+                    verbalizer.token_ids)
+                if data_args.task_name == "chid":
+                    mask_preds = softmax(mask_preds, axis=1)[:, 1]
+                    mask_preds = np.argmax(mask_preds.reshape(-1, 7), axis=1)
+                else:
+                    mask_preds = np.argmax(mask_preds, axis=1)
+                mask_preds = [id2label[x] for x in mask_preds]
+                for pred, mask_pred, lb in zip(preds, mask_preds, labels):
+                    fp.write(
+                        json.dumps([
+                            tokenizer.convert_ids_to_tokens(pred), mask_pred, lb
+                        ],
+                                   ensure_ascii=False) + "\n")
+            else:
+                for pred, lb in zip(preds, labels):
+                    fp.write(
+                        json.dumps([id2label[pred], lb], ensure_ascii=False) +
+                        "\n")
 
     # Prediction.
+    # TODO: TO MODIFY FOR NEW VERSION
     if training_args.do_predict:
         test_ret = trainer.predict(test_ds)
         print("Prediction done.")

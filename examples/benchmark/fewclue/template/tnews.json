@@ -1,0 +1,38 @@
+{
+    "template": "{'soft': '下边这则新闻属于什么话题呢？'}{'mask'}{'text':'text_a'}",
+    "verbalizer": {
+        "news_story":  "八卦",
+        "news_entertainment": "明星",
+        "news_finance": "经济",
+        "news_sports": "体育",
+        "news_edu": "校园",
+        "news_game": "游戏",
+        "news_culture": "文化",
+        "news_tech": "科技",
+        "news_car": "汽车",
+        "news_travel": "旅行",
+        "news_world": "国际",
+        "news_agriculture": "农业",
+        "news_military": "军事",
+        "news_house": "房子",
+        "news_stock": "股票"
+    },
+    "label_id": {
+         "news_story": "100",
+         "news_culture": "101",
+         "news_entertainment": "102",
+         "news_sports": "103",
+         "news_finance": "104",
+         "news_house": "106",
+         "news_car": "107",
+         "news_edu": "108",
+         "news_tech": "109",
+         "news_military": "110",
+         "news_travel": "112",
+         "news_world": "113",
+         "news_stock": "114",
+         "news_agriculture": "115",
+         "news_game": "116"
+    }
+}
+

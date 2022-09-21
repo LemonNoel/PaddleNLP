@@ -1,0 +1,7 @@
+{
+    "template": "{'soft': '选一个合适的词语填在空格里，你会选这个词吗？'}{'text': 'text_b'}{"mask'}“{'text': 'text_a'}”",
+    "verbalizer": {
+        0: "不",
+        1: "会"
+    }
+}

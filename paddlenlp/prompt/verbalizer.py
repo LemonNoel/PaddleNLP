@@ -371,7 +371,12 @@ class SoftVerbalizer(Verbalizer):
         "AlbertForMaskedLM", "RobertaForMaskedLM", "ReformerForMaskedLM"
     ]
 
-    def __init__(self, tokenizer, model, labels, label_words=None, prefix=''):
+    def __init__(self,
+                 tokenizer,
+                 model,
+                 labels=None,
+                 label_words=None,
+                 prefix=''):
         super().__init__(labels=labels)
         self.tokenizer = tokenizer
         self.labels = labels

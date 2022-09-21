@@ -159,6 +159,15 @@ def load_fewclue(task_name, split_id, label_list):
                                                  splits=splits,
                                                  label_list=label_list)
         public_test_ds = load_dataset("clue", name=task_name, splits=['test'])
+    elif task_name == "tnews":
+        splits = [f"dev_{split_id}", "test_public", "test"]
+        dev_ds, public_test_ds, test_ds = load_dataset("fewclue",
+                                                       name=task_name,
+                                                       splits=splits,
+                                                       label_list=label_list)
+        with open("data/tnews_train.json", "r") as fp:
+            data = [x for x in fp.readlines() if x[0] != "#"]
+            train_ds = MapDataset([json.loads(x) for x in data])
     else:
         # Load FewCLUE datasets and convert the samples to InputExample.
         splits = [f"train_{split_id}", f"dev_{split_id}", "test_public", "test"]

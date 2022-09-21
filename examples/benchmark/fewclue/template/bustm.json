@@ -1,0 +1,7 @@
+{
+    "template": "下边两句话说的是一个事情吗？{'mask'}“{'text': 'text_a'}”和“{'text': 'text_b'}”",
+    "verbalizer": {
+        "0": "不",
+        "1": "是"
+    }
+}
