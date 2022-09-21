@@ -78,9 +78,6 @@ def main():
     # Load the pretrained language model.
     model = ErnieForMaskedLM.from_pretrained(model_args.model_name_or_path)
     tokenizer = ErnieTokenizer.from_pretrained(model_args.model_name_or_path)
-    state_dict = paddle.load(data_args.pretrained)
-    model.set_state_dict(state_dict)
-    del state_dict
 
     # Define the template for preprocess and the verbalizer for postprocess.
     template = ManualTemplate(tokenizer, training_args.max_seq_length,
@@ -115,6 +112,9 @@ def main():
         verbalizer,
         freeze_plm=training_args.freeze_plm,
         freeze_dropout=training_args.freeze_dropout)
+    state_dict = paddle.load(data_args.pretrained)
+    prompt_model.set_state_dict(state_dict)
+    del state_dict
 
     # Define the metric function.
     def compute_metrics(eval_preds):
@@ -126,9 +126,7 @@ def main():
         return {'accuracy': acc}
 
     def compute_mask_metrics(eval_preds):
-        predictions = paddle.nn.functional.softmax(paddle.to_tensor(
-            eval_preds.predictions),
-                                                   axis=-1).numpy()
+        predictions = softmax(eval_preds.predictions, axis=-1)
         preds_list = []
 
         for label_id, tokens in enumerate(verbalizer.token_ids):
@@ -141,6 +139,22 @@ def main():
         preds = np.argmax(preds_list, axis=1)
         label = eval_preds.label_ids
         acc = (preds == label).sum() / len(label)
+        return {'accuracy': acc}
+
+    def chid_compute_mask_metrics(eval_preds):
+        predictions = softmax(eval_preds.predictions, axis=-1)
+        preds_list = []
+        for label_id, tokens in enumerate(verbalizer.token_ids):
+            token_pred = predictions[:, 0, tokens[0][0]]
+            if predictions.shape[1] > 1:
+                for i, x in enumerate(tokens[1:]):
+                    token_pred *= predictions[:, i + 1, x[0]]
+            preds_list.append(token_pred)
+        preds_list = np.stack(preds_list).T
+        preds = softmax(preds_list, axis=1)[:, 1]
+        preds = np.argmax(preds.reshape(-1, 7), axis=1)
+        labels = np.argmax(eval_preds.label_ids.reshape(-1, 7), axis=1)
+        acc = sum(preds == labels) / len(preds)
         return {'accuracy': acc}
 
     def chid_compute_metrics(eval_preds):
@@ -163,10 +177,10 @@ def main():
         acc = np.mean([float(x) for x in result.values()])
         return {'accuracy': float(acc)}
 
-    used_metrics = chid_compute_metrics if data_args.task_name == "chid" else compute_metrics
+    used_metrics = chid_compute_mask_metrics if data_args.task_name == "chid" else compute_metrics
     #if data_args.task_name == "csl":
     #    used_metrics = partial(csl_compute_metrics, data_ds=dev_ds)
-    if True or data_args.task_name == "cmnli":
+    if data_args.task_name != "chid" or data_args.task_name == "cmnli":
         used_metrics = compute_mask_metrics
 
     # Deine the early-stopping callback.
@@ -209,6 +223,7 @@ def main():
     # Prediction.
     if training_args.do_predict:
         test_ret = trainer.predict(test_ds)
+        print("Prediction done.")
         test_ret = postprocess(test_ret,
                                test_ds,
                                data_args.task_name,

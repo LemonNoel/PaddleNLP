@@ -12,25 +12,25 @@ def convert_eprstmt(example):
                         labels=example.get("label", None))
 
 
-def convert_csldcp(example, label_str):
+def convert_csldcp(example):
     # Unlabeled: 67
     return InputExample(uid=example["id"],
                         text_a=example["content"],
-                        text_b=label_str,
+                        text_b="",
                         labels=example.get("label", None))
 
 
-def convert_tnews(example, label_str):
+def convert_tnews(example):
     return InputExample(uid=example["id"],
                         text_a=example["sentence"],
-                        text_b=label_str,
+                        text_b="",
                         labels=example.get("label_desc", None))
 
 
-def convert_iflytek(example, label_str):
+def convert_iflytek(example):
     return InputExample(uid=example["id"],
                         text_a=example["sentence"],
-                        text_b=label_str,
+                        text_b="",
                         labels=example.get("label_des", None))
 
 
@@ -196,11 +196,6 @@ def load_fewclue(task_name, split_id, label_list):
             "cluewsc": convert_cluewsc
         }[task_name]
 
-        if task_name in ["csldcp", "tnews", "iflytek"]:
-            convert_fn = partial(convert_fn,
-                                 label_str="/".join(
-                                     [x for x in label_list.keys()]))
-
         train_ds = train_ds.map(convert_fn)
         dev_ds = dev_ds.map(convert_fn)
         public_test_ds = public_test_ds.map(convert_fn)
@@ -217,20 +212,20 @@ def load_fewclue(task_name, split_id, label_list):
 
 LABEL_MAP = {
     "bustm": {
-        "0": "略有",
-        "1": "毫无"
+        "0": "不同",
+        "1": "相同"
     },
     "chid": {
-        0: "奇怪",
-        1: "恰当"
+        0: "错误",
+        1: "正确"
     },
     "cluewsc": {
-        "false": "没有",
-        "true": "已经"
+        "false": "错误",
+        "true": "正确"
     },
     "csl": {
-        '0': "不同",
-        '1': "相同"
+        '0': "没有",
+        '1': "包括"
     },
     "csldcp": {
         '材料科学与工程': '材料',
@@ -427,7 +422,7 @@ LABEL_MAP = {
         '出国': '出国'
     },
     "tnews": {
-        'news_story': '社会',  #'故事',
+        'news_story': '故事',
         'news_culture': '文化',
         'news_entertainment': '娱乐',
         'news_sports': '体育',
@@ -436,17 +431,17 @@ LABEL_MAP = {
         'news_car': '汽车',
         'news_edu': '教育',
         'news_tech': '科技',
-        'news_military': '时政',  #'军事',
+        'news_military': '军事',
         'news_travel': '旅游',
         'news_world': '国际',
         'news_stock': '股票',
         'news_agriculture': '农业',
-        'news_game': '游戏'  #'电竞'
+        'news_game': '电竞'
     },
     "ocnli": {
-        "entailment": "因而",  # "所以", # "蕴含",
-        "contradiction": "然而",  # "但是", # "矛盾",
-        "neutral": "另外"  #"而且" # "中立"
+        "entailment": "蕴含",  # "所以", # "蕴含",
+        "contradiction": "矛盾",  # "但是", # "矛盾",
+        "neutral": "中立"  #"而且" # "中立"
     },
     "cmnli": {
         "entailment": "蕴含",
