@@ -1,5 +1,7 @@
 {
-    "template": "{'soft': '阅读下边一段和'}{'mask'}{'soft': '相关的材料'}“{'text': 'text_a'}”",
+    "template": [
+        {"text": "{'soft': '阅读下边一段和'}{'mask'}{'mask'}{'soft': '相关的材料'}“{'text': 'text_a'}”"}
+    ],
     "verbalizer": {
         "材料科学与工程": "材料",
         "作物学": "作物",

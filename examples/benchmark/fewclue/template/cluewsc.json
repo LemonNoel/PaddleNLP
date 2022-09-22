@@ -1,7 +1,10 @@
 {
-    "template": "下边一段话中{'text': 'text_b'}“{'text': 'text_a'}”",
+    "template": [
+        {"text": "“{'text':'text_a'}”{'text':'text_b'}这里代词使用正确吗？{'mask'}{'mask'}"},
+        {"text": "下边一段话中{'text': 'text_b'}“{'text': 'text_a'}”", "manual": "60.45", "cls": "53.69", "cl-manual": "53.07", "cl-cls": "58.50"}
+    ],
     "verbalizer": {
         "true": "正确",
         "false": "错误"
-     }
+    }
 }

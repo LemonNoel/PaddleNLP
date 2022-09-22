@@ -1,5 +1,7 @@
 {
-    "template": "{'mask'}{'mask'}{'soft': '这句评论表达了怎样的情绪？'}“{'text': 'text_a'}”",
+    "template": [
+        {"text": "{'soft': '这句评论表达了怎样的情绪？'}{'soft': None, 'duplicate': 10}{'mask'}{'mask'}“{'text': 'text_a'}”"}
+    ],
     "verbalizer": {
         "Negative": "生气",
         "Positive": "开心"

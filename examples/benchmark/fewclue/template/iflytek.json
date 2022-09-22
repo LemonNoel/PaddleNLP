@@ -1,5 +1,8 @@
 {
-    "template": "{'soft': '这段话跟什么有关'}{'mask'}“{'text': 'text_a'}”",
+    "template": [
+        {"text": "{'soft': '这段话跟什么有关'}{'mask'}{'mask'}“{'text': 'text_a'}”"},
+        {"text": "{'soft': '这段话跟什么有关'}{'mask'}“{'text': 'text_a'}”", "cls": "58.26", "cl-cls": "56.89"}
+    ],
     "verbalizer": {
         "银行": "银行",
         "社区服务": "社区",

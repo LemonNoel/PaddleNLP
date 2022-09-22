@@ -13,7 +13,7 @@ elif [ $task_name == "csldcp" ]; then
     max_length=256
 elif [ $task_name == "tnews" ]; then
     prompt="“{'text':'text_a'}”上述新闻选自{'mask'}{'mask'}专栏。"
-    max_length=64
+    max_length=128 #64
 elif [ $task_name == "iflytek" ]; then
     prompt="“{'text':'text_a'}”因此，应用类别是{'mask'}{'mask'}。"
     max_length=320
@@ -37,38 +37,41 @@ elif [ $task_name == "cmnli" ]; then
     max_length=128
 fi
 
+out_dir=./ckpt-cl-multi_$task_name
+
 CUDA_VISIBLE_DEVICES=$device python train_single.py \
---output_dir ./checkpoints_$task_name/ \
---prompt "$prompt" \
+--output_dir $out_dir \
 --max_seq_length $max_length \
+--task_name $task_name \
+--t_index 0 \
+--t_type "auto" \
+--v_type "multi" \
 --learning_rate 3e-6 \
 --ppt_learning_rate 3e-5 \
---num_train_epochs 20 \
+--num_train_epochs 25 \
 --logging_steps 10 \
 --do_train \
 --do_eval \
 --do_test \
---disable_tqdm True \
+--do_label \
+--do_predict \
 --do_save True \
+--disable_tqdm True \
 --eval_steps 200 \
 --save_steps 200 \
---per_device_eval_batch_size 16 \
---per_device_train_batch_size 16 \
+--warmup_ratio 0.01 \
+--per_device_eval_batch_size 32 \
+--per_device_train_batch_size 32 \
 --model_name_or_path ernie-1.0-large-zh-cw \
 --split_id few_all \
 --task_name $task_name \
---pretrained "../checkpoints_cmnli/checkpoint-22000/model_state.pdparams" \
 --metric_for_best_model accuracy \
---do_predict \
 --load_best_model_at_end \
---evaluation_strategy epoch \
---save_strategy epoch 
-#--early_stop_patience 10
-#--soft_encoder mlp \
-#--save_strategy no
---pretrained "/ssd2/wanghuijuan03/data/zero-shot/checkpoints_09191451/checkpoint-43000/model_state.pdparams" \
-#--pretrained "/ssd2/wanghuijuan03/data/zero-shot/0919_model_state.pdparams" \
-#--pretrained "/ssd2/wanghuijuan03/data/zero-shot/checkpoints/checkpoint-5000/model_state.pdparams" \
+--ckpt_plm "strategy_supervised/model_4600_89.92.pdparams" \
+#--evaluation_strategy epoch \
+#--save_strategy epoch 
+#--ckpt_model None \
 #--freeze_plm \
+#--soft_encoder mlp \
 
-rm -rf ./checkpoints_$task_name/
+rm -rf $out_dir/checkpoint-*

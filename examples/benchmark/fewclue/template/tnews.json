@@ -1,5 +1,8 @@
 {
-    "template": "{'soft': '下边这则新闻属于什么话题呢？'}{'mask'}{'text':'text_a'}",
+    "template": [
+        {"text": "{'soft': '下边这则新闻属于'}{'mask'}{'mask'}{'soft':'话题'}{'soft': None, 'duplicate': 10}{'text':'text_a'}"},
+        {"text": "{'soft': '下边这则新闻属于什么话题呢？'}{'mask'}{'text':'text_a'}", "manual": "57.06", "cls": "58.31", "cl-manual": "56.77", "cl-cls": "56.67"}
+    ],
     "verbalizer": {
         "news_story":  "八卦",
         "news_entertainment": "明星",

@@ -1,5 +1,8 @@
 {
-    "template": "{'soft': '下边两句话之间有什么关系？'}{'mask'}“{'text': 'text_a'}”{'sep'}“{'text': 'text_b'}”",
+    "template": [
+        {"text": "“{'text': 'text_a'}”和“{'text': 'text_b'}”之间的逻辑关系是{'mask'}{'mask'}"},
+        {"text": "{'soft': '下边两句话之间有什么逻辑关系？'}{'mask'}{'mask'}“{'text': 'text_a'}”{'sep'}“{'text': 'text_b'}”"}
+    ],
     "verbalizer": {
         "contradiction": "矛盾",
         "entailment": "蕴含",

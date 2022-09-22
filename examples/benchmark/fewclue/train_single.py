@@ -12,13 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dataclasses import dataclass, field
-from functools import partial
 import os
 import json
+from functools import partial
+from dataclasses import dataclass, field
 
 import numpy as np
-from scipy.special import softmax
+from tqdm import tqdm
 
 import paddle
 from paddle.static import InputSpec
@@ -39,8 +39,8 @@ from paddlenlp.prompt import (
     PromptModelForSequenceClassification,
 )
 
-from utils import load_fewclue, LABEL_LIST, LABEL_MAP
-from postprocess import postprocess, save_to_file
+from utils import load_fewclue
+from postprocess import save_to_file
 
 
 # yapf: disable
@@ -49,21 +49,24 @@ class DataArguments:
     ckpt_plm: str = field(default=None, metadata={"help": "Path to the pretrained MaskedLM parameters"})
     ckpt_model: str = field(default=None, metadata={"help": "Path to the pretrained PromptForSequenceClassification parameters"})
     task_name: str = field(default="eprstmt", metadata={"help": "Task name."})
-    split_id: str = field(default="0", metadata={"help": "The postfix of subdataset."})
+    split_id: str = field(default="few_all", metadata={"help": "The postfix of subdataset."})
     t_type: str = field(default="auto", metadata={"help": "The class used for template"})
+    t_index: int = field(default=0, metadata={"help": "The used template id"})
     v_type: str = field(default="manual", metadata={"help": "The class used for verbalizer, including manual, multi, soft, cls"})
-    soft_encoder: str = field(default="lstm", metadata={"help": "The encoder type of soft template, `lstm`, `mlp` or None."})
-    encoder_hidden_size: int = field(default=200, metadata={"help": "The dimension of soft embeddings."})
-    do_analyze: bool = field(default=False, metadata={"help": "Whether to save all predictions for analysis"})
-
+    soft_encoder: str = field(default=None, metadata={"help": "The encoder type of soft template, `lstm`, `mlp` or None."})
+    encoder_hidden_size: int = field(default=None, metadata={"help": "The dimension of soft embeddings."})
+    do_analyze: bool = field(default=True, metadata={"help": "Whether to save all predictions for analysis"})
+    do_label: bool = field(default=True, metadata={"help": "Whether to label unlabeled data."})
+    label_threshold: float = field(default=0.8, metadata={"help": "When to label unlabeled data."})
 
 @dataclass
 class ModelArguments:
-    model_name_or_path: str = field(default="ernie-3.0-base-zh", metadata={"help": "Build-in pretrained model name or the path to local model."})
+    model_name_or_path: str = field(default="ernie-1.0-large-zh-cw", metadata={"help": "Build-in pretrained model name or the path to local model."})
     export_type: str = field(default='paddle', metadata={"help": "The type to export. Support `paddle` and `onnx`."})
-    do_test: bool = field(default=False, metadata={"help": "Evaluate the model on test_public dataset."})
-    do_save: bool = field(default=False, metadata={"help": "Whether to save checkpoints during training."})
+    do_test: bool = field(default=True, metadata={"help": "Evaluate the model on test_public dataset."})
+    do_save: bool = field(default=True, metadata={"help": "Whether to save checkpoints during training."})
     early_stop_patience: int = field(default=4, metadata={"help": "The descent steps before the training stops."})
+    dropout: float = field(default=0.1, metadata={"help": "The dropout used for pretrained model."})
 # yapf: enable
 
 
@@ -73,7 +76,7 @@ def main():
         (ModelArguments, DataArguments, PromptTuningArguments))
     model_args, data_args, training_args = parser.parse_args_into_dataclasses()
     configs = json.load(open("template/%s.json" % data_args.task_name, "r"))
-    data_args.prompt = configs["template"]
+    data_args.prompt = configs["template"][data_args.t_index]["text"]
     data_args.verbalizer = configs["verbalizer"]
 
     training_args.print_config(model_args, "Model")
@@ -89,7 +92,9 @@ def main():
             num_classes=len(data_args.verbalizer))
     else:
         model = AutoModelForMaskedLM.from_pretrained(
-            model_args.model_name_or_path)
+            model_args.model_name_or_path,
+            hidden_dropout_prob=model_args.dropout,
+            attention_probs_dropout_prob=model_args.dropout)
     if data_args.ckpt_plm is not None:
         print("Loading Pretrained Model from %s" % data_args.ckpt_plm)
         state_dict = paddle.load(data_args.ckpt_plm)
@@ -132,7 +137,7 @@ def main():
             % data_args.v_type)
 
     # Load the few-shot datasets.
-    train_ds, dev_ds, public_test_ds, test_ds = load_fewclue(
+    train_ds, dev_ds, public_test_ds, test_ds, unlabeled_ds = load_fewclue(
         task_name=data_args.task_name,
         split_id=data_args.split_id,
         label_list=verbalizer.labels_to_ids)
@@ -173,13 +178,18 @@ def main():
 
     def cls_compute_metrics_chid(eval_preds):
         # chid IDEA B.1
-        preds = softmax(eval_preds.predictions, axis=1)[:, 1]
-        preds = np.argmax(preds.reshape(-1, 7), axis=1)
-        labels = np.argmax(eval_preds.label_ids.reshape(-1, 7), axis=1)
+        preds = paddle.nn.functional.softmax(paddle.to_tensor(
+            eval_preds.predictions),
+                                             axis=1)[:, 1]
+        preds = paddle.argmax(preds.reshape(-1, 7), axis=1)
+        labels = paddle.argmax(paddle.to_tensor(eval_preds.label_ids).reshape(
+            -1, 7),
+                               axis=1)
         acc = sum(preds == labels) / len(preds)
-        return {'accuracy': acc}
+        return {'accuracy': float(acc.numpy())}
 
     def multi_uniprediction(preds, token_ids):
+        preds = paddle.to_tensor(preds)
         preds_list = []
         for label_id, tokens in enumerate(token_ids):
             token_pred = preds[:, 0, tokens[0][0]]
@@ -187,25 +197,32 @@ def main():
                 for i, x in enumerate(tokens[1:]):
                     token_pred *= preds[:, i + 1, x[0]]
             preds_list.append(token_pred)
-        preds_list = np.stack(preds_list).T
+        preds_list = paddle.stack(preds_list).T
         return preds_list
 
     def multi_compute_metrics(eval_preds):
-        predictions = softmax(eval_preds.predictions, axis=-1)
+        predictions = paddle.nn.functional.softmax(paddle.to_tensor(
+            eval_preds.predictions),
+                                                   axis=-1)
         preds = multi_uniprediction(predictions, verbalizer.token_ids)
-        preds = np.argmax(preds, axis=1)
-        label = eval_preds.label_ids
-        acc = (preds == label).sum() / len(label)
-        return {'accuracy': acc}
+        preds = paddle.argmax(preds, axis=1)
+        label = paddle.to_tensor(eval_preds.label_ids)
+        acc = paddle.sum(preds == label) / len(label)
+        return {'accuracy': float(acc.numpy())}
 
     def multi_compute_metrics_chid(eval_preds):
-        predictions = softmax(eval_preds.predictions, axis=-1)
+        logger.info("CHID! CHID! CHID!")
+        predictions = paddle.nn.functional.softmax(paddle.to_tensor(
+            eval_preds.predictions),
+                                                   axis=-1)
         preds = multi_uniprediction(predictions, verbalizer.token_ids)
-        preds = softmax(preds, axis=1)[:, 1]
-        preds = np.argmax(preds.reshape(-1, 7), axis=1)
-        labels = np.argmax(eval_preds.label_ids.reshape(-1, 7), axis=1)
-        acc = sum(preds == labels) / len(preds)
-        return {'accuracy': acc}
+        preds = paddle.nn.functional.softmax(preds, axis=1)[:, 1]
+        preds = paddle.argmax(preds.reshape([-1, 7]), axis=1)
+        labels = paddle.argmax(paddle.to_tensor(eval_preds.label_ids).reshape(
+            [-1, 7]),
+                               axis=1)
+        acc = paddle.sum(preds == labels) / len(preds)
+        return {'accuracy': float(acc.numpy())}
 
     def csl_compute_metrics(eval_preds, data_ds):
         preds = softmax(eval_preds.predictions, axis=1)[:, 1]
@@ -267,6 +284,8 @@ def main():
     if model_args.do_test:
         test_ret = trainer.predict(public_test_ds)
         trainer.log_metrics("test", test_ret.metrics)
+
+    if model_args.do_test and data_args.do_analyze:
         preds = test_ret.predictions
         preds = np.argmax(np.array(preds), axis=-1)
         id2label = {
@@ -279,36 +298,113 @@ def main():
                   "w") as fp:
             if data_args.v_type == "multi":
                 mask_preds = multi_uniprediction(
-                    softmax(test_ret.predictions, axis=-1),
-                    verbalizer.token_ids)
+                    paddle.nn.functional.softmax(paddle.to_tensor(
+                        test_ret.predictions),
+                                                 axis=-1), verbalizer.token_ids)
                 if data_args.task_name == "chid":
-                    mask_preds = softmax(mask_preds, axis=1)[:, 1]
-                    mask_preds = np.argmax(mask_preds.reshape(-1, 7), axis=1)
+                    mask_preds = paddle.nn.functional.softmax(mask_preds,
+                                                              axis=1)[:, 1]
+                    mask_preds = paddle.argmax(mask_preds.reshape([-1, 7]),
+                                               axis=1)
                 else:
-                    mask_preds = np.argmax(mask_preds, axis=1)
-                mask_preds = [id2label[x] for x in mask_preds]
+                    mask_preds = paddle.argmax(mask_preds, axis=1)
+                    mask_preds = [id2label[x] for x in mask_preds.numpy()]
                 for pred, mask_pred, lb in zip(preds, mask_preds, labels):
+                    if data_args.task_name != "chid":
+                        pred = tokenizer.convert_ids_to_tokens(pred)
                     fp.write(
-                        json.dumps([
-                            tokenizer.convert_ids_to_tokens(pred), mask_pred, lb
-                        ],
-                                   ensure_ascii=False) + "\n")
+                        json.dumps([pred, mask_pred, lb], ensure_ascii=False) +
+                        "\n")
             else:
                 for pred, lb in zip(preds, labels):
-                    fp.write(
-                        json.dumps([id2label[pred], lb], ensure_ascii=False) +
-                        "\n")
+                    if data_args.task_name != "chid":
+                        pred = id2label[pred]
+                    fp.write(json.dumps([pred, lb], ensure_ascii=False) + "\n")
+
+    def postprocess(data_ret, data_ds):
+        # 构造有序的标签id映射
+        id_to_label = {
+            i: l
+            for i, l in enumerate(
+                sorted([x for x in configs["verbalizer"].keys()]))
+        }
+        # 计算标签概率和标签id
+        ret_list = []
+        pro_list = []
+        if data_args.v_type == "multi":
+            mask_preds = multi_uniprediction(
+                paddle.nn.functional.softmax(paddle.to_tensor(
+                    data_ret.predictions),
+                                             axis=-1), verbalizer.token_ids)
+            if data_args.task_name == "chid":
+                mask_preds = paddle.nn.functional.softmax(mask_preds, axis=1)[:,
+                                                                              1]
+                preds = paddle.argmax(mask_preds.reshape([-1, 7]),
+                                      axis=1).numpy()
+                probs = paddle.max(mask_preds.reshape([-1, 7]), axis=1).numpy()
+            else:
+                preds = paddle.argmax(mask_preds, axis=1).numpy()
+                probs = paddle.max(mask_preds, axis=1).numpy()
+        else:
+            preds = paddle.argmax(paddle.to_tensor(data_ret.predictions),
+                                  axis=1).numpy()
+            probs = paddle.max(paddle.to_tensor(data_ret.predictions),
+                               axis=1).numpy()
+
+        # 读取 iflytek 和 tnews 的标签映射
+        remap = configs.get("label_ids", None)
+
+        # 按数据集分别构造结果集合和概率集合
+        if data_args.task_name == "chid":
+            for idx, example in tqdm(enumerate(data_ds[::7])):
+                ret_list.append({
+                    "id": getattr(example, "uid", idx),
+                    "answer": preds[idx]
+                })
+                pro_list.append({
+                    "id": getattr(example, "uid", idx),
+                    "prob": probs[idx],
+                    **example
+                })
+        else:
+            if data_args.task_name in ["bustm", "csl"]:
+                for idx, example in tqdm(enumerate(data_ds)):
+                    uid = getattr(example, "uid", idx)
+                    ret_list.append({"id": uid, "label": str(preds[idx])})
+                    pro_list.append({"id": uid, "prob": probs[idx], **example})
+            elif data_args.task_name in [
+                    "cluewsc", "eprstmt", "ocnli", "csldcp"
+            ]:
+                for idx, example in tqdm(enumerate(data_ds)):
+                    uid = getattr(example, "uid", idx)
+                    ret_list.append({
+                        "id": uid,
+                        "label": id_to_label[preds[idx]]
+                    })
+                    pro_list.append({"id": uid, "prob": probs[idx], **example})
+            elif data_args.task_name in ["iflytek", "tnews"]:
+                for idx, example in tqdm(enumerate(data_ds)):
+                    uid = getattr(example, "uid", idx)
+                    ret_list.append({
+                        "id": uid,
+                        "label": str(remap[id_to_label[preds[idx]]])
+                    })
+                    pro_list.append({"id": uid, "prob": probs[idx], **example})
+        return ret_list, pro_list
+
+    # Tag unlabeled data.
+    if data_args.do_label:
+        label_ret = trainer.predict(unlabeled_ds)
+        print("Prediction done.")
+        _, prob_list = postprocess(label_ret, unlabeled_ds)
+        save_to_file(prob_list, data_args.task_name, save_path="fake_data")
 
     # Prediction.
     # TODO: TO MODIFY FOR NEW VERSION
     if training_args.do_predict:
         test_ret = trainer.predict(test_ds)
         print("Prediction done.")
-        test_ret = postprocess(test_ret,
-                               test_ds,
-                               data_args.task_name,
-                               verbalizer.ids_to_labels,
-                               verbalizer=verbalizer)
+        test_ret, _ = postprocess(test_ret, test_ds)
         save_to_file(test_ret, data_args.task_name)
 
 
