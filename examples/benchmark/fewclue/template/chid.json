@@ -1,6 +1,6 @@
 {
     "template": [
-        {"text": "“{'text':'text_a'}”这句话中成语[{'text':'text_b'}]的理解正确吗？{'mask'}{'mask'}。"},
+        {"text": "“{'text':'text_a'}”这句话中成语[{'text':'text_b'}]的理解正确吗？{'mask'}{'mask'}。", "multi": "69.73"},
         {"text": "“{'text': 'text_b'}”{'soft': '用在下边这句话中合适吗？选项：不对/合适'}{'mask'}{'mask'}“{'text': 'text_a'}”", "verb": "0-不对,1-合适", "multi": "65.08"},
         {"text": "{'soft': '选一个合适的词语填在空格里，你会选这个词吗？'}{'text': 'text_b'}{'mask'}“{'text': 'text_a'}”", "verb": "0-不,1-会"}
     ],

@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import os
+import time
 import json
 from functools import partial
 from dataclasses import dataclass, field
@@ -23,6 +24,7 @@ from tqdm import tqdm
 import paddle
 from paddle.static import InputSpec
 from paddle.metric import Accuracy
+from paddlenlp.datasets import MapDataset
 from paddlenlp.utils.log import logger
 from paddlenlp.transformers import AutoTokenizer, AutoModelForMaskedLM, AutoModelForSequenceClassification
 from paddlenlp.trainer import PdArgumentParser, EarlyStoppingCallback
@@ -47,6 +49,7 @@ from postprocess import save_to_file
 @dataclass
 class DataArguments:
     ckpt_plm: str = field(default=None, metadata={"help": "Path to the pretrained MaskedLM parameters"})
+    fake_file: str = field(default=None, metadata={"help": "Path to the labeled data of unlabeled source data."})
     ckpt_model: str = field(default=None, metadata={"help": "Path to the pretrained PromptForSequenceClassification parameters"})
     task_name: str = field(default="eprstmt", metadata={"help": "Task name."})
     split_id: str = field(default="few_all", metadata={"help": "The postfix of subdataset."})
@@ -140,7 +143,8 @@ def main():
     train_ds, dev_ds, public_test_ds, test_ds, unlabeled_ds = load_fewclue(
         task_name=data_args.task_name,
         split_id=data_args.split_id,
-        label_list=verbalizer.labels_to_ids)
+        label_list=verbalizer.labels_to_ids,
+        fake_file=data_args.fake_file)
 
     if data_args.v_type == "cls":
         verbalizer = None
@@ -280,6 +284,13 @@ def main():
     # if data_args.task_name == "csl":
     #    trainer.compute_metrics = partial(csl_compute_metrics, data_ds=public_test_ds)
 
+    def tolist(data):
+        if isinstance(data, paddle.Tensor):
+            return data.numpy().tolist()
+        elif isinstance(data, np.ndarray):
+            return data.tolist()
+        return data
+
     # Test.
     if model_args.do_test:
         test_ret = trainer.predict(public_test_ds)
@@ -293,6 +304,7 @@ def main():
             for idx, l in enumerate(
                 sorted([x for x in data_args.verbalizer.keys()]))
         }
+
         labels = [id2label[x] for x in test_ret.label_ids]
         with open(os.path.join(training_args.output_dir, "test_analysis.txt"),
                   "w") as fp:
@@ -305,21 +317,23 @@ def main():
                     mask_preds = paddle.nn.functional.softmax(mask_preds,
                                                               axis=1)[:, 1]
                     mask_preds = paddle.argmax(mask_preds.reshape([-1, 7]),
-                                               axis=1)
+                                               axis=1).numpy().tolist()
                 else:
                     mask_preds = paddle.argmax(mask_preds, axis=1)
-                    mask_preds = [id2label[x] for x in mask_preds.numpy()]
+                    mask_preds = [
+                        id2label[x] for x in mask_preds.numpy().tolist()
+                    ]
                 for pred, mask_pred, lb in zip(preds, mask_preds, labels):
                     if data_args.task_name != "chid":
                         pred = tokenizer.convert_ids_to_tokens(pred)
-                    fp.write(
-                        json.dumps([pred, mask_pred, lb], ensure_ascii=False) +
-                        "\n")
+                    to_save = [tolist(x) for x in [pred, mask_pred, lb]]
+                    fp.write(json.dumps(to_save, ensure_ascii=False) + "\n")
             else:
                 for pred, lb in zip(preds, labels):
                     if data_args.task_name != "chid":
                         pred = id2label[pred]
-                    fp.write(json.dumps([pred, lb], ensure_ascii=False) + "\n")
+                    to_save = [tolist(x) for x in [pred, lb]]
+                    fp.write(json.dumps(to_save, ensure_ascii=False) + "\n")
 
     def postprocess(data_ret, data_ds):
         # 构造有序的标签id映射
@@ -351,27 +365,34 @@ def main():
             probs = paddle.max(paddle.to_tensor(data_ret.predictions),
                                axis=1).numpy()
 
+        preds = tolist(preds)
+        probs = tolist(probs)
+
         # 读取 iflytek 和 tnews 的标签映射
         remap = configs.get("label_ids", None)
 
         # 按数据集分别构造结果集合和概率集合
         if data_args.task_name == "chid":
-            for idx, example in tqdm(enumerate(data_ds[::7])):
+            for idx, example in tqdm(enumerate([x for x in data_ds][::7])):
                 ret_list.append({
                     "id": getattr(example, "uid", idx),
                     "answer": preds[idx]
                 })
                 pro_list.append({
                     "id": getattr(example, "uid", idx),
+                    "answer": preds[idx],
                     "prob": probs[idx],
-                    **example
                 })
         else:
             if data_args.task_name in ["bustm", "csl"]:
                 for idx, example in tqdm(enumerate(data_ds)):
                     uid = getattr(example, "uid", idx)
                     ret_list.append({"id": uid, "label": str(preds[idx])})
-                    pro_list.append({"id": uid, "prob": probs[idx], **example})
+                    pro_list.append({
+                        "id": uid,
+                        "label": str(preds[idx]),
+                        "prob": probs[idx]
+                    })
             elif data_args.task_name in [
                     "cluewsc", "eprstmt", "ocnli", "csldcp"
             ]:
@@ -381,7 +402,11 @@ def main():
                         "id": uid,
                         "label": id_to_label[preds[idx]]
                     })
-                    pro_list.append({"id": uid, "prob": probs[idx], **example})
+                    pro_list.append({
+                        "id": uid,
+                        "label": id_to_label[preds[idx]],
+                        "prob": probs[idx]
+                    })
             elif data_args.task_name in ["iflytek", "tnews"]:
                 for idx, example in tqdm(enumerate(data_ds)):
                     uid = getattr(example, "uid", idx)
@@ -389,15 +414,23 @@ def main():
                         "id": uid,
                         "label": str(remap[id_to_label[preds[idx]]])
                     })
-                    pro_list.append({"id": uid, "prob": probs[idx], **example})
+                    pro_list.append({
+                        "id": uid,
+                        "label": str(remap[id_to_label[preds[idx]]]),
+                        "prob": probs[idx]
+                    })
         return ret_list, pro_list
+
+    time_stamp = time.strftime("%m%d-%H-%M—%S", time.localtime())
 
     # Tag unlabeled data.
     if data_args.do_label:
         label_ret = trainer.predict(unlabeled_ds)
         print("Prediction done.")
         _, prob_list = postprocess(label_ret, unlabeled_ds)
-        save_to_file(prob_list, data_args.task_name, save_path="fake_data")
+        save_to_file(prob_list,
+                     data_args.task_name,
+                     save_path="fake_data_%s" % time_stamp)
 
     # Prediction.
     # TODO: TO MODIFY FOR NEW VERSION
@@ -405,7 +438,9 @@ def main():
         test_ret = trainer.predict(test_ds)
         print("Prediction done.")
         test_ret, _ = postprocess(test_ret, test_ds)
-        save_to_file(test_ret, data_args.task_name)
+        save_to_file(test_ret,
+                     data_args.task_name,
+                     save_path="fewclue_submit_examples_%s" % time_stamp)
 
 
 if __name__ == '__main__':

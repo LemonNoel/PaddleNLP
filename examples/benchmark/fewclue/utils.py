@@ -1,5 +1,8 @@
 import json
 from functools import partial
+
+import numpy as np
+
 from paddlenlp.datasets import load_dataset, MapDataset
 from paddlenlp.prompt import InputExample
 from paddlenlp.utils.log import logger
@@ -19,6 +22,38 @@ def convert_csldcp(example):
                         text_a=example["content"],
                         text_b="",
                         labels=example.get("label", None))
+
+
+def convert_multi_efl(example,
+                      label_set,
+                      num_neg=None,
+                      text_key="content",
+                      label_key="label"):
+    true_label = example.get(label_key, None)
+    example_list = []
+    if true_label is None:
+        for label in label_set:
+            example_list.append(
+                InputExample(uid=example["id"],
+                             text_a=example[text_key],
+                             text_b=label,
+                             labels=None))
+    else:
+        neg_set = list(set(label_set) - set([true_label]))
+        example_list.append(
+            InputExample(uid=example["id"],
+                         text_a=example[text_key],
+                         text_b=true_label,
+                         labels=1))
+        if num_neg is not None:
+            neg_set = np.random.permutation(neg_set).tolist()[:num_neg]
+        for neg_label in neg_set:
+            example_list.append(
+                InputExample(uid=example["id"],
+                             text_a=example[text_key],
+                             text_b=neg_label,
+                             labels=0))
+    return example_list
 
 
 def convert_tnews(example):
@@ -85,7 +120,7 @@ def convert_csl(example):
     # IDEA C: Take it as a NER and compare list. Con: error propagation.
     return InputExample(uid=example["id"],
                         text_a=example["abst"],
-                        text_b="、".join(example["keyword"]),
+                        text_b="，".join(example["keyword"]),
                         labels=example.get("label", None))
 
 
@@ -152,7 +187,7 @@ def convert_labels_to_ids(example, label_dict):
 
 
 # 读取 FewCLUE 数据集
-def load_fewclue(task_name, split_id, label_list):
+def load_fewclue(task_name, split_id, label_list, fake_file=None):
     if task_name == "tnews":
         splits = [f"dev_{split_id}", "test_public", "test", "unlabeled"]
         dev_ds, public_test_ds, test_ds, unlabeled_ds = load_dataset(
@@ -169,21 +204,58 @@ def load_fewclue(task_name, split_id, label_list):
         train_ds, dev_ds, public_test_ds, test_ds, unlabeled_ds = load_dataset(
             "fewclue", name=task_name, splits=splits, label_list=label_list)
 
+    if fake_file is not None:
+        train_ds = [x for x in train_ds]
+        with open(fake_file, "r") as fp:
+            fake_data = [json.loads(x) for x in fp.readlines()]
+            train_ds.extend(fake_data)
+        train_ds = MapDataset(train_ds)
+
+    def convert_to_binary(dataset, convert_efl):
+        new_data = []
+        for example in dataset:
+            new_data.extend(convert_efl(example))
+        return MapDataset(new_data)
+
     if task_name == "chid":
         # IDEA B.1
-        convert_efl = convert_chid_efl
-
-        def convert_to_binary(dataset):
-            new_data = []
-            for example in dataset:
-                new_data.extend(convert_efl(example))
-            return MapDataset(new_data)
-
-        train_ds = convert_to_binary(train_ds)
-        dev_ds = convert_to_binary(dev_ds)
-        public_test_ds = convert_to_binary(public_test_ds)
-        test_ds = convert_to_binary(test_ds)
-        unlabeled_ds = convert_to_binary(unlabeled_ds)
+        train_ds = convert_to_binary(train_ds, convert_chid_efl)
+        dev_ds = convert_to_binary(dev_ds, convert_chid_efl)
+        public_test_ds = convert_to_binary(public_test_ds, convert_chid_efl)
+        test_ds = convert_to_binary(test_ds, convert_chid_efl)
+        unlabeled_ds = convert_to_binary(unlabeled_ds, convert_chid_efl)
+    elif task_name == "csldcp":
+        label_set = set([x for x in label_list.keys()])
+        convert_efl_train = partial(convert_multi_efl,
+                                    label_set=label_set,
+                                    num_neg=5,
+                                    text_key="content",
+                                    label_key="label")
+        convert_efl_test = partial(convert_multi_efl,
+                                   label_set=label_set,
+                                   text_key="content",
+                                   label_key="label")
+        train_ds = convert_to_binary(train_ds, convert_efl_train)
+        dev_ds = convert_to_binary(dev_ds, convert_efl_test)
+        public_test_ds = convert_to_binary(public_test_ds, convert_efl_test)
+        test_ds = convert_to_binary(test_ds, convert_efl_test)
+        unlabeled_ds = convert_to_binary(unlabeled_ds, convert_efl_test)
+    elif task_name == "iflytek":
+        label_set = set([x for x in label_list.keys()])
+        convert_efl_train = partial(convert_multi_efl,
+                                    label_set=label_set,
+                                    num_neg=10,
+                                    text_key="sentence",
+                                    label_key="label_des")
+        convert_efl_test = partial(convert_multi_efl,
+                                   label_set=label_set,
+                                   text_key="sentence",
+                                   label_key="label_des")
+        train_ds = convert_to_binary(train_ds, convert_efl_train)
+        dev_ds = convert_to_binary(dev_ds, convert_efl_test)
+        public_test_ds = convert_to_binary(public_test_ds, convert_efl_test)
+        test_ds = convert_to_binary(test_ds, convert_efl_test)
+        unlabeled_ds = convert_to_binary(unlabeled_ds, convert_efl_test)
     else:
         convert_fn = {
             "eprstmt": convert_eprstmt,
