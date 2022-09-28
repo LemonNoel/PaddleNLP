@@ -60,7 +60,7 @@ class DataArguments:
     encoder_hidden_size: int = field(default=None, metadata={"help": "The dimension of soft embeddings."})
     do_analyze: bool = field(default=True, metadata={"help": "Whether to save all predictions for analysis"})
     do_label: bool = field(default=True, metadata={"help": "Whether to label unlabeled data."})
-    label_threshold: float = field(default=0.8, metadata={"help": "When to label unlabeled data."})
+    aug_type: str = field(default=None, metadata={"help": "The strategy used for data augmentation."})
 
 @dataclass
 class ModelArguments:
@@ -144,7 +144,8 @@ def main():
         task_name=data_args.task_name,
         split_id=data_args.split_id,
         label_list=verbalizer.labels_to_ids,
-        fake_file=data_args.fake_file)
+        fake_file=data_args.fake_file,
+        aug_type=data_args.aug_type)
 
     if data_args.v_type == "cls":
         verbalizer = None
@@ -372,8 +373,9 @@ def main():
         remap = configs.get("label_ids", None)
 
         # 按数据集分别构造结果集合和概率集合
+        data_ds = [x for x in data_ds]
         if data_args.task_name == "chid":
-            for idx, example in tqdm(enumerate([x for x in data_ds][::7])):
+            for idx, example in tqdm(enumerate(data_ds[::7])):
                 ret_list.append({
                     "id": getattr(example, "uid", idx),
                     "answer": preds[idx]
@@ -424,7 +426,7 @@ def main():
     time_stamp = time.strftime("%m%d-%H-%M—%S", time.localtime())
 
     # Tag unlabeled data.
-    if data_args.do_label:
+    if data_args.do_label and unlabeled_ds is not None:
         label_ret = trainer.predict(unlabeled_ds)
         print("Prediction done.")
         _, prob_list = postprocess(label_ret, unlabeled_ds)

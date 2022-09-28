@@ -5,7 +5,7 @@ device=$2
 if [ $task_name == "csl" ]; then
     prompt="“{'text':'text_a'}”本文的内容{'mask'}{'mask'}“{'text':'text_b'}”"
     # prompt="{'text':'text_a'}其中{'text':'text_b'}{'mask'}{'mask'}是关键词" # 0.6142
-    max_length=320
+    max_length=512
 elif [ $task_name == "eprstmt" ]; then
     prompt="“{'text':'text_a'}”这条评论的情感倾向是{'mask'}{'mask'}的。"
     max_length=128
@@ -25,7 +25,7 @@ elif [ $task_name == "ocnli" ]; then
 elif [ $task_name == "bustm" ]; then
     # prompt="“{'text':'text_a'}”和“{'text':'text_b'}”之间的逻辑关系是{'mask'}{'mask'}。" # 0.7556
     prompt="“{'text':'text_a'}”和“{'text':'text_b'}”描述的是{'mask'}{'mask'}的事情。" # 0.7624
-    max_length=64
+    max_length=128
 elif [ $task_name == "chid" ]; then
     prompt="“{'text':'text_a'}”这句话中成语[{'text':'text_b'}]的理解正确吗？{'mask'}{'mask'}。"
     #prompt="{'text':'text_a'}{'text':'text_b'}用在这里对吗？{'mask'}{'mask'}。"
@@ -38,15 +38,18 @@ elif [ $task_name == "cmnli" ]; then
     max_length=128
 fi
 
-out_dir=./checkpoints/ckpt-c-base_$task_name
 
 lrs=(3e-6)
-pptlrs=(3e-7 3e-6 3e-5 3e-4)
+pptlrs=(3e-7 3e-6 3e-5)
+
+#lrs=(3e-5)
+#pptlrs=(3e-6 3e-5 3e-3 3e-4)
 
 for lr in ${lrs[@]}
 do
     for pptlr in ${pptlrs[@]}
     do
+        out_dir=./checkpoints/ckpt-c-lstm_$task_name
         echo " "
         CUDA_VISIBLE_DEVICES=$device python train_single.py \
         --output_dir $out_dir \
@@ -57,19 +60,22 @@ do
         --v_type "multi" \
         --learning_rate $lr \
         --ppt_learning_rate $pptlr \
+        --soft_encoder lstm \
         --max_steps 2000 \
         --logging_steps 10 \
         --do_train \
         --do_eval \
         --do_test \
         --do_predict \
+        --do_label True \
         --do_save True \
         --disable_tqdm True \
         --eval_steps 100 \
         --save_steps 100 \
         --warmup_ratio 0.01 \
-        --per_device_eval_batch_size 32 \
-        --per_device_train_batch_size 32 \
+        --per_device_eval_batch_size 16 \
+        --per_device_train_batch_size 16 \
+        --gradient_accumulation_steps 2 \
         --model_name_or_path ernie-1.0-large-zh-cw \
         --split_id few_all \
         --task_name $task_name \
@@ -83,10 +89,11 @@ done
 #--evaluation_strategy epoch \
 #--save_strategy epoch 
 #--ckpt_model None \
+        --aug_type substitute \
+        --gradient_accumulation_steps 2 \
         --fake_file $fake \
         --use_rdrop \
         --dropout 0.3 \
-        --gradient_accumulation_steps 2 \
 #--freeze_plm \
 #--soft_encoder mlp \
 

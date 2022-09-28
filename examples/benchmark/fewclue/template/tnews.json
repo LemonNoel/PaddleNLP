@@ -20,7 +20,7 @@
         "news_house": "房子",
         "news_stock": "股票"
     },
-    "label_id": {
+    "label_ids": {
          "news_story": "100",
          "news_culture": "101",
          "news_entertainment": "102",

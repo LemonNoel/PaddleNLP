@@ -1,10 +1,11 @@
 {
     "template": [
-        {"text": "“{'text':'text_a'}”本文的内容{'mask'}{'mask'}“{'text':'text_b'}”"},
+        {"text": "{'soft':'本文关键词：“'}{'text':'text_b'}{'soft':'”，内容：“'}{'text':'text_a'}{'soft':'” 这段话中关键词和内容'}{'mask'}{'soft':'关系'}", "multi": "64.52"},
+        {"text": "“{'text':'text_a'}”本文的内容{'mask'}{'mask'}“{'text':'text_b'}”", "verbalizer": "0-没有，1-包括", "multi": "66.00"},
         {"text": "{'soft': '以下几个词中有和文本主题关系不大的吗？'}{'text': 'text_b'}{'text': 'text_a'}", "verbalizer": "0-没，1-有", "manual": "60.45", "cls": "53.69", "cl-manual": "53.07", "cl-cls": "58.50"}
     ],
     "verbalizer": {
-        "0": "没有",
-        "1": "包括"
+        "0": "没",
+        "1": "有"
     }
 }

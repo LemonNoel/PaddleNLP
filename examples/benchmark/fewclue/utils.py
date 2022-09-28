@@ -6,6 +6,7 @@ import numpy as np
 from paddlenlp.datasets import load_dataset, MapDataset
 from paddlenlp.prompt import InputExample
 from paddlenlp.utils.log import logger
+from paddlenlp.dataaug import WordSubstitute, WordInsert, WordDelete, WordSwap
 
 
 def convert_eprstmt(example):
@@ -137,7 +138,7 @@ def convert_csl_efl(example):
     return bi_examples
 
 
-def convert_cluewsc(example):
+def D0_convert_cluewsc(example):
     # IDEA D.1: Use attention between two positions.
     # IDEA D.2: Take it as binary classification. Replace span2 with span1.
     # IDEA D.3: Use special tokens to mark query and pronoun.
@@ -176,7 +177,28 @@ def D3_convert_cluewsc(example):
         text.insert(p_index + len(pronoun) + 1, "_")
     return InputExample(uid=example.get("id", None),
                         text_a="".join(text),
-                        text_b="",
+                        text_b="其中_" + pronoun + "_指的是[" + entity + "]",
+                        labels=example.get("label", None))
+
+
+def convert_cluewsc(example):
+    # IDEA D.3
+    target, text = example["target"], list(example["text"])
+    pronoun, p_index = target["span2_text"], target["span2_index"]
+    entity, e_index = target["span1_text"], target["span1_index"]
+    if p_index > e_index:
+        text.insert(p_index, "_")
+        text.insert(p_index + len(pronoun) + 1, "_")
+        text.insert(e_index, "[")
+        text.insert(e_index + len(entity) + 1, "]")
+    else:
+        text.insert(e_index, "[")
+        text.insert(e_index + len(entity) + 1, "]")
+        text.insert(p_index, "_")
+        text.insert(p_index + len(pronoun) + 1, "_")
+    return InputExample(uid=example.get("id", None),
+                        text_a="".join(text),
+                        text_b="其中_" + pronoun + "_指的是[" + entity + "]",
                         labels=example.get("label", None))
 
 
@@ -186,8 +208,39 @@ def convert_labels_to_ids(example, label_dict):
     return example
 
 
+def data_augment(data_ds, aug_type="delete", num_aug=2, percent=0.1):
+    if aug_type == "delete":
+        aug = WordDelete(create_n=num_aug, aug_percent=percent)
+    elif aug_type == "substitute":
+        aug = WordSubstitute("mlm", create_n=num_aug, aug_percent=percent)
+    elif aug_type == "insert":
+        aug = WordInsert("mlm", create_n=num_aug, aug_percent=percent)
+    elif aug_type == "swap":
+        aug = WordSwap(create_n=num_aug, aug_percent=percent)
+
+    new_data_ds = []
+    for example in data_ds:
+        new_data_ds.append(example)
+        text_a = aug.augment(example.text_a)
+        if example.text_b is None:
+            for text in text_a:
+                example.text_a = text
+                new_data_ds.append(example)
+        else:
+            text_b = aug.augment(example.text_b)
+            for ta, tb in zip(text_a, text_b):
+                example.text_a = ta
+                example.text_b = tb
+                new_data_ds.append(example)
+    return MapDataset(new_data_ds)
+
+
 # 读取 FewCLUE 数据集
-def load_fewclue(task_name, split_id, label_list, fake_file=None):
+def load_fewclue(task_name,
+                 split_id,
+                 label_list,
+                 fake_file=None,
+                 aug_type=None):
     if task_name == "tnews":
         splits = [f"dev_{split_id}", "test_public", "test", "unlabeled"]
         dev_ds, public_test_ds, test_ds, unlabeled_ds = load_dataset(
@@ -195,6 +248,11 @@ def load_fewclue(task_name, split_id, label_list, fake_file=None):
         with open("data/tnews_train.json", "r") as fp:
             data = [x for x in fp.readlines() if x[0] != "#"]
             train_ds = MapDataset([json.loads(x.strip()) for x in data])
+    elif task_name == "cluewsc":
+        splits = [f"train_{split_id}", f"dev_{split_id}", "test_public", "test"]
+        train_ds, dev_ds, public_test_ds, test_ds = load_dataset(
+            "fewclue", name=task_name, splits=splits, label_list=label_list)
+        unlabeled_ds = None
     else:
         # Load FewCLUE datasets and convert the samples to InputExample.
         splits = [
@@ -240,7 +298,7 @@ def load_fewclue(task_name, split_id, label_list, fake_file=None):
         public_test_ds = convert_to_binary(public_test_ds, convert_efl_test)
         test_ds = convert_to_binary(test_ds, convert_efl_test)
         unlabeled_ds = convert_to_binary(unlabeled_ds, convert_efl_test)
-    elif task_name == "iflytek":
+    elif task_name == "_iflytek":
         label_set = set([x for x in label_list.keys()])
         convert_efl_train = partial(convert_multi_efl,
                                     label_set=label_set,
@@ -274,12 +332,16 @@ def load_fewclue(task_name, split_id, label_list, fake_file=None):
         dev_ds = dev_ds.map(convert_fn)
         public_test_ds = public_test_ds.map(convert_fn)
         test_ds = test_ds.map(convert_fn)
-        unlabeled_ds = unlabeled_ds.map(convert_fn)
+        if unlabeled_ds is not None:
+            unlabeled_ds = unlabeled_ds.map(convert_fn)
 
         convert_fn = partial(convert_labels_to_ids, label_dict=label_list)
         if task_name != "cmnli":
             train_ds = train_ds.map(convert_fn)
             dev_ds = dev_ds.map(convert_fn)
             public_test_ds = public_test_ds.map(convert_fn)
+
+    if aug_type is not None:
+        train_ds = data_augment(train_ds, aug_type=aug_type)
 
     return train_ds, dev_ds, public_test_ds, test_ds, unlabeled_ds
