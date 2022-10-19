@@ -1,12 +1,14 @@
 {
     "template": [
-        {"text": "{'soft':'下边两个句子说的是'}{'mask'}{'mask'}{'soft':'的事情。'}{'soft': None, 'duplicate':5}“{'text': 'text_a'}”和“{'text': 'text_b'}”"}, 
+        {"text": "下边两句话说的是一个事情吗？{'mask'}“{'text': 'text_a'}”和“{'text': 'text_b'}”", "verb": "0-不,1-是"},
+        {"text": "{'soft':'下边两个句子说的是'}{'mask'}{'mask'}{'soft':'的事情。'}“{'text': 'text_a'}”和“{'text': 'text_b'}”", "verb": "不同，相同", "multi": "78.21"}, 
+        {"text": "{'soft':'下边两个句子说的是'}{'mask'}{'mask'}{'soft':'的事情。'}{'soft': None, 'duplicate':5}“{'text': 'text_a'}”和“{'text': 'text_b'}”", "multi": "68.62"}, 
         {"text": "下边两个句子说的是{'mask'}{'mask'}的事情。“{'text': 'text_a'}”和“{'text': 'text_b'}”"}, 
         {"text": "“{'text':'text_a'}”和“{'text':'text_b'}”描述的是{'mask'}{'mask'}的事情。"},
         {"text": "下边两句话说的是一个事情吗？{'mask'}“{'text': 'text_a'}”和“{'text': 'text_b'}”", "verb": "0-不,1-是", "manual": "87.38", "cls": "84.10", "cl-manual": "89.51", "cl-cls": "87.38"}
     ],
     "verbalizer": {
-        "0": "不同",
-        "1": "相同"
+        "0": "不",
+        "1": "是"
     }
 }

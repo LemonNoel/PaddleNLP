@@ -1,6 +1,6 @@
 task_name=$1
 device=$2
-#fake=$3
+fake=$3
 
 if [ $task_name == "csl" ]; then
     prompt="“{'text':'text_a'}”本文的内容{'mask'}{'mask'}“{'text':'text_b'}”"
@@ -29,10 +29,10 @@ elif [ $task_name == "bustm" ]; then
 elif [ $task_name == "chid" ]; then
     prompt="“{'text':'text_a'}”这句话中成语[{'text':'text_b'}]的理解正确吗？{'mask'}{'mask'}。"
     #prompt="{'text':'text_a'}{'text':'text_b'}用在这里对吗？{'mask'}{'mask'}。"
-    max_length=256
+    max_length=384
 elif [ $task_name == "cluewsc" ]; then
     prompt="“{'text':'text_a'}”{'text':'text_b'}这里代词使用正确吗？{'mask'}{'mask'}"
-    max_length=128
+    max_length=384
 elif [ $task_name == "cmnli" ]; then
     prompt="“{'text':'text_a'}”和“{'text':'text_b'}”之间的逻辑关系是{'mask'}{'mask'}。"
     max_length=128
@@ -40,16 +40,16 @@ fi
 
 
 lrs=(3e-6)
-pptlrs=(3e-7 3e-6 3e-5)
+seeds=(13) # 21 42 87) #42 1024 
 
 #lrs=(3e-5)
 #pptlrs=(3e-6 3e-5 3e-3 3e-4)
 
 for lr in ${lrs[@]}
 do
-    for pptlr in ${pptlrs[@]}
+    for seed in ${seeds[@]}
     do
-        out_dir=./checkpoints/ckpt-c-lstm_$task_name
+        out_dir=./checkpoints/ckpt-c-$task_name
         echo " "
         CUDA_VISIBLE_DEVICES=$device python train_single.py \
         --output_dir $out_dir \
@@ -59,9 +59,8 @@ do
         --t_type "auto" \
         --v_type "multi" \
         --learning_rate $lr \
-        --ppt_learning_rate $pptlr \
-        --soft_encoder lstm \
-        --max_steps 2000 \
+        --ppt_learning_rate $lr \
+        --max_steps 3000 \
         --logging_steps 10 \
         --do_train \
         --do_eval \
@@ -75,12 +74,13 @@ do
         --warmup_ratio 0.01 \
         --per_device_eval_batch_size 16 \
         --per_device_train_batch_size 16 \
-        --gradient_accumulation_steps 2 \
+        --gradient_accumulation_steps 1 \
         --model_name_or_path ernie-1.0-large-zh-cw \
         --split_id few_all \
         --task_name $task_name \
         --metric_for_best_model accuracy \
         --load_best_model_at_end \
+        --seed $seed \
         --ckpt_model "results/e1cw/cmnli/checkpoint-24000/model_state.pdparams" 
         echo " "
         rm -rf $out_dir/checkpoint-*
@@ -89,10 +89,12 @@ done
 #--evaluation_strategy epoch \
 #--save_strategy epoch 
 #--ckpt_model None \
+        --fake_file $fake \
+        --use_rdrop True \
+        --alpha_rdrop 1.0 \
+        --soft_encoder lstm \
         --aug_type substitute \
         --gradient_accumulation_steps 2 \
-        --fake_file $fake \
-        --use_rdrop \
         --dropout 0.3 \
 #--freeze_plm \
 #--soft_encoder mlp \

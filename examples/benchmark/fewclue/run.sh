@@ -39,8 +39,8 @@ fi
 
 out_dir=./ckpt-cl-multi_$task_name
 
-lrs=(3e-6)
-pptlrs=(3e-6) # 3e-5 3e-4)
+lrs=(5e-6)
+pptlrs=(5e-6) # 3e-5 3e-4)
 
 for lr in ${lrs[@]}
 do

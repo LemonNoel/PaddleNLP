@@ -107,7 +107,8 @@ def convert_chid_efl(example):
     fragments = example["content"].split("#idiom#")
     label = example.get("answer", None)
     for idx, cand in enumerate(example["candidates"]):
-        text = fragments[0] + "[" + cand + "]" + fragments[1]
+        #text = fragments[0] + "[" + cand + "]" + fragments[1] < 1012
+        text = fragments[0] + "（" + cand + "）" + fragments[1]
         bi_examples.append(
             InputExample(uid=example["id"],
                          text_a=text,
@@ -160,27 +161,6 @@ def D2_convert_cluewsc(example):
                         labels=example.get("label", None))
 
 
-def D3_convert_cluewsc(example):
-    # IDEA D.3
-    target, text = example["target"], list(example["text"])
-    pronoun, p_index = target["span2_text"], target["span2_index"]
-    entity, e_index = target["span1_text"], target["span1_index"]
-    if p_index > e_index:
-        text.insert(p_index, "_")
-        text.insert(p_index + len(pronoun) + 1, "_")
-        text.insert(e_index, "[")
-        text.insert(e_index + len(entity) + 1, "]")
-    else:
-        text.insert(e_index, "[")
-        text.insert(e_index + len(entity) + 1, "]")
-        text.insert(p_index, "_")
-        text.insert(p_index + len(pronoun) + 1, "_")
-    return InputExample(uid=example.get("id", None),
-                        text_a="".join(text),
-                        text_b="其中_" + pronoun + "_指的是[" + entity + "]",
-                        labels=example.get("label", None))
-
-
 def convert_cluewsc(example):
     # IDEA D.3
     target, text = example["target"], list(example["text"])
@@ -197,9 +177,32 @@ def convert_cluewsc(example):
         text.insert(p_index, "_")
         text.insert(p_index + len(pronoun) + 1, "_")
     return InputExample(uid=example.get("id", None),
-                        text_a="".join(text),
-                        text_b="其中_" + pronoun + "_指的是[" + entity + "]",
+                        text_a="“" + "".join(text) + "”其中_" + pronoun + "_指的",
+                        text_b="是[" + entity + "]",
                         labels=example.get("label", None))
+
+
+def D3_convert_cluewsc(example):
+    # IDEA D.3
+    target, text = example["target"], list(example["text"])
+    pronoun, p_index = target["span2_text"], target["span2_index"]
+    entity, e_index = target["span1_text"], target["span1_index"]
+    if p_index > e_index:
+        text.insert(p_index, "_")
+        text.insert(p_index + len(pronoun) + 1, "_")
+        text.insert(e_index, "[")
+        text.insert(e_index + len(entity) + 1, "]")
+    else:
+        text.insert(e_index, "[")
+        text.insert(e_index + len(entity) + 1, "]")
+        text.insert(p_index, "_")
+        text.insert(p_index + len(pronoun) + 1, "_")
+    return InputExample(
+        uid=example.get("id", None),
+        text_a="".join(text),
+        text_b="其中_" + pronoun + "_指的是[" + entity + "]",
+        # text_b=pronoun + "指的是" + entity, # 1011-1012
+        labels=example.get("label", None))
 
 
 def convert_labels_to_ids(example, label_dict):
@@ -235,6 +238,20 @@ def data_augment(data_ds, aug_type="delete", num_aug=2, percent=0.1):
     return MapDataset(new_data_ds)
 
 
+def extend_with_fakes(data_ds, fake_file=None):
+    # 将伪标签数据合入训练集
+    # Args:
+    # - data_ds (list or MapDataset): 原始训练数据
+    # - fake_file (str): 与 FewCLUE 格式相同的伪标签数据
+    if fake_file is not None:
+        data_ds = [x for x in data_ds]
+        with open(fake_file, "r") as fp:
+            fake_data = [json.loads(x) for x in fp.readlines()]
+            data_ds.extend(fake_data)
+        data_ds = MapDataset(data_ds)
+    return data_ds
+
+
 # 读取 FewCLUE 数据集
 def load_fewclue(task_name,
                  split_id,
@@ -262,12 +279,7 @@ def load_fewclue(task_name,
         train_ds, dev_ds, public_test_ds, test_ds, unlabeled_ds = load_dataset(
             "fewclue", name=task_name, splits=splits, label_list=label_list)
 
-    if fake_file is not None:
-        train_ds = [x for x in train_ds]
-        with open(fake_file, "r") as fp:
-            fake_data = [json.loads(x) for x in fp.readlines()]
-            train_ds.extend(fake_data)
-        train_ds = MapDataset(train_ds)
+    train_ds = extend_with_fakes(train_ds, fake_file)
 
     def convert_to_binary(dataset, convert_efl):
         new_data = []
@@ -282,7 +294,7 @@ def load_fewclue(task_name,
         public_test_ds = convert_to_binary(public_test_ds, convert_chid_efl)
         test_ds = convert_to_binary(test_ds, convert_chid_efl)
         unlabeled_ds = convert_to_binary(unlabeled_ds, convert_chid_efl)
-    elif task_name == "csldcp":
+    elif task_name == "_csldcp":
         label_set = set([x for x in label_list.keys()])
         convert_efl_train = partial(convert_multi_efl,
                                     label_set=label_set,

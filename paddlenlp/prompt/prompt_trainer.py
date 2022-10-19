@@ -269,8 +269,18 @@ class PromptTrainer(Trainer):
         if self.criterion is not None:
             if isinstance(model.verbalizer, MultiMaskVerbalizer):
                 labels = model.verbalizer.token_ids[labels].squeeze(
-                    axis=-1).reshape(outputs.shape[:2])
-            loss = self.criterion(outputs, labels)
+                    axis=-1)  #.reshape(outputs.shape[:-1])
+            if labels.ndim == outputs.ndim:
+                loss = 0
+                for idx in range(labels.shape[-1]):
+                    loss += self.criterion(
+                        outputs,
+                        paddle.index_select(labels,
+                                            paddle.to_tensor(idx),
+                                            axis=1).reshape(outputs.shape[:-1]))
+            else:
+                labels = labels.reshape(outputs.shape[:-1])
+                loss = self.criterion(outputs, labels)
 
             if self.args.use_rdrop:
                 loss = self._compute_rdrop_loss(model, inputs, outputs, loss)

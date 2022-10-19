@@ -58,7 +58,7 @@ class DataArguments:
     v_type: str = field(default="manual", metadata={"help": "The class used for verbalizer, including manual, multi, soft, cls"})
     soft_encoder: str = field(default=None, metadata={"help": "The encoder type of soft template, `lstm`, `mlp` or None."})
     encoder_hidden_size: int = field(default=None, metadata={"help": "The dimension of soft embeddings."})
-    do_analyze: bool = field(default=True, metadata={"help": "Whether to save all predictions for analysis"})
+    do_analyze: bool = field(default=False, metadata={"help": "Whether to save all predictions for analysis"})
     do_label: bool = field(default=True, metadata={"help": "Whether to label unlabeled data."})
     aug_type: str = field(default=None, metadata={"help": "The strategy used for data augmentation."})
 
@@ -80,7 +80,17 @@ def main():
     model_args, data_args, training_args = parser.parse_args_into_dataclasses()
     configs = json.load(open("template/%s.json" % data_args.task_name, "r"))
     data_args.prompt = configs["template"][data_args.t_index]["text"]
-    data_args.verbalizer = configs["verbalizer"]
+    if data_args.task_name == "csldcp":
+        verb_dict = {}
+        for k, v in configs["verbalizer"].items():
+            if k not in verb_dict:
+                verb_dict[k] = []
+            verb_dict[k].append(v)
+        for k, v in configs["meta"].items():
+            verb_dict[k].append(v)
+        data_args.verbalizer = verb_dict
+    else:
+        data_args.verbalizer = configs["verbalizer"]
 
     training_args.print_config(model_args, "Model")
     training_args.print_config(data_args, "Data")
@@ -183,14 +193,17 @@ def main():
 
     def cls_compute_metrics_chid(eval_preds):
         # chid IDEA B.1
+        print(eval_preds.predictions.shape)
         preds = paddle.nn.functional.softmax(paddle.to_tensor(
             eval_preds.predictions),
                                              axis=1)[:, 1]
-        preds = paddle.argmax(preds.reshape(-1, 7), axis=1)
+        preds = paddle.argmax(preds.reshape([-1, 7]), axis=1)
         labels = paddle.argmax(paddle.to_tensor(eval_preds.label_ids).reshape(
-            -1, 7),
+            [-1, 7]),
                                axis=1)
-        acc = sum(preds == labels) / len(preds)
+        print(preds.shape)
+        print(labels.shape)
+        acc = paddle.sum(preds == labels) / preds.shape[0]
         return {'accuracy': float(acc.numpy())}
 
     def multi_uniprediction(preds, token_ids):
@@ -361,10 +374,18 @@ def main():
                 preds = paddle.argmax(mask_preds, axis=1).numpy()
                 probs = paddle.max(mask_preds, axis=1).numpy()
         else:
-            preds = paddle.argmax(paddle.to_tensor(data_ret.predictions),
-                                  axis=1).numpy()
-            probs = paddle.max(paddle.to_tensor(data_ret.predictions),
-                               axis=1).numpy()
+            if data_args.task_name == "chid":
+                mask_preds = paddle.to_tensor(data_ret.predictions)
+                mask_preds = paddle.nn.functional.softmax(mask_preds, axis=1)[:,
+                                                                              1]
+                preds = paddle.argmax(mask_preds.reshape([-1, 7]),
+                                      axis=1).numpy()
+                probs = paddle.max(mask_preds.reshape([-1, 7]), axis=1).numpy()
+            else:
+                preds = paddle.argmax(paddle.to_tensor(data_ret.predictions),
+                                      axis=1).numpy()
+                probs = paddle.max(paddle.to_tensor(data_ret.predictions),
+                                   axis=1).numpy()
 
         preds = tolist(preds)
         probs = tolist(probs)
@@ -428,7 +449,7 @@ def main():
     # Tag unlabeled data.
     if data_args.do_label and unlabeled_ds is not None:
         label_ret = trainer.predict(unlabeled_ds)
-        print("Prediction done.")
+        print("Labeling done.")
         _, prob_list = postprocess(label_ret, unlabeled_ds)
         save_to_file(prob_list,
                      data_args.task_name,

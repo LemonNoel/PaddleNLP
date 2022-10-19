@@ -1,12 +1,16 @@
 {
     "template": [
-        {"text": "{'soft': '下边句中成语'}[{'text':'text_b'}]{'soft': '的理解正确吗？'}{'mask'}{'mask'}。{'soft': None, 'duplicate':5}“{'text':'text_a'}”"},
+        {"text": "{'text':'text_a'}", "cls": "82.82", "rdrop-cls": "82.57"},
+        {"text": "{'soft': '选一个合适的词语填在括号里，你会选“'}{'text': 'text_b'}{'soft':'”吗？'}{'mask'}“{'text': 'text_a'}”", "verb": "0-不,1-会", "multi": "73.73"},
+        {"text": "给定成语{'text': 'text_b'}，{'mask'}{'mask'}造句得到“{'text': 'text_a'}”", "ver": "不能，可以", "multi": "74.48"},
+        {"text": "{'soft': '下边句中成语'}[{'text':'text_b'}]{'soft': '的理解正确吗？'}{'mask'}{'mask'}。“{'text':'text_a'}”", "multi": "74.93"},
+        {"text": "{'soft': '下边句中成语'}[{'text':'text_b'}]{'soft': '的理解正确吗？'}{'mask'}{'mask'}。{'soft': None, 'duplicate':5}“{'text':'text_a'}”", "multi": "74.43"},
         {"text": "“{'text':'text_a'}”这句话中成语[{'text':'text_b'}]的理解正确吗？{'mask'}{'mask'}。", "multi": "69.73"},
         {"text": "“{'text': 'text_b'}”{'soft': '用在下边这句话中合适吗？选项：不对/合适'}{'mask'}{'mask'}“{'text': 'text_a'}”", "verb": "0-不对,1-合适", "multi": "65.08"},
         {"text": "{'soft': '选一个合适的词语填在空格里，你会选这个词吗？'}{'text': 'text_b'}{'mask'}“{'text': 'text_a'}”", "verb": "0-不,1-会"}
     ],
     "verbalizer": {
-        "0": "错误",
-        "1": "正确"
+        "0": "不",
+        "1": "会"
     }
 }
