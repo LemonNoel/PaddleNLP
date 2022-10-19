@@ -14,6 +14,8 @@
 
 from .model_utils import PretrainedModel, register_base_model
 from .tokenizer_utils import PretrainedTokenizer, BPETokenizer, tokenize_chinese_chars, is_chinese_char, AddedToken, normalize_chars, tokenize_special_chars, convert_to_unicode
+from .processing_utils import ProcessorMixin
+from .feature_extraction_utils import BatchFeature, FeatureExtractionMixin
 from .attention_utils import create_bigbird_rand_mask_idx_list
 from .export import export_model
 
@@ -53,6 +55,8 @@ from .ernie_doc.tokenizer import *
 from .ernie_gen.modeling import ErnieForGeneration
 from .ernie_gram.modeling import *
 from .ernie_gram.tokenizer import *
+from .ernie_layout.modeling import *
+from .ernie_layout.tokenizer import *
 from .ernie_m.modeling import *
 from .ernie_m.tokenizer import *
 from .fnet.modeling import *
@@ -101,6 +105,10 @@ from .tinybert.tokenizer import *
 from .transformer.modeling import *
 from .unified_transformer.modeling import *
 from .unified_transformer.tokenizer import *
+from .ernie_vil.modeling import *
+from .ernie_vil.feature_extraction import *
+from .ernie_vil.tokenizer import *
+from .ernie_vil.procesing import *
 from .unimo.modeling import *
 from .unimo.tokenizer import *
 from .xlnet.modeling import *
@@ -121,6 +129,12 @@ from .artist.modeling import *
 from .artist.tokenizer import *
 from .dallebart.modeling import *
 from .dallebart.tokenizer import *
+from .clip.modeling import *
+from .clip.feature_extraction import *
+from .clip.tokenizer import *
+from .clip.procesing import *
+from .gptj.modeling import *
+from .gptj.tokenizer import *
 
 # For faster tokenizer
 from ..utils.import_utils import is_faster_tokenizer_available
