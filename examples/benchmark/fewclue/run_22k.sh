@@ -1,3 +1,17 @@
+# Copyright (c) 2022 PaddlePaddle Authors. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 task_name=$1
 device=$2
 fake=$3
@@ -40,7 +54,7 @@ fi
 
 
 lrs=(3e-6)
-seeds=(13) # 21 42 87) #42 1024 
+seeds=(42) # 21 42 87) #42 1024 
 
 #lrs=(3e-5)
 #pptlrs=(3e-6 3e-5 3e-3 3e-4)
@@ -49,7 +63,7 @@ for lr in ${lrs[@]}
 do
     for seed in ${seeds[@]}
     do
-        out_dir=./checkpoints/ckpt-c-$task_name
+        out_dir=./checkpoints/ckpt-1w-$task_name
         echo " "
         CUDA_VISIBLE_DEVICES=$device python train_single.py \
         --output_dir $out_dir \
@@ -72,16 +86,17 @@ do
         --eval_steps 100 \
         --save_steps 100 \
         --warmup_ratio 0.01 \
-        --per_device_eval_batch_size 16 \
-        --per_device_train_batch_size 16 \
-        --gradient_accumulation_steps 1 \
+        --per_device_eval_batch_size 8 \
+        --per_device_train_batch_size 8 \
+        --gradient_accumulation_steps 2 \
         --model_name_or_path ernie-1.0-large-zh-cw \
         --split_id few_all \
         --task_name $task_name \
         --metric_for_best_model accuracy \
         --load_best_model_at_end \
         --seed $seed \
-        --ckpt_model "results/e1cw/cmnli/checkpoint-24000/model_state.pdparams" 
+        --ckpt_plm "/ssd2/wanghuijuan03/prompt/PaddleNLP/model_zoo/ernie-1.0/checkpoints/model_10000/model_state.pdparams"
+        #--ckpt_model "results/e1cw/cmnli/checkpoint-24000/model_state.pdparams" 
         echo " "
         rm -rf $out_dir/checkpoint-*
     done
