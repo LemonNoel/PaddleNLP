@@ -175,7 +175,7 @@ def D2_convert_cluewsc(example):
                         labels=example.get("label", None))
 
 
-def convert_cluewsc(example):
+def D3_convert_cluewsc(example):
     # IDEA D.3
     target, text = example["target"], list(example["text"])
     pronoun, p_index = target["span2_text"], target["span2_index"]
@@ -191,12 +191,13 @@ def convert_cluewsc(example):
         text.insert(p_index, "_")
         text.insert(p_index + len(pronoun) + 1, "_")
     return InputExample(uid=example.get("id", None),
-                        text_a="“" + "".join(text) + "”其中_" + pronoun + "_指的",
+                        text_a="“" + "".join(text) + "”这段小说节选中_" + pronoun +
+                        "_指的",
                         text_b="是[" + entity + "]",
                         labels=example.get("label", None))
 
 
-def D3_convert_cluewsc(example):
+def convert_cluewsc(example):
     # IDEA D.3
     target, text = example["target"], list(example["text"])
     pronoun, p_index = target["span2_text"], target["span2_index"]
@@ -214,7 +215,7 @@ def D3_convert_cluewsc(example):
     return InputExample(
         uid=example.get("id", None),
         text_a="".join(text),
-        text_b="_" + pronoun + "_指的是[" + entity + "]",
+        text_b="其中_" + pronoun + "_指的是[" + entity + "]",
         # text_b=pronoun + "指的是" + entity, # 1011-1012
         labels=example.get("label", None))
 

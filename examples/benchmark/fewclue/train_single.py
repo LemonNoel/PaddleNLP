@@ -193,7 +193,6 @@ def main():
 
     def cls_compute_metrics_chid(eval_preds):
         # chid IDEA B.1
-        print(eval_preds.predictions.shape)
         preds = paddle.nn.functional.softmax(paddle.to_tensor(
             eval_preds.predictions),
                                              axis=1)[:, 1]
@@ -201,8 +200,6 @@ def main():
         labels = paddle.argmax(paddle.to_tensor(eval_preds.label_ids).reshape(
             [-1, 7]),
                                axis=1)
-        print(preds.shape)
-        print(labels.shape)
         acc = paddle.sum(preds == labels) / preds.shape[0]
         return {'accuracy': float(acc.numpy())}
 
@@ -369,10 +366,12 @@ def main():
                                                                               1]
                 preds = paddle.argmax(mask_preds.reshape([-1, 7]),
                                       axis=1).numpy()
-                probs = paddle.max(mask_preds.reshape([-1, 7]), axis=1).numpy()
+                probs = mask_preds.reshape([-1, 7]).numpy()
+                # probs = paddle.max(mask_preds.reshape([-1, 7]), axis=1).numpy()
             else:
                 preds = paddle.argmax(mask_preds, axis=1).numpy()
-                probs = paddle.max(mask_preds, axis=1).numpy()
+                probs = paddle.max(mask_preds).numpy()
+                # probs = paddle.max(mask_preds, axis=1).numpy()
         else:
             if data_args.task_name == "chid":
                 mask_preds = paddle.to_tensor(data_ret.predictions)
@@ -380,12 +379,14 @@ def main():
                                                                               1]
                 preds = paddle.argmax(mask_preds.reshape([-1, 7]),
                                       axis=1).numpy()
-                probs = paddle.max(mask_preds.reshape([-1, 7]), axis=1).numpy()
+                probs = mask_preds.reshape([-1, 7]).numpy()
+                # probs = paddle.max(mask_preds.reshape([-1, 7]), axis=1).numpy()
             else:
                 preds = paddle.argmax(paddle.to_tensor(data_ret.predictions),
                                       axis=1).numpy()
-                probs = paddle.max(paddle.to_tensor(data_ret.predictions),
-                                   axis=1).numpy()
+                probs = paddle.to_tensor(data_ret.predictions).numpy()
+                # probs = paddle.max(paddle.to_tensor(data_ret.predictions),
+                #                    axis=1).numpy()
 
         preds = tolist(preds)
         probs = tolist(probs)

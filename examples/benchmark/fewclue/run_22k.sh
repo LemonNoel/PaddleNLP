@@ -17,53 +17,37 @@ device=$2
 fake=$3
 
 if [ $task_name == "csl" ]; then
-    prompt="“{'text':'text_a'}”本文的内容{'mask'}{'mask'}“{'text':'text_b'}”"
-    # prompt="{'text':'text_a'}其中{'text':'text_b'}{'mask'}{'mask'}是关键词" # 0.6142
     max_length=512
 elif [ $task_name == "eprstmt" ]; then
-    prompt="“{'text':'text_a'}”这条评论的情感倾向是{'mask'}{'mask'}的。"
     max_length=128
 elif [ $task_name == "csldcp" ]; then
-    prompt="“{'text':'text_a'}”这篇文献的类别是{'mask'}{'mask'}。"
     max_length=256
 elif [ $task_name == "tnews" ]; then
-    prompt="“{'text':'text_a'}”上述新闻选自{'mask'}{'mask'}专栏。"
     max_length=128 #64
 elif [ $task_name == "iflytek" ]; then
-    prompt="“{'text':'text_a'}”因此，应用类别是{'mask'}{'mask'}。"
     max_length=320
 elif [ $task_name == "ocnli" ]; then
-    prompt="“{'text':'text_a'}”和“{'text':'text_b'}”之间的逻辑关系是{'mask'}{'mask'}。" # 0.4167
-    # prompt="“{'text':'text_a'}”{'mask'}{'mask'}，“{'text':'text_b'}”" # 0.7071
     max_length=128
 elif [ $task_name == "bustm" ]; then
-    # prompt="“{'text':'text_a'}”和“{'text':'text_b'}”之间的逻辑关系是{'mask'}{'mask'}。" # 0.7556
-    prompt="“{'text':'text_a'}”和“{'text':'text_b'}”描述的是{'mask'}{'mask'}的事情。" # 0.7624
     max_length=128
 elif [ $task_name == "chid" ]; then
-    prompt="“{'text':'text_a'}”这句话中成语[{'text':'text_b'}]的理解正确吗？{'mask'}{'mask'}。"
-    #prompt="{'text':'text_a'}{'text':'text_b'}用在这里对吗？{'mask'}{'mask'}。"
     max_length=384
 elif [ $task_name == "cluewsc" ]; then
-    prompt="“{'text':'text_a'}”{'text':'text_b'}这里代词使用正确吗？{'mask'}{'mask'}"
     max_length=384
 elif [ $task_name == "cmnli" ]; then
-    prompt="“{'text':'text_a'}”和“{'text':'text_b'}”之间的逻辑关系是{'mask'}{'mask'}。"
     max_length=128
 fi
 
 
-lrs=(3e-6)
-seeds=(42) # 21 42 87) #42 1024 
+lrs=(3e-5)
+accsteps=(2 4 8)
 
-#lrs=(3e-5)
-#pptlrs=(3e-6 3e-5 3e-3 3e-4)
 
 for lr in ${lrs[@]}
 do
-    for seed in ${seeds[@]}
+    for step in ${accsteps[@]}
     do
-        out_dir=./checkpoints/ckpt-1w-$task_name
+        out_dir=./checkpoints/ckpt-22k-$task_name
         echo " "
         CUDA_VISIBLE_DEVICES=$device python train_single.py \
         --output_dir $out_dir \
@@ -86,31 +70,34 @@ do
         --eval_steps 100 \
         --save_steps 100 \
         --warmup_ratio 0.01 \
+        --save_total_limit 1 \
         --per_device_eval_batch_size 8 \
         --per_device_train_batch_size 8 \
-        --gradient_accumulation_steps 2 \
+        --gradient_accumulation_steps $step \
         --model_name_or_path ernie-1.0-large-zh-cw \
         --split_id few_all \
         --task_name $task_name \
         --metric_for_best_model accuracy \
         --load_best_model_at_end \
-        --seed $seed \
-        --ckpt_plm "/ssd2/wanghuijuan03/prompt/PaddleNLP/model_zoo/ernie-1.0/checkpoints/model_10000/model_state.pdparams"
+        --seed 10220023 \
+        --ckpt_model cmnli_ckpt24k.pdparams 
         #--ckpt_model "results/e1cw/cmnli/checkpoint-24000/model_state.pdparams" 
+        #--ckpt_plm "/ssd2/wanghuijuan03/prompt/PaddleNLP/model_zoo/ernie-1.0/checkpoints/model_100000/model_state.pdparams"
         echo " "
         rm -rf $out_dir/checkpoint-*
     done
 done
+
 #--evaluation_strategy epoch \
 #--save_strategy epoch 
 #--ckpt_model None \
-        --fake_file $fake \
-        --use_rdrop True \
-        --alpha_rdrop 1.0 \
-        --soft_encoder lstm \
-        --aug_type substitute \
-        --gradient_accumulation_steps 2 \
-        --dropout 0.3 \
+       --fake_file $fake \
+       --use_rdrop True \
+       --alpha_rdrop 1.0 \
+       --soft_encoder lstm \
+       --aug_type substitute \
+       --gradient_accumulation_steps 2 \
+       --dropout 0.3 \
 #--freeze_plm \
 #--soft_encoder mlp \
 

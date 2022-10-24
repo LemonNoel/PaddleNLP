@@ -1,5 +1,6 @@
 {
     "template": [
+        {"text": "搜索更多{'mask'}{'mask'}相关的应用程序。{'text': 'text_a'}", "multi": "55.63"},
         {"text": "{'soft': '这段话跟什么有关'}{'soft': None, 'duplicate':5}{'mask'}{'mask'}“{'text': 'text_a'}”"},
         {"text": "{'soft': '这段话跟什么有关'}{'mask'}{'mask'}“{'text': 'text_a'}”"},
         {"text": "{'soft': '这段话跟什么有关'}{'mask'}“{'text': 'text_a'}”", "cls": "58.26", "cl-cls": "56.89"}
