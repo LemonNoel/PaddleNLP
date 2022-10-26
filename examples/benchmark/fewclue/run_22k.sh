@@ -39,15 +39,15 @@ elif [ $task_name == "cmnli" ]; then
 fi
 
 
-lrs=(3e-5)
-accsteps=(2 4 8)
+lrs=(3e-6)
+accsteps=(2)
 
 
 for lr in ${lrs[@]}
 do
     for step in ${accsteps[@]}
     do
-        out_dir=./checkpoints/ckpt-22k-$task_name
+        out_dir=./checkpoints/ckpt-cu-$task_name
         echo " "
         CUDA_VISIBLE_DEVICES=$device python train_single.py \
         --output_dir $out_dir \
@@ -55,49 +55,50 @@ do
         --task_name $task_name \
         --t_index 0 \
         --t_type "auto" \
-        --v_type "multi" \
+        --v_type "cls" \
         --learning_rate $lr \
         --ppt_learning_rate $lr \
         --max_steps 3000 \
-        --logging_steps 10 \
+        --logging_steps 16 \
+        --do_predict \
         --do_train \
         --do_eval \
         --do_test \
-        --do_predict \
         --do_label True \
         --do_save True \
+        --aug_type substitute \
+        --load_best_model_at_end \
         --disable_tqdm True \
         --eval_steps 100 \
         --save_steps 100 \
         --warmup_ratio 0.01 \
         --save_total_limit 1 \
-        --per_device_eval_batch_size 8 \
-        --per_device_train_batch_size 8 \
+        --per_device_eval_batch_size 16 \
+        --per_device_train_batch_size 16 \
         --gradient_accumulation_steps $step \
         --model_name_or_path ernie-1.0-large-zh-cw \
         --split_id few_all \
         --task_name $task_name \
         --metric_for_best_model accuracy \
-        --load_best_model_at_end \
-        --seed 10220023 \
-        --ckpt_model cmnli_ckpt24k.pdparams 
+        --seed 42 \
+        --ckpt_plm "/ssd2/wanghuijuan03/prompt/PaddleNLP/model_zoo/ernie-1.0/checkpoints-mix/model_36000/model_state.pdparams"
+        #--ckpt_model cmnli_36k_ckpt_22k.pdparams 
+        #--ckpt_model strategy_supervised/model_4600_89.92.pdparams 
         #--ckpt_model "results/e1cw/cmnli/checkpoint-24000/model_state.pdparams" 
-        #--ckpt_plm "/ssd2/wanghuijuan03/prompt/PaddleNLP/model_zoo/ernie-1.0/checkpoints/model_100000/model_state.pdparams"
         echo " "
-        rm -rf $out_dir/checkpoint-*
+        #rm -rf $out_dir/checkpoint-*
     done
 done
 
-#--evaluation_strategy epoch \
-#--save_strategy epoch 
 #--ckpt_model None \
+        --freeze_plm \
+        --soft_encoder mlp \
+        --evaluation_strategy epoch \
+        --save_strategy epoch 
        --fake_file $fake \
        --use_rdrop True \
        --alpha_rdrop 1.0 \
        --soft_encoder lstm \
-       --aug_type substitute \
        --gradient_accumulation_steps 2 \
        --dropout 0.3 \
-#--freeze_plm \
-#--soft_encoder mlp \
 

@@ -1,0 +1,10 @@
+{
+    "template": [
+        {"text": "“{'text':'text_a'}”和“{'text':'text_b'}”之间的逻辑关系是{'mask'}{'mask'}。"}
+    ],
+    "verbalizer": {
+        "contradiction": "矛盾",
+        "entailment": "蕴含",
+        "neutral": "中立"
+    }
+}

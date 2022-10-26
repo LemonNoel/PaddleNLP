@@ -307,45 +307,6 @@ def main():
         test_ret = trainer.predict(public_test_ds)
         trainer.log_metrics("test", test_ret.metrics)
 
-    if model_args.do_test and data_args.do_analyze:
-        preds = test_ret.predictions
-        preds = np.argmax(np.array(preds), axis=-1)
-        id2label = {
-            idx: l
-            for idx, l in enumerate(
-                sorted([x for x in data_args.verbalizer.keys()]))
-        }
-
-        labels = [id2label[x] for x in test_ret.label_ids]
-        with open(os.path.join(training_args.output_dir, "test_analysis.txt"),
-                  "w") as fp:
-            if data_args.v_type == "multi":
-                mask_preds = multi_uniprediction(
-                    paddle.nn.functional.softmax(paddle.to_tensor(
-                        test_ret.predictions),
-                                                 axis=-1), verbalizer.token_ids)
-                if data_args.task_name == "chid":
-                    mask_preds = paddle.nn.functional.softmax(mask_preds,
-                                                              axis=1)[:, 1]
-                    mask_preds = paddle.argmax(mask_preds.reshape([-1, 7]),
-                                               axis=1).numpy().tolist()
-                else:
-                    mask_preds = paddle.argmax(mask_preds, axis=1)
-                    mask_preds = [
-                        id2label[x] for x in mask_preds.numpy().tolist()
-                    ]
-                for pred, mask_pred, lb in zip(preds, mask_preds, labels):
-                    if data_args.task_name != "chid":
-                        pred = tokenizer.convert_ids_to_tokens(pred)
-                    to_save = [tolist(x) for x in [pred, mask_pred, lb]]
-                    fp.write(json.dumps(to_save, ensure_ascii=False) + "\n")
-            else:
-                for pred, lb in zip(preds, labels):
-                    if data_args.task_name != "chid":
-                        pred = id2label[pred]
-                    to_save = [tolist(x) for x in [pred, lb]]
-                    fp.write(json.dumps(to_save, ensure_ascii=False) + "\n")
-
     def postprocess(data_ret, data_ds):
         # 构造有序的标签id映射
         id_to_label = {
@@ -353,6 +314,15 @@ def main():
             for i, l in enumerate(
                 sorted([x for x in configs["verbalizer"].keys()]))
         }
+        cluewsc_split = [
+            0, 2, 4, 8, 10, 12, 15, 18, 20, 22, 25, 27, 30, 32, 35, 39, 43, 46,
+            49, 51, 53, 57, 59, 62, 65, 67, 69, 71, 74, 78, 80, 82, 85, 88, 91,
+            94, 97, 100, 103, 106, 110, 115, 119, 122, 124, 131, 134, 138, 141,
+            143, 145, 147, 150, 153, 155, 158, 160, 164, 166, 169, 172, 174,
+            178, 180, 182, 184, 187, 189, 194, 196, 202, 206, 209, 212, 214,
+            217, 221, 223, 226, 228, 230, 233, 235, 238, 242, 246, 248, 252,
+            257, 261, 264, 268, 271, 275, 277, 280, 284, 290
+        ]
         # 计算标签概率和标签id
         ret_list = []
         pro_list = []
@@ -366,12 +336,29 @@ def main():
                                                                               1]
                 preds = paddle.argmax(mask_preds.reshape([-1, 7]),
                                       axis=1).numpy()
-                probs = mask_preds.reshape([-1, 7]).numpy()
-                # probs = paddle.max(mask_preds.reshape([-1, 7]), axis=1).numpy()
+                #probs = mask_preds.reshape([-1, 7]).numpy()
+                probs = paddle.max(mask_preds.reshape([-1, 7]), axis=1).numpy()
+            elif data_args.task_name == "cluewsc":
+                mask_preds = paddle.nn.functional.softmax(mask_preds, axis=1)[:,
+                                                                              1]
+                preds = []
+                probs = []
+                for si, ei in zip(cluewsc_split[:-1], cluewsc_split[1:]):
+                    sub_preds = paddle.zeros([ei - si])
+                    max_id = paddle.argmax(mask_preds[si:ei])
+                    sub_preds[max_id] = 1
+                    preds.extend(sub_preds)
+                    probs.extend(1. - sub_preds - mask_preds[si:ei])
+                preds = paddle.concat(preds)
+                probs = paddle.concat(probs).abs()
+                print(preds)
+                print(probs)
+                for si, ei in zip(cluewsc_split[:-1], cluewsc_split[1:]):
+                    print(preds[si:ei])
             else:
                 preds = paddle.argmax(mask_preds, axis=1).numpy()
-                probs = paddle.max(mask_preds).numpy()
-                # probs = paddle.max(mask_preds, axis=1).numpy()
+                #probs = paddle.max(mask_preds).numpy()
+                probs = paddle.max(mask_preds, axis=1).numpy()
         else:
             if data_args.task_name == "chid":
                 mask_preds = paddle.to_tensor(data_ret.predictions)
@@ -379,14 +366,28 @@ def main():
                                                                               1]
                 preds = paddle.argmax(mask_preds.reshape([-1, 7]),
                                       axis=1).numpy()
-                probs = mask_preds.reshape([-1, 7]).numpy()
-                # probs = paddle.max(mask_preds.reshape([-1, 7]), axis=1).numpy()
+                #probs = mask_preds.reshape([-1, 7]).numpy()
+                probs = paddle.max(mask_preds.reshape([-1, 7]), axis=1).numpy()
+            elif data_args.task_name == "cluewsc":
+                mask_preds = paddle.to_tensor(data_ret.predictions)
+                mask_preds = paddle.nn.functional.softmax(mask_preds, axis=1)[:,
+                                                                              1]
+                preds = []
+                probs = []
+                for si, ei in zip(cluewsc_split[:-1], cluewsc_split[1:]):
+                    sub_preds = paddle.zeros([ei - si])
+                    max_id = paddle.argmax(mask_preds[si:ei])
+                    sub_preds[max_id] = 1
+                    preds.extend(sub_preds)
+                    probs.extend(1. - sub_preds - mask_preds[si:ei])
+                preds = paddle.concat(preds)
+                probs = paddle.concat(probs).abs()
             else:
                 preds = paddle.argmax(paddle.to_tensor(data_ret.predictions),
                                       axis=1).numpy()
-                probs = paddle.to_tensor(data_ret.predictions).numpy()
-                # probs = paddle.max(paddle.to_tensor(data_ret.predictions),
-                #                    axis=1).numpy()
+                #probs = paddle.to_tensor(data_ret.predictions).numpy()
+                probs = paddle.max(paddle.to_tensor(data_ret.predictions),
+                                   axis=1).numpy()
 
         preds = tolist(preds)
         probs = tolist(probs)
@@ -465,6 +466,45 @@ def main():
         save_to_file(test_ret,
                      data_args.task_name,
                      save_path="fewclue_submit_examples_%s" % time_stamp)
+
+    if model_args.do_test and data_args.do_analyze:
+        preds = test_ret.predictions
+        preds = np.argmax(np.array(preds), axis=-1)
+        id2label = {
+            idx: l
+            for idx, l in enumerate(
+                sorted([x for x in data_args.verbalizer.keys()]))
+        }
+
+        labels = [id2label[x] for x in test_ret.label_ids]
+        with open(os.path.join(training_args.output_dir, "test_analysis.txt"),
+                  "w") as fp:
+            if data_args.v_type == "multi":
+                mask_preds = multi_uniprediction(
+                    paddle.nn.functional.softmax(paddle.to_tensor(
+                        test_ret.predictions),
+                                                 axis=-1), verbalizer.token_ids)
+                if data_args.task_name == "chid":
+                    mask_preds = paddle.nn.functional.softmax(mask_preds,
+                                                              axis=1)[:, 1]
+                    mask_preds = paddle.argmax(mask_preds.reshape([-1, 7]),
+                                               axis=1).numpy().tolist()
+                else:
+                    mask_preds = paddle.argmax(mask_preds, axis=1)
+                    mask_preds = [
+                        id2label[x] for x in mask_preds.numpy().tolist()
+                    ]
+                for pred, mask_pred, lb in zip(preds, mask_preds, labels):
+                    if data_args.task_name != "chid":
+                        pred = tokenizer.convert_ids_to_tokens(pred)
+                    to_save = [tolist(x) for x in [pred, mask_pred, lb]]
+                    fp.write(json.dumps(to_save, ensure_ascii=False) + "\n")
+            else:
+                for pred, lb in zip(preds, labels):
+                    if data_args.task_name != "chid":
+                        pred = id2label[pred]
+                    to_save = [tolist(x) for x in [pred, lb]]
+                    fp.write(json.dumps(to_save, ensure_ascii=False) + "\n")
 
 
 if __name__ == '__main__':

@@ -1,7 +1,7 @@
 {
     "template": [
-        {"text": "{'text':'text_a'}成语{'text':'text_b'}用在这个句子中{'mask'}合适。", "verb": "不，很", "multi": "73.63"},
         {"text": "{'text':'text_a'}", "cls": "82.82", "rdrop-cls": "82.57"},
+        {"text": "{'text':'text_a'}成语{'text':'text_b'}用在这个句子中{'mask'}合适。", "verb": "不，很", "multi": "73.63", "EDA": "75.72"},
         {"text": "{'soft': '选一个合适的词语填在括号里，你会选“'}{'text': 'text_b'}{'soft':'”吗？'}{'mask'}“{'text': 'text_a'}”", "verb": "0-不,1-会", "multi": "73.73"},
         {"text": "给定成语{'text': 'text_b'}，{'mask'}{'mask'}造句得到“{'text': 'text_a'}”", "ver": "不能，可以", "multi": "74.48"},
         {"text": "{'soft': '下边句中成语'}[{'text':'text_b'}]{'soft': '的理解正确吗？'}{'mask'}{'mask'}。“{'text':'text_a'}”", "multi": "74.93"},

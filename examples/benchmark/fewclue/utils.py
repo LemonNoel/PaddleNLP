@@ -214,10 +214,64 @@ def convert_cluewsc(example):
         text.insert(p_index + len(pronoun) + 1, "_")
     return InputExample(
         uid=example.get("id", None),
+        #text_a="".join(text) + "上文中(" + pronoun + ")是指",
+        #text_b="[" + entity + "]",
         text_a="".join(text),
         text_b="其中_" + pronoun + "_指的是[" + entity + "]",
+        #text_a="[" + entity + "]" + "".join(text),
+        #text_b="下边这段话中_" + pronoun + "_可以替换成",
         # text_b=pronoun + "指的是" + entity, # 1011-1012
         labels=example.get("label", None))
+
+
+def convert_cluewsc_demons(examples, demons=None, label_dict=None):
+
+    def add_special_token(example):
+        target, text = example["target"], list(example["text"])
+        pronoun, p_index = target["span2_text"], target["span2_index"]
+        entity, e_index = target["span1_text"], target["span1_index"]
+        if p_index > e_index:
+            text.insert(p_index, "_")
+            text.insert(p_index + len(pronoun) + 1, "_")
+            text.insert(e_index, "[")
+            text.insert(e_index + len(entity) + 1, "]")
+        else:
+            text.insert(e_index, "[")
+            text.insert(e_index + len(entity) + 1, "]")
+            text.insert(p_index, "_")
+            text.insert(p_index + len(pronoun) + 1, "_")
+        text = "".join(text)
+        return text
+
+    def create_demons(example):
+        target, text = example["target"], list(example["text"])
+        pronoun, p_index = target["span2_text"], target["span2_index"]
+        entity, e_index = target["span1_text"], target["span1_index"]
+        text = add_special_token(example)
+        if example["label"] == "true":
+            mask = "确实"
+        else:
+            mask = "不像"
+        text += ("其中_" + pronoun + "_指的" + mask + "是[" + entity + "]")
+        return text
+
+    if demons is None:
+        demons = [create_demons(x) for x in examples]
+    new_examples = []
+    for idx, example in enumerate(examples):
+        target = example["target"]
+        pronoun, entity = target["span2_text"], target["span1_text"]
+        demon_idx = np.random.randint(0, len(demons))
+        while demon_idx == idx:
+            demon_idx = np.random.randint(0, len(demons))
+        new_examples.append(
+            InputExample(uid=example.get("id", None),
+                         text_a=demons[demon_idx] + add_special_token(example) +
+                         "其中_" + pronoun + "_指的",
+                         text_b="是[" + entity + "]",
+                         labels=None if "label" not in example else
+                         label_dict[example.get("label", None)]))
+    return MapDataset(new_examples), demons
 
 
 def convert_labels_to_ids(example, label_dict):
@@ -226,7 +280,7 @@ def convert_labels_to_ids(example, label_dict):
     return example
 
 
-def data_augment(data_ds, aug_type="delete", num_aug=2, percent=0.1):
+def data_augment(data_ds, aug_type="delete", num_aug=10, percent=0.1):
     if aug_type == "delete":
         aug = WordDelete(create_n=num_aug, aug_percent=percent)
     elif aug_type == "substitute":
@@ -285,6 +339,13 @@ def load_fewclue(task_name,
         train_ds, dev_ds, public_test_ds, test_ds = load_dataset(
             "fewclue", name=task_name, splits=splits, label_list=label_list)
         unlabeled_ds = None
+    elif task_name == "cmnli":
+        train_ds, dev_ds = load_dataset("clue",
+                                        name="cmnli",
+                                        splits=["train", "dev"])
+        public_test_ds = None
+        test_ds = None
+        unlabeled_ds = None
     else:
         # Load FewCLUE datasets and convert the samples to InputExample.
         splits = [
@@ -309,6 +370,12 @@ def load_fewclue(task_name,
         public_test_ds = convert_to_binary(public_test_ds, convert_chid_efl)
         test_ds = convert_to_binary(test_ds, convert_chid_efl)
         unlabeled_ds = convert_to_binary(unlabeled_ds, convert_chid_efl)
+    elif task_name == "_cluewsc":
+        train_ds, demons = convert_cluewsc_demons(train_ds, None, label_list)
+        dev_ds, _ = convert_cluewsc_demons(dev_ds, demons, label_list)
+        public_test_ds, _ = convert_cluewsc_demons(public_test_ds, demons,
+                                                   label_list)
+        test_ds, _ = convert_cluewsc_demons(test_ds, demons, label_list)
     elif task_name == "_csldcp":
         label_set = set([x for x in label_list.keys()])
         convert_efl_train = partial(convert_multi_efl,
@@ -357,10 +424,11 @@ def load_fewclue(task_name,
 
         train_ds = train_ds.map(convert_fn)
         dev_ds = dev_ds.map(convert_fn)
-        public_test_ds = public_test_ds.map(convert_fn)
-        test_ds = test_ds.map(convert_fn)
-        if unlabeled_ds is not None:
-            unlabeled_ds = unlabeled_ds.map(convert_fn)
+        if task_name != "cmnli":
+            public_test_ds = public_test_ds.map(convert_fn)
+            test_ds = test_ds.map(convert_fn)
+            if unlabeled_ds is not None:
+                unlabeled_ds = unlabeled_ds.map(convert_fn)
 
         convert_fn = partial(convert_labels_to_ids, label_dict=label_list)
         if task_name != "cmnli":
