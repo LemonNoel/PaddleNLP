@@ -1,7 +1,7 @@
 {
     "template": [
-        {"text": "{'text':'text_a'}这段话中关键词包括{'text': 'text_b'}，对吗？{'mask'}。", "verb": "错，对", "multi": "78.22"},
         {"text": "给定以下几个词语：{'text':'text_b'}，{'mask'}{'mask'}扩写成“{'text': 'text_a'}”", "multi": "78.61"},
+        {"text": "{'text':'text_a'}这段话中关键词包括{'text': 'text_b'}，对吗？{'mask'}。", "verb": "错，对", "multi": "78.22"},
         {"text": "{'soft': '给定以下几个词语：'}{'text':'text_b'}，{'mask'}{'mask'}{'soft': '扩写成“'}{'text': 'text_a'}”", "multi": "77.17"},
         {"text": "“{'text':'text_b'}”这几个词和下边这段话内容{'mask'}关。“{'text':'text_a'}”", "verbalizer": "无，有", "multi": "68.15"}, 
         {"text": "{'soft':'本文关键词：“'}{'text':'text_b'}{'soft':'”，内容：“'}{'text':'text_a'}{'soft':'” 这段话中关键词和内容'}{'mask'}{'soft':'关系'}", "verbalizer": "0-无，1-有", "multi": "64.52"},
@@ -9,7 +9,7 @@
         {"text": "{'soft': '以下几个词中有和文本主题关系不大的吗？'}{'text': 'text_b'}{'text': 'text_a'}", "verbalizer": "0-没，1-有", "manual": "60.45", "cls": "53.69", "cl-manual": "53.07", "cl-cls": "58.50"}
     ],
     "verbalizer": {
-        "0": "错",
-        "1": "对"
+        "0": "不能",
+        "1": "可以"
     }
 }

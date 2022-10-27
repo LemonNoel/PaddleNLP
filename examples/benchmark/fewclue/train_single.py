@@ -338,7 +338,7 @@ def main():
                                       axis=1).numpy()
                 #probs = mask_preds.reshape([-1, 7]).numpy()
                 probs = paddle.max(mask_preds.reshape([-1, 7]), axis=1).numpy()
-            elif data_args.task_name == "cluewsc":
+            elif data_args.task_name == "_cluewsc":
                 mask_preds = paddle.nn.functional.softmax(mask_preds, axis=1)[:,
                                                                               1]
                 preds = []
@@ -368,7 +368,7 @@ def main():
                                       axis=1).numpy()
                 #probs = mask_preds.reshape([-1, 7]).numpy()
                 probs = paddle.max(mask_preds.reshape([-1, 7]), axis=1).numpy()
-            elif data_args.task_name == "cluewsc":
+            elif data_args.task_name == "_cluewsc":
                 mask_preds = paddle.to_tensor(data_ret.predictions)
                 mask_preds = paddle.nn.functional.softmax(mask_preds, axis=1)[:,
                                                                               1]

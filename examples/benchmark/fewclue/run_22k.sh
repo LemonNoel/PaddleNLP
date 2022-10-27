@@ -34,20 +34,22 @@ elif [ $task_name == "chid" ]; then
     max_length=384
 elif [ $task_name == "cluewsc" ]; then
     max_length=384
+elif [ $task_name == "cluewsc2020" ]; then
+    max_length=384
 elif [ $task_name == "cmnli" ]; then
     max_length=128
 fi
 
 
 lrs=(3e-6)
-accsteps=(2)
+augs=(substitute swap)
 
 
 for lr in ${lrs[@]}
 do
-    for step in ${accsteps[@]}
+    for aug in ${augs[@]}
     do
-        out_dir=./checkpoints/ckpt-cu-$task_name
+        out_dir=./checkpoints/ckpt-36k-wsc4-$task_name
         echo " "
         CUDA_VISIBLE_DEVICES=$device python train_single.py \
         --output_dir $out_dir \
@@ -55,36 +57,41 @@ do
         --task_name $task_name \
         --t_index 0 \
         --t_type "auto" \
-        --v_type "cls" \
+        --v_type "multi" \
         --learning_rate $lr \
         --ppt_learning_rate $lr \
         --max_steps 3000 \
-        --logging_steps 16 \
-        --do_predict \
+        --logging_steps 10 \
+        --load_best_model_at_end \
         --do_train \
         --do_eval \
+        --do_save True \
+        --do_predict \
         --do_test \
         --do_label True \
-        --do_save True \
-        --aug_type substitute \
-        --load_best_model_at_end \
         --disable_tqdm True \
+        --aug_type $aug \
         --eval_steps 100 \
         --save_steps 100 \
         --warmup_ratio 0.01 \
         --save_total_limit 1 \
-        --per_device_eval_batch_size 16 \
-        --per_device_train_batch_size 16 \
-        --gradient_accumulation_steps $step \
+        --per_device_eval_batch_size 8 \
+        --per_device_train_batch_size 8 \
+        --gradient_accumulation_steps 4 \
         --model_name_or_path ernie-1.0-large-zh-cw \
         --split_id few_all \
         --task_name $task_name \
         --metric_for_best_model accuracy \
         --seed 42 \
-        --ckpt_plm "/ssd2/wanghuijuan03/prompt/PaddleNLP/model_zoo/ernie-1.0/checkpoints-mix/model_36000/model_state.pdparams"
-        #--ckpt_model cmnli_36k_ckpt_22k.pdparams 
+        --ckpt_model ckpt_36k_wsc20_4h.pdparams # 无监督阅读理解 + 有监督指代
+        #--ckpt_model checkpoints/ckpt-36k-wsc-cluewsc/checkpoint-500/model_state.pdparams
+
+        #--ckpt_plm "/ssd2/wanghuijuan03/prompt/PaddleNLP/model_zoo/ernie-1.0/checkpoints-mix/model_36000/model_state.pdparams" # 无监督阅读理解
+        #--ckpt_model cmnli_36k_ckpt_22k.pdparams # 无监督阅读理解 + 句间推理
+        #--ckpt_model cmnli_36k_ckpt_357h.pdparams # 无监督阅读理解 + 句间推理
         #--ckpt_model strategy_supervised/model_4600_89.92.pdparams 
         #--ckpt_model "results/e1cw/cmnli/checkpoint-24000/model_state.pdparams" 
+        --ckpt_model ckpt_36k_wsc20_4h_cmnli_19k.pdparams # 无监督阅读理解 + 有监督指代 + 句间推理
         echo " "
         #rm -rf $out_dir/checkpoint-*
     done

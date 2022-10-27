@@ -1,12 +1,12 @@
 {
     "template": [
+        {"text": "{'text':'text_a'}{'mask'}{'text':'text_b'}", "multi": "77.77/80.12", "verb": "就，不"},
+        {"text": "{'soft'}{'soft'}{'text':'text_a'}{'mask'}{'text':'text_b'}", "multi": "77.97", "verb": "就，不"},
         {"text": "{'text':'text_b'}{'text':'text_a'}"},
         {"text": "{'soft':None, 'duplicate':20}“{'text':'text_a'}”{'text':'text_b'}这里代词使用正确吗？{'mask'}{'mask'}", "multi": "75.31"},
         {"text": "{'text':'text_b'}{'text':'text_a'}"},
         {"text": "{'text':'text_a'}{'mask'}{'mask'}{'text':'text_b'}", "verb": "确实，不像", "multi": "83.81"},
         {"text": "{'text':'text_a'}{'text':'text_b'}这句话理解得对吗？{'mask'}"},
-        {"text": "{'text':'text_a'}{'mask'}{'text':'text_b'}", "multi": "77.77/80.12", "verb": "就，不"},
-        {"text": "{'soft'}{'soft'}{'text':'text_a'}{'mask'}{'text':'text_b'}", "multi": "77.97", "verb": "就，不"},
         {"text": "“这句话里{'text':'text_b'}”。“你理解{'mask'}了。这句话说的是{'text':'text_a'}”", "verbalizer": "对，错",  "multi": "65.16"},
         {"text": "{'soft'}{'soft'}“这句话里{'text':'text_b'}”。“你理解{'mask'}了。这句话说的是{'text':'text_a'}”", "verbalizer": "对，错", "multi": "63.42"},
         {"text": "“{'text':'text_a'}”{'text':'text_b'}这里代词使用正确吗？{'mask'}{'mask'}", "verb": "正确，错误", "multi": "69.36", "add_": "75.20"},
@@ -17,7 +17,7 @@
         {"text": "下边一段话中{'text': 'text_b'}“{'text': 'text_a'}”", "manual": "60.45", "cls": "53.69", "cl-manual": "53.07", "cl-cls": "58.50"}
     ],
     "verbalizer": {
-        "true": "正确",
-        "false": "错误"
+        "true": "就",
+        "false": "不"
     }
 }

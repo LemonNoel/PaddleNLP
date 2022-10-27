@@ -214,10 +214,10 @@ def convert_cluewsc(example):
         text.insert(p_index + len(pronoun) + 1, "_")
     return InputExample(
         uid=example.get("id", None),
-        #text_a="".join(text) + "上文中(" + pronoun + ")是指",
-        #text_b="[" + entity + "]",
-        text_a="".join(text),
-        text_b="其中_" + pronoun + "_指的是[" + entity + "]",
+        text_a="".join(text) + "其中_" + pronoun + "_指的",
+        text_b="是[" + entity + "]",
+        #text_a="".join(text),
+        #text_b="其中_" + pronoun + "_指的是[" + entity + "]",
         #text_a="[" + entity + "]" + "".join(text),
         #text_b="下边这段话中_" + pronoun + "_可以替换成",
         # text_b=pronoun + "指的是" + entity, # 1011-1012
@@ -275,7 +275,7 @@ def convert_cluewsc_demons(examples, demons=None, label_dict=None):
 
 
 def convert_labels_to_ids(example, label_dict):
-    if example.labels is not None:
+    if example.labels is not None and not isinstance(example.labels, int):
         example.labels = label_dict[example.labels]
     return example
 
@@ -342,6 +342,13 @@ def load_fewclue(task_name,
     elif task_name == "cmnli":
         train_ds, dev_ds = load_dataset("clue",
                                         name="cmnli",
+                                        splits=["train", "dev"])
+        public_test_ds = None
+        test_ds = None
+        unlabeled_ds = None
+    elif task_name == "cluewsc2020":
+        train_ds, dev_ds = load_dataset("clue",
+                                        name="cluewsc2020",
                                         splits=["train", "dev"])
         public_test_ds = None
         test_ds = None
@@ -419,12 +426,13 @@ def load_fewclue(task_name,
             "bustm": convert_bustm,
             "chid": convert_chid,
             "csl": convert_csl,
-            "cluewsc": convert_cluewsc
+            "cluewsc": convert_cluewsc,
+            "cluewsc2020": convert_cluewsc
         }[task_name]
 
         train_ds = train_ds.map(convert_fn)
         dev_ds = dev_ds.map(convert_fn)
-        if task_name != "cmnli":
+        if task_name != "cmnli" and task_name != "cluewsc2020":
             public_test_ds = public_test_ds.map(convert_fn)
             test_ds = test_ds.map(convert_fn)
             if unlabeled_ds is not None:
@@ -434,7 +442,8 @@ def load_fewclue(task_name,
         if task_name != "cmnli":
             train_ds = train_ds.map(convert_fn)
             dev_ds = dev_ds.map(convert_fn)
-            public_test_ds = public_test_ds.map(convert_fn)
+            if task_name != "cluewsc2020":
+                public_test_ds = public_test_ds.map(convert_fn)
 
     if aug_type is not None:
         train_ds = data_augment(train_ds, aug_type=aug_type)
