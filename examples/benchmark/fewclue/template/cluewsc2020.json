@@ -1,0 +1,10 @@
+{
+    "template": [
+        {"text": "在认真梳理了人物关系之后，我{'mask'}{'mask'}{'mask'}{'text':'text_b'}。“{'text':'text_a'}”", "multi": "89"},
+        {"text": "{'text':'text_a'}{'mask'}{'mask'}{'text':'text_b'}", "verb": "确实，不像", "multi": "90"},
+    ],
+    "verbalizer": {
+        "0": "不认为",
+        "1": "倾向于"
+    }
+}
