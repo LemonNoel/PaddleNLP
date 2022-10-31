@@ -42,56 +42,62 @@ fi
 
 
 lrs=(3e-6)
-augs=(substitute swap)
+augs=(substitute delete swap insert None)
 
 
 for lr in ${lrs[@]}
 do
     for aug in ${augs[@]}
     do
-        out_dir=./checkpoints/ckpt-36k-wsc4-$task_name
+        out_dir=./checkpoints/ckpt-36k-4h-t3-vs-rdrop-$task_name
         echo " "
         CUDA_VISIBLE_DEVICES=$device python train_single.py \
         --output_dir $out_dir \
         --max_seq_length $max_length \
         --task_name $task_name \
-        --t_index 0 \
+        --t_index 3 \
         --t_type "auto" \
-        --v_type "multi" \
+        --v_type "soft" \
         --learning_rate $lr \
-        --ppt_learning_rate $lr \
-        --max_steps 3000 \
+        --ppt_learning_rate 3e-5 \
+        --max_steps 6000 \
         --logging_steps 10 \
         --load_best_model_at_end \
+        --aug_type $aug \
         --do_train \
         --do_eval \
         --do_save True \
         --do_predict \
         --do_test \
+        --use_rdrop True \
+        --alpha_rdrop 1.0 \
+        --dropout 0.3 \
         --do_label True \
         --disable_tqdm True \
-        --aug_type $aug \
+        --lr_scheduler_type 'constant' \
         --eval_steps 100 \
         --save_steps 100 \
         --warmup_ratio 0.01 \
         --save_total_limit 1 \
-        --per_device_eval_batch_size 8 \
-        --per_device_train_batch_size 8 \
-        --gradient_accumulation_steps 4 \
+        --per_device_eval_batch_size 4 \
+        --per_device_train_batch_size 4 \
+        --gradient_accumulation_steps 8 \
         --model_name_or_path ernie-1.0-large-zh-cw \
         --split_id few_all \
         --task_name $task_name \
         --metric_for_best_model accuracy \
-        --seed 42 \
+        --seed 21 \
         --ckpt_model ckpt_36k_wsc20_4h.pdparams # 无监督阅读理解 + 有监督指代
-        #--ckpt_model checkpoints/ckpt-36k-wsc-cluewsc/checkpoint-500/model_state.pdparams
-
+        
         #--ckpt_plm "/ssd2/wanghuijuan03/prompt/PaddleNLP/model_zoo/ernie-1.0/checkpoints-mix/model_36000/model_state.pdparams" # 无监督阅读理解
+        #--ckpt_model ckpt-36k-wsc20-9h.pdparams
+
+        #--ckpt_model ckpt_36k_wsc20_4h_cmnli_19k.pdparams # 无监督阅读理解 + 有监督指代 + 句间推理
+        #--ckpt_model checkpoints/ckpt-36k-wsc-cluewsc/checkpoint-500/model_state.pdparams
         #--ckpt_model cmnli_36k_ckpt_22k.pdparams # 无监督阅读理解 + 句间推理
         #--ckpt_model cmnli_36k_ckpt_357h.pdparams # 无监督阅读理解 + 句间推理
         #--ckpt_model strategy_supervised/model_4600_89.92.pdparams 
         #--ckpt_model "results/e1cw/cmnli/checkpoint-24000/model_state.pdparams" 
-        --ckpt_model ckpt_36k_wsc20_4h_cmnli_19k.pdparams # 无监督阅读理解 + 有监督指代 + 句间推理
         echo " "
         #rm -rf $out_dir/checkpoint-*
     done
@@ -103,9 +109,6 @@ done
         --evaluation_strategy epoch \
         --save_strategy epoch 
        --fake_file $fake \
-       --use_rdrop True \
-       --alpha_rdrop 1.0 \
        --soft_encoder lstm \
        --gradient_accumulation_steps 2 \
-       --dropout 0.3 \
 

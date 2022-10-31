@@ -214,7 +214,7 @@ def convert_cluewsc(example):
         text.insert(p_index + len(pronoun) + 1, "_")
     return InputExample(
         uid=example.get("id", None),
-        text_a="".join(text) + "其中_" + pronoun + "_指的",
+        text_a="".join(text) + "_" + pronoun + "_指的",
         text_b="是[" + entity + "]",
         #text_a="".join(text),
         #text_b="其中_" + pronoun + "_指的是[" + entity + "]",
@@ -289,6 +289,8 @@ def data_augment(data_ds, aug_type="delete", num_aug=10, percent=0.1):
         aug = WordInsert("mlm", create_n=num_aug, aug_percent=percent)
     elif aug_type == "swap":
         aug = WordSwap(create_n=num_aug, aug_percent=percent)
+    elif aug_type == "None":
+        return data_ds
 
     new_data_ds = []
     for example in data_ds:

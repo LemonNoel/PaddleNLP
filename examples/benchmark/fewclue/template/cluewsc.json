@@ -1,6 +1,11 @@
 {
     "template": [
         {"text": "{'text':'text_a'}{'mask'}{'text':'text_b'}", "multi": "77.77/80.12", "verb": "就，不"},
+        {"text": "{'text':'text_a'}{'mask'}{'text':'text_b', 'shortenable':False}", "multi": "77.77/80.12", "verb": "就，不"},
+        {"text": "{'soft': None, 'duplicate':10}{'text':'text_a'}{'mask'}{'text':'text_b', 'shortenable':False}", "multi": "77.77/80.12", "verb": "就，不"},
+        {"text": "{'soft': '这是一个指代消解任务，判断A指的就是/不是B。'}{'text':'text_a'}{'mask'}{'text':'text_b', 'shortenable':False}", "multi": "77.77/80.12", "verb": "就，不"},
+        {"text": "在认真梳理了人物关系之后，我{'mask'}{'mask'}{'mask'}{'text':'text_b', 'shortenable':False}。“{'text':'text_a'}”", "verb": "不认为，倾向于"},
+        {"text": "{'text':'text_a'}{'text':'text_b'}。({'mask'})", "verb": "对，错"},
         {"text": "{'soft'}{'soft'}{'text':'text_a'}{'mask'}{'text':'text_b'}", "multi": "77.97", "verb": "就，不"},
         {"text": "{'text':'text_b'}{'text':'text_a'}"},
         {"text": "{'soft':None, 'duplicate':20}“{'text':'text_a'}”{'text':'text_b'}这里代词使用正确吗？{'mask'}{'mask'}", "multi": "75.31"},
@@ -17,7 +22,7 @@
         {"text": "下边一段话中{'text': 'text_b'}“{'text': 'text_a'}”", "manual": "60.45", "cls": "53.69", "cl-manual": "53.07", "cl-cls": "58.50"}
     ],
     "verbalizer": {
-        "true": "就",
-        "false": "不"
+        "false": "不",
+        "true": "就"
     }
 }
