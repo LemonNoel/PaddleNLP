@@ -21,7 +21,7 @@ if [ $task_name == "csl" ]; then
 elif [ $task_name == "eprstmt" ]; then
     max_length=128
 elif [ $task_name == "csldcp" ]; then
-    max_length=256
+    max_length=384
 elif [ $task_name == "tnews" ]; then
     max_length=128 #64
 elif [ $task_name == "iflytek" ]; then
@@ -41,37 +41,34 @@ elif [ $task_name == "cmnli" ]; then
 fi
 
 
-lrs=(3e-6)
-augs=(substitute delete swap insert None)
-
+lrs=(0)
+augs=(None substitute delete swap insert)
+#augs=(0 1 2)
 
 for lr in ${lrs[@]}
 do
     for aug in ${augs[@]}
     do
-        out_dir=./checkpoints/ckpt-36k-4h-t3-vs-rdrop-$task_name
+        out_dir=./checkpoints/ckpt-36k-$device-$task_name
         echo " "
-        CUDA_VISIBLE_DEVICES=$device python train_single.py \
+        CUDA_VISIBLE_DEVICES=$device python3 train_single.py \
         --output_dir $out_dir \
+        --aug_type $aug \
         --max_seq_length $max_length \
         --task_name $task_name \
-        --t_index 3 \
+        --t_index $lr \
         --t_type "auto" \
-        --v_type "soft" \
-        --learning_rate $lr \
+        --v_type "multi" \
+        --learning_rate 3e-6 \
         --ppt_learning_rate 3e-5 \
-        --max_steps 6000 \
+        --max_steps 3000 \
         --logging_steps 10 \
         --load_best_model_at_end \
-        --aug_type $aug \
         --do_train \
         --do_eval \
         --do_save True \
-        --do_predict \
         --do_test \
-        --use_rdrop True \
-        --alpha_rdrop 1.0 \
-        --dropout 0.3 \
+        --do_predict \
         --do_label True \
         --disable_tqdm True \
         --lr_scheduler_type 'constant' \
@@ -79,17 +76,20 @@ do
         --save_steps 100 \
         --warmup_ratio 0.01 \
         --save_total_limit 1 \
-        --per_device_eval_batch_size 4 \
-        --per_device_train_batch_size 4 \
-        --gradient_accumulation_steps 8 \
+        --per_device_eval_batch_size 16 \
+        --per_device_train_batch_size 16 \
+        --gradient_accumulation_steps 1 \
         --model_name_or_path ernie-1.0-large-zh-cw \
         --split_id few_all \
         --task_name $task_name \
         --metric_for_best_model accuracy \
         --seed 21 \
-        --ckpt_model ckpt_36k_wsc20_4h.pdparams # 无监督阅读理解 + 有监督指代
+        --ckpt_model ckpt_36k.pdparams # 无监督阅读理解
         
+        #--ckpt_model ckpt_cmnli_24k.pdparams
+        #--ckpt_model ckpt_36k_wsc20_4h.pdparams # 无监督阅读理解 + 有监督指代
         #--ckpt_plm "/ssd2/wanghuijuan03/prompt/PaddleNLP/model_zoo/ernie-1.0/checkpoints-mix/model_36000/model_state.pdparams" # 无监督阅读理解
+        --ckpt_model ckpt_36k_wsc20_21h.pdparams # 无监督阅读理解 + 有监督CLS FT
         #--ckpt_model ckpt-36k-wsc20-9h.pdparams
 
         #--ckpt_model ckpt_36k_wsc20_4h_cmnli_19k.pdparams # 无监督阅读理解 + 有监督指代 + 句间推理
@@ -104,11 +104,14 @@ do
 done
 
 #--ckpt_model None \
+        --fake_file $fake \
+        --use_rdrop True \
+        --alpha_rdrop 1.0 \
+        --dropout 0.3 \
         --freeze_plm \
         --soft_encoder mlp \
         --evaluation_strategy epoch \
         --save_strategy epoch 
-       --fake_file $fake \
        --soft_encoder lstm \
        --gradient_accumulation_steps 2 \
 

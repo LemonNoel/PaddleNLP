@@ -80,7 +80,7 @@ def main():
     model_args, data_args, training_args = parser.parse_args_into_dataclasses()
     configs = json.load(open("template/%s.json" % data_args.task_name, "r"))
     data_args.prompt = configs["template"][data_args.t_index]["text"]
-    if data_args.task_name == "csldcp":
+    if data_args.task_name == "_csldcp":
         verb_dict = {}
         for k, v in configs["verbalizer"].items():
             if k not in verb_dict:
