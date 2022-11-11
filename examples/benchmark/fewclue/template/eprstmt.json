@@ -1,6 +1,10 @@
 {
     "template": [
-        {"text": "{'text':'text_a'}"},
+        {"text": "{'text':'text_a'}我{'mask'}喜欢。"},
+        {"text": "我{'mask'}喜欢。{'text':'text_a'}"},
+        {"text": "{'mask'}推荐这件商品！{'text':'text_a'}"},
+        {"text": "我对这个东西{'mask'}满意。{'text':'text_a'}"},
+        {"text": "{'mask'}理想。{'text':'text_a'}"},
         {"text": "{'text':'text_a'}这句话表示我{'mask'}满意。", "multi": "88.85"},
         {"text": "{'soft': '这句评论表达了怎样的情绪？'}{'soft': None, 'duplicate': 10}{'mask'}{'mask'}“{'text': 'text_a'}”", "verb": "生气，开心"}
     ],

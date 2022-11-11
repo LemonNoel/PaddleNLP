@@ -61,6 +61,7 @@ class DataArguments:
     do_analyze: bool = field(default=False, metadata={"help": "Whether to save all predictions for analysis"})
     do_label: bool = field(default=True, metadata={"help": "Whether to label unlabeled data."})
     aug_type: str = field(default=None, metadata={"help": "The strategy used for data augmentation."})
+    config_path: str = field(default="template", metadata={"help": "."})
 
 @dataclass
 class ModelArguments:
@@ -78,7 +79,7 @@ def main():
     parser = PdArgumentParser(
         (ModelArguments, DataArguments, PromptTuningArguments))
     model_args, data_args, training_args = parser.parse_args_into_dataclasses()
-    configs = json.load(open("template/%s.json" % data_args.task_name, "r"))
+    configs = json.load(open("%s/%s.json" % (data_args.config_path, data_args.task_name), "r"))
     data_args.prompt = configs["template"][data_args.t_index]["text"]
     if data_args.task_name == "_csldcp":
         verb_dict = {}

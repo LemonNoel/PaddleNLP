@@ -2,6 +2,9 @@
     "template": [
         {"text": "{'text':'text_a'}{'mask'}{'text':'text_b'}", "multi": "77.77/80.12", "verb": "就，不"},
         {"text": "{'text':'text_a'}{'mask'}{'text':'text_b', 'shortenable':False}", "multi": "77.77/80.12", "verb": "就，不"},
+        {"text": "{'text':'text_a'}{'mask'}{'text':'text_b'}。这里判断对吗？", "multi": "77.77/80.12", "verb": "就，不"},
+        {"text": "{'text':'text_a'}{'mask'}{'text':'text_b', 'shortenable':False}。这里解释对吗？", "multi": "77.77/80.12", "verb": "就，不"},
+        {"text": "{'text':'text_a'}{'mask'}{'text':'text_b', 'shortenable':False}。这里代词解释对吗？", "multi": "77.77/80.12", "verb": "就，不"},
         {"text": "{'soft': None, 'duplicate':10}{'text':'text_a'}{'mask'}{'text':'text_b', 'shortenable':False}", "multi": "77.77/80.12", "verb": "就，不"},
         {"text": "{'soft': '这是一个指代消解任务，判断A指的就是/不是B。'}{'text':'text_a'}{'mask'}{'text':'text_b', 'shortenable':False}", "multi": "77.77/80.12", "verb": "就，不"},
         {"text": "在认真梳理了人物关系之后，我{'mask'}{'mask'}{'mask'}{'text':'text_b', 'shortenable':False}。“{'text':'text_a'}”", "verb": "不认为，倾向于"},

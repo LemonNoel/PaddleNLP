@@ -1,11 +1,11 @@
 {
     "template": [
-        {"text": "{'soft': '阅读下边这段'}{'mask'}{'mask'}{'soft': '相关的材料'}“{'text': 'text_a'}”"},
         {"text": "阅读下边一段{'mask'}{'mask'}学的资料：“{'text': 'text_a'}”"},
         {"text": "阅读下边这段{'mask'}{'mask'}方面的材料：“{'text': 'text_a'}”"},
         {"text": "阅读下边这段{'mask'}{'mask'}学的文献：“{'text': 'text_a'}”"},
         {"text": "阅读这段{'mask'}{'mask'}学的文献：“{'text': 'text_a'}”"},
-        {"text": "阅读这段{'mask'}{'mask'}学的材料：“{'text': 'text_a'}”"}
+        {"text": "阅读这段{'mask'}{'mask'}学的材料：“{'text': 'text_a'}”"},
+        {"text": "{'soft': '阅读下边这段'}{'mask'}{'mask'}{'soft': '相关的材料'}“{'text': 'text_a'}”"}
     ],
     "verbalizer": {
         "材料科学与工程": "材料",

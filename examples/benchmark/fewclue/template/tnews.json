@@ -1,12 +1,14 @@
 {
     "template": [
+        {"text": "阅读下边一则{'mask'}{'mask'}新闻：{'text':'text_a'}"},
+        {"text": "阅读这篇标题为「{'text':'text_a'}」的讲{'mask'}{'mask'}的文章。"},
         {"text": "{'soft': '下边这则新闻属于'}{'mask'}{'mask'}{'soft':'话题'}{'soft': None, 'duplicate': 10}{'text':'text_a'}"},
         {"text": "{'soft': '下边这则新闻属于什么话题呢？'}{'mask'}{'text':'text_a'}", "manual": "57.06", "cls": "58.31", "cl-manual": "56.77", "cl-cls": "56.67"}
     ],
     "verbalizer": {
         "news_story":  "八卦",
         "news_entertainment": "明星",
-        "news_finance": "经济",
+        "news_finance": "财经",
         "news_sports": "体育",
         "news_edu": "校园",
         "news_game": "游戏",

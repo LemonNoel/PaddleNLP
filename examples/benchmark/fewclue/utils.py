@@ -16,7 +16,8 @@ import json
 from functools import partial
 
 import numpy as np
-
+import paddle
+from paddlenlp.transformers import RoFormerForCausalLM, RoFormerTokenizer
 from paddlenlp.datasets import load_dataset, MapDataset
 from paddlenlp.prompt import InputExample
 from paddlenlp.utils.log import logger
@@ -280,7 +281,7 @@ def convert_labels_to_ids(example, label_dict):
     return example
 
 
-def data_augment(data_ds, aug_type="delete", num_aug=10, percent=0.1):
+def data_augment(data_ds, aug_type="delete", num_aug=10, percent=0.1, task_name=""):
     if aug_type == "delete":
         aug = WordDelete(create_n=num_aug, aug_percent=percent)
     elif aug_type == "substitute":
@@ -291,6 +292,37 @@ def data_augment(data_ds, aug_type="delete", num_aug=10, percent=0.1):
         aug = WordSwap(create_n=num_aug, aug_percent=percent)
     elif aug_type == "None":
         return data_ds
+    elif aug_type == "similar":
+        class Aug:
+            def __init__(self, n, k):
+                self.n = n
+                self.k = k
+                self.model = RoFormerForCausalLM.from_pretrained("roformer-chinese-sim-char-ft-base")
+                self.tokenizer = RoFormerTokenizer.from_pretrained("roformer-chinese-sim-char-ft-base")
+                self.model.eval()
+            def augment(self, text):
+                n = self.n
+                k = self.k
+                model = self.model
+                tokenizer = self.tokenizer
+                r = []
+                inputs1 = tokenizer(text, return_tensors="pd", padding=True)
+                with paddle.no_grad():
+                    output = tokenizer.batch_decode(model.generate(**inputs1, num_return_sequences=n, top_p=0.95, decode_strategy="sampling", max_length=128)[0], skip_special_tokens=True)
+                    for o in output:
+                        o = o.replace(" ","").replace(text, "") # 去除空格，去除原始text文本。
+                        r.append(o)
+                    r = [i for i in set(r) if i != text and len(i) > 0]
+                    r = [text] + r
+                inputs2 = tokenizer(r, padding=True, return_tensors="pd")
+                with paddle.no_grad():
+                    outputs = model.roformer(**inputs2)
+                    Z = outputs[1].cpu().numpy()
+                    Z /= (Z**2).sum(axis=1, keepdims=True)**0.5
+                    Z = np.dot(Z[1:], -Z[0]).argsort()
+
+                return [r[i + 1] for i in Z[:k]]
+        aug = Aug(n=num_aug+5, k=num_aug)
 
     new_data_ds = []
     for example in data_ds:
@@ -298,14 +330,23 @@ def data_augment(data_ds, aug_type="delete", num_aug=10, percent=0.1):
         text_a = aug.augment(example.text_a)
         if example.text_b is None:
             for text in text_a:
-                example.text_a = text
-                new_data_ds.append(example)
+                new_example = InputExample(
+                    text_a=text,
+                    labels=example.labels)
+                new_data_ds.append(new_example)
         else:
             text_b = aug.augment(example.text_b)
             for ta, tb in zip(text_a, text_b):
-                example.text_a = ta
-                example.text_b = tb
-                new_data_ds.append(example)
+                new_example = InputExample(
+                    text_a = ta,
+                    text_b = tb,
+                    labels = example.labels
+                )
+                new_data_ds.append(new_example)
+    with open(f'{task_name}_{aug_type}.json', 'a') as fp:
+        for x in new_data_ds:
+            sample = {'text_a': x.text_a, 'text_b': x.text_b, 'labels': getattr(x, "labels", None)}
+            fp.write(json.dumps(sample, ensure_ascii=False) + '\n')
     return MapDataset(new_data_ds)
 
 
@@ -322,6 +363,9 @@ def extend_with_fakes(data_ds, fake_file=None):
         data_ds = MapDataset(data_ds)
     return data_ds
 
+def convert_clue_to_fewclue_chid(data_ds):
+    pass
+
 
 # 读取 FewCLUE 数据集
 def load_fewclue(task_name,
@@ -329,13 +373,19 @@ def load_fewclue(task_name,
                  label_list,
                  fake_file=None,
                  aug_type=None):
-    if task_name == "tnews":
+    if task_name == "_tnews":
         splits = [f"dev_{split_id}", "test_public", "test", "unlabeled"]
         dev_ds, public_test_ds, test_ds, unlabeled_ds = load_dataset(
             "fewclue", name=task_name, splits=splits, label_list=label_list)
         with open("data/tnews_train.json", "r") as fp:
             data = [x for x in fp.readlines() if x[0] != "#"]
             train_ds = MapDataset([json.loads(x.strip()) for x in data])
+    elif task_name == "chid":
+        from datasets import load_dataset
+        splits = ["train", "dev", "test"]
+        train_ds, dev_ds, test_ds = load_dataset("clue", name="chid", split=splits)
+        public_test_ds = dev_ds
+        unlabeled_ds = None
     elif task_name == "cluewsc":
         splits = [f"train_{split_id}", f"dev_{split_id}", "test_public", "test"]
         train_ds, dev_ds, public_test_ds, test_ds = load_dataset(
@@ -448,6 +498,6 @@ def load_fewclue(task_name,
                 public_test_ds = public_test_ds.map(convert_fn)
 
     if aug_type is not None:
-        train_ds = data_augment(train_ds, aug_type=aug_type)
+        train_ds = data_augment(train_ds, aug_type=aug_type, task_name=task_name)
 
     return train_ds, dev_ds, public_test_ds, test_ds, unlabeled_ds

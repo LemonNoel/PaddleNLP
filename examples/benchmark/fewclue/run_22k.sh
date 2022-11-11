@@ -19,7 +19,7 @@ fake=$3
 if [ $task_name == "csl" ]; then
     max_length=512
 elif [ $task_name == "eprstmt" ]; then
-    max_length=128
+    max_length=512
 elif [ $task_name == "csldcp" ]; then
     max_length=384
 elif [ $task_name == "tnews" ]; then
@@ -29,7 +29,7 @@ elif [ $task_name == "iflytek" ]; then
 elif [ $task_name == "ocnli" ]; then
     max_length=128
 elif [ $task_name == "bustm" ]; then
-    max_length=128
+    max_length=256
 elif [ $task_name == "chid" ]; then
     max_length=384
 elif [ $task_name == "cluewsc" ]; then
@@ -42,14 +42,14 @@ fi
 
 
 lrs=(0)
-augs=(None substitute delete swap insert)
-#augs=(0 1 2)
+augs=(similar substitute delete swap insert)
+#augs=(0)
 
 for lr in ${lrs[@]}
 do
     for aug in ${augs[@]}
     do
-        out_dir=./checkpoints/ckpt-36k-$device-$task_name
+        out_dir=./checkpoints/ckpt-24k-$device-$task_name
         echo " "
         CUDA_VISIBLE_DEVICES=$device python3 train_single.py \
         --output_dir $out_dir \
@@ -61,7 +61,7 @@ do
         --v_type "multi" \
         --learning_rate 3e-6 \
         --ppt_learning_rate 3e-5 \
-        --max_steps 3000 \
+        --max_steps 2000 \
         --logging_steps 10 \
         --load_best_model_at_end \
         --do_train \
@@ -71,9 +71,10 @@ do
         --do_predict \
         --do_label True \
         --disable_tqdm True \
+        --config_path "template1" \
         --lr_scheduler_type 'constant' \
-        --eval_steps 100 \
-        --save_steps 100 \
+        --eval_steps 50 \
+        --save_steps 50 \
         --warmup_ratio 0.01 \
         --save_total_limit 1 \
         --per_device_eval_batch_size 16 \
@@ -84,9 +85,9 @@ do
         --task_name $task_name \
         --metric_for_best_model accuracy \
         --seed 21 \
-        --ckpt_model ckpt_36k.pdparams # 无监督阅读理解
+        --ckpt_model ckpt_cmnli_24k.pdparams
+        #--ckpt_model ckpt_36k.pdparams # 无监督阅读理解
         
-        #--ckpt_model ckpt_cmnli_24k.pdparams
         #--ckpt_model ckpt_36k_wsc20_4h.pdparams # 无监督阅读理解 + 有监督指代
         #--ckpt_plm "/ssd2/wanghuijuan03/prompt/PaddleNLP/model_zoo/ernie-1.0/checkpoints-mix/model_36000/model_state.pdparams" # 无监督阅读理解
         --ckpt_model ckpt_36k_wsc20_21h.pdparams # 无监督阅读理解 + 有监督CLS FT
