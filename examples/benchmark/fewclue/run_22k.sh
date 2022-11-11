@@ -71,7 +71,7 @@ do
         --do_predict \
         --do_label True \
         --disable_tqdm True \
-        --config_path "template1" \
+        --config_path "template" \
         --lr_scheduler_type 'constant' \
         --eval_steps 50 \
         --save_steps 50 \
