@@ -96,13 +96,15 @@ class GLMTokenizerMixin:
         attention_mask = paddle.to_tensor(block_diag(*[x.tolist() for x in attention_mask]))
         attention_mask[division:, :division] = context["attention_mask"].unsqueeze(0)
 
-        return {
-            "input_ids": token,
-            "position_ids": paddle.stack([position_id, block_position_id]),
-            "attention_mask": attention_mask,
-            "choice_ids": choice_ids,
-            "choice_indices": choice_indices,
-        }
+        return BatchEncoding(
+            {
+                "input_ids": token,
+                "position_ids": paddle.stack([position_id, block_position_id]),
+                "attention_mask": attention_mask,
+                "choice_ids": choice_ids,
+                "choice_indices": choice_indices,
+            }
+        )
 
     def _pad_batch(self, tokens, position_ids, attention_mask, max_seq_length):
         pad_length = max_seq_length - len(tokens)
@@ -128,13 +130,15 @@ class GLMTokenizerMixin:
             attention_mask_batch.append(attention_mask)
             choices_batch.append(sample["choice_ids"])
             choice_target_ids_batch.append(sample["choice_indices"])
-        return {
-            "input_ids": paddle.stack(token_batch),
-            "position_ids": paddle.stack(position_id_batch),
-            "attention_mask": paddle.stack(attention_mask_batch).unsqueeze(1),
-            "choice_ids": choices_batch,
-            "choice_indices": choice_target_ids_batch,
-        }
+        return BatchEncoding(
+            {
+                "input_ids": paddle.stack(token_batch),
+                "position_ids": paddle.stack(position_id_batch),
+                "attention_mask": paddle.stack(attention_mask_batch).unsqueeze(1),
+                "choice_ids": choices_batch,
+                "choice_indices": choice_target_ids_batch,
+            }
+        )
 
     def build_inputs_for_multiple_choice(self, model_input: BatchEncoding, choices, max_length=None):
         samples = [{key: value[i] for key, value in model_input.items()} for i in range(len(model_input["input_ids"]))]
@@ -171,9 +175,9 @@ class GLMTokenizerMixin:
             targets = [target + [self.pad_token_id] * (max_gen_length + 1 - len(target)) for target in targets]
             labels = [label + [-100] * (max_gen_length - len(label)) for label in labels]
             targets = paddle.to_tensor(targets, dtype=input_ids.dtype)
-            loss_mask = (targets != self.pad_token_id).astype("int64")
+            loss_mask = (targets[..., 1:] != self.pad_token_id).astype("int64")
             labels = paddle.to_tensor(labels, dtype=input_ids.dtype)
-            labels = paddle.concat([paddle.full([batch_size, seq_length], -100), labels], axis=1)
+            labels = paddle.concat([paddle.full([batch_size, seq_length], -100, dtype=labels.dtype), labels], axis=1)
 
         for i in range(batch_size):
             mask_positions = []
@@ -219,6 +223,7 @@ class GLMTokenizerMixin:
             batch["attention_mask"] = attention_mask
             batch["loss_mask"] = loss_mask
             batch["labels"] = labels
+
         return BatchEncoding(batch)
 
 

@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 from abc import ABC, abstractmethod
 from collections import UserDict
 from typing import Any, Dict, Iterable, List, Optional, Tuple, Union
@@ -42,6 +43,7 @@ class GLMTrainer(Trainer):
     def compute_loss(
         self, model: nn.Layer, inputs: Dict[str, Union[paddle.Tensor, Any]], return_outputs: bool = False
     ):
+        inputs = copy.deepcopy(inputs)
         if self.criterion is not None:
             if "labels" in inputs:
                 labels = inputs.pop("labels")
@@ -58,6 +60,7 @@ class GLMTrainer(Trainer):
             loss_mask = inputs.pop("loss_mask").reshape([-1])
         else:
             loss_mask = None
+        inputs.pop("target_attention_mask", None)
 
         logits, _ = model(**inputs)
 
@@ -85,6 +88,33 @@ class GLMTrainer(Trainer):
         if not self.do_generation:
             return super().prediction_step(model, inputs, prediction_loss_only, ignore_keys)
 
+        all_preds = []
+        all_labels = []
+        labels = inputs["labels"]
+        target_mask = inputs["loss_mask"]
+
+        with paddle.no_grad():
+            outputs = model.generate(
+                input_ids=inputs["input_ids"],
+                position_ids=inputs["position_ids"],
+                attention_mask=inputs["attention_mask"],
+            )[0]
+
+        for p, l, m in zip(outputs.numpy(), labels.numpy(), target_mask.numpy()):
+            # pred = self.tokenizer.decode(p, skip_special_tokens=True).strip()
+            # label = self.tokenizer.decode(l[m > 0], skip_special_tokens=True).strip()
+            pred = p
+            label = l[m > 0]
+
+            all_preds.append(pred)
+            all_labels.append(label)
+
+        all_preds = paddle.to_tensor(all_preds).detach()
+        all_labels = paddle.to_tensor(all_labels).detach()
+
+        return (None, all_preds, all_labels)
+
+    def _test_step(self, model, inputs, prediction_loss_only, ignore_keys):
         model.eval()
         with paddle.no_grad():
             tokens = inputs["input_ids"]
@@ -98,7 +128,7 @@ class GLMTrainer(Trainer):
                 length_penalty=self.args.length_penalty,
                 do_early_stopping=False,
             )
-            beam_scores = paddle.zeros([batch_size, self.args.num_beams], dtype="float")
+            beam_scores = paddle.zeros([batch_size, self.args.num_beams], dtype="float32")
             beam_scores[:, 1:] = -1e9
             beam_scores = beam_scores.reshape(
                 [
@@ -109,7 +139,11 @@ class GLMTrainer(Trainer):
             counter = 0
             while counter < self.args.tgt_length:
                 if counter == 0:
-                    next_token_logits, mems = model(tokens, position_ids, attention_mask, use_cache=True)
+                    next_token_logits, mems = model(
+                        input_ids=tokens,
+                        position_ids=position_ids,
+                        attention_mask=attention_mask,
+                    )
                     seq_length = next_token_logits.shape[1]
                     next_token_logits = next_token_logits[:, -1]
                     next_token_logits = next_token_logits.unsqueeze(1).tile([1, self.args.num_beams, 1])
@@ -131,7 +165,12 @@ class GLMTrainer(Trainer):
                         position_ids[:, 1] = counter + 1
                     last_token = tokens[:, -1:]
                     cur_attention_mask = paddle.zeros([batch_size * self.args.num_beams], dtype=tokens.dtype)
-                    next_token_logits, mems = model(last_token, position_ids, cur_attention_mask, mems, use_cache=True)
+                    next_token_logits, mems = model(
+                        input_ids=last_token,
+                        position_ids=position_ids,
+                        attention_mask=cur_attention_mask,
+                        cache=mems,
+                    )
                     next_token_logits = next_token_logits[:, -1]
                 next_token_logits = top_k_logits(next_token_logits, top_k=self.args.top_k, top_p=self.args.top_p)
                 next_token_scores = nn.functional.log_softmax(next_token_logits, axis=-1)
@@ -165,13 +204,19 @@ class GLMTrainer(Trainer):
                 beam_next_tokens = beam_outputs["next_beam_tokens"]
                 beam_idx = beam_outputs["next_beam_indices"]
                 beam_next_tokens = beam_next_tokens.unsqueeze(-1)
-                print(tokens)
-                print(beam_idx)
-                print(beam_next_tokens)
+                # print(tokens)
+                # print(beam_idx)
+                # print(beam_next_tokens)
                 if tokens.shape[1] == 0:
                     tokens = beam_next_tokens
                 else:
-                    tokens = paddle.concat([tokens[beam_idx, :], beam_next_tokens], axis=-1)
+                    tokens = paddle.concat(
+                        [
+                            paddle.stack([tokens[i, :] for i in beam_idx], axis=0),
+                            beam_next_tokens,
+                        ],
+                        axis=-1,
+                    )
                 mems = [mem[beam_idx] for mem in mems] if mems else []
                 if beam_scorer.is_done:
                     break
@@ -185,16 +230,17 @@ class GLMTrainer(Trainer):
                 pad_token_id=self.pad_token,
             )
             all_preds = []
-            for i, text in enumerate(tokens.tolist()):
+            for i, sub_tokens in enumerate(tokens.tolist()):
                 text = [token for token in text if token not in [self.end_token, self.pad_token]]
-                text = self.tokenizer.convert_ids_to_tokens(text)
+                text = self.tokenizer.decode(text, skip_special_tokens=True).strip()
                 all_preds.append(text)
+            print(all_preds)
 
             all_labels = []
-            for label, mask in zip(input["labels"].numpy(), attention_mask.numpy()):
-                label = self.tokenizer.decode(label[mask.astype("bool")], skip_special_tokens=True).strip()
-                label = float(label.replace(" ", ""))
+            for label, mask in zip(inputs["labels"].numpy(), attention_mask.numpy()):
+                label = self.tokenizer.decode(label[mask.astype("bool")][0], skip_special_tokens=True).strip()
                 all_labels.append(label)
+            print(all_labels)
 
         return (None, all_preds, all_labels)
 
@@ -504,7 +550,7 @@ class BeamSearchScorer(BeamScorer):
 
         # prepare for adding eos
         sent_max_len = sent_lengths.max().item()
-        decoded: Tensor = paddle.zeros([batch_size * self.num_beam_hyps_to_keep], sent_max_len, dtype=input_ids.dtype)
+        decoded: Tensor = paddle.zeros([batch_size * self.num_beam_hyps_to_keep, sent_max_len], dtype=input_ids.dtype)
         scores = paddle.zeros([batch_size * self.num_beam_hyps_to_keep], dtype=final_beam_scores.dtype)
         # shorter batches are padded if needed
         if sent_lengths.min().item() != sent_lengths.max().item():

@@ -19,9 +19,9 @@ from functools import partial
 import paddle
 import paddle.nn as nn
 from data import cnn_dm_convert_example, load_local_dataset
+from rouge import Rouge
 from utils import GLMTrainer
 
-from paddlenlp.metrics import Rouge1, Rouge2, RougeL
 from paddlenlp.trainer import PdArgumentParser, TrainingArguments
 from paddlenlp.transformers import AutoModelForConditionalGeneration, AutoTokenizer
 
@@ -68,11 +68,9 @@ def main():
     paddle.set_device(training_args.device)
 
     # Load the pretrained language model.
-    # TODO: FP16, DDP
     model = AutoModelForConditionalGeneration.from_pretrained(
         model_args.model_name_or_path, output_predict=True, parallel_output=True
     )
-    # TODO: prepare_tokenizer
     tokenizer = AutoTokenizer.from_pretrained(model_args.model_name_or_path)
 
     # Load the dataset.
@@ -82,20 +80,19 @@ def main():
     dev_ds = dev_ds.map(trans_func)
     test_ds = test_ds.map(trans_func)
 
-    # TODO: Set seed for sampler based on specific epoch and seed.
     criterion = nn.loss.CrossEntropyLoss(reduction="none")
 
     def compute_metrics(eval_preds):
-        rouge1 = Rouge1()
-        rouge2 = Rouge2()
-        rougel = RougeL()
-        rouge1_score = rouge1.score(eval_preds.predictions, eval_preds.label_ids)
-        rouge2_score = rouge2.score(eval_preds.predictions, eval_preds.label_ids)
-        rougel_score = rougel.score(eval_preds.predictions, eval_preds.label_ids)
+        rouge = Rouge()
+        print(type(eval_preds.predictions))
+        scores = rouge.get_scores(
+            hyps=" ".join([str(x) for x in eval_preds.predictions]),
+            refs=" ".join([str(x) for x in eval_preds.label_ids]),
+        )
         return {
-            "rouge1": rouge1_score,
-            "rouge2": rouge2_score,
-            "rougel": rougel_score,
+            "rouge1": scores[0]["rouge-1"]["f"],
+            "rouge2": scores[0]["rouge-2"]["f"],
+            "rougel": scores[0]["rouge-l"]["f"],
         }
 
     trainer = GLMTrainer(

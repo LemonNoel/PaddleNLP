@@ -1701,6 +1701,7 @@ class Trainer:
                 losses = self._nested_gather(paddle.tile(loss, repeat_times=[batch_size, 1]))
                 losses_host = losses if losses_host is None else paddle.concat((losses_host, losses), axis=0)
             if labels is not None:
+                print(type(labels))
                 labels = self._pad_across_processes(labels)
                 labels = self._nested_gather(labels)
                 labels_host = labels if labels_host is None else nested_concat(labels_host, labels, padding_index=-100)

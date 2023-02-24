@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 import os
 
 from paddlenlp.datasets import load_dataset
@@ -73,6 +74,22 @@ def load_local_dataset(data_path, splits):
 
 
 def cnn_dm_convert_example(example, tokenizer, data_args, is_test=True):
+    example["text_a"] = "[sMASK] Content:" + example["text_a"]
+    inputs = tokenizer([example["text_a"]], return_tensors="pd", padding=True)
+    target_attention_mask = copy.deepcopy(inputs["attention_mask"])
+    inputs = tokenizer.build_inputs_for_generation(
+        inputs,
+        max_gen_length=data_args.tgt_length,
+        targets=example["text_b"],
+        padding=True,
+    )
+    for input_name in inputs.keys():
+        inputs[input_name] = inputs[input_name].squeeze(0)
+    inputs["target_attention_mask"] = target_attention_mask
+    return inputs
+
+
+def _cnn_dm_convert_example(example, tokenizer, data_args, is_test=True):
     prompt = tokenizer.encode("[sMASK] Content:")["input_ids"][:-1]
     source_tokens = tokenizer.encode(" " + example["text_a"], add_special_tokens=False)["input_ids"]
     if len(source_tokens) > data_args.src_length - len(prompt):
@@ -111,9 +128,17 @@ def cnn_dm_convert_example(example, tokenizer, data_args, is_test=True):
         position_ids = position_ids + [mask_position]
         block_position_ids = block_position_ids + [1]
         position_ids = [position_ids, block_position_ids]
+        target_tokens = tokenizer.encode(" " + example["text_b"], add_special_tokens=False)["input_ids"]
+        target_tokens = target_tokens + [tokenizer.eos_token_id]
+        if len(target_tokens) > data_args.tgt_length:
+            target_tokens = target_tokens[: data_args.tgt_length]
+        if len(target_tokens) < data_args.tgt_length:
+            target_tokens = target_tokens + [tokenizer.pad_token_id] * (data_args.tgt_length - len(target_tokens))
+        target_ids = tokens + target_tokens
         example = {
             "input_ids": tokens,
             "attention_mask": sep,
             "position_ids": position_ids,
+            "labels": target_tokens,
         }
     return example
